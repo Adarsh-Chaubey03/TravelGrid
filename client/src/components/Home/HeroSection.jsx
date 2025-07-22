@@ -62,7 +62,7 @@ const HeroSection = ({ onSearch }) => {
 
           {/* Right Side - Search Bar and Filters */}
           <div className="flex-1 w-full max-w-md">
-            <div className="bg-white rounded-2xl shadow-2xl p-6 space-y-4">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 space-y-4 transition-colors duration-300">
               {/* Search Bar */}
               <div className="space-y-3">
                 <div className="relative">
@@ -71,7 +71,7 @@ const HeroSection = ({ onSearch }) => {
                     placeholder="Ex: Borivali, Mumbai, India"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700 placeholder-gray-400"
+                    className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-pink-400 focus:border-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-800 transition-colors duration-300"
                   />
                 </div>
                 
@@ -79,7 +79,7 @@ const HeroSection = ({ onSearch }) => {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700 appearance-none bg-white"
+                    className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-pink-400 focus:border-transparent text-gray-700 dark:text-gray-200 appearance-none bg-white dark:bg-gray-800 transition-colors duration-300"
                   >
                     {categories.map((cat) => (
                       <option key={cat} value={cat}>
@@ -88,7 +88,7 @@ const HeroSection = ({ onSearch }) => {
                     ))}
                   </select>
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
@@ -103,8 +103,8 @@ const HeroSection = ({ onSearch }) => {
               </div>
 
               {/* Category Filters */}
-              <div className="pt-4 border-t border-gray-100">
-                <p className="text-sm font-medium text-gray-600 mb-3">Quick Filters:</p>
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Quick Filters:</p>
                 <div className="flex flex-wrap gap-2">
                   {["Restaurants", "Events", "Shopping"].map((filter) => (
                     <button
@@ -113,7 +113,7 @@ const HeroSection = ({ onSearch }) => {
                         setCategory(filter);
                         handleSearch();
                       }}
-                      className="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium rounded-lg transition-colors duration-200"
+                      className="px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg transition-colors duration-200"
                     >
                       {filter}
                     </button>

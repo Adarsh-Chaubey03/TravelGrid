@@ -26,22 +26,22 @@ class ErrorBoundary extends Component {
     render() {
         if (this.state.hasError) {
             return (
-                <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex flex-col items-center justify-center p-4 text-white">
-                    <div className="max-w-3xl w-full bg-gradient-to-br from-gray-900 to-black p-8 rounded-3xl shadow-2xl border border-pink-500">
+                <div className="min-h-screen bg-gradient-to-br from-gray-100 to-pink-100 dark:from-black dark:to-pink-900 flex flex-col items-center justify-center p-4 text-gray-900 dark:text-white transition-colors duration-300">
+                    <div className="max-w-3xl w-full bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:to-black p-8 rounded-3xl shadow-2xl border border-pink-500 dark:border-pink-500 transition-colors duration-300">
                         <div className="mb-8 text-center">
-                            <div className="inline-flex items-center justify-center w-20 h-20 bg-pink-500 bg-opacity-20 rounded-full mb-6">
-                                <AlertTriangle className="w-12 h-12 text-pink-500" strokeWidth={1.5} />
+                            <div className="inline-flex items-center justify-center w-20 h-20 bg-pink-100 dark:bg-pink-500 dark:bg-opacity-20 rounded-full mb-6 transition-colors duration-300">
+                                <AlertTriangle className="w-12 h-12 text-pink-600 dark:text-pink-500" strokeWidth={1.5} />
                             </div>
-                            <h1 className="text-4xl font-bold text-pink-400 mb-2">Oops! Something went wrong</h1>
-                            <p className="text-gray-300">We're sorry, but we've encountered an unexpected error.</p>
+                            <h1 className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2 transition-colors duration-300">Oops! Something went wrong</h1>
+                            <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">We're sorry, but we've encountered an unexpected error.</p>
                         </div>
 
                         {process.env.NODE_ENV === 'development' && (
                             <div className="mb-8">
-                                <h2 className="text-xl font-semibold text-pink-300 mb-3">Developer Information:</h2>
-                                <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-auto max-h-60">
-                                    <p className="text-pink-400 mb-2">{this.state.error?.toString()}</p>
-                                    <pre className="text-gray-400 text-sm whitespace-pre-wrap">
+                                <h2 className="text-xl font-semibold text-pink-600 dark:text-pink-300 mb-3 transition-colors duration-300">Developer Information:</h2>
+                                <div className="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-4 overflow-auto max-h-60 transition-colors duration-300">
+                                    <p className="text-pink-600 dark:text-pink-400 mb-2 transition-colors duration-300">{this.state.error?.toString()}</p>
+                                    <pre className="text-gray-700 dark:text-gray-400 text-sm whitespace-pre-wrap transition-colors duration-300">
                                         {this.state.errorInfo?.componentStack}
                                     </pre>
                                 </div>
@@ -51,14 +51,14 @@ class ErrorBoundary extends Component {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-xl font-semibold transition-colors flex items-center justify-center"
+                                className="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center"
                             >
                                 <RefreshCw className="w-5 h-5 mr-2" />
                                 Refresh Page
                             </button>
                             <Link
                                 to="/"
-                                className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl font-semibold transition-colors text-center flex items-center justify-center"
+                                className="px-6 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold transition-colors text-center flex items-center justify-center"
                             >
                                 <Home className="w-5 h-5 mr-2" />
                                 Return to Home
@@ -66,7 +66,7 @@ class ErrorBoundary extends Component {
                         </div>
                     </div>
 
-                    <p className="text-gray-400 mt-8">
+                    <p className="text-gray-600 dark:text-gray-400 mt-8 transition-colors duration-300">
                         If the issue persists, please contact our support team
                     </p>
                 </div>

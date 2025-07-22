@@ -22,11 +22,11 @@ const topics = [
 ];
 
 const ForumSection = () => (
-  <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 py-16 text-center">
-    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black">
+  <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 dark:from-gray-800 dark:to-purple-800 py-16 text-center transition-colors duration-300">
+    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black dark:text-white">
       Join the Conversation
     </h2>
-    <p className="text-gray-700 text-base md:text-lg mb-12 px-4 max-w-2xl mx-auto">
+    <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-12 px-4 max-w-2xl mx-auto">
       Connect with fellow travelers, ask questions, and share your experiences in our buzzing travel community!
     </p>
 
@@ -34,17 +34,17 @@ const ForumSection = () => (
       {topics.map((topic, index) => (
         <div
           key={index}
-          className="bg-white rounded-xl shadow-lg p-6 border-t-4 hover:scale-[1.02] hover:shadow-xl transition duration-300 ease-in-out relative"
+          className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border-t-4 hover:scale-[1.02] hover:shadow-xl transition-all duration-300 ease-in-out relative"
         >
           <div
             className={`absolute -top-4 left-4 text-xs font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r ${topic.tagColor} shadow`}
           >
             {topic.tag}
           </div>
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-3">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white mt-6 mb-3">
             {topic.title}
           </h3>
-          <p className="text-sm text-gray-600">{topic.replies} replies</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{topic.replies} replies</p>
         </div>
       ))}
     </div>

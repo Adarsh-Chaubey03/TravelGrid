@@ -24,34 +24,34 @@ const destinations = [
 ];
 
 const DiscoverSection = () => (
-  <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 py-16 text-center">
-    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black">
+  <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 dark:from-gray-800 dark:to-purple-800 py-16 text-center transition-colors duration-300">
+    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black dark:text-white">
       Discover New Destinations
     </h2>
-    <p className="text-gray-600 text-base md:text-lg mb-10">
+    <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-10">
       Explore trending places, hidden gems, and must-visit spots curated just for you.
     </p>
 
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-2">
       {destinations.map((place, index) => (
-        <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+        <div key={index} className="bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
           <img src={place.image} alt={place.name} className="w-full h-48 object-cover" />
           <div className="p-4">
-            <h3 className="text-xl font-semibold text-black mb-2">{place.name}</h3>
-            <p className="text-gray-600 text-sm">{place.description}</p>
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">{place.name}</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{place.description}</p>
           </div>
           <div className="p-4">
-          <button className="mt-auto w-full bg-zinc-800 hover:bg-zinc-900 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200 transform hover:scale-105">Book Now</button>
+          <button className="mt-auto w-full bg-zinc-800 dark:bg-pink-600 hover:bg-zinc-900 dark:hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200 transform hover:scale-105">Book Now</button>
         </div>
         </div>
       ))}
     </div>
 
     <div className="mt-16">
-      <h3 className="text-xl md:text-2xl font-semibold mb-4 text-black">
+      <h3 className="text-xl md:text-2xl font-semibold mb-4 text-black dark:text-white">
         Ready to plan your next adventure?
       </h3>
-      <p className="text-gray-600 mb-6">
+      <p className="text-gray-600 dark:text-gray-300 mb-6">
         Discover more travel ideas, tips, and personalized recommendations.
       </p>
       <button

@@ -41,15 +41,15 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-gray-100 text-gray-800 py-12 px-4 md:px-6">
+      <footer className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-12 px-4 md:px-6 transition-colors duration-300">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1: Logo and Description */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <h3 className="text-2xl font-bold text-black tracking-tight">TravelGrid</h3>
+                <h3 className="text-2xl font-bold text-black dark:text-white tracking-tight">TravelGrid</h3>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                 Discover amazing destinations and create unforgettable memories with our curated travel experiences
                 around the world.
               </p>
@@ -57,21 +57,21 @@ const Footer = () => {
 
             {/* Column 2: Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Links</h4>
               <nav className="flex flex-col space-y-2">
-                <a href="/" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Home
                 </a>
-                <a href="/about" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/about" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   About
                 </a>
-                <a href="/trips" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/trips" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Trips
                 </a>
-                <a href="/destinations" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/destinations" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Destinations
                 </a>
-                <a href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/blog" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Blog
                 </a>
               </nav>
@@ -79,21 +79,21 @@ const Footer = () => {
 
             {/* Column 3: Info */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold">Info</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Info</h4>
               <nav className="flex flex-col space-y-2">
-                <a href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Privacy Policy
                 </a>
-                <a href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/terms" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Terms of Service
                 </a>
-                <a href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Contact Us
                 </a>
-                <a href="/support" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/support" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   Support
                 </a>
-                <a href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <a href="/faq" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                   FAQ
                 </a>
               </nav>
@@ -101,22 +101,22 @@ const Footer = () => {
 
             {/* Column 4: Newsletter */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-black">Newsletter</h4>
-              <p className="text-gray-600 text-sm">Subscribe to get the latest travel tips and exclusive offers.</p>
+              <h4 className="text-lg font-semibold text-black dark:text-white">Newsletter</h4>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Subscribe to get the latest travel tips and exclusive offers.</p>
               <form onSubmit={handleNewsletterSubmit} className="space-y-3">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 bg-gray-100 border-2 border-black rounded-md text-gray-800 
-                      placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent 
-                      text-sm transition-all duration-300 hover:bg-gray-200"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-gray-600 rounded-md text-gray-800 dark:text-gray-200
+                      placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-pink-400 focus:border-transparent 
+                      text-sm transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                   required
                 />
                 <button
                   type="submit"
-                  className="w-full bg-zinc-800 hover:bg-zinc-900 text-white py-2 px-4 rounded-md 
+                  className="w-full bg-zinc-800 dark:bg-pink-600 hover:bg-zinc-900 dark:hover:bg-pink-700 text-white py-2 px-4 rounded-md 
                       transition-all duration-300 text-sm font-medium transform hover:scale-[1.02] 
                       hover:shadow-lg active:scale-[0.98]"
                 >
@@ -127,8 +127,8 @@ const Footer = () => {
           </div>
 
           {/* /* Bottom section */}
-          <div className="border-t border-gray-300 mt-8 pt-8 flex flex-col md:flex-row justify-center items-center">
-            <p className="text-gray-500 text-sm text-center">© 2025 TravelGrid. All rights reserved.</p>
+          <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-center items-center">
+            <p className="text-gray-500 dark:text-gray-400 text-sm text-center">© 2025 TravelGrid. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -138,7 +138,7 @@ const Footer = () => {
         <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2 duration-300">
           <div
             className={`
-            max-w-sm w-full bg-white rounded-lg shadow-lg border-l-4 p-4 flex items-center space-x-3
+            max-w-sm w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border-l-4 p-4 flex items-center space-x-3
             ${toast.type === "success" ? "border-green-500" : "border-red-500"}
           `}
           >
@@ -162,11 +162,11 @@ const Footer = () => {
               )}
             </div>
             <div className="flex-1">
-              <p className={`text-sm font-medium ${toast.type === "success" ? "text-green-800" : "text-red-800"}`}>
+              <p className={`text-sm font-medium ${toast.type === "success" ? "text-green-800 dark:text-green-200" : "text-red-800 dark:text-red-200"}`}>
                 {toast.message}
               </p>
             </div>
-            <button onClick={hideToast} className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors">
+            <button onClick={hideToast} className="flex-shrink-0 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"

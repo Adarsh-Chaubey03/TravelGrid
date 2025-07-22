@@ -35,15 +35,15 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // You can connect to API or backend here
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Password:", password);
   };
+
   const handleGoogleLogin = () => {
     console.log("Google login clicked - integrate OAuth here.");
   };
+
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row">
       {/* Left: Background image only for large screens */}
@@ -60,8 +60,8 @@ export default function Login() {
 
       {/* Right: Login form on all screen sizes */}
       <div className="w-full h-screen lg:w-1/3 bg-black flex items-center justify-center p-8">
-        <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-6 text-center">
+        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm transition-colors duration-300">
+          <h2 className="text-3xl font-semibold text-pink-500 dark:text-pink-400 mb-6 text-center">
             Welcome Back
           </h2>
 
@@ -74,7 +74,7 @@ export default function Login() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors duration-300"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={handlePasswordChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors duration-300"
               />
             </div>
 
@@ -94,24 +94,27 @@ export default function Login() {
             {password && (
               <p
                 className={`text-sm mt-1 ${
-                  passwordError ? "text-red-500" : "text-green-500"
+                  passwordError ? "text-red-500 dark:text-red-400" : "text-green-500 dark:text-green-400"
                 }`}
               >
                 {passwordError || "Password looks good!"}
               </p>
             )}
+
+            {/* Google Login Button */}
             <button
-            onClick={handleGoogleLogin}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
-          >
-            <span className="text-sm font-medium text-gray-700">
-              Login with Google
-            </span>
-          </button>
+              onClick={handleGoogleLogin}
+              className="w-full px-4 py-3 mt-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors duration-300"
+            >
+              <span className="text-sm font-medium">
+                Login with Google
+              </span>
+            </button>
+
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-6 bg-pink-500 text-white py-3 rounded-lg hover:bg-pink-600 transition duration-300 disabled:opacity-50"
+              className="w-full mt-6 bg-pink-500 dark:bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-600 dark:hover:bg-pink-700 transition-all duration-300 disabled:opacity-50"
               disabled={!!passwordError}
             >
               Login
@@ -119,10 +122,10 @@ export default function Login() {
           </form>
 
           {/* Signup Link */}
-          <p className="mt-4 text-center text-sm text-gray-600">
+          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
             Don’t have an account?{" "}
             <span
-              className="text-pink-500 cursor-pointer hover:underline"
+              className="text-pink-500 dark:text-pink-400 cursor-pointer hover:underline"
               onClick={() => navigate("/signup")}
             >
               Sign up

@@ -41,9 +41,11 @@ export default function Login() {
     console.log("Email:", email);
     console.log("Password:", password);
   };
+
   const handleGoogleLogin = () => {
     console.log("Google login clicked - integrate OAuth here.");
   };
+
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row">
       {/* Left: Background image only for large screens */}
@@ -60,8 +62,8 @@ export default function Login() {
 
       {/* Right: Login form on all screen sizes */}
       <div className="w-full h-screen lg:w-1/3 bg-black flex items-center justify-center p-8">
-        <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-6 text-center">
+        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm transition-all duration-300">
+          <h2 className="text-3xl font-semibold text-pink-500 dark:text-pink-400 mb-6 text-center transition-colors duration-300">
             Welcome
           </h2>
 
@@ -74,7 +76,12 @@ export default function Login() {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                          bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
+                          placeholder-gray-500 dark:placeholder-gray-400
+                          focus:outline-none focus:ring-2 focus:ring-pink-400 dark:focus:ring-pink-500 
+                          focus:border-transparent transition-all duration-300 
+                          hover:bg-gray-50 dark:hover:bg-gray-600"
               />
             </div>
 
@@ -86,7 +93,12 @@ export default function Login() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                          bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
+                          placeholder-gray-500 dark:placeholder-gray-400
+                          focus:outline-none focus:ring-2 focus:ring-pink-400 dark:focus:ring-pink-500 
+                          focus:border-transparent transition-all duration-300 
+                          hover:bg-gray-50 dark:hover:bg-gray-600"
               />
             </div>
 
@@ -98,45 +110,67 @@ export default function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={handlePasswordChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                          bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
+                          placeholder-gray-500 dark:placeholder-gray-400
+                          focus:outline-none focus:ring-2 focus:ring-pink-400 dark:focus:ring-pink-500 
+                          focus:border-transparent transition-all duration-300 
+                          hover:bg-gray-50 dark:hover:bg-gray-600"
               />
             </div>
 
             {/* Password Error or Success */}
             {password && (
               <p
-                className={`text-sm mt-1 ${
-                  passwordError ? "text-red-500" : "text-green-500"
+                className={`text-sm mt-1 transition-colors duration-300 ${
+                  passwordError 
+                    ? "text-red-500 dark:text-red-400" 
+                    : "text-green-500 dark:text-green-400"
                 }`}
               >
                 {passwordError || "Password looks good!"}
               </p>
             )}
+
+            {/* Google Login Button */}
             <button
-            onClick={handleGoogleLogin}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
-          >
-            <span className="text-sm font-medium text-gray-700">
-              Login with Google
-            </span>
-          </button>
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full mt-4 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                        bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200
+                        hover:bg-gray-50 dark:hover:bg-gray-600 
+                        focus:outline-none focus:ring-2 focus:ring-pink-400 dark:focus:ring-pink-500 
+                        focus:border-transparent transition-all duration-300 
+                        transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span className="text-sm font-medium">
+                Login with Google
+              </span>
+            </button>
+
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-6 bg-pink-500 text-white py-3 rounded-lg hover:bg-pink-600 transition duration-300 disabled:opacity-50"
+              className="w-full mt-6 bg-pink-500 dark:bg-pink-600 text-white py-3 rounded-lg 
+                        hover:bg-pink-600 dark:hover:bg-pink-700 
+                        transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+                        transform hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg
+                        focus:outline-none focus:ring-2 focus:ring-pink-400 dark:focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               disabled={!!passwordError}
             >
               Sign Up
             </button>
           </form>
 
-          {/* Signup Link */}
-          <p className="mt-4 text-center text-sm text-gray-600">
+          {/* Login Link */}
+          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">
             Have an account?{" "}
             <span
-              className="text-pink-500 cursor-pointer hover:underline"
+              className="text-pink-500 dark:text-pink-400 cursor-pointer hover:underline 
+                        hover:text-pink-600 dark:hover:text-pink-300 transition-colors duration-300"
               onClick={() => navigate("/login")}
-            >Log in
+            >
+              Log in
             </span>
           </p>
         </div>

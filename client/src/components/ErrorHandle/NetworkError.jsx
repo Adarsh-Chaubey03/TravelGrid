@@ -42,7 +42,7 @@ const NetworkError = () => {
   }, [isOnline, countdown]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-pink-100 dark:from-black dark:to-pink-900 flex flex-col items-center justify-center p-4 transition-colors duration-300">
       {/* Animated waves */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute w-full h-full opacity-10">
@@ -69,31 +69,31 @@ const NetworkError = () => {
         `}</style>
       </div>
 
-      <div className="relative z-10 max-w-xl w-full bg-black bg-opacity-50 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-pink-500">
+      <div className="relative z-10 max-w-xl w-full bg-white bg-opacity-90 dark:bg-black dark:bg-opacity-50 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-pink-500 transition-colors duration-300">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-pink-500 bg-opacity-20 rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-pink-100 dark:bg-pink-500 dark:bg-opacity-20 rounded-full mb-6 transition-colors duration-300">
             {isOnline ? (
-              <Wifi className="w-12 h-12 text-pink-500" strokeWidth={1.5} />
+              <Wifi className="w-12 h-12 text-pink-600 dark:text-white" strokeWidth={1.5} />
             ) : (
-              <WifiOff className="w-12 h-12 text-pink-500" strokeWidth={1.5} />
+              <WifiOff className="w-12 h-12 text-pink-600 dark:text-white" strokeWidth={1.5} />
             )}
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Network Connection Issue</h1>
-          <p className="text-gray-300">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-300">Network Connection Issue</h1>
+          <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
             {isOnline ?
               "We're having trouble connecting to our servers." :
               "It looks like you're currently offline."}
           </p>
         </div>
 
-        <div className="bg-gray-900 bg-opacity-50 rounded-xl p-4 mb-6">
+        <div className="bg-gray-100 dark:bg-gray-900 dark:bg-opacity-50 rounded-xl p-4 mb-6 transition-colors duration-300">
           <div className="flex items-center mb-2">
             <div className={`w-3 h-3 rounded-full mr-2 ${isOnline ? 'bg-green-500' : 'bg-red-500'}`}></div>
-            <p className="text-sm font-medium text-gray-300">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-300">
               {isOnline ? 'Connected to internet' : 'No internet connection detected'}
             </p>
           </div>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">
             {isOnline ?
               "We're having trouble connecting to our servers. Please try again in a few moments." :
               "Check your internet connection and try again."}
@@ -107,7 +107,7 @@ const NetworkError = () => {
                 className="bg-pink-500 h-2.5 rounded-full transition-all duration-1000 ease-linear"
                 style={{ width: `${(countdown / 10) * 100}%` }}
               ></div>
-              <p className="text-center text-sm text-gray-300 mt-2 flex items-center justify-center">
+              <p className="text-center text-sm text-gray-600 dark:text-gray-300 mt-2 flex items-center justify-center transition-colors duration-300">
                 <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                 Auto-retrying in {countdown} seconds...
               </p>
@@ -124,7 +124,7 @@ const NetworkError = () => {
             </button>
             <Link
               to="/"
-              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition-colors text-white text-center flex items-center justify-center"
+              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl font-semibold transition-colors text-gray-900 dark:text-white text-center flex items-center justify-center"
             >
               <Home className="w-5 h-5 mr-2" />
               Return to Home
@@ -134,11 +134,11 @@ const NetworkError = () => {
       </div>
 
       <div className="relative z-10 mt-8 flex flex-col items-center text-center">
-        <p className="text-gray-400 text-sm flex items-center">
+        <p className="text-gray-600 dark:text-gray-400 text-sm flex items-center transition-colors duration-300">
           <AlertCircle className="w-4 h-4 mr-1" />
           If this problem persists, please contact our support
         </p>
-        <p className="text-pink-400 font-medium mt-1 flex items-center">
+        <p className="text-pink-600 dark:text-pink-400 font-medium mt-1 flex items-center transition-colors duration-300">
           <Mail className="w-4 h-4 mr-1" />
           support@travelgrid.com
         </p>

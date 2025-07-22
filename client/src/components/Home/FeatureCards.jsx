@@ -41,13 +41,13 @@ const features = [
 
 const FeatureCards = () => {
   return (
-    <section className="w-full bg-white py-16">
+    <section className="w-full bg-white dark:bg-gray-900 py-16 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Why Choose TravelGrid?
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Experience the best in travel with our comprehensive platform designed for modern travelers.
           </p>
         </div>
@@ -58,15 +58,15 @@ const FeatureCards = () => {
               key={index}
               className="text-center group"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-6 group-hover:bg-gray-200 transition-colors duration-200">
-                <div className="text-black">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-6 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-200">
+                <div className="text-black dark:text-white">
                   {feature.icon}
                 </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 {feature.desc}
               </p>
             </div>

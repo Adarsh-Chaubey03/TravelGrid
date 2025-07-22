@@ -7,7 +7,7 @@ import Home from './pages/Home'
 
 //Created guides page to display travel guides
 import TravelGuidesCarousel from './pages/TravelGuidesProfiles.jsx'
-import Contact from './components/Contact
+import Contact from './components/Contact';
 
 import Discover from './pages/Discover'
 import Trips from './pages/Trips'

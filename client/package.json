@@ -32,6 +32,11 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
     "tw-animate-css": "^1.3.4",
-    "vite": "^7.0.0"
-  }
+    "vite": "^7.0.5"
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -16,7 +16,7 @@ import Contributors from './pages/Contributors'
 
 import TicketBooking from './pages/TicketBooking'
 import TravelGuidesCarousel from './pages/TravelGuidesProfiles'
-import TicketBooking from './pages/TicketBooking'
+
 
 import TravelPackages from './pages/TravelPackages'
 import HotelBookingPage from './pages/HotelBookingPage'

@@ -26,8 +26,7 @@ const router = createBrowserRouter([
       { path: '/review', element: <Review /> },
       { path: '/forums', element: <Forums /> },
       { path: '/contributors', element: <Contributors /> },
- 
-      {path: '/guides', element: <TravelGuidesCarousel /> },
+
 
       { path: '/contact', element: <Contact /> },
 

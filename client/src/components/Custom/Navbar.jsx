@@ -153,12 +153,12 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Link
+                {/* <Link
                   to="/login"
                   className="text-white hover:text-pink-300 font-medium transition-colors"
                 >
                   Sign In
-                </Link>
+                </Link> */}
                 <Link
                   to="/signup"
                   className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2"

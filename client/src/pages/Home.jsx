@@ -6,6 +6,8 @@ import DiscoverSection from '../components/Home/DiscoverSection'
 import FeaturedPackages from '../components/Home/FeaturedPackages'
 import TravelGuides from '../components/Home/TravelGuides'
 import Testimonials from '../components/Home/Testimonials'
+import InteractiveStats from '../components/Home/InteractiveStats'
+
 function Home() {
     const [searchFilter, setSearchFilter] = useState(null);
     return (
@@ -13,6 +15,7 @@ function Home() {
             <main className="flex flex-col flex-1 items-center justify-start w-full h-full">
                 <HeroSection onSearch={setSearchFilter} />
                 <FeatureCards />
+                <InteractiveStats />
                 <FeaturedPackages />
                 <TravelGuides />
                 <Testimonials />

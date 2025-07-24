@@ -46,7 +46,7 @@ const NotificationItem = ({ notification, onRemove }) => {
       </div>
       <button
         onClick={() => onRemove(notification.id)}
-        className="text-gray-400 hover:text-gray-600 transition-colors"
+        className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
       >
         <X className="w-4 h-4" />
       </button>

@@ -130,7 +130,7 @@ const Testimonials = () => {
           {/* Navigation Buttons */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 hover:bg-white shadow-lg hover:shadow-xl rounded-full transition-all duration-300 transform hover:scale-110 -translate-x-1/2"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 hover:bg-white shadow-lg hover:shadow-xl rounded-full transition-all duration-300 transform hover:scale-110 -translate-x-1/2 cursor-pointer"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-6 h-6 text-gray-700" />
@@ -138,7 +138,7 @@ const Testimonials = () => {
 
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 hover:bg-white shadow-lg hover:shadow-xl rounded-full transition-all duration-300 transform hover:scale-110 translate-x-1/2"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 hover:bg-white shadow-lg hover:shadow-xl rounded-full transition-all duration-300 transform hover:scale-110 translate-x-1/2 cursor-pointer"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-6 h-6 text-gray-700" />
@@ -219,7 +219,7 @@ const Testimonials = () => {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
                   currentIndex === index
                     ? 'bg-gradient-to-r from-pink-500 to-purple-600 w-8'
                     : 'bg-gray-300 hover:bg-gray-400'
@@ -233,7 +233,7 @@ const Testimonials = () => {
           <div className="text-center mt-4">
             <button
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-300"
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-300 cursor-pointer"
             >
               {isAutoPlaying ? '⏸️ Pause' : '▶️ Play'} Auto-scroll
             </button>

@@ -42,7 +42,7 @@ const QuickBooking = () => {
           <button
             key={type.id}
             onClick={() => setSelectedType(type.id)}
-            className={`p-3 rounded-xl flex flex-col items-center space-y-1 transition-all duration-300 ${
+            className={`p-3 rounded-xl flex flex-col items-center space-y-1 transition-all duration-300 cursor-pointer ${
               selectedType === type.id
                 ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -113,7 +113,7 @@ const QuickBooking = () => {
         <button
           onClick={handleQuickBook}
           disabled={!bookingData.from || !bookingData.to || !bookingData.date}
-          className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
+          className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed cursor-pointer"
         >
           Search {selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}s
         </button>

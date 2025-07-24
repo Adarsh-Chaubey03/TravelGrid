@@ -133,7 +133,7 @@ const SmartSearch = ({ onSearch, placeholder = "Search destinations..." }) => {
                 setShowSuggestions(false);
                 inputRef.current?.focus();
               }}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -156,7 +156,7 @@ const SmartSearch = ({ onSearch, placeholder = "Search destinations..." }) => {
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className={`w-full px-4 py-3 text-left hover:bg-pink-50 transition-colors flex items-center space-x-3 ${
+                  className={`w-full px-4 py-3 text-left hover:bg-pink-50 transition-colors flex items-center space-x-3 cursor-pointer ${
                     selectedIndex === index ? 'bg-pink-50' : ''
                   }`}
                 >
@@ -183,7 +183,7 @@ const SmartSearch = ({ onSearch, placeholder = "Search destinations..." }) => {
                 </span>
                 <button
                   onClick={clearRecentSearches}
-                  className="text-xs text-pink-500 hover:text-pink-600"
+                  className="text-xs text-pink-500 hover:text-pink-600 cursor-pointer"
                 >
                   Clear
                 </button>
@@ -192,7 +192,7 @@ const SmartSearch = ({ onSearch, placeholder = "Search destinations..." }) => {
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(search)}
-                  className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
+                  className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3 cursor-pointer"
                 >
                   <Clock className="w-4 h-4 text-gray-400" />
                   <span className="text-gray-800">{search.name}</span>

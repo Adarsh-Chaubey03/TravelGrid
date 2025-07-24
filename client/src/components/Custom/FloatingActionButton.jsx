@@ -52,7 +52,7 @@ const FloatingActionButton = () => {
             {item.link ? (
               <Link
                 to={item.link}
-                className={`p-3 ${item.color} text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110`}
+                className={`p-3 ${item.color} text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 cursor-pointer`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.icon}
@@ -63,7 +63,7 @@ const FloatingActionButton = () => {
                   item.action();
                   setIsOpen(false);
                 }}
-                className={`p-3 ${item.color} text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110`}
+                className={`p-3 ${item.color} text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 cursor-pointer`}
               >
                 {item.icon}
               </button>
@@ -75,7 +75,7 @@ const FloatingActionButton = () => {
       {/* Main FAB */}
       <button
         onClick={toggleMenu}
-        className={`p-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 ${
+        className={`p-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 cursor-pointer ${
           isOpen ? 'rotate-45' : 'rotate-0'
         }`}
         aria-label="Quick actions"

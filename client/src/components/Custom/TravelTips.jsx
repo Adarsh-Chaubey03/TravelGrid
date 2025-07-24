@@ -62,14 +62,14 @@ const TravelTips = () => {
         <div className="flex space-x-1">
           <button
             onClick={nextTip}
-            className="p-1 hover:bg-white/20 rounded-full transition-colors"
+            className="p-1 hover:bg-white/20 rounded-full transition-colors cursor-pointer"
             title="Next tip"
           >
             <RefreshCw className="w-4 h-4" />
           </button>
           <button
             onClick={() => setIsVisible(false)}
-            className="p-1 hover:bg-white/20 rounded-full transition-colors"
+            className="p-1 hover:bg-white/20 rounded-full transition-colors cursor-pointer"
             title="Close tips"
           >
             <X className="w-4 h-4" />

@@ -1,301 +1,157 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
-  Home,
-  Ticket,
-  Package,
-  Building2,
-  UserRound,
-  Contact,
-  LogIn,
   Menu,
   X,
-  ChevronRight,
   User,
   LogOut,
-  Settings,
+  LogIn,
 } from "lucide-react";
 
-const Navbar = ({lightBackground = false}) => {
+const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const { user, logout, isAuthenticated } = useAuth();
 
-  const handlelogin = () => {
-    navigate('/login'); // change '/about' to your desired path
-  };
-
-  // Close sidebar when route changes
   useEffect(() => {
     setIsSidebarOpen(false);
-    setShowUserMenu(false);
   }, [location.pathname]);
 
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Prevent body scroll when sidebar is open
-  useEffect(() => {
-    if (isSidebarOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isSidebarOpen]);
-
   const navLinks = [
-    { name: "Home", path: "/", icon: <Home size={18} /> },
-    { name: "Ticket", path: "/ticket", icon: <Ticket size={18} /> },
-    { name: "Packages", path: "/packages", icon: <Package size={18} /> },
-    { name: "Hotels", path: "/hotels", icon: <Building2 size={18} /> },
-    { name: "Guides", path: "/guides", icon: <UserRound size={18} /> },
-    { name: "Contact", path: "/contact", icon: <Contact size={18} /> },
+    { name: "Home", path: "/" },
+    { name: "Ticket", path: "/ticket" },
+    { name: "Packages", path: "/packages" },
+    { name: "Hotels", path: "/hotels" },
+    { name: "Guides", path: "/guides" },
+    { name: "Contact", path: "/contact" },
   ];
-
-  const isActive = (path) => location.pathname === path;
 
   const handleLogout = () => {
     logout();
-    setShowUserMenu(false);
-    navigate("/");
+    setIsSidebarOpen(false);
   };
 
   return (
     <>
-      {/* Main Navbar */}
-      <nav
-        className={`w-full py-3 px-4 md:px-8 fixed top-0 left-0 z-40 transition-all duration-300
-        ${
-          scrolled
-            ? "bg-white/10 backdrop-blur-lg border-b border-white/20 shadow-xl"
-            : "bg-white/5 backdrop-blur-md border-b border-white/10"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <div className="text-2xl font-bold text-pink-400 tracking-tight">
-              TravelGrid
-            </div>
-          </Link>
+      {/* Sticky Translucent Navbar */}
+      <nav className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-white/10 border-b border-white/20 px-4 py-3 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold text-pink-500 tracking-tight">
+          TravelGrid
+        </Link>
 
-          {/* Desktop Navigation */}
+        {/* Desktop Nav Links */}
+        <div className="hidden md:flex gap-6 items-center text-pink-500 font-medium">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`hover:text-pink-600 transition ${
+                location.pathname === link.path ? "underline underline-offset-4" : ""
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
 
-          {navLinks.map((link) => {
-            const isContact = link.path === "/contact";
-            const isTicket = link.path === "/ticket";
-            const isHotels = link.path === "/hotels";
-            const active = isActive(link.path);
-
-            let linkClass =
-              "font-medium transition-colors flex items-center gap-2 ";
-
-            const ticketActive = isActive("/ticket");
-            const contactActive = isActive("/contact");
-            const hotelsActive = isActive("/hotels");
-
-            if (active) {
-              // Current link is active
-              linkClass += "text-pink-400";
-            } else {
-              // Current link is not active
-              if (ticketActive || contactActive || hotelsActive) {
-                // On pages with light backgrounds, use dark text
-                linkClass += "text-black hover:text-pink-300";
-
-              } else if (contactActive) {            {/*Here if the page is lightBackground, text of navbar will become black which will be easily visible*/}  
-                linkClass += lightBackground
-                ? "text-black hover:text-pink-300"   
-                :scrolled
-                  ? "text-white hover:text-pink-300"
-                  : "text-black hover:text-pink-300";
-              } else {                               {/*Here also if the page is lightBackground, text of navbar will become black which will be easily visible*/}
-                linkClass += lightBackground
-                ? "test-black hover:text-pink-300"
-                :scrolled
-              } 
-            }
-
-            return (
-              <Link key={link.path} to={link.path} className={linkClass}>
-                {link.icon}
-                {link.name}
+          {/* Auth Buttons */}
+          {isAuthenticated ? (
+            <>
+              <Link to="/dashboard" className="hover:text-pink-600 flex items-center gap-1">
+                <User size={18} /> Dashboard
               </Link>
-            );
-          })}
-
-          <button onClick={handlelogin} className="ml-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2 hover: cursor-pointer">
-            <LogIn size={18} />
-            Login
-          </button>
+              <button
+                onClick={handleLogout}
+                className="hover:text-pink-600 flex items-center gap-1"
+              >
+                <LogOut size={18} /> Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="hover:text-pink-600 flex items-center gap-1">
+                <LogIn size={18} /> Login
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-4 py-2 rounded-md font-semibold ml-2"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Hamburger Icon (Mobile only) */}
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="md:hidden flex items-center text-pink-400 relative hover: cursor-pointer"
-          aria-label="Toggle menu"
+          className="md:hidden text-pink-500"
         >
-          <Menu
-            size={24}
-            className={`transition-opacity duration-300 ${
-              isSidebarOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <X
-            size={24}
-            className={`absolute transition-opacity duration-300 ${
-              isSidebarOpen ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      {/* Mobile Sidebar */}
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${
           isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsSidebarOpen(false)}
       />
 
+      {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-[80%] sm:w-[60%] max-w-[320px] bg-gradient-to-br from-black to-zinc-900 z-50 transform transition-transform duration-300 ease-in-out shadow-xl md:hidden ${
+        className={`fixed top-0 right-0 h-full w-[80%] sm:w-[60%] max-w-[320px] bg-black z-50 transition-transform duration-300 ease-in-out transform ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-5 flex flex-col h-full">
-          {/* Close Button */}
-          <div className="flex justify-end mb-8">
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="text-pink-400 p-1 hover:bg-pink-500/10 rounded-full hover: cursor-pointer" 
-              aria-label="Close menu"
-            >
-              <X size={24} />
-            </button>
-          </div>
-
-          {/* Mobile Logo */}
-          <Link to="/" className="flex items-center mb-8">
-            <div className="text-2xl font-bold text-pink-400 tracking-tight">
-              TravelGrid
-            </div>
+        <div className="p-5 flex flex-col h-full text-pink-500">
+          {/* Logo */}
+          <Link to="/" className="text-2xl font-bold mb-6">
+            TravelGrid
           </Link>
 
-          {/* User Info (Mobile) */}
-          {isAuthenticated && (
-            <div className="flex items-center gap-3 mb-6 p-3 bg-white/10 rounded-lg">
-              <img
-                src={user.avatar}
-                alt={user.name}
-                className="w-10 h-10 rounded-full"
-              />
-              <div>
-                <p className="text-white font-medium">{user.name}</p>
-                <p className="text-gray-300 text-sm">{user.email}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Mobile Navigation Links */}
+          {/* Nav Links */}
           <div className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-medium py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between ${
-                  isActive(link.path)
-                    ? "bg-pink-500/20 text-pink-400"
-                    : "text-white hover:bg-pink-500/10 hover:text-pink-300"
+                className={`py-2 px-3 rounded hover:bg-pink-500/10 ${
+                  location.pathname === link.path && "bg-pink-500/20"
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-pink-400">{link.icon}</span>
-                  <span>{link.name}</span>
-                </div>
-                <ChevronRight size={16} className="text-pink-400/70" />
+                {link.name}
               </Link>
             ))}
 
-            {/* Mobile Auth Links */}
+            {/* Auth Buttons */}
             {isAuthenticated ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="font-medium py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between text-white hover:bg-pink-500/10 hover:text-pink-300"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-pink-400">
-                      <User size={18} />
-                    </span>
-                    <span>Dashboard</span>
-                  </div>
-                  <ChevronRight size={16} className="text-pink-400/70" />
+                <Link to="/dashboard" className="flex gap-2 items-center">
+                  <User size={18} /> Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="font-medium py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between text-red-400 hover:bg-red-500/10 w-full text-left"
+                  className="flex gap-2 items-center text-red-400"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-red-400">
-                      <LogOut size={18} />
-                    </span>
-                    <span>Logout</span>
-                  </div>
+                  <LogOut size={18} /> Logout
                 </button>
               </>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="font-medium py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between text-white hover:bg-pink-500/10 hover:text-pink-300"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-pink-400">
-                      <LogIn size={18} />
-                    </span>
-                    <span>Sign In</span>
-                  </div>
-                  <ChevronRight size={16} className="text-pink-400/70" />
+                <Link to="/login" className="flex gap-2 items-center">
+                  <LogIn size={18} /> Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-5 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 mt-2"
+                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white py-2 rounded text-center mt-2"
                 >
-                  <LogIn size={18} />
                   Sign Up
                 </Link>
               </>
             )}
-          </div>
-          {/* Footer Links in Mobile */}
-          <div className="mt-auto pt-8 border-t border-pink-900/30">
-            <Link
-              to="/contributors"
-              className="text-pink-400 text-sm hover:underline"
-            >
-              Contributors
-            </Link>
           </div>
         </div>
       </div>

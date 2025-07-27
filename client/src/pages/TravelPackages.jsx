@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../components/Custom/Navbar";
 
 const packages = [
   {
@@ -178,7 +179,8 @@ const TravelPackages = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
-      <main className="flex flex-col flex-1 w-full items-center">
+      <Navbar />
+      <main className="flex flex-col flex-1 w-full items-center pt-24">
         <section className="w-full py-24 text-center px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
             Discover Our <span className="text-pink-400">Travel Packages</span>

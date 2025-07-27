@@ -1,9 +1,28 @@
 // client/src/components/GoToTopButton.jsx
 import React, { useState, useEffect } from 'react';
+import { ArrowUp } from 'lucide-react';
 import './GoToTopButton.css'; 
+import { useLocation } from 'react-router-dom';
+
 
 const GoToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
+  const {pathname} = useLocation();
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  },[pathname])
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,25 +43,18 @@ const GoToTopButton = () => {
     };
   }, []); 
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
+  
 
   return (
     <>
-      {showButton && (
         <button
-          className="go-to-top-button"
+          className={`go-to-top-button ${showButton? 'show' : ''}`}
           onClick={scrollToTop}
           aria-label="Go to top of page" 
         >
-          &uarr; {/* Up arrow character */}
+          <ArrowUp/> {/* Add scroll-to-top icon with smooth functionality */}
           {/* You could also use an SVG icon here */}
         </button>
-      )}
     </>
   );
 };

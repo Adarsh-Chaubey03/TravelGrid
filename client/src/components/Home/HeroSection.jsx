@@ -27,8 +27,7 @@ const HeroSection = ({ onSearch }) => {
   ];
 
   return (
-    <section className="relative w-screen min-h-[80vh] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative w-screen min-h-[80vh] flex items-center justify-center overflow-hidden mt-[4.5rem] md:mt-[5rem]">
      <div
   className="absolute inset-0 bg-cover bg-center opacity-90 z-10"
   style={{

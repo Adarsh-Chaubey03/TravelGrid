@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
@@ -36,7 +35,7 @@ function App() {
             </div>
             <GoToTopButton />
             <Footer />
-          </div>
+          </div>  
         </DashboardDataProvider>
       </AppProvider>
     </AuthProvider>

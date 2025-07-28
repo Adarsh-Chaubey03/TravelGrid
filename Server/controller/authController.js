@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const validator = require('validator');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -15,6 +16,22 @@ exports.registerUser = async (req, res) => {
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid email format'
+      });
+    }
+
+    // Validate password strength
+    if (!validator.isStrongPassword(password)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password is not strong enough'
+      });
     }
 
     const normalizedEmail = email.toLowerCase();
@@ -56,6 +73,14 @@ exports.loginUser = async (req, res) => {
 
     if (!email || !password) {
       return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid email format'
+      });
     }
 
     const normalizedEmail = email.toLowerCase();

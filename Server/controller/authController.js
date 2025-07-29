@@ -6,7 +6,21 @@ const validator = require('validator');
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 if (!JWT_SECRET) {
   console.error('JWT_SECRET is not defined in environment variables');
-  process.exit(1);
+  process.exit(1);  // Validate email format
+  if (!validator.isEmail(email)) {
+    return res
+      .status(400)
+      .json({
+        success: false, message: 'Invalid email format'
+      });
+  }  // Validate email format
+  if (!validator.isEmail(email)) {
+    return res
+      .status(400)
+      .json({
+        success: false, message: 'Invalid email format'
+      });
+  }
 };
 // Register User
 exports.registerUser = async (req, res) => {

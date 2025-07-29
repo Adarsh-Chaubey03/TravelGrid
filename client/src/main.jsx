@@ -40,6 +40,7 @@ import TripCalculatorPage from './pages/TripCalculator';
 import DiscovermoreDestination from './pages/DiscovermoreDestination';
 import Feedback from './pages/Feedback';
 import TravelForum from './pages/TravelForum';
+import CurrencyConverter from './pages/CurrencyConverter';
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/about', element: <About /> },
+      { path: '/currency-converter', element: <CurrencyConverter /> },
       { path: '/blog', element: <Blog /> },
       { path: '/discover', element: <Discover /> },
       { path: '/trips', element: <Trips /> },

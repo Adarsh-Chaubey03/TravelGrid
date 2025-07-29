@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Menu, X, User, LogOut, LogIn } from "lucide-react";
 
+
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrolled,setIsScrolled]=useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
     { name: "Guides", path: "/guides" },
     { name: "Contact", path: "/contact" },
     { name: "Trip Expense Calculator", path: "/trip-calculator"},
+    { name: "Currency Converter", path: "/currency-converter" },
     { name: "Feedback", path: "/feedback" },
   ];
 

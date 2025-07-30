@@ -28,8 +28,8 @@ const destinations = [
 const DiscoverSection = () => {
   const navigate = useNavigate(); // Initialize the navigate hook
 
-  const handleBookNowClick = () => {
-    navigate("/packages"); // Redirect to /packages when clicked
+  const handleBookNowClick = () => {  //No need for this function now
+    navigate(`/package/${pkg.id}`); // Redirect to specific package when clicked
   };
 
   const handleDiscoverMore = () => {
@@ -47,7 +47,7 @@ const DiscoverSection = () => {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-2">
         {destinations.map((place, index) => (
-          <DiscoverCard index={index} place={place} handleBookNowClick={handleBookNowClick} />
+          <DiscoverCard key={index} index={index} place={place} handleBookNowClick={() => navigate(`/package/${index+5}`)} />  //handled book now funtionality by providing path of package's respective pages(index+5 for matching index).
         ))}
       </div>
 

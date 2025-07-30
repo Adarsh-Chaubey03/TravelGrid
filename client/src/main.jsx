@@ -10,7 +10,6 @@ import Contact from './components/Contact.jsx';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
 import Review from './pages/Review';
-import Forums from './pages/Forums';
 import Contributors from './pages/Contributors';
 import About from './pages/About';
 import Hotels from './pages/Hotels';
@@ -18,7 +17,6 @@ import HotelDetails from './pages/HotelDetails';
 import TicketBooking from './pages/TicketBooking';
 import TravelPackages from './pages/TravelPackages';
 import PackageDetails from './pages/PackageDetails';
-import HotelBookingPage from './pages/HotelBookingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
@@ -39,6 +37,7 @@ import Blog from './pages/Blog';
 import TripCalculatorPage from './pages/TripCalculator';
 import DiscovermoreDestination from './pages/DiscovermoreDestination';
 import Feedback from './pages/Feedback';
+import TravelPlanGenerator from './pages/TravelPlanGenerator';
 import TravelForum from './pages/TravelForum';
 
 const router = createBrowserRouter([
@@ -70,6 +69,7 @@ const router = createBrowserRouter([
       { path: '/privacy', element: <PrivacyPolicy /> },
       { path: '/terms', element: <TermsAndConditions /> },
       { path: '/trip-calculator', element: <TripCalculatorPage /> },
+      { path: '/travel-plan-generator', element: <TravelPlanGenerator /> },
       {
         path: '/dashboard',
         element: (

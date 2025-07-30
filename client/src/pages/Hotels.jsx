@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import Navbar from '../components/Custom/Navbar';
 import Footer from '../components/Custom/Footer';
 import hotels from '../data/hotels';
@@ -17,10 +18,48 @@ function Hotels() {
     );
   });
 
+// Function to handle saving a hotel to the user's dashboard
+const handleLike = async (hotel) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("You must be logged in to save places.");
+    return;
+  }
+
+  const body = {
+    placeId: hotel.id, 
+    name: hotel.name,
+    location: hotel.location,
+    description: hotel.description,
+  };
+
+  try {
+    const res = await fetch('http://localhost:5000/api/save/save-place', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      toast.success('Place saved successfully to dashboard!');
+    } else {
+      toast.error(data.message || '⚠️ This place is already saved.');
+    }
+  } catch (err) {
+    console.error('Save failed:', err);
+    toast.error('🚨 Failed to save place. Please try again.');
+  }
+};
+
+
   return (
     <div className="flex flex-col min-h-screen w-full  overflow-x-hidden">
 
-      { <Navbar lightBackground/> }   {/*Added props of lightBackground to this page.*/}
+      {<Navbar lightBackground />}   {/*Added props of lightBackground to this page.*/}
 
 
       <main className="flex flex-col flex-1 w-full items-center">
@@ -71,6 +110,14 @@ function Hotels() {
                 >
                   Book Hotel
                 </button>
+                {/* Button to save places */}
+                <button
+                  onClick={() => handleLike(hotel)}
+                  className="mt-2 bg-pink-100 hover:bg-pink-200 text-pink-600 px-4 py-2 rounded-lg text-sm font-semibold transition"
+                >
+                  ❤️ Save to Dashboard
+                </button>
+
               </div>
             </div>
           ))}

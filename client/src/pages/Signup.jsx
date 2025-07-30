@@ -28,8 +28,13 @@ const Signup = () => {
   };
 
   const validateForm = () => {
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('Please fill in all fields');
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setError("Please fill in all the required details to proceed.");
       return false;
     }
 
@@ -52,11 +57,10 @@ const Signup = () => {
 
     if (passwordStrength === "Weak") {
     setError("Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.");
-    return;
-}
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
       return false;
     }
 
@@ -88,7 +92,7 @@ const Signup = () => {
     if (strongRegex.test(password)) return 'strong';
     if (mediumRegex.test(password)) return 'medium';
     return 'weak';
- };
+  };
 
 
   const passwordStrength = getPasswordStrength();
@@ -129,7 +133,6 @@ const Signup = () => {
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   placeholder="Enter your full name"
-                  required
                 />
               </div>
             </div>
@@ -140,13 +143,12 @@ const Signup = () => {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   placeholder="Enter your email"
-                  required
                 />
               </div>
             </div>
@@ -163,7 +165,6 @@ const Signup = () => {
                   onChange={handleChange}
                   className="w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   placeholder="Create a password"
-                  required
                 />
                 <button
                   type="button"
@@ -202,7 +203,6 @@ const Signup = () => {
                   onChange={handleChange}
                   className="w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   placeholder="Confirm your password"
-                  required
                 />
                 <button
                   type="button"
@@ -233,7 +233,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isLoading ? (
                 <>

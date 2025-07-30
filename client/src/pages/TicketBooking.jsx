@@ -13,6 +13,7 @@ import {
   Car,
   ArrowRightLeft,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const tripModes = [
   { label: "One-Way", value: "oneWay" },
@@ -62,27 +63,27 @@ function TicketBooking() {
 
     // Validate required fields
     if (!form.from.trim()) {
-      alert("Please enter a departure city");
+      toast.error("Please enter a departure city");
       return;
     }
 
     if (!form.to.trim()) {
-      alert("Please enter a destination city");
+      toast.error("Please enter a destination city");
       return;
     }
 
     if (!form.depart) {
-      alert("Please select a departure date");
+      toast.error("Please select a departure date");
       return;
     }
 
     if (tripMode === "roundTrip" && !form.return) {
-      alert("Please select a return date");
+      toast.error("Please select a return date");
       return;
     }
 
     if (!form.passengers || form.passengers < 1) {
-      alert("Please select number of passengers");
+      toast.error("Please select number of passengers");
       return;
     }
 
@@ -140,7 +141,7 @@ function TicketBooking() {
 
       pdf.save("ticket.pdf");
     } catch (err) {
-      alert("Unable to Generate At this Moment")
+      toast.error("Unable to Generate At this Moment")
     } finally {
       document.body.removeChild(clone);
       // Restore button display
@@ -218,228 +219,84 @@ function TicketBooking() {
           </div>
 
           {/* Form or Success Message */}
-          {submitted ? (
-            booked ? ( //introduced this variable to check if booking initiated or not
-              <div
-                id="ticket-content"
-                className="text-center text-pink-100  pdf-friendly"
-              >
-                <h3 className="text-3xl font-bold text-green-400 mb-4 flex flex-col md:flex-row items-center justify-center gap-2">
-                  <ArrowRightLeft size={24} /> Booking Confirmed!
-                </h3>
-                <p className="max-w-xl mx-auto leading-relaxed">
-                  You have booked a {travelType}{" "}
-                  {tripMode === "roundTrip" ? "round-trip" : "one-way"} ticket
-                  from
-                  <span className="font-semibold text-white">
-                    {" "}
-                    {form.from}
-                  </span>{" "}
-                  to
-                  <span className="font-semibold text-white">
-                    {" "}
-                    {form.to}
-                  </span>{" "}
-                  departing on
-                  <span className="font-semibold text-white">
-                    {" "}
-                    {form.depart}
-                  </span>
-                  {tripMode === "roundTrip" && (
-                    <>
-                      {" "}
-                      and returning on
-                      <span className="font-semibold text-white">
-                        {" "}
-                        {form.return}
-                      </span>
-                    </>
-                  )}
-                  . Travellers:{" "}
-                  <span className="font-semibold text-white">
-                    {form.passengers}
-                  </span>{" "}
-                  • Cabin:
-                  <span className="font-semibold text-white">
-                    {" "}
-                    {form.cabin}
-                  </span>
-                  .
-                </p>
-
-                <button
-                  className="mt-8 px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-full text-white font-semibold"
-                  onClick={resetForm}
-                >
-                  New Search
-                </button>
-                <button
-                  onClick={handleDownload}
-                  className="mt-4 ml-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white font-semibold"
-                >
-                  Download Ticket
-                </button>
-                <Link
-                  to="/feedback"
-                  className="mt-4 ml-4 px-6 py-3 bg-green-600 hover:bg-green-700 rounded-full text-white font-semibold inline-block"
-                >
-                  Share Feedback
-                </Link>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 sm:space-y-8 px-4 sm:px-6 md:px-10 max-w-5xl mx-auto"
+          >
+            {/* Core search panel */}
+            <div className="grid gap-4 md:grid-cols-5 md:items-end">
+              {/* From */}
+              <div className="relative col-span-2 md:col-span-1">
+                <MapPin
+                  className="absolute top-3 left-3 text-pink-400"
+                  size={18}
+                />
+                <input
+                  type="text"
+                  name="from"
+                  placeholder="From"
+                  required
+                  value={form.from}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
+                />
               </div>
-            ) : (
-              //if it is not booked yet, show these booking options.
-              <div className="text-center text-pink-100">
-                <h3 className="text-3xl font-bold text-blue-400 mb-4 flex items-center justify-center gap-2">
-                  <ArrowRightLeft size={24} />{" "}
-                  {travelType.charAt(0).toUpperCase() + travelType.slice(1)}{" "}
-                  Available!
-                </h3>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-6 max-w-2xl mx-auto">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                    <div>
-                      <p className="text-sm text-pink-200">Route</p>
-                      <p className="font-semibold text-white">
-                        {form.from} → {form.to}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-pink-200">Travel Type</p>
-                      <p className="font-semibold text-white">
-                        {travelType.charAt(0).toUpperCase() +
-                          travelType.slice(1)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-pink-200">Departure</p>
-                      <p className="font-semibold text-white">{form.depart}</p>
-                    </div>
-                    {tripMode === "roundTrip" && (
-                      <div>
-                        <p className="text-sm text-pink-200">Return</p>
-                        <p className="font-semibold text-white">
-                          {form.return}
-                        </p>
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-sm text-pink-200">Passengers</p>
-                      <p className="font-semibold text-white">
-                        {form.passengers}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-pink-200">Cabin Class</p>
-                      <p className="font-semibold text-white">{form.cabin}</p>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-pink-300/20">
-                    <p className="text-sm text-pink-200">Total Price</p>
-                    <p className="text-3xl font-bold text-green-400">₹12,450</p>
-                    <p className="text-xs text-pink-300">
-                      *Including all taxes and fees
-                    </p>
-                  </div>
-                </div>
 
-                <p className="text-lg mb-6">
-                  Would you like to book this {travelType}?
-                </p>
-
-                <div className="flex gap-4 justify-center flex-wrap">
-                  <button
-                    className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-full text-white font-semibold transition-colors"
-                    onClick={confirmBooking}
-                  >
-                    Yes, Book{" "}
-                    {travelType.charAt(0).toUpperCase() + travelType.slice(1)}
-                  </button>
-                  <button
-                    className="px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded-full text-white font-semibold transition-colors"
-                    onClick={resetForm}
-                  >
-                    Cancel
-                  </button>
-                </div>
+              {/* Swap button (visible on md and above) */}
+              <div className="hidden md:flex col-span-1 items-center justify-center">
+                <button
+                  type="button"
+                  title="Swap"
+                  onClick={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      from: prev.to,
+                      to: prev.from,
+                    }))
+                  }
+                  className="bg-pink-500 hover:bg-pink-600 text-white rounded-xl p-3 transition-all"
+                >
+                  <ArrowRightLeft size={20} />
+                </button>
               </div>
-            )
-          ) : (
-            //-----------------------
 
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              {/* Core search panel - Mobile first approach */}
-              <div className="space-y-4 md:space-y-0 md:grid md:gap-4 md:grid-cols-5 md:items-end">
-                {/* From */}
-                <div className="relative block md:col-span-1">
-                  <MapPin
-                    className="absolute top-3 left-3 text-pink-400"
-                    size={18}
-                  />
-                  <input
-                    type="text"
-                    name="from"
-                    placeholder="From"
-                    required
-                    value={form.from}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
-                  />
-                </div>
+              {/* To */}
+              <div className="relative col-span-2 md:col-span-1">
+                <MapPin
+                  className="absolute top-3 left-3 text-pink-400"
+                  size={18}
+                />
+                <input
+                  type="text"
+                  name="to"
+                  placeholder="To"
+                  required
+                  value={form.to}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
+                />
+              </div>
+              
+              {/* Depart */}
+              <div className="relative col-span-2 md:col-span-1">
+                <CalendarDays
+                  className="absolute top-3 left-3 text-pink-400"
+                  size={18}
+                />
+                <input
+                  type="date"
+                  name="depart"
+                  required
+                  value={form.depart}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
+                />
+              </div>
 
-                {/* Swap button - hidden on mobile */}
-                <div className="hidden md:flex md:col-span-1 items-center justify-center">
-                  <button
-                    type="button"
-                    title="Swap"
-                    onClick={() =>
-                      setForm((prev) => ({
-                        ...prev,
-                        from: prev.to,
-                        to: prev.from,
-                      }))
-                    }
-                    className="bg-pink-500 hover:bg-pink-600 text-white rounded-xl p-3 transition-all"
-                  >
-                    <ArrowRightLeft size={20} />
-                  </button>
-                </div>
-
-                {/* To */}
-                <div className="relative block md:col-span-1">
-                  <MapPin
-                    className="absolute top-3 left-3 text-pink-400"
-                    size={18}
-                  />
-                  <input
-                    type="text"
-                    name="to"
-                    placeholder="To"
-                    required
-                    value={form.to}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
-                  />
-                </div>
-
-                {/* Depart Date */}
-                <div className="relative block md:col-span-1">
-                  <CalendarDays
-                    className="absolute top-3 left-3 text-pink-400"
-                    size={18}
-                  />
-                  <input
-                    type="date"
-                    name="depart"
-                    required
-                    value={form.depart}
-                    min={getToday()}    //gets today's date and validate input using that.
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
-                  />
-                </div>
-
-                {/* Return Date (conditional) or Passengers for one-way */}
+              {/* Return or Passengers */}
+              <div className="relative col-span-2 md:col-span-1">
                 {tripMode === "roundTrip" ? (
-                  <div className="relative block md:col-span-1">
+                  <>
                     <CalendarDays
                       className="absolute top-3 left-3 text-pink-400"
                       size={18}
@@ -453,9 +310,9 @@ function TicketBooking() {
                       onChange={handleChange}
                       className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
                     />
-                  </div>
+                  </>
                 ) : (
-                  <div className="relative block md:col-span-1">
+                  <>
                     <Users
                       className="absolute top-3 left-3 text-pink-400"
                       size={18}
@@ -470,60 +327,56 @@ function TicketBooking() {
                       onChange={handleChange}
                       className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
                     />
-                  </div>
+                  </>
                 )}
               </div>
+            </div>
 
-              {/* Additional fields for round trip or larger screens */}
-              <div
-                className={`grid gap-4 sm:grid-cols-2 ${
-                  tripMode === "oneWay" ? "md:hidden" : ""
-                }`}
+            {/* Extra row for Passengers + Cabin */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {tripMode === "roundTrip" && (
+                <div className="relative">
+                  <Users
+                    className="absolute top-3 left-3 text-pink-400"
+                    size={18}
+                  />
+                  <input
+                    type="number"
+                    name="passengers"
+                    min="1"
+                    max="10"
+                    required
+                    value={form.passengers}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
+                    placeholder="Passengers"
+                  />
+                </div>
+              )}
+              <select
+                name="cabin"
+                value={form.cabin}
+                onChange={handleChange}
+                className="w-full p-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
               >
-                {tripMode === "roundTrip" && (
-                  <div className="relative block">
-                    <Users
-                      className="absolute top-3 left-3 text-pink-400"
-                      size={18}
-                    />
-                    <input
-                      type="number"
-                      name="passengers"
-                      min="1"
-                      max="10"
-                      required
-                      value={form.passengers}
-                      onChange={handleChange}
-                      className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
-                      placeholder="Passengers"
-                    />
-                  </div>
+                {["Economy", "Premium Economy", "Business", "First"].map(
+                  (c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  )
                 )}
-                <select
-                  name="cabin"
-                  value={form.cabin}
-                  onChange={handleChange}
-                  className="w-full p-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
-                >
-                  {["Economy", "Premium Economy", "Business", "First"].map(
-                    (c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    )
-                  )}
-                </select>
-              </div>
+              </select>
+            </div>
 
-              <button
-                type="submit"
-                className="w-full mt-4 py-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold rounded-xl text-lg tracking-wide shadow-lg transition-all hover:shadow-pink-700/50"
-              >
-                Search{" "}
-                {travelType.charAt(0).toUpperCase() + travelType.slice(1)}s
-              </button>
-            </form>
-          )}
+            {/* Submit button */}
+            <button
+              type="submit"
+              className="w-full mt-4 py-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold rounded-xl text-lg tracking-wide shadow-lg transition-all hover:shadow-pink-700/50"
+            >
+              Search {travelType.charAt(0).toUpperCase() + travelType.slice(1)}s
+            </button>
+          </form>
         </div>
       </main>
     </div>

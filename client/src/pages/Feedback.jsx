@@ -3,6 +3,21 @@ import { Star, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Feedback = () => {
+  // Add CSS to force dropdown to open downward
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      select[name="hotel"] {
+        direction: ltr !important;
+      }
+      select[name="hotel"] option {
+        direction: ltr !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
   const [formData, setFormData] = useState({
     rating: 0,
     package: '',
@@ -11,6 +26,8 @@ const Feedback = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hoveredRating, setHoveredRating] = useState(0);
+  const [isHotelDropdownOpen, setIsHotelDropdownOpen] = useState(false);
+  const [isPackageDropdownOpen, setIsPackageDropdownOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -146,39 +163,106 @@ const Feedback = () => {
 
                                  {/* Package/Destination and Hotel */}
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                   <div>
+                   <div className="relative">
                      <label className="block text-sm font-semibold text-gray-700 mb-2">Package</label>
-                     <select
-                       name="package"
-                       value={formData.package}
-                       onChange={handleChange}
-                       className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white"
-                       style={{ direction: 'ltr' }}
-                     >
-                       <option value="">Select your package</option>
-                       {travelPackages.map((pkg) => (
-                         <option key={pkg.value} value={pkg.value}>
-                           {pkg.icon} {pkg.label}
-                         </option>
-                       ))}
-                     </select>
+                     <div className="relative">
+                       <button
+                         type="button"
+                         onClick={() => {
+                           setIsPackageDropdownOpen(!isPackageDropdownOpen);
+                           setIsHotelDropdownOpen(false);
+                         }}
+                         className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white text-left flex items-center justify-between"
+                       >
+                         <span className="truncate">
+                           {formData.package ? 
+                             travelPackages.find(p => p.value === formData.package)?.icon + ' ' + 
+                             travelPackages.find(p => p.value === formData.package)?.label
+                             : 'Select your package'
+                           }
+                         </span>
+                         <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                         </svg>
+                       </button>
+                       
+                       {isPackageDropdownOpen && (
+                         <div className="absolute top-full left-0 mt-1 bg-white border-2 border-pink-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
+                           <div
+                             className="px-4 py-2 cursor-pointer hover:bg-pink-50"
+                             onClick={() => {
+                               setFormData({ ...formData, package: '' });
+                               setIsPackageDropdownOpen(false);
+                             }}
+                           >
+                             Select your package
+                           </div>
+                           {travelPackages.map((pkg) => (
+                             <div
+                               key={pkg.value}
+                               className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap"
+                               onClick={() => {
+                                 setFormData({ ...formData, package: pkg.value });
+                                 setIsPackageDropdownOpen(false);
+                               }}
+                             >
+                               {pkg.icon} {pkg.label}
+                             </div>
+                           ))}
+                         </div>
+                       )}
+                     </div>
                    </div>
-                   <div>
+                   <div className="relative">
                      <label className="block text-sm font-semibold text-gray-700 mb-2">Hotel (if booked)</label>
-                     <select
-                       name="hotel"
-                       value={formData.hotel}
-                       onChange={handleChange}
-                       className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white"
-                       style={{ direction: 'ltr' }}
-                     >
-                       <option value="">Select your hotel</option>
-                       {hotels.map((hotel) => (
-                         <option key={hotel.value} value={hotel.value}>
-                           {hotel.icon} {hotel.label} - {hotel.location}
-                         </option>
-                       ))}
-                     </select>
+                     <div className="relative">
+                       <button
+                         type="button"
+                         onClick={() => {
+                           setIsHotelDropdownOpen(!isHotelDropdownOpen);
+                           setIsPackageDropdownOpen(false);
+                         }}
+                         className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white text-left flex items-center justify-between"
+                       >
+                         <span className="truncate">
+                           {formData.hotel ? 
+                             hotels.find(h => h.value === formData.hotel)?.icon + ' ' + 
+                             hotels.find(h => h.value === formData.hotel)?.label + ' - ' + 
+                             hotels.find(h => h.value === formData.hotel)?.location
+                             : 'Select your hotel'
+                           }
+                         </span>
+                         <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                         </svg>
+                       </button>
+                       
+                       {isHotelDropdownOpen && (
+                         <div className="absolute top-full left-0 mt-1 bg-white border-2 border-pink-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
+                           <div
+                             className="px-4 py-2 cursor-pointer hover:bg-pink-50"
+                             onClick={() => {
+                               setFormData({ ...formData, hotel: '' });
+                               setIsHotelDropdownOpen(false);
+                             }}
+                           >
+                             Select your hotel
+                           </div>
+                           {hotels.map((hotel) => (
+                             <div
+                               key={hotel.value}
+                               className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap"
+                               onClick={() => {
+                                 setFormData({ ...formData, hotel: hotel.value });
+                                 setIsHotelDropdownOpen(false);
+                               }}
+                             >
+                               {hotel.icon} {hotel.label} - {hotel.location}
+                             </div>
+                           ))}
+                         </div>
+                       )}
+                     </div>
                    </div>
                  </div>
 

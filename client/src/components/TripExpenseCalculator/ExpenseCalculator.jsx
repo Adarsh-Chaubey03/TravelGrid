@@ -14,12 +14,14 @@ const TripExpenseCalculator = () => {
 
     const [mode, setMode] = useState("Individual");
     const [numPeople, setNumPeople] = useState(1);
+    const [height, setheight] = useState(false)
 
     const handleChange = (category, value) => {
         setExpense((prev) => ({
         ...prev,
         [category]: value,
         }));
+        setheight(true);
     };
 
     const total = Object.values(expense).reduce(
@@ -100,9 +102,9 @@ const TripExpenseCalculator = () => {
             </p>
         </div>
 
-        <div className="mt-12 p-8">
+        <div className="mt-2 p-8">
             <h3 className="text-2xl font-bold text-center mb-2 text-gray-900">Expense Breakdown</h3>
-            <ResponsiveContainer width="100%" height={450} >
+            <ResponsiveContainer width="100%" height={height==true?450:0} >
                 <PieChart margin={{ top: 30, bottom: 60 }}>
                     <Pie
                         data={chartData}

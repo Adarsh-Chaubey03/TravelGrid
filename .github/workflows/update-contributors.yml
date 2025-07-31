@@ -1,0 +1,44 @@
+name: Update Contributors Data
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+  push:
+    # Run when UpdateContributors.py is modified
+    paths:
+      - 'UpdateContributors.py'
+      - '.github/workflows/update-contributors.yml'
+
+jobs:
+  update-contributors:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Update Contributors Data
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python UpdateContributors.py
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Contributor-data.md
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update contributor data [skip ci]" && git push) 

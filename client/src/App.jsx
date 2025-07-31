@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
-import { AuthProvider } from "./context/AuthContext";
 import { DashboardDataProvider } from "./context/DashboardDataContext";
 import Navbar from "./components/Custom/Navbar";
 import Footer from "./components/Custom/Footer";

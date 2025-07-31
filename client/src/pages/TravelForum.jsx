@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
+import toast from "react-hot-toast";
 
 const forumData = [
   {
@@ -103,7 +104,7 @@ export default function TravelForum() {
 
         <div className="flex justify-center mt-10">
           <button
-            onClick={() => alert("Feature coming soon")}
+            onClick={() => toast.error("Feature coming soon")}
             className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition duration-300"
           >
             + Ask a New Question

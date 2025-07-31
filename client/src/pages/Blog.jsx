@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Custom/Navbar";
 import Footer from "../components/Custom/Footer";
 import TravelTips from "@/components/Home/TravelTips";
+import toast from "react-hot-toast";
 
 const blogs = [
   {
@@ -119,7 +120,7 @@ function Blog() {
             </p>
             <button
               className="text-sm text-white bg-black bg-opacity-30 px-4 py-2 rounded hover:bg-opacity-50 transition"
-              onClick={() => alert("Redirecting to blog detail soon!")}
+              onClick={() => toast.error("Redirecting to blog detail soon!")}
             >
               Read Full Article →
             </button>
@@ -186,7 +187,7 @@ function Blog() {
 
                 <button
                   className="text-pink-400 hover:text-white hover:underline text-sm"
-                  onClick={() => alert("Detail page coming soon!")}
+                  onClick={() => toast.error("Detail page coming soon!")}
                 >
                   Read More →
                 </button>
@@ -219,7 +220,7 @@ function Blog() {
               <button
                 key={i}
                 className="bg-pink-600 hover:bg-pink-700 transition px-4 py-3 rounded-lg shadow-md text-sm sm:text-base"
-                onClick={() => alert(`You selected: ${option}`)}
+                onClick={() => toast.success(`You selected: ${option}`)}
               >
                 {option}
               </button>

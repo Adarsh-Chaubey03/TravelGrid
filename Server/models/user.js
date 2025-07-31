@@ -18,6 +18,17 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Password is required'],
       minlength: 6,
     },
+    savedPlaces: [
+      {
+        placeId: {
+          type: String, 
+          required: true
+        },
+        name: String,
+        description: String,
+        image: String
+      }
+    ],
   },
   {
     timestamps: true, // Adds createdAt and updatedAt fields

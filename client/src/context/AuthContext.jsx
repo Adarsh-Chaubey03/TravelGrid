@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
             if (res.ok) {
                 setUser(data.user);
                 localStorage.setItem('travelgrid_user', JSON.stringify(data.user));
+                localStorage.setItem('token', data.token);
                 setIsLoading(false);
                 return { success: true };
             } else {
@@ -89,6 +90,7 @@ export const AuthProvider = ({ children }) => {
             if (loginRes.ok) {
                 setUser(loginData.user);
                 localStorage.setItem('travelgrid_user', JSON.stringify(loginData.user));
+                localStorage.setItem('token', data.token);
                 setIsLoading(false);
                 return { success: true };
             } else {
@@ -105,6 +107,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem('travelgrid_user');
+        localStorage.removeItem('token');
         toast.success('Logged out successfully 👋');
     };
 
@@ -129,4 +132,5 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
 

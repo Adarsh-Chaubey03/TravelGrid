@@ -1,0 +1,50 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.arrayTooltipSearcher = arrayTooltipSearcher;
+exports.optionsReducer = exports.createEventEmitter = void 0;
+var _toolkit = require("@reduxjs/toolkit");
+var _DataUtils = require("../util/DataUtils");
+/**
+ * These chart options are decided internally, by Recharts,
+ * and will not change during the lifetime of the chart.
+ *
+ * Changing these options can be done by swapping the root element
+ * which will make a brand-new Redux store.
+ *
+ * If you want to store options that can be changed by the user,
+ * use UpdatableChartOptions in rootPropsSlice.ts.
+ */
+
+function arrayTooltipSearcher(data, strIndex) {
+  if (!strIndex) return undefined;
+  var numIndex = Number.parseInt(strIndex, 10);
+  if ((0, _DataUtils.isNan)(numIndex)) {
+    return undefined;
+  }
+  return data === null || data === void 0 ? void 0 : data[numIndex];
+}
+var initialState = {
+  chartName: '',
+  tooltipPayloadSearcher: undefined,
+  eventEmitter: undefined,
+  defaultTooltipEventType: 'axis'
+};
+var optionsSlice = (0, _toolkit.createSlice)({
+  name: 'options',
+  initialState,
+  reducers: {
+    createEventEmitter: state => {
+      if (state.eventEmitter == null) {
+        state.eventEmitter = Symbol('rechartsEventEmitter');
+      }
+    }
+  }
+});
+var optionsReducer = exports.optionsReducer = optionsSlice.reducer;
+var {
+  createEventEmitter
+} = optionsSlice.actions;
+exports.createEventEmitter = createEventEmitter;

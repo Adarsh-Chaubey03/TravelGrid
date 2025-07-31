@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const User = require('../models/user');
 
+const mongoose = require('mongoose');
+
+
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 if (!JWT_SECRET) {
   console.error('JWT_SECRET not set in environment variables');
@@ -53,6 +57,7 @@ exports.registerUser = async (req, res) => {
       email: normalizedEmail,
       password: hashedPassword
     });
+    console.log('User saved to DB:', user);
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
 

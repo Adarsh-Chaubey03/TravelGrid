@@ -1,19 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { useDashboardData } from '../context/DashboardDataContext';
 
 const SavedPlaces = () => {
     const navigate = useNavigate();
     const { setPlaceCount } = useDashboardData(); // ✅ Correct context setter
 
-    const [places] = useState([
-        { name: 'Paris, France', description: 'Visited Eiffel Tower and Louvre Museum' },
-        { name: 'Kyoto, Japan', description: 'Explored Fushimi Inari Shrine' },
-        { name: 'Rome, Italy', description: 'Saw Colosseum and Vatican City' },
-        { name: 'New York, USA', description: 'Times Square and Central Park' },
-        { name: 'Barcelona, Spain', description: 'La Sagrada Familia and beaches' },
-        { name: 'Istanbul, Turkey', description: 'Blue Mosque and Grand Bazaar' },
-    ]);
+    const [places, setPlaces] = useState([]);
+
+    let toastShown = false;
+
+    useEffect(() => {
+        const fetchSavedPlaces = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                if (!toastShown) toast.error('You must be logged in to view saved places');
+                toastShown = true;
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/save/my-saved-places', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    setPlaces(data.savedPlaces);
+                    setPlaceCount(data.savedPlaces.length);
+                    if (!toastShown) {
+                        toast.success('Loaded saved places!');
+                        toastShown = true;
+                    }
+                } else {
+                    console.error(data.message);
+                    if (!toastShown) {
+                        toast.error(data.message || 'Failed to load saved places.');
+                        toastShown = true;
+                    }
+                }
+            } catch (err) {
+                console.error('Fetch failed:', err);
+                if (!toastShown) {
+                    toast.error('Error fetching saved places.');
+                    toastShown = true;
+                }
+            }
+        };
+
+        fetchSavedPlaces();
+    }, [setPlaceCount]);
+
+    // Function to handle deleting a saved place
+    const handleDelete = async (placeId) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await fetch(`http://localhost:5000/api/save/delete/${placeId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                toast.success('Place removed from saved list!');
+                // Refresh places
+                setPlaces(prev => prev.filter(place => place.placeId !== placeId));
+            } else {
+                toast.error(data.message || 'Could not delete the place');
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+            toast.error('Something went wrong while deleting!');
+        }
+    };
+
+
 
     // ✅ Correct useEffect with context
     useEffect(() => {
@@ -42,6 +110,19 @@ const SavedPlaces = () => {
                                 >
                                     <h3 className="text-white font-semibold">{place.name}</h3>
                                     <p className="text-gray-300 text-sm">{place.description}</p>
+                                    <button
+                                        onClick={() => navigate(`/hotels/${place.placeId}`)}
+                                        className="mt-2 text-pink-400 hover:underline text-sm"
+                                    >
+                                        View Hotel
+                                    </button>
+
+                                    <button
+                                        onClick={() => handleDelete(place.placeId)}
+                                        className="ml-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg text-sm"
+                                    >
+                                        Delete
+                                    </button>
                                 </li>
                             ))}
                         </ul>

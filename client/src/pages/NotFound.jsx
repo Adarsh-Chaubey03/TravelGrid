@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Map, Ticket, BookOpen, Mail, AlertCircle, ArrowRight } from 'lucide-react';
+import { Home, Map, Ticket, BookOpen, Mail, ArrowRight } from 'lucide-react';
 
 const NotFound = () => {
     // Create a 3D hover effect for the button

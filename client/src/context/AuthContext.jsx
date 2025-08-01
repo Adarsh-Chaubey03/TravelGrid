@@ -1,132 +1,101 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+import api from '../api'; 
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-    // Mock user data for demonstration
-    const mockUsers = [
-        {
-            id: 1,
-            email: 'demo@travelgrid.com',
-            password: 'password123',
-            name: 'John Doe',
-            avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
-        },
-        {
-            id: 2,
-            email: 'jane@travelgrid.com',
-            password: 'password123',
-            name: 'Jane Smith',
-            avatar: 'https://randomuser.me/api/portraits/women/32.jpg'
-        }
-    ];
+  useEffect(() => {
+    const storedUser = localStorage.getItem('travelgrid_user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
-    // Check for stored user session on app load
-    useEffect(() => {
-        const storedUser = localStorage.getItem('travelgrid_user');
-        if (storedUser) {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (error) {
-                localStorage.removeItem('travelgrid_user');
-            }
-        }
-        setIsLoading(false);
-    }, []);
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const res = await api.post('/auth/login', { email, password });
 
-    const login = async (email, password) => {
-        setIsLoading(true);
+      const { token, user } = res.data;
 
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+      localStorage.setItem('travelgrid_user', JSON.stringify(user));
+      localStorage.setItem('travelgrid_token', token);
 
-        const foundUser = mockUsers.find(
-            u => u.email === email && u.password === password
-        );
+      setUser(user);
+      setIsLoading(false);
+      return { success: true };
+    } catch (err) {
+      setIsLoading(false);
+      return {
+        success: false,
+        error: err.response?.data?.message || 'Login failed'
+      };
+    }
+  };
 
-        if (foundUser) {
-                    const userSession = {
-            id: foundUser.id,
-            email: foundUser.email,
-            name: foundUser.name,
-            avatar: foundUser.avatar,
-            
-        };
+  const signup = async (userData) => {
+    setIsLoading(true);
+    try {
+      const res = await api.post('/auth/register', userData);
 
-            setUser(userSession);
-            localStorage.setItem('travelgrid_user', JSON.stringify(userSession));
-            setIsLoading(false);
-            return { success: true };
-        } else {
-            setIsLoading(false);
-            return { success: false, error: 'Invalid email or password' };
-        }
-    };
+      const { token, user } = res.data;
 
-    const signup = async (userData) => {
-        setIsLoading(true);
+      localStorage.setItem('travelgrid_user', JSON.stringify(user));
+      localStorage.setItem('travelgrid_token', token);
 
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+      setUser(user);
+      setIsLoading(false);
+      return { success: true };
+    } catch (err) {
+      setIsLoading(false);
+      return {
+        success: false,
+        error: err.response?.data?.message || 'Signup failed'
+      };
+    }
+  };
 
-        // Check if email already exists
-        const emailExists = mockUsers.some(u => u.email === userData.email);
+  const logout = () => {
+    localStorage.removeItem('travelgrid_user');
+    localStorage.removeItem('travelgrid_token');
+    setUser(null);
+  };
 
-        if (emailExists) {
-            setIsLoading(false);
-            return { success: false, error: 'Email already exists' };
-        }
+  const deleteAccount = async () => {
+  const token = localStorage.getItem('travelgrid_token');
+  if (!token) return;
 
-        // Create new user
-        const newUser = {
-            id: Date.now(),
-            email: userData.email,
-            name: userData.name,
-            avatar: `https://randomuser.me/api/portraits/${userData.name.toLowerCase().includes('jane') || userData.name.toLowerCase().includes('maria') ? 'women' : 'men'}/${Math.floor(Math.random() * 90) + 1}.jpg`,
-            phone: '',
-            location: ''
-        };
+  try {
+    await api.delete('/users/me/delete', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-        setUser(newUser);
-        localStorage.setItem('travelgrid_user', JSON.stringify(newUser));
-        setIsLoading(false);
-        return { success: true };
-    };
+    localStorage.removeItem('travelgrid_user');
+    localStorage.removeItem('travelgrid_token');
+    setUser(null);
+  } catch (error) {
+    console.error('Failed to delete account:', error.response?.data?.message || error.message);
+  }
+};
 
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('travelgrid_user');
-    };
 
-    const updateUser = (updatedUser) => {
-        setUser(updatedUser);
-        localStorage.setItem('travelgrid_user', JSON.stringify(updatedUser));
-    };
+  const value = {
+    user,
+    isLoading,
+    login,
+    signup,
+    logout,
+    deleteAccount,
+    isAuthenticated: !!user
+  };
 
-    const value = {
-        user,
-        isLoading,
-        login,
-        signup,
-        logout,
-        updateUser,
-        isAuthenticated: !!user
-    };
-
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

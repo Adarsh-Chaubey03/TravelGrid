@@ -11,7 +11,7 @@ import Chatbot from '@/components/Chatbot'
 function Home() {
     const [searchFilter, setSearchFilter] = useState(null);
     return (
- bg-change
+//  bg-change
         <div className="flex flex-col min-h-screen w-full  overflow-x-hidden bg-black">
 
             <main className="flex flex-col flex-1 items-center justify-start w-full h-full">

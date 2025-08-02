@@ -43,7 +43,7 @@ export default function Forum() {
   };
 
   return (
- bg-change
+//  bg-change
     <div
   className="min-h-screen p-6 lg:p-12"
   style={{
@@ -63,7 +63,7 @@ export default function Forum() {
 
         {forumTopics.map((topic) => (
           <div
- bg-change
+
             key={post.id}
               className="bg-[#fef6fb] bg-opacity-10 rounded-xl shadow-md p-6 border border-pink-100/20 transition hover:shadow-lg hover:bg-opacity-20"
           >
@@ -89,7 +89,7 @@ export default function Forum() {
               </div>
             </div>
 
- bg-change
+ {/* bg-change */}
             {openReplies[post.id] && (
               <div className="mt-4 border-t pt-3 space-y-2 border-[#d4bdae]">
                 {post.replies.map((reply, index) => (
@@ -108,7 +108,7 @@ export default function Forum() {
 
         <div className="flex justify-center mt-10">
           <button
- bg-change
+//  bg-change
             onClick={() => alert("Feature coming soon")}
             className="bg-[#6b3e2e] hover:bg-[#884f3b] text-white font-semibold py-3 px-6 rounded-xl transition duration-300"
 

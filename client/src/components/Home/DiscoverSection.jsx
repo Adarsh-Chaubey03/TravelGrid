@@ -33,11 +33,10 @@ const DiscoverSection = () => {
   };
 
   const handleDiscoverMore = () => {
-    navigate("/destinations")
-  }
+    navigate("/destinations");
+  };
 
   return (
- bg-change
     <section className="w-full bg-gradient-to-br from-[#f5e1d6] to-[#fbeee8] py-16 text-center">
       <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black">
         Discover New Destinations
@@ -46,13 +45,17 @@ const DiscoverSection = () => {
         Explore trending places, hidden gems, and must-visit spots curated just for you.
       </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-2 mb-16">
-          {destinations.map((place, index) => (
-            <DiscoverCard key={index} index={index} place={place} handleBookNowClick={() => navigate(`/package/${index+5}`)} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-2 mb-16">
+        {destinations.map((place, index) => (
+          <DiscoverCard
+            key={index}
+            index={index}
+            place={place}
+            handleBookNowClick={() => navigate(`/package/${index + 5}`)}
+          />
+        ))}
+      </div>
 
- bg-change
       <div className="mt-16">
         <h3 className="text-xl md:text-2xl font-semibold mb-4 text-black">
           Ready to plan your next adventure?
@@ -62,11 +65,10 @@ const DiscoverSection = () => {
         </p>
         <button
           onClick={handleDiscoverMore}
-           className="px-8 py-3 bg-gradient-to-r from-[#bb7154] to-[#d69786] text-white font-medium rounded-full shadow-lg hover:scale-105 transition duration-300 cursor-pointer"
+          className="px-8 py-3 bg-gradient-to-r from-[#bb7154] to-[#d69786] text-white font-medium rounded-full shadow-lg hover:scale-105 transition duration-300 cursor-pointer"
         >
           Discover More Destinations
         </button>
-
       </div>
     </section>
   );

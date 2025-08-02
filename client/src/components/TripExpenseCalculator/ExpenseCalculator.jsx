@@ -109,7 +109,6 @@ const handleDownloadPDF = () => {
     };
 
     return (
- bg-change
     <div className="bg-gradient-to-br from-[#fef8f4] to-[#fcefe4] rounded-2xl shadow-2xl p-8 border border-[#f9e7dc] max-w-xl mx-auto my-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
 
@@ -140,7 +139,6 @@ const handleDownloadPDF = () => {
             label={category}
             value={expense[category]}
             onChange={(val) => handleChange(category, val)}
- bg-change
             inputClassName="w-full px-4 py-3 border-2 border-[#f3cfc0] rounded-xl focus:border-[#ec9488] focus:ring-4 focus:ring-[#f8e5dc] transition-all outline-none bg-white"
 
             />
@@ -163,14 +161,13 @@ const handleDownloadPDF = () => {
 
         <div className="mt-8 text-center">
             <p className="text-lg font-semibold">
-            Total Cost:
- bg-change
-             <span className="ml-2 text-[#e46e6e]">₹{displayedTotal.toFixed(2)}</span>
-            <span className="ml-1 text-gray-500 text-sm">
+  Total Cost:
+  <span className="ml-2 text-[#e46e6e]">₹{displayedTotal.toFixed(2)}</span>
+  <span className="ml-1 text-gray-500 text-sm">
+    ({mode === "group" ? "Per Person" : "Individual Total"})
+  </span>
+</p>
 
-                ({mode === "group" ? "Per Person" : "Individual Total"})
-            </span>
-            </p>
         </div>
 
         {/* Download Buttons */}

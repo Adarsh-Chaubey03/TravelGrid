@@ -166,7 +166,7 @@ Please refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/Travel
 
 This project is licensed under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+## 🤝 Contribution Guidelines
 
 We welcome and encourage contributions from the community to help improve VehiGo. Whether you wish to report a bug, suggest a new feature, or submit a pull request, your input is highly valued and appreciated.
 

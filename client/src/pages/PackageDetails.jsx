@@ -1,6 +1,9 @@
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { packages } from "../data/PackageData";
+import { useWishlist } from "../context/WishlistContext";
+
 import {
   FaStar,
   FaCalendarAlt,
@@ -72,6 +75,18 @@ const PackageDetails = () => {
     email: "",
     travelers: 1,
   });
+
+  const { wishlist, addToWishlist } = useWishlist();
+
+const handleAddToWishlist = (pkg) => {
+  const isAlreadyInWishlist = wishlist.some(item => item.id === pkg.id);
+  
+  if (!isAlreadyInWishlist) {
+    addToWishlist(pkg);
+  }
+};
+
+
 
   const openForm = (pkg) => {
     setSelectedPackage(pkg);
@@ -163,6 +178,22 @@ const PackageDetails = () => {
           >
             Book Now
           </button>
+          <button
+  onClick={() => handleAddToWishlist(packageData)}
+  disabled={wishlist.some(item => item.id === packageData.id)}
+  className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
+    ${wishlist.some(item => item.id === packageData.id)
+      ? "bg-gray-400 cursor-not-allowed text-white"
+      : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"}`}
+>
+  {wishlist.some(item => item.id === packageData.id) ? "Added to Wishlist" : "Add to Wishlist"}
+</button>
+
+
+  
+
+      
+
         </div>
         {/* Description */}
         <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base">

@@ -1,8 +1,11 @@
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import './index.css';
 import App from './App.jsx';
+import { WishlistProvider } from './context/WishlistContext';
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Trips from './pages/Trips';
 // Pages & Components
@@ -38,6 +41,7 @@ import ServerError from './components/ErrorHandle/ServerError';
 import { AuthProvider } from './context/AuthContext';
 import Blog from './pages/Blog';
 import TripCalculatorPage from './pages/TripCalculator';
+import Wishlist from './pages/Wishlist'; 
 
 
 const router = createBrowserRouter([
@@ -66,6 +70,13 @@ const router = createBrowserRouter([
       { path: '/privacy', element: <PrivacyPolicy /> },
       { path: '/terms', element: <TermsAndConditions /> },
       { path: '/trip-calculator', element: <TripCalculatorPage/>},
+      {path: '/wishlist',element: <Wishlist /> },
+
+
+
+      
+ 
+
       {
         path: '/dashboard',
         element: (
@@ -106,10 +117,13 @@ const router = createBrowserRouter([
   },
 ]);
 
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
       <AuthProvider>
+           <WishlistProvider> 
         <RouterProvider router={router} />
          <Toaster
           position="top-center"
@@ -123,6 +137,7 @@ createRoot(document.getElementById('root')).render(
             },
           }}
         />
+          </WishlistProvider>
       </AuthProvider>
     </ErrorBoundary>
   </StrictMode>

@@ -1,7 +1,7 @@
 const express= require('express');
-const Booking =require("../models/bookings.js");
+const Booking =require("../models/booking.js");
 const mongoose = require('mongoose');
-const verifyJWT = require('../middleware/auth.js')
+const { verifyJWT } = require('../middleware/auth.js')
 
 const router = express.Router();
 

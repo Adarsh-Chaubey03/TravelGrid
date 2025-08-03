@@ -29,7 +29,7 @@ exports.addBooking = async(req,res) => {
 
         const isBookingAvailable = await Booking.findOne({userId, destination})
 
-        if(!isBookingAvailable){
+        if(isBookingAvailable){
             return res
                     .status(400)
                     .json({
@@ -260,7 +260,7 @@ exports.editBooking = async(req,res) => {
 exports.deleteBooking = async(req, res) => {
     try {
         // get the userid
-        const userId = req.user
+        const {userId} = req.user
 
         if(!userId){
             return res

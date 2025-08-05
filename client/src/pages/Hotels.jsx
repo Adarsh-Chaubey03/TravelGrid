@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
-import Navbar from '../components/Custom/Navbar';
-import Footer from '../components/Custom/Footer';
-import hotels from '../data/hotels';
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Custom/Navbar";
+import hotels from "../data/hotels";
 
 function Hotels() {
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const filteredHotels = hotels.filter((hotel) => {
     const q = query.toLowerCase();
@@ -26,24 +25,24 @@ function Hotels() {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/save/save-place', {
-        method: 'POST',
+      const res = await fetch("http://localhost:5000/api/save/save-place", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include', // ✅ Required for cookie-based auth
+        credentials: "include", // ✅ Required for cookie-based auth
         body: JSON.stringify(body),
       });
 
       const data = await res.json();
       if (res.ok) {
-        toast.success('Place saved successfully to dashboard!');
+        toast.success("Place saved successfully to dashboard!");
       } else {
-        toast.error(data.message || '⚠️ This place is already saved.');
+        toast.error(data.message || "⚠️ This place is already saved.");
       }
     } catch (err) {
-      console.error('Save failed:', err);
-      toast.error('🚨 Failed to save place. Please try again.');
+      console.error("Save failed:", err);
+      toast.error("🚨 Failed to save place. Please try again.");
     }
   };
 
@@ -57,7 +56,8 @@ function Hotels() {
             Explore World-Class <span className="text-pink-600">Hotels</span>
           </h1>
           <p className="text-lg md:text-xl text-white max-w-2xl mb-8">
-            Browse and book from our curated list of the top luxury hotels worldwide.
+            Browse and book from our curated list of the top luxury hotels
+            worldwide.
           </p>
           <div className="w-full max-w-lg">
             <input
@@ -113,8 +113,6 @@ function Hotels() {
           )}
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

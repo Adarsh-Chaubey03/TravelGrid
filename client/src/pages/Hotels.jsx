@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import Navbar from '../components/Custom/Navbar';
 import Footer from '../components/Custom/Footer';
 import hotels from '../data/hotels';
+import {motion,AnimatePresence} from "framer-motion"
 
 function Hotels() {
   const navigate = useNavigate();
@@ -53,12 +54,20 @@ function Hotels() {
 
       <main className="flex flex-col flex-1 w-full items-center">
         <section className="w-full py-24 flex flex-col items-center text-center px-4 bg-gradient-to-br from-black to-pink-900">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+          <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
+          className="text-4xl md:text-5xl font-extrabold text-white mb-4">
             Explore World-Class <span className="text-pink-600">Hotels</span>
-          </h1>
-          <p className="text-lg md:text-xl text-white max-w-2xl mb-8">
+          </motion.h1>
+          <motion.p 
+          initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 10, x:0 }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
+          className="text-lg md:text-xl text-white max-w-2xl mb-8">
             Browse and book from our curated list of the top luxury hotels worldwide.
-          </p>
+          </motion.p>
           <div className="w-full max-w-lg">
             <input
               type="text"
@@ -70,48 +79,64 @@ function Hotels() {
           </div>
         </section>
 
-        <section className="max-w-7xl w-full pt-12 px-4 pb-16 grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredHotels.map((hotel) => (
-            <div
-              key={hotel.id}
-              className="backdrop-blur-lg bg-white/95 border border-pink-300/50 rounded-2xl shadow-2xl overflow-hidden flex flex-col hover:shadow-pink-200/30 transition-all duration-300 transform hover:scale-105"
-            >
-              <img
-                src={hotel.image}
-                alt={hotel.name}
-                className="w-full h-56 object-cover object-center"
-              />
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-1">
-                  {hotel.name}
-                </h3>
-                <span className="text-pink-600 font-medium mb-3">
-                  {hotel.location}
-                </span>
-                <p className="text-sm text-zinc-950 line-clamp-3 flex-1">
-                  {hotel.description}
-                </p>
-                <button
-                  onClick={() => navigate(`/hotels/${hotel.id}`)}
-                  className="mt-4 self-start bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                >
-                  Book Hotel
-                </button>
-                <button
-                  onClick={() => handleLike(hotel)}
-                  className="mt-2 bg-pink-100 hover:bg-pink-200 text-pink-600 px-4 py-2 rounded-lg text-sm font-semibold transition"
-                >
-                  ❤️ Save to Dashboard
-                </button>
-              </div>
-            </div>
-          ))}
-          {filteredHotels.length === 0 && (
-            <p className="col-span-full text-center text-gray-600 text-lg font-medium">
-              No hotels match your search.
-            </p>
-          )}
-        </section>
+     
+
+
+<section className="max-w-7xl w-full pt-12 px-4 pb-16 grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+  <AnimatePresence>
+    {filteredHotels.map((hotel) => (
+      <motion.div
+        key={hotel.id}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.4 }}
+        className="backdrop-blur-lg bg-white/95 border border-pink-300/50 rounded-2xl shadow-2xl overflow-hidden flex flex-col hover:shadow-pink-200/30 transition-all duration-300 transform hover:scale-105"
+      >
+        <img
+          src={hotel.image}
+          alt={hotel.name}
+          className="w-full h-56 object-cover object-center"
+        />
+        <div className="p-6 flex-1 flex flex-col">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-1">
+            {hotel.name}
+          </h3>
+          <span className="text-pink-600 font-medium mb-3">
+            {hotel.location}
+          </span>
+          <p className="text-sm text-zinc-950 line-clamp-3 flex-1">
+            {hotel.description}
+          </p>
+          <button
+            onClick={() => navigate(`/hotels/${hotel.id}`)}
+            className="mt-4 self-center bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
+          >
+            Book Hotel
+          </button>
+          <button
+            onClick={() => handleLike(hotel)}
+            className="mt-2 bg-pink-100 hover:bg-pink-200 text-pink-600 px-4 py-2 rounded-lg text-sm font-semibold transition"
+          >
+            ❤️ Save to Dashboard
+          </button>
+        </div>
+      </motion.div>
+    ))}
+  </AnimatePresence>
+
+  {filteredHotels.length === 0 && (
+    <motion.p
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="col-span-full text-center text-gray-600 text-lg font-medium"
+    >
+      No hotels match your search.
+    </motion.p>
+  )}
+</section>
+
       </main>
     </div>
   );

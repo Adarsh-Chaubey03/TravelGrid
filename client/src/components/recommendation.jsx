@@ -66,27 +66,27 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
 
           <div className="grid md:grid-cols-2 gap-4">
             <input
-              className="p-3 rounded-lg text-rgb(153,153,153) bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="🌴 Interests (e.g. beach, hiking)"
               onChange={(e) => handleChange('interests', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="💰 Budget (e.g. ₹20k or $500)"
               onChange={(e) => handleChange('budget', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="📍 Current location"
               onChange={(e) => handleChange('location', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="🎯 Travel type (e.g. adventure, honeymoon)"
               onChange={(e) => handleChange('type', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white md:col-span-2"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all md:col-span-2"
               placeholder="🏨 Hotel preference (e.g. budget, luxury)"
               onChange={(e) => handleChange('hotel', e.target.value)}
             />

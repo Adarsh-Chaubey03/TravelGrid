@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import React, { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 export default function Recommendation() {
   const [inputs, setInputs] = useState({
-    interests: '',
-    budget: '',
-    location: '',
-    type: '',
-    hotel: '',
+    interests: "",
+    budget: "",
+    location: "",
+    type: "",
+    hotel: "",
   });
 
-  const [recommendation, setRecommendation] = useState('');
+  const [recommendation, setRecommendation] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
@@ -24,10 +24,10 @@ export default function Recommendation() {
     if (!interests && !budget && !location && !type && !hotel) return;
 
     setLoading(true);
-    setRecommendation('');
+    setRecommendation("");
 
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
 You're a smart travel planner. Based on the user's preferences below, recommend ideal destinations, hotel types, and activities.
@@ -46,8 +46,8 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
       const resText = await result.response.text();
       setRecommendation(resText.trim());
     } catch (err) {
-      console.error('Gemini error:', err);
-      setRecommendation('⚠️ Failed to generate travel suggestions.');
+      console.error("Gemini error:", err);
+      setRecommendation("⚠️ Failed to generate travel suggestions.");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,10 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
       <div className="flex-grow flex items-center justify-center">
         <div className="w-full max-w-3xl bg-[rgba(30, 10, 60, 0.95)] backdrop-blur-sm text-white p-10 rounded-2xl shadow-2xl border border-pink-500">
           <h1 className="text-3xl font-semibold mb-2 flex items-center gap-2">
-            <span role="img" aria-label="globe">🌐</span> Travel Recommendation Engine
+            <span role="img" aria-label="globe">
+              🌐
+            </span>{" "}
+            Travel Recommendation Engine
           </h1>
           <p className="text-pink-200 mb-6">
             Get personalized AI-based travel ideas based on your inputs.
@@ -66,29 +69,29 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
 
           <div className="grid md:grid-cols-2 gap-4">
             <input
-              className="p-3 rounded-lg text-rgb(153,153,153) bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="🌴 Interests (e.g. beach, hiking)"
-              onChange={(e) => handleChange('interests', e.target.value)}
+              onChange={(e) => handleChange("interests", e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="💰 Budget (e.g. ₹20k or $500)"
-              onChange={(e) => handleChange('budget', e.target.value)}
+              onChange={(e) => handleChange("budget", e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="📍 Current location"
-              onChange={(e) => handleChange('location', e.target.value)}
+              onChange={(e) => handleChange("location", e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
               placeholder="🎯 Travel type (e.g. adventure, honeymoon)"
-              onChange={(e) => handleChange('type', e.target.value)}
+              onChange={(e) => handleChange("type", e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white md:col-span-2"
+              className="p-3 rounded-lg bg-[#1a1a2e] text-white placeholder:text-pink-200 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all md:col-span-2"
               placeholder="🏨 Hotel preference (e.g. budget, luxury)"
-              onChange={(e) => handleChange('hotel', e.target.value)}
+              onChange={(e) => handleChange("hotel", e.target.value)}
             />
           </div>
 
@@ -98,7 +101,7 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
               disabled={loading}
               className="flex-shrink-0 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition-all disabled:opacity-60"
             >
-              {loading ? 'Generating...' : 'Get Recommendations'}
+              {loading ? "Generating..." : "Get Recommendations"}
             </button>
           </div>
 

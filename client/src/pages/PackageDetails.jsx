@@ -179,11 +179,9 @@ const handleAddToWishlist = (pkg) => {
       </div>
 
       {/* Main Content */}
-      <div className="relative max-w-6xl mx-auto px-6 md:px-12 pt-16 md:pt-24 space-y-12">
+      <div className="relative max-w-6xl mx-auto px-4 md:px-12 pt-16 md:pt-24 space-y-12">
         {/* Floating Bar */}
-        <div
-          className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:absolute sm:-top-10 sm:left-1/2 sm:-translate-x-1/2 sm:shadow-lg"
-        >
+        <div className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:relative sm:shadow-lg">
           <div className="flex items-center gap-3">
             <FaCalendarAlt className="text-pink-400 text-xl" />
             <div>
@@ -216,21 +214,27 @@ const handleAddToWishlist = (pkg) => {
           </button>
 
           <button
-  onClick={() => handleAddToWishlist(packageData)}
-  disabled={wishlist.some(item => item.id === packageData.id)}
-  className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
-    ${wishlist.some(item => item.id === packageData.id)
-      ? "bg-gray-400 cursor-not-allowed text-white"
-      : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"}`}
->
-  {wishlist.some(item => item.id === packageData.id) ? "Added to Wishlist" : "Add to Wishlist"}
-</button>
-
+            onClick={() => handleAddToWishlist(packageData)}
+            disabled={wishlist.some((item) => item.id === packageData.id)}
+            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
+      ${
+        wishlist.some((item) => item.id === packageData.id)
+          ? "bg-gray-400 cursor-not-allowed text-white"
+          : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"
+      }`}
+          >
+            {wishlist.some((item) => item.id === packageData.id)
+              ? "Added to Wishlist"
+              : "Add to Wishlist"}
+          </button>
         </div>
+
         {/* Description */}
-        <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base">
-          {description}
-        </p>
+        <div className="flex items-center justify-center">
+          <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base text-center">
+            {description}
+          </p>
+        </div>
 
         {/* Highlights */}
         <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 p-6 rounded-2xl shadow-lg">
@@ -426,8 +430,8 @@ const handleAddToWishlist = (pkg) => {
                   Booking Confirmed!
                 </h2>
                 <p className="mt-2">
-                  Thank you, {formData.name}. Your booking for {selectedPackage.title} on {formData.date} is
-                  successful.
+                  Thank you, {formData.name}. Your booking for{" "}
+                  {selectedPackage.title} on {formData.date} is successful.
                 </p>
                 <div className="mt-4 space-y-2">
                   <button

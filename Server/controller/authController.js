@@ -93,6 +93,22 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid email format' });
     }
 
+    // Enforce strong password policy
+    const strong = validator.isStrongPassword(password, {
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+      returnScore: false
+    });
+    if (!strong) {
+      return res.status(400).json({
+        success: false,
+        error: 'Password must be at least 8 characters and include uppercase, lowercase, number, and symbol.'
+      });
+    }
+
     const normalizedEmail = email.toLowerCase();
     const existingUser = await User.findOne({ email: normalizedEmail });
 

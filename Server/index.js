@@ -1,6 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser'); // <-- NEW
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xssClean = require('xss-clean');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
@@ -27,6 +32,14 @@ const allowedOrigins = [
   "https://travel-grid.vercel.app" // Production
 ];
 
+// Request logging (skip in test)
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('combined'));
+}
+
+// Security headers
+app.use(helmet());
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -40,11 +53,38 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Body sanitization against NoSQL injection
+app.use(mongoSanitize());
+
+// Prevent XSS attacks
+app.use(xssClean());
+
+// Basic rate limiting for auth and general API
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300, // limit each IP to 300 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api', generalLimiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50, // tighter for auth endpoints
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/auth', authLimiter);
+
 app.use((req, res, next) => {
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
   res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
   next();
 });
+
+// Serve uploaded files statically (ensure no executable types are allowed by upload filter)
+app.use('/uploads', express.static('uploads'));
 
 
 app.get('/', (req, res) => {
@@ -85,8 +125,13 @@ app.use((req, res, next) => {
 });
 // Error handling middleware global
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Internal Server Error" });
+  // Centralized error handler without leaking stack traces in production
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(err);
+  }
+  const status = err.status || 500;
+  const message = status === 500 ? 'Internal Server Error' : err.message;
+  res.status(status).json({ message });
 
 });
 

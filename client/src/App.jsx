@@ -12,6 +12,8 @@ import Spinner from "./components/Spinner";
 import ErrorBoundary from "./components/ErrorHandle/ErrorBoundary";
 import GoToTopButton from "./components/GoToTopButton";
 import FeedbackButton from "./components/FeedbackButton";
+import Chatbot from "./components/Chatbot";
+import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,9 @@ function App() {
                 {/* Navbar */}
                 <Navbar />
 
+                {/* Email Verification Banner */}
+                <EmailVerificationBanner />
+
                 {/* Main Content */}
                 <div className="flex-grow">
                   <ErrorBoundary>
@@ -45,6 +50,7 @@ function App() {
 
                 {/* Buttons and Footer */}
                 <GoToTopButton />
+                <Chatbot />
                 <FeedbackButton />
                 <Footer />
               </div>

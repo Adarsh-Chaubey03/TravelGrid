@@ -37,6 +37,7 @@ function TicketBooking() {
     return: "",
     passengers: 1,
     cabin: "Economy",
+    petFriendly: false //adding for pet friendly feature
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -100,6 +101,16 @@ function TicketBooking() {
     if (!el) return;
 
     const clone = el.cloneNode(true);
+    // Adding pet-friendly info
+    if (form.petFriendly) {
+      const petNote = document.createElement("div");
+      petNote.textContent = "🐾 Pet-friendly: Yes";
+      petNote.style.fontSize = "20px";
+      petNote.style.marginTop = "20px";
+      petNote.style.color = "#d63384"; 
+      clone.appendChild(petNote);
+    }
+
 
     // 🧹 Remove buttons from clone only
     const buttonsToRemove = clone.querySelectorAll("button");
@@ -366,15 +377,55 @@ function TicketBooking() {
                 onChange={handleChange}
                 className="w-full p-3 rounded-xl bg-white/90 text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-500/30"
               >
-                {["Economy", "Premium Economy", "Business", "First"].map(
-                  (c) => (
+                {travelType === "flight" &&
+                  ["Economy", "Premium Economy", "Business", "First"].map((c) => (
                     <option key={c} value={c}>
                       {c}
                     </option>
-                  )
-                )}
+                  ))}
+
+                {travelType === "train" &&
+                  ["Sleeper", "3A", "2A", "1A"].map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+
+                {travelType === "bus" &&
+                  ["Seater", "Sleeper", "AC", "Non-AC"].map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+
+                {travelType === "cab" &&
+                  ["Hatchback", "Sedan", "SUV", "Luxury"].map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
               </select>
             </div>
+
+            <div className="flex items-center gap-3 mt-4 text-white">
+              <input
+                type="checkbox"
+                id="petFriendly"
+                name="petFriendly"
+                checked={form.petFriendly}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    petFriendly: e.target.checked,
+                  }))
+                }
+                className="accent-pink-600 w-5 h-5 rounded focus:ring-2 focus:ring-pink-500"
+              />
+              <label htmlFor="petFriendly" className="text-sm md:text-base font-medium">
+                I’m traveling with a pet
+              </label>
+            </div>
+
 
             {/* Submit button */}
             <button

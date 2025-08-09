@@ -5,7 +5,6 @@ import Navbar from '../components/Custom/Navbar';
 import Footer from '../components/Custom/Footer';
 import hotels from '../data/hotels';
 
-
 function Hotels() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
@@ -18,52 +17,41 @@ function Hotels() {
     );
   });
 
-// Function to handle saving a hotel to the user's dashboard
-const handleLike = async (hotel) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    alert("You must be logged in to save places.");
-    return;
-  }
+  const handleLike = async (hotel) => {
+    const body = {
+      placeId: hotel.id,
+      name: hotel.name,
+      location: hotel.location,
+      description: hotel.description,
+    };
 
-  const body = {
-    placeId: hotel.id, 
-    name: hotel.name,
-    location: hotel.location,
-    description: hotel.description,
+    try {
+      const res = await fetch('http://localhost:5000/api/save/save-place', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // ✅ Required for cookie-based auth
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success('Place saved successfully to dashboard!');
+      } else {
+        toast.error(data.message || '⚠️ This place is already saved.');
+      }
+    } catch (err) {
+      console.error('Save failed:', err);
+      toast.error('🚨 Failed to save place. Please try again.');
+    }
   };
 
-  try {
-    const res = await fetch('http://localhost:5000/api/save/save-place', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      toast.success('Place saved successfully to dashboard!');
-    } else {
-      toast.error(data.message || '⚠️ This place is already saved.');
-    }
-  } catch (err) {
-    console.error('Save failed:', err);
-    toast.error('🚨 Failed to save place. Please try again.');
-  }
-};
-
-
   return (
-    <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-black to-pink-900  overflow-x-hidden">
-
-      {<Navbar lightBackground />}   {/*Added props of lightBackground to this page.*/}
-
+    <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
+      <Navbar lightBackground />
 
       <main className="flex flex-col flex-1 w-full items-center">
-        {/* Hero + Search */}
         <section className="w-full py-24 flex flex-col items-center text-center px-4 bg-gradient-to-br from-black to-pink-900">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
             Explore World-Class <span className="text-pink-600">Hotels</span>
@@ -82,8 +70,7 @@ const handleLike = async (hotel) => {
           </div>
         </section>
 
-        {/* Hotel List */}
-        <section className="max-w-7xl w-full px-4 pb-16 grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="max-w-7xl w-full pt-12 px-4 pb-16 grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredHotels.map((hotel) => (
             <div
               key={hotel.id}
@@ -95,13 +82,24 @@ const handleLike = async (hotel) => {
                 className="w-full h-56 object-cover object-center"
               />
               <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="text-2xl font-semibold text-gray-800">
                   {hotel.name}
                 </h3>
+                {hotel.isPetFriendly && (
+                  <div
+                    className="text-pink-600 text-xl cursor-pointer"
+                    title="Pet-friendly hotel"
+                  >
+                    🐾
+                  </div>
+                )}
+              </div>
+              
                 <span className="text-pink-600 font-medium mb-3">
                   {hotel.location}
                 </span>
-                <p className="text-sm text-gray-700 line-clamp-3 flex-1">
+                <p className="text-sm text-zinc-950 line-clamp-3 flex-1">
                   {hotel.description}
                 </p>
                 <button
@@ -110,14 +108,12 @@ const handleLike = async (hotel) => {
                 >
                   Book Hotel
                 </button>
-                {/* Button to save places */}
                 <button
                   onClick={() => handleLike(hotel)}
                   className="mt-2 bg-pink-100 hover:bg-pink-200 text-pink-600 px-4 py-2 rounded-lg text-sm font-semibold transition"
                 >
                   ❤️ Save to Dashboard
                 </button>
-
               </div>
             </div>
           ))}
@@ -132,4 +128,4 @@ const handleLike = async (hotel) => {
   );
 }
 
-export default Hotels; 
+export default Hotels;

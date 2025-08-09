@@ -136,39 +136,19 @@ const [qrDataUrl, setQrDataUrl] = useState('');
                 {hotel.description}
               </p>
 
-
-             {!bookingConfirmed ? (
-  <button
-    onClick={() => {
-      const id = generateBookingId();
-      setBookingId(id);
-      setBookingConfirmed(true);
-      toast.success("Booking Confirmed!");
-    }}
-    className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
-  >
-    Proceed to Book
-  </button>
-) : (
-  <div className="flex flex-col gap-4">
-    <p className="text-green-300 font-semibold">Booking Confirmed ✅</p>
-    <PDFDownloadLink
-      document={<BookingPDF user={user} hotel={hotel} bookingId={bookingId} />}
-      fileName={`Booking-${bookingId}.pdf`}
-    >
-      {({ loading }) =>
-        loading ? (
-          <p className="text-pink-200">Generating PDF...</p>
-        ) : (
-          <button className="bg-pink-600 text-white px-8 py-3 rounded-lg hover:bg-pink-700 transition">
-            Download Booking PDF
-          </button>
-        )
-      }
-    </PDFDownloadLink>
-  </div>
-)}
-
+              <button
+                onClick={() => {
+                  // Temporarily bypass authentication for testing
+                  // if (!user) {
+                  //   toast.error('Please login to book a hotel');
+                  //   return;
+                  // }
+                  navigate('/hotel-booking', { state: { hotel } });
+                }}
+                className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                Proceed to Book
+              </button>
 
           {showModal && user && (
             <BookingModal

@@ -37,32 +37,19 @@ const getSavedPlaces = async (req, res) => {
 };
 
 const deleteSavedPlace = async (req, res) => {
-    const userId = req.user.id;
-    const placeIdToDelete = req.params.placeId;
+  try {
+    const userId = req.user._id;
+    const placeId = req.params.placeId;
 
-    try {
-        const user = await User.findById(userId);
+    await User.findByIdAndUpdate(userId, {
+      $pull: { savedPlaces: { placeId } },
+    });
 
-        if (!user) return res.status(404).json({ message: 'User not found' });
-
-        const originalLength = user.savedPlaces.length;
-
-        // Filter out the place by string-based placeId
-        user.savedPlaces = user.savedPlaces.filter(
-            (place) => place.placeId !== placeIdToDelete
-        );
-
-        if (user.savedPlaces.length === originalLength) {
-            return res.status(404).json({ message: 'Place not found in saved places' });
-        }
-
-        await user.save();
-
-        res.status(200).json({ message: 'Place removed from saved list' });
-    } catch (err) {
-        console.error('Delete Save Error:', err);
-        res.status(500).json({ message: 'Server error' });
-    }
+    res.status(200).json({ message: 'Saved place removed successfully' });
+  } catch (error) {
+    console.error('Delete Saved Place Error:', error);
+    res.status(500).json({ message: 'Failed to delete saved place' });
+  }
 };
 
 

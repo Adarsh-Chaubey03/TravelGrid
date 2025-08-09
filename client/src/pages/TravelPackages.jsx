@@ -255,9 +255,21 @@ const TravelPackages = () => {
 									className="w-full h-56 object-cover"
 								/>
 								<div className="p-6 flex-1 flex flex-col">
+								<div className="flex items-center gap-2 mb-1">
 									<h3 className="text-2xl font-semibold text-white mb-1">
 										{pkg.title}
 									</h3>
+									{pkg.isPetFriendly && (
+									<div
+										className="text-pink-600 text-xl cursor-default"
+										title="Pet-friendly hotel"
+										>
+										🐾
+									</div>
+									)}						
+								</div>	
+	
+
 									<span className="text-pink-300 font-medium mb-2">
 										{pkg.duration}
 									</span>

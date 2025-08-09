@@ -63,6 +63,33 @@ const guides = [
       contact: "mei.eastasia@example.com",
     },
   },
+  {
+    name: "Ayushi Uniyal",
+    expertise: "🐾 Pet Travel & Coastal Getaways",
+    bio: "Loves helping travelers explore India’s beaches with their furry companions. Expert in pet-friendly accommodations and transport.",
+    image: "https://randomuser.me/api/portraits/women/54.jpg",
+    details: {
+      location: "Goa, India",
+      languages: "English, Hindi, Konkani",
+      certifications: "Certified Pet Travel Consultant (CPTC)",
+      experience: "Helped 100+ pet parents travel stress-free",
+      contact: "ayushi.petguide@example.com",
+    }
+  },
+  {
+    name: "Weddy Brown",
+    expertise: "🐾 Urban Travel with Pets",
+    bio: "Amsterdam-based guide specializing in navigating cities with pets. Knows every pet-friendly park, café, and stay in the area.",
+    image: "https://randomuser.me/api/portraits/men/74.jpg",
+    details: {
+      location: "Amsterdam, Netherlands",
+      languages: "Dutch, English, German",
+      certifications: "Urban Pet Travel Certified",
+      experience: "Guided 150+ city tours with pets",
+      contact: "Brownweddy.peturban@example.com",
+    }
+  }
+
 ];
 
 const TravelGuidesCarousel = () => {

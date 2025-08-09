@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { MessageCircle, X, Send, Bot, User, Loader2, MapPin, Sparkles } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
-const genAI = new GoogleGenerativeAI("gemini_api_key");
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
@@ -14,6 +15,7 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const { isDarkMode } = useTheme();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -112,13 +114,19 @@ const Chatbot = () => {
 
       {(open || isAnimating) && (
         <div 
-          className={`w-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-pink-100 transition-all duration-300 ease-out transform origin-bottom-right ${
+          className={`w-96 rounded-3xl shadow-2xl overflow-hidden flex flex-col border transition-all duration-300 ease-out transform origin-bottom-right ${
+            isDarkMode 
+              ? 'bg-slate-800/95 backdrop-blur-sm border-slate-600' 
+              : 'bg-white/95 backdrop-blur-sm border-pink-100'
+          } ${
             open && !isAnimating 
               ? 'scale-100 opacity-100 translate-y-0' 
               : 'scale-95 opacity-0 translate-y-2'
           }`}
           style={{
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 192, 203, 0.1)'
+            boxShadow: isDarkMode 
+              ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(71, 85, 105, 0.2)' 
+              : '0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 192, 203, 0.1)'
           }}
         >
           {/* Header */}
@@ -152,7 +160,11 @@ const Chatbot = () => {
 
           {/* Messages Container */}
           <div 
-            className="flex-1 overflow-y-auto p-5 space-y-4 max-h-96 min-h-80 bg-gradient-to-b from-white via-pink-50/30 to-white"
+            className={`flex-1 overflow-y-auto p-5 space-y-4 max-h-96 min-h-80 transition-all duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-b from-slate-800 via-slate-700/30 to-slate-800' 
+                : 'bg-gradient-to-b from-white via-pink-50/30 to-white'
+            }`}
             style={{ 
               scrollbarWidth: 'thin',
               scrollbarColor: '#ec4899 transparent'
@@ -169,7 +181,9 @@ const Chatbot = () => {
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
                   msg.from === "user" 
                     ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white" 
-                    : "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-2 border-white"
+                    : isDarkMode 
+                      ? "bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-2 border-slate-500" 
+                      : "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-2 border-white"
                 }`}>
                   {msg.from === "user" ? <User className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
                 </div>
@@ -180,11 +194,15 @@ const Chatbot = () => {
                   <div className={`p-4 rounded-2xl text-sm leading-relaxed transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${
                     msg.from === "user"
                       ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-br-md shadow-lg"
-                      : "bg-white text-gray-800 rounded-bl-md shadow-md border border-pink-100/50"
+                      : isDarkMode 
+                        ? "bg-slate-700 text-gray-200 rounded-bl-md shadow-md border border-slate-600" 
+                        : "bg-white text-gray-800 rounded-bl-md shadow-md border border-pink-100/50"
                   }`}>
                     <div className="whitespace-pre-wrap">{msg.text}</div>
                   </div>
-                  <span className="text-xs text-gray-400 mt-2 px-2">
+                  <span className={`text-xs mt-2 px-2 ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-400'
+                  }`}>
                     {formatTime(msg.timestamp)}
                   </span>
                 </div>
@@ -193,17 +211,27 @@ const Chatbot = () => {
 
             {isLoading && (
               <div className="flex items-start space-x-3 animate-in slide-in-from-bottom-3 fade-in duration-300">
-                <div className="w-9 h-9 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                  <MapPin className="w-4 h-4 text-gray-600" />
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center shadow-lg border-2 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-slate-500' 
+                    : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-white'
+                }`}>
+                  <MapPin className="w-4 h-4" />
                 </div>
-                <div className="bg-white p-4 rounded-2xl rounded-bl-md shadow-md border border-pink-100/50">
+                <div className={`p-4 rounded-2xl rounded-bl-md shadow-md border ${
+                  isDarkMode 
+                    ? 'bg-slate-700 border-slate-600' 
+                    : 'bg-white border-pink-100/50'
+                }`}>
                   <div className="flex items-center space-x-3">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                       <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                     </div>
-                    <span className="text-sm text-gray-600">Finding the best suggestions...</span>
+                    <span className={`text-sm ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                    }`}>Finding the best suggestions...</span>
                   </div>
                 </div>
               </div>
@@ -212,7 +240,11 @@ const Chatbot = () => {
           </div>
 
           {/* Input Area */}
-          <div className="border-t border-pink-100 bg-white/80 backdrop-blur-sm p-4">
+          <div className={`border-t p-4 transition-all duration-300 ${
+            isDarkMode 
+              ? 'border-slate-600 bg-slate-800/80 backdrop-blur-sm' 
+              : 'border-pink-100 bg-white/80 backdrop-blur-sm'
+          }`}>
             <div className="flex items-end space-x-3">
               <div className="flex-1 relative">
                 <textarea
@@ -221,8 +253,11 @@ const Chatbot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask about destinations..."
-                  className="w-full p-4 pr-4 text-sm bg-gray-50/80 backdrop-blur-sm border border-pink-200 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all max-h-32 min-h-[52px] placeholder-gray-400"
-                  rows="1"
+                  className={`w-full p-4 pr-4 text-sm border rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all max-h-32 min-h-[52px] ${
+                    isDarkMode 
+                      ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' 
+                      : 'bg-gray-50/80 border-pink-200 text-gray-700 placeholder-gray-400'
+                  }`}
                   style={{ 
                     height: 'auto',
                     minHeight: '55px',
@@ -244,7 +279,9 @@ const Chatbot = () => {
                 <Send className="w-4 h-4" />
               </button>
             </div>
-            <div className="text-xs text-gray-400 mt-3 text-center flex items-center justify-center space-x-1">
+            <div className={`text-xs mt-3 text-center flex items-center justify-center space-x-1 ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-400'
+            }`}>
               <Sparkles className="w-3 h-3" />
               <span>Press Enter to send • Shift+Enter for new line</span>
             </div>

@@ -13,18 +13,26 @@ This project is proudly part of **GirlScript Summer of Code 2025 (GSSoC)**, and 
 
 ## 📖 Table of Contents
 
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Contributing to TravelGrid](#contributing-to-travelgrid)
-  - [Contribution Guidelines](#contribution-guidelines)
-  - [Task Assignment Process](#task-assignment-process)
-- [Project Structure](#project-structure)
-- [Code of Conduct](#code-of-conduct)
-- [License](#license)
+- [TravelGrid Live Demo](#travelgrid-live-demo)
+  - [📖 Table of Contents](#-table-of-contents)
+  - [🌍 About the Project](#-about-the-project)
+  - [✨ Features](#-features)
+  - [🛠 Tech Stack](#-tech-stack)
+  - [🚀 Getting Started](#-getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+      - [1. Clone the repository](#1-clone-the-repository)
+      - [2. Install Frontend Dependencies](#2-install-frontend-dependencies)
+      - [3. Install Backend Dependencies](#3-install-backend-dependencies)
+    - [Running the Application](#running-the-application)
+      - [Start the Backend Server](#start-the-backend-server)
+      - [Start the Frontend (in a new terminal)](#start-the-frontend-in-a-new-terminal)
+  - [🤝 Contributing to TravelGrid](#-contributing-to-travelgrid)
+    - [Contribution Guidelines](#contribution-guidelines)
+    - [Task Assignment Process](#task-assignment-process)
+  - [📂 Project Structure](#-project-structure)
+  - [📜 Code of Conduct](#-code-of-conduct)
+  - [📄 License](#-license)
 
 ---
 
@@ -83,50 +91,39 @@ Ensure you have the following installed:
 
 ### Installation
 
-1. **Fork the Repository**: Click the "Fork" button at the top-right of the [TravelGrid repository](https://github.com/Adarsh-Chaubey03/TravelGrid).
+#### 1. Clone the repository
+```bash
+git clone https://github.com/Adarsh-Chaubey03/TravelGrid.git
+cd TravelGrid
+```
 
-2. **Clone the Repository**:
+#### 2. Install Frontend Dependencies
+```bash
+cd client
+npm install
+```
 
-   ```bash
-   git clone https://github.com/Adarsh-Chaubey03/TravelGrid.git
-   cd TravelGrid
-   ```
+#### 3. Install Backend Dependencies
+```bash
+cd Server
+npm install
+```
 
-3. **Install Frontend Dependencies**:
+### Running the Application
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+#### Start the Backend Server
+```bash
+cd Server
+npm start
+# Server will run on http://localhost:5000
+```
 
-4. **Set Up the Backend**:
-
-   ```bash
-   cd server
-   npm install
-   touch .env
-   ```
-
-   Add necessary environment variables to the `.env` file (refer to `server/README.md` for details).
-
-5. **Start the Development Servers**:
-
-   - **Frontend**:
-     ```bash
-     cd ../
-     npm run dev
-     # or
-     yarn dev
-     ```
-
-   - **Backend**:
-     ```bash
-     cd server
-     npm run server
-     ```
-
-6. Visit `http://localhost:5173` in your browser to view the application.
+#### Start the Frontend (in a new terminal)
+```bash
+cd client
+npm run dev
+# Client will run on http://localhost:5173
+```
 
 ---
 

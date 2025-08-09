@@ -9,7 +9,9 @@ const TripsPlanned = () => {
 
   const fetchTrips = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/trips');
+      const res = await fetch('http://localhost:5000/api/trips', {
+        credentials: 'include', // 🔐 Include cookie
+      });
       const data = await res.json();
       if (res.ok) {
         setTrips(data);
@@ -33,6 +35,7 @@ const TripsPlanned = () => {
     try {
       const res = await fetch(`http://localhost:5000/api/trips/${id}`, {
         method: 'DELETE',
+        credentials: 'include', // 🔐 Include cookie
       });
 
       const data = await res.json();

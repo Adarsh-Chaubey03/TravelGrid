@@ -12,10 +12,11 @@ const TravelPlanGenerator = () => {
     destination: "",
     numberOfDays: 3,
     startDate: "",
-    interests: []
+    interests: [],
   });
   const [generatedPlan, setGeneratedPlan] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [dateError, setDateError] = useState("");
 
   const travelInterests = [
     { id: "nature", label: "Nature", icon: "🌲" },
@@ -27,60 +28,116 @@ const TravelPlanGenerator = () => {
     { id: "culture", label: "Culture", icon: "🎭" },
     { id: "nightlife", label: "Nightlife", icon: "🌃" },
     { id: "relaxation", label: "Relaxation", icon: "🧘" },
-    { id: "photography", label: "Photography", icon: "📸" }
+    { id: "photography", label: "Photography", icon: "📸" },
   ];
 
   // Country-based destination structure
   const destinationsByCountry = {
-    "France": ["Paris", "Lyon", "Nice", "Marseille", "Bordeaux"],
-    "United Kingdom": ["London", "Edinburgh", "Manchester", "Liverpool", "Birmingham"],
-    "Italy": ["Rome", "Milan", "Florence", "Venice", "Naples"],
-    "Spain": ["Barcelona", "Madrid", "Seville", "Valencia", "Granada"],
-    "Netherlands": ["Amsterdam", "Rotterdam", "The Hague", "Utrecht", "Eindhoven"],
-    "Germany": ["Berlin", "Munich", "Hamburg", "Frankfurt", "Cologne"],
-    "Japan": ["Tokyo", "Kyoto", "Osaka", "Yokohama", "Nagoya"],
-    "Thailand": ["Bangkok", "Phuket", "Chiang Mai", "Pattaya", "Krabi"],
-    "Singapore": ["Singapore"],
-    "Indonesia": ["Bali", "Jakarta", "Yogyakarta", "Surabaya", "Bandung"],
+    France: ["Paris", "Lyon", "Nice", "Marseille", "Bordeaux"],
+    "United Kingdom": [
+      "London",
+      "Edinburgh",
+      "Manchester",
+      "Liverpool",
+      "Birmingham",
+    ],
+    Italy: ["Rome", "Milan", "Florence", "Venice", "Naples"],
+    Spain: ["Barcelona", "Madrid", "Seville", "Valencia", "Granada"],
+    Netherlands: [
+      "Amsterdam",
+      "Rotterdam",
+      "The Hague",
+      "Utrecht",
+      "Eindhoven",
+    ],
+    Germany: ["Berlin", "Munich", "Hamburg", "Frankfurt", "Cologne"],
+    Japan: ["Tokyo", "Kyoto", "Osaka", "Yokohama", "Nagoya"],
+    Thailand: ["Bangkok", "Phuket", "Chiang Mai", "Pattaya", "Krabi"],
+    Singapore: ["Singapore"],
+    Indonesia: ["Bali", "Jakarta", "Yogyakarta", "Surabaya", "Bandung"],
     "South Korea": ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon"],
-    "United Arab Emirates": ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Ras Al Khaimah"],
-    "Qatar": ["Doha"],
-    "Turkey": ["Istanbul", "Ankara", "Izmir", "Antalya", "Bursa"],
-    "United States": ["New York", "Los Angeles", "Chicago", "Miami", "San Francisco"],
-    "Canada": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"],
-    "India": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata"],
-    "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"]
+    "United Arab Emirates": [
+      "Dubai",
+      "Abu Dhabi",
+      "Sharjah",
+      "Ajman",
+      "Ras Al Khaimah",
+    ],
+    Qatar: ["Doha"],
+    Turkey: ["Istanbul", "Ankara", "Izmir", "Antalya", "Bursa"],
+    "United States": [
+      "New York",
+      "Los Angeles",
+      "Chicago",
+      "Miami",
+      "San Francisco",
+    ],
+    Canada: ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"],
+    India: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata"],
+    Australia: ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
   };
 
   const countries = Object.keys(destinationsByCountry);
 
+  // Get today's date in YYYY-MM-DD format for the min attribute
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const handleInterestChange = (interestId) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       interests: prev.interests.includes(interestId)
-        ? prev.interests.filter(id => id !== interestId)
-        : [...prev.interests, interestId]
+        ? prev.interests.filter((id) => id !== interestId)
+        : [...prev.interests, interestId],
     }));
   };
 
   const handleCountryChange = (country) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       country: country,
-      destination: "" // Reset destination when country changes
+      destination: "", // Reset destination when country changes
     }));
   };
 
   const handleDestinationChange = (destination) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      destination: destination
+      destination: destination,
     }));
   };
 
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    const today = new Date(getTodayDate());
+    const inputDate = new Date(selectedDate);
+
+    if (selectedDate && inputDate < today) {
+      setDateError("Please select today's date or a future date");
+      setFormData((prev) => ({ ...prev, startDate: "" }));
+    } else {
+      setDateError("");
+      setFormData((prev) => ({ ...prev, startDate: selectedDate }));
+    }
+  };
+
   const generateTravelPlan = () => {
-    if (!formData.country || !formData.destination || formData.interests.length === 0) {
+    if (
+      !formData.country ||
+      !formData.destination ||
+      formData.interests.length === 0
+    ) {
       alert("Please select a country, destination, and at least one interest");
+      return;
+    }
+
+    if (formData.startDate && dateError) {
+      alert("Please fix the date error before generating the plan");
       return;
     }
 
@@ -106,12 +163,16 @@ const TravelPlanGenerator = () => {
     setIsGenerating(false);
   };
 
-
   const createTravelPlan = (data) => {
     const { destination, numberOfDays, startDate, interests } = data;
 
     // Use AI-powered travel planner to generate intelligent plan
-    return fastTravelPlanner.generateTravelPlan(destination, numberOfDays, interests, startDate);
+    return fastTravelPlanner.generateTravelPlan(
+      destination,
+      numberOfDays,
+      interests,
+      startDate
+    );
   };
 
   const saveTripToDatabase = async (tripData) => {
@@ -121,6 +182,7 @@ const TravelPlanGenerator = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // 🔐 Send cookies
         body: JSON.stringify(tripData),
       });
 
@@ -135,7 +197,6 @@ const TravelPlanGenerator = () => {
     }
   };
 
-
   const downloadPDF = () => {
     generateTravelPlanPDF(generatedPlan);
   };
@@ -149,10 +210,12 @@ const TravelPlanGenerator = () => {
             Create Your <span className="text-pink-400">Travel Plan</span>
           </h1>
           <p className="text-lg md:text-xl text-pink-200 max-w-2xl mx-auto mb-4">
-            Generate personalized day-by-day travel itineraries based on your preferences.
+            Generate personalized day-by-day travel itineraries based on your
+            preferences.
           </p>
           <p className="text-sm text-pink-300 max-w-2xl mx-auto">
-            ⚡ Select your country and city for ultra-fast instant travel planning!
+            ⚡ Select your country and city for ultra-fast instant travel
+            planning!
           </p>
         </section>
 
@@ -160,7 +223,9 @@ const TravelPlanGenerator = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Form Section */}
             <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Plan Details</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Plan Details
+              </h2>
 
               <div className="space-y-6">
                 {/* Country Selection */}
@@ -175,8 +240,12 @@ const TravelPlanGenerator = () => {
                     className="w-full bg-black/30 border border-pink-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-pink-400"
                   >
                     <option value="">Select a country</option>
-                    {countries.map(country => (
-                      <option key={country} value={country} className="bg-black text-white">
+                    {countries.map((country) => (
+                      <option
+                        key={country}
+                        value={country}
+                        className="bg-black text-white"
+                      >
                         {country}
                       </option>
                     ))}
@@ -196,13 +265,20 @@ const TravelPlanGenerator = () => {
                     className="w-full bg-black/30 border border-pink-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <option value="">
-                      {formData.country ? "Select a city" : "Select a country first"}
+                      {formData.country
+                        ? "Select a city"
+                        : "Select a country first"}
                     </option>
-                    {formData.country && destinationsByCountry[formData.country]?.map(dest => (
-                      <option key={dest} value={dest} className="bg-black text-white">
-                        {dest}
-                      </option>
-                    ))}
+                    {formData.country &&
+                      destinationsByCountry[formData.country]?.map((dest) => (
+                        <option
+                          key={dest}
+                          value={dest}
+                          className="bg-black text-white"
+                        >
+                          {dest}
+                        </option>
+                      ))}
                   </select>
                   {formData.country && !formData.destination && (
                     <p className="text-pink-300 text-sm mt-1">
@@ -214,7 +290,8 @@ const TravelPlanGenerator = () => {
                   {formData.country && formData.destination && (
                     <div className="mt-3 p-3 bg-pink-600/20 border border-pink-400/30 rounded-lg">
                       <p className="text-white text-sm">
-                        <span className="text-pink-300">Selected:</span> {formData.destination}, {formData.country}
+                        <span className="text-pink-300">Selected:</span>{" "}
+                        {formData.destination}, {formData.country}
                       </p>
                     </div>
                   )}
@@ -231,7 +308,12 @@ const TravelPlanGenerator = () => {
                     min="1"
                     max="30"
                     value={formData.numberOfDays}
-                    onChange={(e) => setFormData(prev => ({ ...prev, numberOfDays: parseInt(e.target.value) }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        numberOfDays: parseInt(e.target.value),
+                      }))
+                    }
                     className="w-full bg-black/30 border border-pink-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-pink-400"
                   />
                 </div>
@@ -245,9 +327,13 @@ const TravelPlanGenerator = () => {
                   <input
                     type="date"
                     value={formData.startDate}
-                    onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                    onChange={handleDateChange}
+                    min={getTodayDate()}
                     className="w-full bg-black/30 border border-pink-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-pink-400"
                   />
+                  {dateError && (
+                    <p className="text-red-400 text-sm mt-1">{dateError}</p>
+                  )}
                 </div>
 
                 {/* Travel Interests */}
@@ -269,7 +355,9 @@ const TravelPlanGenerator = () => {
                           className="w-4 h-4 text-pink-400 bg-black/30 border-pink-400/30 rounded focus:ring-pink-400"
                         />
                         <span className="text-lg">{interest.icon}</span>
-                        <span className="text-white text-sm">{interest.label}</span>
+                        <span className="text-white text-sm">
+                          {interest.label}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -295,7 +383,9 @@ const TravelPlanGenerator = () => {
 
             {/* Generated Plan Section */}
             <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Your Travel Plan</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Your Travel Plan
+              </h2>
 
               {generatedPlan ? (
                 <div className="space-y-6">
@@ -312,7 +402,9 @@ const TravelPlanGenerator = () => {
                       {generatedPlan.startDate && (
                         <span className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
-                          {new Date(generatedPlan.startDate).toLocaleDateString()}
+                          {new Date(
+                            generatedPlan.startDate
+                          ).toLocaleDateString()}
                         </span>
                       )}
                     </div>
@@ -328,7 +420,9 @@ const TravelPlanGenerator = () => {
 
                         <div className="space-y-3">
                           <div>
-                            <h5 className="text-pink-400 font-medium text-sm">Activities:</h5>
+                            <h5 className="text-pink-400 font-medium text-sm">
+                              Activities:
+                            </h5>
                             <ul className="text-white text-sm space-y-1 mt-1">
                               {day.activities.map((activity, idx) => (
                                 <li key={idx} className="flex items-center">
@@ -341,16 +435,28 @@ const TravelPlanGenerator = () => {
 
                           <div className="grid grid-cols-1 gap-2 text-xs">
                             <div>
-                              <span className="text-pink-400 font-medium">Breakfast:</span>
-                              <span className="text-white ml-2">{day.meals.breakfast}</span>
+                              <span className="text-pink-400 font-medium">
+                                Breakfast:
+                              </span>
+                              <span className="text-white ml-2">
+                                {day.meals.breakfast}
+                              </span>
                             </div>
                             <div>
-                              <span className="text-pink-400 font-medium">Lunch:</span>
-                              <span className="text-white ml-2">{day.meals.lunch}</span>
+                              <span className="text-pink-400 font-medium">
+                                Lunch:
+                              </span>
+                              <span className="text-white ml-2">
+                                {day.meals.lunch}
+                              </span>
                             </div>
                             <div>
-                              <span className="text-pink-400 font-medium">Dinner:</span>
-                              <span className="text-white ml-2">{day.meals.dinner}</span>
+                              <span className="text-pink-400 font-medium">
+                                Dinner:
+                              </span>
+                              <span className="text-white ml-2">
+                                {day.meals.dinner}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -370,7 +476,9 @@ const TravelPlanGenerator = () => {
               ) : (
                 <div className="text-center text-pink-300 py-12">
                   <Map className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p>Fill in the form and generate your personalized travel plan</p>
+                  <p>
+                    Fill in the form and generate your personalized travel plan
+                  </p>
                 </div>
               )}
             </div>
@@ -381,4 +489,4 @@ const TravelPlanGenerator = () => {
   );
 };
 
-export default TravelPlanGenerator; 
+export default TravelPlanGenerator;

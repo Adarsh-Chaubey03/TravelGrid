@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, TrendingUp, Star, Users, Calendar, Heart, Share2, Eye } from 'lucide-react';
 import Navbar from '../components/Custom/Navbar';
+import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom'; 
 
 const TrendingSpots = () => {
   const [spots, setSpots] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(9);
+
+  const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   // Mock data for trending spots
   const mockTrendingSpots = [
@@ -198,8 +204,12 @@ const TrendingSpots = () => {
     }, 1000);
   }, []);
 
-  const filteredSpots = filter === 'all' 
-    ? spots 
+  const handleLoadMoreSpots = () => {
+    setVisibleCount((prev) => prev + 9);
+  }
+
+  const filteredSpots = filter === 'all'
+    ? spots
     : spots.filter(spot => spot.category === filter);
 
   const categories = [
@@ -210,84 +220,90 @@ const TrendingSpots = () => {
     { key: 'city', label: 'City', icon: '🏙️' }
   ];
 
+   //function to navigate to location detail
+  const handleExploreLocation = (locationId) =>{
+    navigate(`/location/${locationId}`);
+  }
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-pink-200">Loading trending spots...</p>
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--accent-primary)' }}></div>
+          <p className="text-sm md:text-base" style={{ color: 'var(--text-secondary)' }}>Loading trending spots...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden transition-colors duration-300" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)',marginTop:"5rem" }}>
+
       <Navbar lightBackground />
 
       {/* Hero Section */}
-      <div className="text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 mt-8">
-              Trending <span className='text-pink-500'>Spots</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Discover the hottest destinations everyone's talking about
-            </p>
-            <div className="flex items-center justify-center space-x-2 text-gray-300">
-              <TrendingUp className="h-5 w-5" />
-              <span>Updated daily based on bookings and reviews</span>
-            </div>
+      <section className="relative w-full flex items-center justify-center min-h-[320px] md:min-h-[400px] lg:min-h-[480px] bg-gradient-to-br from-pink-100 via-white to-pink-200 dark:from-black dark:via-gray-900 dark:to-pink-900 overflow-hidden mb-8 md:mb-16">
+        <div className="absolute inset-0 pointer-events-none select-none opacity-30 dark:opacity-40" style={{ background: 'radial-gradient(circle at 60% 40%, #ec4899 0%, transparent 70%)' }}></div>
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 text-center flex flex-col items-center justify-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 mt-4 md:mt-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-fuchsia-500 to-pink-400 drop-shadow-lg">
+            Trending <span className="text-pink-500">Spots</span>
+          </h1>
+          <div className="w-16 h-1 rounded-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-600 mx-auto mb-6"></div>
+          <p className="text-lg md:text-2xl mb-6 md:mb-8 px-2 md:px-8 text-gray-700 dark:text-gray-200 font-medium">
+            Discover the hottest destinations everyone's talking about
+          </p>
+          <div className="flex items-center justify-center space-x-2 px-4 text-pink-600 dark:text-pink-300">
+            <TrendingUp className="h-5 w-5" />
+            <span className="text-base md:text-lg font-semibold">Updated daily based on bookings and reviews</span>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Filter Tabs */}
-      <div className="bg-pink-900 shadow-sm sticky top-0 z-10">
+      <div className="bg-pink-900 shadow-sm sticky top-0 z-10" style={{marginTop:"-5rem",marginBottom:"5rem"}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-4 py-4 overflow-x-auto">
+          <div className="flex justify-start md:justify-center space-x-2 md:space-x-4 py-3 md:py-4 overflow-x-auto scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category.key}
                 onClick={() => setFilter(category.key)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-full whitespace-nowrap transition-colors duration-200 cursor-pointer ${
-                  filter === category.key
-                    ? 'bg-white text-pink-600 font-medium'
-                    : 'border-2 border-transparent hover:border-pink-500/15    text-pink-100  hover:bg-white/10'
-                }`}
+                className={`flex items-center space-x-1 md:space-x-2 px-3 md:px-4 py-2 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer text-sm md:text-base ${filter === category.key
+                    ? 'bg-white text-pink-600 font-semibold shadow-md'
+                    : 'border border-pink-300/20 text-pink-100 hover:bg-white/10 hover:border-pink-200/30'
+                  }`}
               >
                 {typeof category.icon === 'string' ? (
-                  <span className="text-lg">{category.icon}</span>
+                  <span className="text-base md:text-lg">{category.icon}</span>
                 ) : (
-                  <category.icon className="h-4 w-4" />
+                  <category.icon className="h-4 w-4 md:h-5 md:w-5" />
                 )}
-                <span className="font-medium">{category.label}</span>
+                <span>{category.label}</span>
               </button>
             ))}
           </div>
         </div>
       </div>
 
+
       {/* Trending Stats Banner */}
-      <div className="border-b">
+      <div className="border-b" style={{ borderColor: 'var(--border-primary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="rounded-lg text-center py-2 hover:bg-pink-500/20 shadow-md transition-colors duration-200">
-              <div className="text-3xl font-bold text-blue-400">{filteredSpots.length}+</div>
-              <div className="text-pink-200">Trending Destinations</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <div className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl border shadow-lg overflow-hidden transition-all duration-300 group p-4 md:p-6 text-center" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-primary)' }}>{filteredSpots.length}+</div>
+              <div className="text-sm md:text-base" style={{ color: 'var(--accent-secondary)' }}>Trending Destinations</div>
             </div>
-            <div className="rounded-lg text-center py-2 hover:bg-pink-500/20 shadow-md transition-colors duration-200">
-              <div className="text-3xl font-bold text-green-400">23%</div>
-              <div className="text-pink-200">Average Growth</div>
+            <div className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl border shadow-lg overflow-hidden transition-all duration-300 group p-4 md:p-6 text-center" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+              <div className="text-2xl md:text-3xl font-bold text-green-400">23%</div>
+              <div className="text-sm md:text-base" style={{ color: 'var(--accent-secondary)' }}>Average Growth</div>
             </div>
-            <div className="rounded-lg text-center py-2 hover:bg-pink-500/20 shadow-md transition-colors duration-200">
-              <div className="text-3xl font-bold text-purple-400">—</div>
-              <div className="text-pink-200">Monthly Searches</div>
+            <div className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl border shadow-lg overflow-hidden transition-all duration-300 group p-4 md:p-6 text-center" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+              <div className="text-2xl md:text-3xl font-bold text-purple-400">—</div>
+              <div className="text-sm md:text-base" style={{ color: 'var(--accent-secondary)' }}>Monthly Searches</div>
             </div>
-            <div className="rounded-lg text-center py-2 hover:bg-pink-500/20 shadow-md transition-colors duration-200">
-              <div className="text-3xl font-bold text-red-400">4.7★</div>
-              <div className="text-pink-200">Average Rating</div>
+            <div className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl border shadow-lg overflow-hidden transition-all duration-300 group p-4 md:p-6 text-center" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+              <div className="text-2xl md:text-3xl font-bold text-red-400">4.7★</div>
+              <div className="text-sm md:text-base" style={{ color: 'var(--accent-secondary)' }}>Average Rating</div>
             </div>
           </div>
         </div>
@@ -295,86 +311,87 @@ const TrendingSpots = () => {
 
       {/* Spots Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredSpots.map((spot, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {filteredSpots.slice(0, visibleCount).map((spot, index) => (
             <div
               key={spot.id}
-              className="bg-white/10 border border-pink-400/45 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:bg-white/15 transition-all duration-300 group"
+              className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col h-full bg-white border border-gray-200"
             >
               {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                 <img
                   src={spot.image}
                   alt={spot.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-4 left-4">
-                  <div className="bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
+                <div className="absolute top-3 left-3">
+                  <div className="px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold flex items-center space-x-1" style={{ background: 'var(--accent-primary)', color: '#fff' }}>
                     <TrendingUp className="h-3 w-3" />
                     <span>#{index + 1}</span>
                   </div>
                 </div>
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full transition-all cursor-pointer">
-                    <Heart className="h-4 w-4 text-gray-600" />
+                <div className="absolute top-3 right-3 flex space-x-2">
+                  <button className="p-1.5 md:p-2 rounded-full transition-all cursor-pointer hover:scale-110" style={{ background: 'var(--card-bg)', color: 'var(--text-primary)', border: '1px solid var(--border-primary)' }}>
+                    <Heart className="h-3 w-3 md:h-4 md:w-4" />
                   </button>
-                  <button className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full transition-all cursor-pointer">
-                    <Share2 className="h-4 w-4 text-gray-600" />
+                  <button className="p-1.5 md:p-2 rounded-full transition-all cursor-pointer hover:scale-110" style={{ background: 'var(--card-bg)', color: 'var(--text-primary)', border: '1px solid var(--border-primary)' }}>
+                    <Share2 className="h-3 w-3 md:h-4 md:w-4" />
                   </button>
                 </div>
-                <div className="absolute bottom-4 right-4">
-                  <div className="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                <div className="absolute bottom-3 right-3">
+                  <div className="px-2 py-1 rounded text-xs font-semibold" style={{ background: 'var(--success-color)', color: '#fff' }}>
                     +{spot.growth_percentage}%
                   </div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-100 mb-1">
+              <div className="p-4 md:p-6 flex flex-col h-full">
+                <div className="flex items-start justify-between mb-3 md:mb-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2 truncate" style={{ color: 'var(--text-primary)' }}>
                       {spot.name}
                     </h3>
-                    <div className="flex items-center text-gray-300 text-sm">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {spot.country}
+                    <div className="flex items-center" style={{ color: 'var(--text-secondary)' }}>
+                      <MapPin className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2 flex-shrink-0" />
+                      <span className="text-sm md:text-base truncate">{spot.country}</span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="flex items-center space-x-1 mb-1">
-                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="text-sm text-gray-300 font-semibold">{spot.rating}</span>
+                  <div className="text-right ml-2 md:ml-4 flex-shrink-0">
+                    <div className="flex items-center justify-end space-x-1 mb-1">
+                      <Star className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" style={{ color: 'var(--warning-color)' }} />
+                      <span className="text-xs md:text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>{spot.rating}</span>
                     </div>
-                    <div className="text-xs text-gray-300">{spot.price_range}</div>
+                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{spot.price_range}</div>
                   </div>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-pink-400" />
-                    <span className="text-gray-300">{spot.visitors_count} visitors</span>
+                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4 text-xs md:text-sm">
+                  <div className="flex items-center space-x-1 md:space-x-2">
+                    <Users className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" style={{ color: 'var(--accent-primary)' }} />
+                    <span className="truncate" style={{ color: 'var(--text-muted)' }}>{spot.visitors_count} visitors</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4 text-pink-400" />
-                    <span className="text-gray-300">{spot.best_time}</span>
+                  <div className="flex items-center space-x-1 md:space-x-2">
+                    <Calendar className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" style={{ color: 'var(--accent-primary)' }} />
+                    <span className="truncate" style={{ color: 'var(--text-muted)' }}>{spot.best_time}</span>
                   </div>
                 </div>
 
                 {/* Highlights */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
+                <div className="mb-3 md:mb-4">
+                  <div className="flex flex-wrap gap-1 md:gap-2">
                     {spot.highlights.slice(0, 2).map((highlight, idx) => (
                       <span
                         key={idx}
-                        className="bg-white text-pink-500 px-3 py-1 rounded-full text-xs font-medium"
+                        className="px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-medium truncate max-w-full"
+                        style={{ background: 'var(--bg-tertiary)', color: 'var(--accent-primary)' }}
                       >
                         {highlight}
                       </span>
                     ))}
                     {spot.highlights.length > 2 && (
-                      <span className="bg-pink-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">
+                      <span className="px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-medium" style={{ background: 'var(--accent-secondary)', color: '#fff' }}>
                         +{spot.highlights.length - 2} more
                       </span>
                     )}
@@ -382,36 +399,44 @@ const TrendingSpots = () => {
                 </div>
 
                 {/* Bottom Stats */}
-                <div className="flex items-center justify-between pt-4 border-t border-pink-200">
-                  <div className="flex items-center space-x-2 text-sm text-gray-300">
-                    <Eye className="h-4 w-4" />
-                    <span>{spot.recent_reviews} recent reviews</span>
+                <div className="flex items-center justify-between pt-3 md:pt-4 border-t mt-auto" style={{ borderColor: 'var(--border-primary)' }}>
+                  <div className="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm" style={{ color: 'var(--text-muted)' }}>
+                    <Eye className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                    <span className="truncate">{spot.recent_reviews} recent reviews</span>
                   </div>
-                  <div className="text-sm font-semibold text-pink-500">
+                  <div className="text-xs md:text-sm font-semibold" style={{ color: 'var(--accent-primary)' }}>
                     Trending Score: {spot.trending_score}
                   </div>
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full mt-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-105 cursor-pointer duration-200">
+                 <button className="w-full mt-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-105 cursor-pointer duration-200"
+                onClick={() => handleExploreLocation(spot.id)}>
                   Explore {spot.name}
                 </button>
               </div>
             </div>
           ))}
           {filteredSpots.length === 0 && (
-            <p className="col-span-full text-center text-pink-200 text-lg font-medium">
-              No spots match the selected category.
-            </p>
+            <div className="col-span-full text-center py-12">
+              <p className="text-lg md:text-xl font-medium" style={{ color: 'var(--text-secondary)' }}>
+                No spots match the selected category.
+              </p>
+            </div>
           )}
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 duration-200 cursor-pointer">
-            Load More Trending Spots
-          </button>
-        </div>
+        {visibleCount < filteredSpots.length && (
+          <div className="text-center mt-8 md:mt-12">
+            <button
+              onClick={handleLoadMoreSpots}
+              className="bg-gradient-to-r from-pink-600 to-pink-500 shadow-md hover:shadow-lg text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold transition-all transform hover:scale-105 duration-200 cursor-pointer text-sm md:text-base"
+            >
+              Load More Trending Spots
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

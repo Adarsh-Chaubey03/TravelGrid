@@ -14,7 +14,7 @@ import {
   Globe,
   Target,
   Eye,
-  Lightbulb
+  Lightbulb,
 } from "lucide-react";
 
 function About() {
@@ -34,9 +34,9 @@ function About() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(prev => ({
+            setIsVisible((prev) => ({
               ...prev,
-              [entry.target.id]: true
+              [entry.target.id]: true,
             }));
           }
         });
@@ -44,7 +44,7 @@ function About() {
       { threshold: 0.1 }
     );
 
-    const sections = document.querySelectorAll('[data-animate]');
+    const sections = document.querySelectorAll("[data-animate]");
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
@@ -57,28 +57,28 @@ function About() {
       description:
         "Easily book flights, trains, buses, and more with our intuitive booking system.",
       icon: "✈️",
-      path: '/ticket'
+      path: "/ticket",
     },
     {
       title: "Vehicle Rentals",
       description:
         "Rent or hire vehicles tailored to your travel needs, from cars to bikes.",
       icon: "🚗",
-      path: '/ticket'
+      path: "/ticket",
     },
     {
       title: "Hotel Reservations",
       description:
         "Browse and book hotels based on your preferences and budget.",
       icon: "🏨",
-      path: '/hotel-booking'
+      path: "/hotel-booking",
     },
     {
       title: "Travel Guides",
       description:
         "Discover curated guides to plan your ideal trip with local insights.",
       icon: "📖",
-      path: '/guides'
+      path: "/guides",
     },
     // Adding new feature cards
     {
@@ -86,51 +86,50 @@ function About() {
       description:
         "Enjoy your trip with your furry friends with our pet friednly packages, travel and guides",
       icon: "🐾",
-      path: '/pettravel'
+      path: "/pettravel",
     },
     {
       title: "Essentials Chechlist",
       description:
         "Ensure you are not forgetting anything with our checklist feature.",
       icon: "📋",
-      path: '/packing-checklist'
+      path: "/packing-checklist",
     },
     {
       title: "Expense Calculator",
       description:
         "We will manage all your expenses, be it solo travelling or a fun group trip. Just enter amount and number of people(for a group)",
       icon: "💸",
-      path: '/trip-calculator'
+      path: "/trip-calculator",
     },
     {
       title: "Currency converter",
       description:
         "With us you dont have to worry about currency, just enter amount and currency, and you'll get exact amount in requested currency.",
       icon: "💱",
-      path: '/enhanced-currency'
+      path: "/enhanced-currency",
     },
     {
       title: "Travel with music",
       description:
         "Travel the world listening to your favourite melodies with our wide categories of music.",
       icon: "🎶",
-      path: '/music'
+      path: "/music",
     },
     {
       title: "Travel Packages",
       description:
         "Choose pre-designed packages or customize your own adventure.",
       icon: "🎒",
-      path: '/packages'
+      path: "/packages",
     },
     {
       title: "Responsive Design",
       description:
         "Enjoy a consistent experience across desktops, tablets, and mobile devices.",
       icon: "📱",
-      path: '/'
+      path: "/",
     },
-
   ];
 
   const techStack = [
@@ -145,27 +144,29 @@ function About() {
     {
       year: "2024",
       title: "Project Inception",
-      description: "TravelGrid was born from the vision to simplify travel planning",
-      icon: <Lightbulb className="w-6 h-6" />
+      description:
+        "TravelGrid was born from the vision to simplify travel planning",
+      icon: <Lightbulb className="w-6 h-6" />,
     },
     {
       year: "2025",
       title: "GSSoC Partnership",
-      description: "Joined GirlScript Summer of Code to build with the community",
-      icon: <Users className="w-6 h-6" />
+      description:
+        "Joined GirlScript Summer of Code to build with the community",
+      icon: <Users className="w-6 h-6" />,
     },
     {
       year: "2025",
       title: "Feature Expansion",
       description: "Added booking systems, guides, and travel tools",
-      icon: <Award className="w-6 h-6" />
+      icon: <Award className="w-6 h-6" />,
     },
     {
       year: "Future",
       title: "Global Reach",
       description: "Expanding to serve travelers worldwide",
-      icon: <Globe className="w-6 h-6" />
-    }
+      icon: <Globe className="w-6 h-6" />,
+    },
   ];
 
   const teamMembers = [
@@ -173,40 +174,55 @@ function About() {
       name: "Development Team",
       role: "Full Stack Developers",
       description: "Building the core platform with modern technologies",
-      avatar: "👥"
+      avatar: "👥",
     },
     {
       name: "Design Team",
       role: "UI/UX Designers",
       description: "Creating intuitive and beautiful user experiences",
-      avatar: "🎨"
+      avatar: "🎨",
     },
     {
       name: "Community Team",
       role: "Open Source Contributors",
       description: "Contributing features and improvements through GSSoC",
-      avatar: "🤝"
+      avatar: "🤝",
     },
     {
       name: "Product Team",
       role: "Product Managers",
       description: "Defining roadmap and ensuring user-centric features",
-      avatar: "📋"
-    }
+      avatar: "📋",
+    },
   ];
 
   const achievements = [
-    { number: "10K+", label: "Active Users", icon: <Users className="w-8 h-8" /> },
-    { number: "50+", label: "Destinations", icon: <MapPin className="w-8 h-8" /> },
-    { number: "100+", label: "Contributors", icon: <Heart className="w-8 h-8" /> },
-    { number: "4.8", label: "User Rating", icon: <Star className="w-8 h-8" /> }
+    {
+      number: "10K+",
+      label: "Active Users",
+      icon: <Users className="w-8 h-8" />,
+    },
+    {
+      number: "50+",
+      label: "Destinations",
+      icon: <MapPin className="w-8 h-8" />,
+    },
+    {
+      number: "100+",
+      label: "Contributors",
+      icon: <Heart className="w-8 h-8" />,
+    },
+    { number: "4.8", label: "User Rating", icon: <Star className="w-8 h-8" /> },
   ];
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${isDarkMode
-      ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900'
-      : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
-      }`}>
+    <div
+      className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900"
+          : "bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300"
+      }`}
+    >
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -219,8 +235,9 @@ function About() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}
+            className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
           >
             About <span className="text-pink-400">TravelGrid</span>
           </motion.h1>
@@ -228,8 +245,9 @@ function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className={`text-xl sm:text-2xl mb-8 leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}
+            className={`text-xl sm:text-2xl mb-8 leading-relaxed transition-all duration-300 ${
+              isDarkMode ? "text-gray-300" : "text-gray-700"
+            }`}
           >
             Your all-in-one travel platform designed to streamline your travel
             planning experience
@@ -247,8 +265,11 @@ function About() {
       <section
         id="mission"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.mission ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.mission
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -260,20 +281,29 @@ function About() {
             >
               <div className="flex items-center mb-6">
                 <Target className="w-8 h-8 text-pink-400 mr-3" />
-                <h2 className={`text-3xl sm:text-4xl font-bold transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
+                <h2
+                  className={`text-3xl sm:text-4xl font-bold transition-all duration-300 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Our <span className="text-pink-400">Mission</span>
                 </h2>
               </div>
-              <p className={`text-lg mb-6 leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+              <p
+                className={`text-lg mb-6 leading-relaxed transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 TravelGrid is a comprehensive platform that simplifies travel
                 planning. From booking flights, trains, or buses to renting
                 vehicles, reserving hotels, or exploring expertly curated travel
                 guides, TravelGrid offers a seamless and intuitive experience.
               </p>
-              <p className={`text-lg leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+              <p
+                className={`text-lg leading-relaxed transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Our mission is to make travel planning accessible, affordable,
                 and enjoyable for everyone. Whether you're a solo traveler or
                 planning a group adventure, TravelGrid simplifies every step of
@@ -305,9 +335,11 @@ function About() {
       <section
         id="vision"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.vision ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.vision
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        } ${isDarkMode ? "bg-black bg-opacity-50" : "bg-white bg-opacity-50"}`}
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -337,22 +369,33 @@ function About() {
             >
               <div className="flex items-center mb-6">
                 <Eye className="w-8 h-8 text-pink-400 mr-3" />
-                <h2 className={`text-3xl sm:text-4xl font-bold transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
+                <h2
+                  className={`text-3xl sm:text-4xl font-bold transition-all duration-300 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Our <span className="text-pink-400">Vision</span>
                 </h2>
               </div>
-              <p className={`text-lg mb-6 leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                We envision a world where travel planning is effortless and inspiring.
-                TravelGrid aims to become the global leader in comprehensive travel solutions,
-                connecting travelers with authentic experiences and local communities.
+              <p
+                className={`text-lg mb-6 leading-relaxed transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                We envision a world where travel planning is effortless and
+                inspiring. TravelGrid aims to become the global leader in
+                comprehensive travel solutions, connecting travelers with
+                authentic experiences and local communities.
               </p>
-              <p className={`text-lg leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                By leveraging cutting-edge technology and fostering a vibrant community of
-                travelers and contributors, we're building the future of travel - one that's
-                sustainable, inclusive, and accessible to all.
+              <p
+                className={`text-lg leading-relaxed transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                By leveraging cutting-edge technology and fostering a vibrant
+                community of travelers and contributors, we're building the
+                future of travel - one that's sustainable, inclusive, and
+                accessible to all.
               </p>
             </motion.div>
           </div>
@@ -363,8 +406,11 @@ function About() {
       <section
         id="story"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.story ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.story
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -374,14 +420,21 @@ function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+            <h2
+              className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
               Our <span className="text-pink-400">Story</span>
             </h2>
-            <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              Born from a passion for travel and technology, TravelGrid emerged from the recognition
-              that travel planning could be simplified, more engaging, and accessible to everyone.
+            <p
+              className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${
+                isDarkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Born from a passion for travel and technology, TravelGrid emerged
+              from the recognition that travel planning could be simplified,
+              more engaging, and accessible to everyone.
             </p>
           </motion.div>
 
@@ -396,22 +449,42 @@ function About() {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'justify-start' : 'justify-end'
-                  }`}
+                className={`relative flex items-center mb-12 ${
+                  index % 2 === 0 ? "justify-start" : "justify-end"
+                }`}
               >
-                <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                  <div className={`rounded-lg p-6 border transition-all duration-300 ${isDarkMode
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
-                    : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
-                    }`}>
+                <div
+                  className={`w-5/12 ${
+                    index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"
+                  }`}
+                >
+                  <div
+                    className={`rounded-lg p-6 border transition-all duration-300 ${
+                      isDarkMode
+                        ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400"
+                        : "bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600"
+                    }`}
+                  >
                     <div className="flex items-center mb-2">
                       <div className="text-pink-400 mr-2">{item.icon}</div>
-                      <span className="text-pink-400 font-bold text-lg">{item.year}</span>
+                      <span className="text-pink-400 font-bold text-lg">
+                        {item.year}
+                      </span>
                     </div>
-                    <h3 className={`text-xl font-bold mb-2 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                      }`}>{item.title}</h3>
-                    <p className={`transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                      }`}>{item.description}</p>
+                    <h3
+                      className={`text-xl font-bold mb-2 transition-all duration-300 ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`transition-all duration-300 ${
+                        isDarkMode ? "text-gray-300" : "text-gray-700"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
                   </div>
                 </div>
 
@@ -426,9 +499,11 @@ function About() {
       <section
         id="team"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.team
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        } ${isDarkMode ? "bg-black bg-opacity-50" : "bg-white bg-opacity-50"}`}
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -438,13 +513,20 @@ function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+            <h2
+              className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
               Our <span className="text-pink-400">Team</span>
             </h2>
-            <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              A diverse group of passionate individuals working together to revolutionize travel planning
+            <p
+              className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${
+                isDarkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              A diverse group of passionate individuals working together to
+              revolutionize travel planning
             </p>
           </motion.div>
 
@@ -457,17 +539,30 @@ function About() {
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className={`rounded-lg p-6 text-center border transition-all duration-300 ${isDarkMode
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
-                  : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
-                  }`}
+                className={`rounded-lg p-6 text-center border transition-all duration-300 ${
+                  isDarkMode
+                    ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400"
+                    : "bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600"
+                }`}
               >
                 <div className="text-6xl mb-4">{member.avatar}</div>
-                <h3 className={`text-xl font-bold mb-2 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>{member.name}</h3>
-                <p className="text-pink-400 font-semibold mb-3">{member.role}</p>
-                <p className={`text-sm leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                  }`}>{member.description}</p>
+                <h3
+                  className={`text-xl font-bold mb-2 transition-all duration-300 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  {member.name}
+                </h3>
+                <p className="text-pink-400 font-semibold mb-3">
+                  {member.role}
+                </p>
+                <p
+                  className={`text-sm leading-relaxed transition-all duration-300 ${
+                    isDarkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  {member.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -478,8 +573,11 @@ function About() {
       <section
         id="achievements"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.achievements ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.achievements
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -489,13 +587,20 @@ function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+            <h2
+              className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
               Our <span className="text-pink-400">Impact</span>
             </h2>
-            <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              Numbers that reflect our growing community and commitment to excellence
+            <p
+              className={`text-xl max-w-3xl mx-auto leading-relaxed transition-all duration-300 ${
+                isDarkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Numbers that reflect our growing community and commitment to
+              excellence
             </p>
           </motion.div>
 
@@ -513,8 +618,12 @@ function About() {
                 <div className="flex justify-center mb-4 text-white">
                   {achievement.icon}
                 </div>
-                <div className="text-3xl font-bold mb-2">{achievement.number}</div>
-                <div className="text-pink-100 font-semibold">{achievement.label}</div>
+                <div className="text-3xl font-bold mb-2">
+                  {achievement.number}
+                </div>
+                <div className="text-pink-100 font-semibold">
+                  {achievement.label}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -525,9 +634,11 @@ function About() {
       <section
         id="contact"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.contact
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        } ${isDarkMode ? "bg-black bg-opacity-50" : "bg-white bg-opacity-50"}`}
       >
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -537,13 +648,20 @@ function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+            <h2
+              className={`text-3xl sm:text-4xl font-bold mb-6 transition-all duration-300 ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
               Get in <span className="text-pink-400">Touch</span>
             </h2>
-            <p className={`text-xl max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              Have questions, suggestions, or want to contribute? We'd love to hear from you!
+            <p
+              className={`text-xl max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${
+                isDarkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Have questions, suggestions, or want to contribute? We'd love to
+              hear from you!
             </p>
           </motion.div>
 
@@ -553,18 +671,27 @@ function About() {
               initial={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className={`rounded-lg p-8 border transition-all duration-300 ${isDarkMode
-                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
-                : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
-                }`}
+              className={`rounded-lg p-8 border transition-all duration-300 ${
+                isDarkMode
+                  ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400"
+                  : "bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600"
+              }`}
             >
               <div className="flex items-center mb-4">
                 <Mail className="w-6 h-6 text-pink-400 mr-3" />
-                <h3 className={`text-xl font-bold transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>Email Us</h3>
+                <h3
+                  className={`text-xl font-bold transition-all duration-300 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Email Us
+                </h3>
               </div>
-              <p className={`mb-4 transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+              <p
+                className={`mb-4 transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 For general inquiries, partnerships, or support
               </p>
               <a
@@ -580,18 +707,27 @@ function About() {
               initial={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className={`rounded-lg p-8 border transition-all duration-300 ${isDarkMode
-                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
-                : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
-                }`}
+              className={`rounded-lg p-8 border transition-all duration-300 ${
+                isDarkMode
+                  ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400"
+                  : "bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600"
+              }`}
             >
               <div className="flex items-center mb-4">
                 <Globe className="w-6 h-6 text-pink-400 mr-3" />
-                <h3 className={`text-xl font-bold transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>GitHub</h3>
+                <h3
+                  className={`text-xl font-bold transition-all duration-300 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  GitHub
+                </h3>
               </div>
-              <p className={`mb-4 transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+              <p
+                className={`mb-4 transition-all duration-300 ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Contribute to our open-source project
               </p>
               <a
@@ -611,8 +747,11 @@ function About() {
       <section
         id="features"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.features
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-6xl mx-auto">
           <motion.h2
@@ -620,8 +759,9 @@ function About() {
             initial={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}
+            className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
           >
             Why Choose <span className="text-pink-400">TravelGrid?</span>
           </motion.h2>
@@ -635,31 +775,44 @@ function About() {
                 initial={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-
                 whileHover={{ scale: 1.1 }}
                 className="group relative h-64 cursor-pointer"
-              //onMouseEnter={() => setActiveFeature(index)}
-              //style={{ perspective: '1000px' }}
+                //onMouseEnter={() => setActiveFeature(index)}
+                //style={{ perspective: '1000px' }}
               >
-                <div className="relative w-full h-full transition-transform duration-700 group-hover:rotate-y-180"
-                  style={{ transformStyle: 'preserve-3d' }}>
+                <div
+                  className="relative w-full h-full transition-transform duration-700 group-hover:rotate-y-180"
+                  style={{ transformStyle: "preserve-3d" }}
+                >
                   {/* Front */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 group-hover:border-pink-400 transition-all duration-300"
-                    style={{ backfaceVisibility: 'hidden' }}>
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 group-hover:border-pink-400 transition-all duration-300"
+                    style={{ backfaceVisibility: "hidden" }}
+                  >
                     <div className="text-4xl mb-4">{feature.icon}</div>
-                    <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
 
                   {/* Back */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-600 to-purple-700 rounded-lg p-6 border border-pink-400 flex flex-col items-center justify-center text-center hover:from-pink-500 hover:to-purple-600 transition-all duration-300"
-                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                    onClick={() => handleCardClick(feature.path)}>
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br from-pink-600 to-purple-700 rounded-lg p-6 border border-pink-400 flex flex-col items-center justify-center text-center hover:from-pink-500 hover:to-purple-600 transition-all duration-300"
+                    style={{
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                    }}
+                    onClick={() => handleCardClick(feature.path)}
+                  >
                     <h3 className="text-7xl mb-4">{feature.icon}</h3>
-                    <h3 className="text-xl font-bold text-white mb-3">Explore the Feature</h3>
+                    <h3 className="text-xl font-bold text-white mb-3">
+                      Explore the Feature
+                    </h3>
                   </div>
                 </div>
-
               </motion.div>
             ))}
           </div>
@@ -670,8 +823,11 @@ function About() {
       <section
         id="gssoc"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 transition-all duration-1000 ${isVisible.gssoc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 transition-all duration-1000 ${
+          isVisible.gssoc
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
@@ -718,8 +874,11 @@ function About() {
       <section
         id="tech"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.tech ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.tech
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-4xl mx-auto">
           <motion.h2
@@ -727,8 +886,9 @@ function About() {
             initial={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-300 ${isDarkMode ? "text-white" : "text-gray-900"
-              }`}
+            className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
           >
             Built with Modern <span className="text-pink-400">Technology</span>
           </motion.h2>
@@ -758,7 +918,9 @@ function About() {
             viewport={{ once: true }}
             className="text-center mb-8"
           >
-            <p className={`mt-4 text-lg transition-all duration-300 ${isDarkMode ? "text-gray-300" : "text-gray-700"
+            <p
+              className={`mt-4 text-lg transition-all duration-300 ${
+                isDarkMode ? "text-gray-300" : "text-gray-700"
               }`}
             >
               We use cutting-edge technologies to ensure a fast, responsive, and
@@ -768,9 +930,21 @@ function About() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Frontend", desc: "React.js with modern hooks and components", color: "text-blue-400" },
-              { title: "Styling", desc: "Tailwind CSS for responsive design", color: "text-cyan-400" },
-              { title: "Development", desc: "Vite for fast build and development", color: "text-yellow-400" }
+              {
+                title: "Frontend",
+                desc: "React.js with modern hooks and components",
+                color: "text-blue-400",
+              },
+              {
+                title: "Styling",
+                desc: "Tailwind CSS for responsive design",
+                color: "text-cyan-400",
+              },
+              {
+                title: "Development",
+                desc: "Vite for fast build and development",
+                color: "text-yellow-400",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -781,8 +955,12 @@ function About() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 hover:border-pink-400 transition-all duration-300"
               >
-                <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
-                <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                <h4 className={`${item.color} font-bold mb-2 text-lg`}>
+                  {item.title}
+                </h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -793,8 +971,11 @@ function About() {
       <section
         id="cta"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible.cta
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-10"
+        }`}
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
@@ -802,8 +983,9 @@ function About() {
             initial={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className={`text-4xl font-bold mb-4 transition-all duration-300 ${isDarkMode ? "text-white" : "text-gray-900"
-              }`}
+            className={`text-4xl font-bold mb-4 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
           >
             Ready to Start Your <span className="text-pink-400">Journey?</span>
           </motion.h2>
@@ -813,10 +995,12 @@ function About() {
             initial={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className={`text-xl mb-8 transition-all duration-300 ${isDarkMode ? "text-gray-300" : "text-gray-600"
-              }`}
+            className={`text-xl mb-8 transition-all duration-300 ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            }`}
           >
-            Join thousands of travelers who trust TravelGrid for their adventures
+            Join thousands of travelers who trust TravelGrid for their
+            adventures
           </motion.p>
 
           <motion.div

@@ -40,8 +40,8 @@ const cardVariant = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.2, duration: 0.6 }
-  })
+    transition: { delay: i * 0.2, duration: 0.6 },
+  }),
 };
 
 const scrollStyles = `
@@ -66,7 +66,9 @@ const Testimonials = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className={`w-full py-20 ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}`}
+      className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen py-20 ${
+        isDarkMode ? "bg-slate-900" : "bg-gray-50"
+      }`}
     >
       <style>{scrollStyles}</style>
 
@@ -77,9 +79,9 @@ const Testimonials = () => {
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            {t('home.whatOur')}{" "}
+            {t("home.whatOur")}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              {t('home.travelersSay')}
+              {t("home.travelersSay")}
             </span>
           </h2>
           <p
@@ -87,7 +89,7 @@ const Testimonials = () => {
               isDarkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            {t('home.testimonialsDescription')}
+            {t("home.testimonialsDescription")}
           </p>
         </div>
 

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Menu, X, User, LogOut, LogIn, ChevronDown, Mail, AlertTriangle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "../LanguageSelector";
+import GlobalSearchBar from "../Search/GlobalSearchBar";
 
 
 
@@ -231,6 +232,11 @@ const Navbar = () => {
                 </NavLink>
               )
             )}
+          </div>
+
+          {/* Global Search Bar */}
+          <div className="hidden lg:block max-w-sm w-full mx-4">
+            <GlobalSearchBar className="w-full" />
           </div>
 
           {/* Desktop Auth Buttons and Theme Toggle */}

@@ -1,4 +1,4 @@
-import { StrictMode, lazy, Suspense } from 'react';
+import React, { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import ItineraryMapPage from "./pages/ItineraryMapPage";
@@ -13,6 +13,7 @@ import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
+import { SearchProvider } from './context/SearchContext';
 import AuthLayout from './components/AuthLayout';
 //import TrendingSpots from './pages/TrendingSpots.jsx';
 //import PackingChecklistPage from './pages/PackingChecklist.jsx';
@@ -98,6 +99,7 @@ const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
 const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
 const Music = lazy(() => import('./pages/Music'));
 const VisaChecker = lazy(() => import('./pages/VisaChecker'));
+const SearchResults = lazy(() => import('./pages/SearchResults'));
 
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
@@ -150,6 +152,7 @@ const router = createBrowserRouter([
       { path: '/music', element: <Suspense fallback={<Spinner />}><Music /></Suspense> },
       {path:"/itinerary-map", element:<Suspense fallback={<Spinner />}><ItineraryMapPage/></Suspense>},
       { path: '/visa-checker', element: <Suspense fallback={<Spinner />}><VisaChecker /></Suspense> },
+      { path: '/search-results', element: <Suspense fallback={<Spinner />}><SearchResults /></Suspense> },
 
 
       {
@@ -195,8 +198,9 @@ createRoot(document.getElementById('root')).render(
           <ThemeProvider>
             <AuthProvider>
               <WishlistProvider>
-                <Provider store={appStore}>
-                  <RouterProvider router={router} />
+                <SearchProvider>
+                  <Provider store={appStore}>
+                    <RouterProvider router={router} />
                   <Toaster
                     position="top-center"
                     reverseOrder={false}
@@ -209,7 +213,8 @@ createRoot(document.getElementById('root')).render(
                       },
                     }}
                   />
-                </Provider>
+                  </Provider>
+                </SearchProvider>
               </WishlistProvider>
             </AuthProvider>
           </ThemeProvider>

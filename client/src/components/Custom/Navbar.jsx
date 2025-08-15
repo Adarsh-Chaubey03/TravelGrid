@@ -5,7 +5,7 @@ import { useWishlist } from "../../context/WishlistContext";
 import { useTheme } from "../../context/ThemeContext";
 import { Menu, X, User, LogOut, LogIn, ChevronDown, Mail, AlertTriangle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
-
+import WeatherChecklist from "./WeatherChecklist/code";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -35,6 +35,7 @@ const navLinks = [
       { label: "Currency Converter", path: "/currency-converter" },
       { label: "Packing Checklist", path: "/packing-checklist" },
       { label: "Travel Recommendations", path: "/recommendation" },
+      { label: "Weather Checklist", path: "/weather-checklist" },
       { label: "Feedback", path: "/feedback" },
     ],
   },

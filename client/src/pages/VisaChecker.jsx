@@ -1,5 +1,6 @@
 // src/pages/VisaChecker.jsx
 import React, { useEffect, useMemo, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const COMMON_TRAVEL_ADVISORY_NOTE =
   "Check your government’s official travel advisory before traveling.";
@@ -7,6 +8,7 @@ const COMMON_HEALTH_NOTE =
   "Ensure you have travel insurance and required vaccinations before your trip.";
 
 export default function VisaChecker() {
+  const { isDarkMode } = useTheme();
   const [countries, setCountries] = useState([]);
   const [passport, setPassport] = useState("");
   const [destination, setDestination] = useState("");
@@ -201,11 +203,11 @@ export default function VisaChecker() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 px-4 py-8">
+    <div className={`min-h-screen px-4 py-8 ${isDarkMode ? "bg-zinc-900" : "bg-zinc-50"}`}>
       <div className="max-w-4xl mx-auto">
         {/* Heading */}
         <div className="mb-6">
-          <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100">
+          <h1 className={`text-3xl font-extrabold ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>
             Visa & Travel Requirements Checker
           </h1>
           <p className="mt-9 text-7xl font-stretch-50% border-8 p-5 border-dotted font-bold text-blue-400 text-center ">
@@ -216,18 +218,18 @@ export default function VisaChecker() {
         {/* Form card */}
         <form
           onSubmit={onCheck}
-          className="bg-white dark:bg-zinc-800/60 border dark:border-zinc-700 rounded-2xl p-5 shadow-sm backdrop-blur"
+          className={`${isDarkMode ? "bg-zinc-800/60 border-zinc-700" : "bg-white border-zinc-300"} border rounded-2xl p-5 shadow-sm backdrop-blur`}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Passport */}
             <div>
-              <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-2">
+              <label className={`block text-xs font-medium mb-2 ${isDarkMode ? "text-zinc-300" : "text-zinc-600"}`}>
                 Passport country
               </label>
               <select
                 value={passport}
                 onChange={(e) => setPassport(e.target.value)}
-                className="w-full p-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white text-zinc-900 dark:bg-zinc-800/80 dark:text-zinc-100"
+                className={`w-full p-2 rounded-xl border ${isDarkMode ? "border-zinc-700 bg-zinc-800/80 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"}`}
                 style={{ appearance: "auto" }}
                 required
               >
@@ -246,13 +248,13 @@ export default function VisaChecker() {
 
             {/* Destination */}
             <div>
-              <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-2">
+              <label className={`block text-xs font-medium mb-2 ${isDarkMode ? "text-zinc-300" : "text-zinc-600"}`}>
                 Destination country
               </label>
               <select
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                className="w-full p-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white text-zinc-900 dark:bg-zinc-800/80 dark:text-zinc-100"
+                className={`w-full p-2 rounded-xl border ${isDarkMode ? "border-zinc-700 bg-zinc-800/80 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"}`}
                 style={{ appearance: "auto" }}
                 required
               >
@@ -272,25 +274,25 @@ export default function VisaChecker() {
             {/* Dates (optional) */}
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-2">
+                <label className={`block text-xs font-medium mb-2 ${isDarkMode ? "text-zinc-300" : "text-zinc-600"}`}>
                   From (optional)
                 </label>
                 <input
                   type="date"
                   value={dates.from}
                   onChange={(e) => setDates((d) => ({ ...d, from: e.target.value }))}
-                  className="w-full p-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 dark:text-zinc-100"
+                  className={`w-full p-2 rounded-xl border ${isDarkMode ? "border-zinc-700 bg-zinc-800/80 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"}`}
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-2">
+                <label className={`block text-xs font-medium mb-2 ${isDarkMode ? "text-zinc-300" : "text-zinc-600"}`}>
                   To (optional)
                 </label>
                 <input
                   type="date"
                   value={dates.to}
                   onChange={(e) => setDates((d) => ({ ...d, to: e.target.value }))}
-                  className="w-full p-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 dark:text-zinc-100"
+                  className={`w-full p-2 rounded-xl border ${isDarkMode ? "border-zinc-700 bg-zinc-800/80 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"}`}
                 />
               </div>
             </div>
@@ -317,7 +319,7 @@ export default function VisaChecker() {
                 setHealth(null);
                 setVisaHint(null);
               }}
-              className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2 text-zinc-800 dark:text-zinc-100"
+              className={`rounded-xl border px-4 py-2 ${isDarkMode ? "border-zinc-700 text-zinc-100" : "border-zinc-300 text-zinc-800"}`}
             >
               Reset
             </button>
@@ -327,13 +329,13 @@ export default function VisaChecker() {
         {/* Result */}
         {result && (
           <div className="mt-6 space-y-5">
-            <div className="bg-white dark:bg-zinc-800/60 rounded-2xl p-5 border dark:border-zinc-700 shadow-sm">
+            <div className={`${isDarkMode ? "bg-zinc-800/60 border-zinc-700" : "bg-white border-zinc-300"} rounded-2xl p-5 border shadow-sm`}>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                  <h2 className={`text-lg font-semibold ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>
                     {result.passport.name} → {result.destination.name}
                   </h2>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+                  <p className={`text-sm mt-1 ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
                     {dates.from && dates.to
                       ? `Travel window: ${dates.from} → ${dates.to}`
                       : "Travel window: not specified"}
@@ -353,23 +355,23 @@ export default function VisaChecker() {
 
               {/* Details cards */}
               <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-3 rounded-xl bg-white/70 dark:bg-zinc-900/50 border border-white/10">
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Status</div>
-                  <div className="font-semibold text-zinc-900 dark:text-zinc-100">
+                <div className={`p-3 rounded-xl border border-white/10 ${isDarkMode ? "bg-zinc-900/50" : "bg-white/70"}`}>
+                  <div className={`text-xs mb-1 ${isDarkMode ? "text-zinc-400" : "text-zinc-500"}`}>Status</div>
+                  <div className={`font-semibold ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>
                     {visaHint ? visaHint.split("•")[0] : "Check embassy/official source"}
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white/70 dark:bg-zinc-900/50 border border-white/10">
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Currency</div>
-                  <div className="font-medium text-zinc-900 dark:text-zinc-100">
+                <div className={`p-3 rounded-xl border border-white/10 ${isDarkMode ? "bg-zinc-900/50" : "bg-white/70"}`}>
+                  <div className={`text-xs mb-1 ${isDarkMode ? "text-zinc-400" : "text-zinc-500"}`}>Currency</div>
+                  <div className={`font-medium ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>
                     {currencyDisplay}
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white/70 dark:bg-zinc-900/50 border border-white/10">
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Languages</div>
-                  <div className="font-medium text-zinc-900 dark:text-zinc-100">
+                <div className={`p-3 rounded-xl border border-white/10 ${isDarkMode ? "bg-zinc-900/50" : "bg-white/70"}`}>
+                  <div className={`text-xs mb-1 ${isDarkMode ? "text-zinc-400" : "text-zinc-500"}`}>Languages</div>
+                  <div className={`font-medium ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>
                     {languageDisplay}
                   </div>
                 </div>
@@ -377,20 +379,20 @@ export default function VisaChecker() {
 
               {/* Advisory & health */}
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-white/60 dark:bg-zinc-900/50 border border-white/10">
-                  <div className="font-semibold text-zinc-900 dark:text-zinc-100">Travel Advisory</div>
-                  <div className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
+                <div className={`p-4 rounded-lg border border-white/10 ${isDarkMode ? "bg-zinc-900/50" : "bg-white/60"}`}>
+                  <div className={`font-semibold ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>Travel Advisory</div>
+                  <div className={`mt-2 text-sm ${isDarkMode ? "text-zinc-300" : "text-zinc-700"}`}>
                     {advisory?.message || "Not available from advisory API."}
                   </div>
-                  <div className="mt-2 text-xs italic text-amber-600 dark:text-amber-400">
+                  <div className={`mt-2 text-xs italic ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
                     {COMMON_TRAVEL_ADVISORY_NOTE}
                   </div>
                 </div>
 
-                <div className="p-4 rounded-lg bg-white/60 dark:bg-zinc-900/50 border border-white/10">
-                  <div className="font-semibold text-zinc-900 dark:text-zinc-100">Health & Vaccinations</div>
+                <div className={`p-4 rounded-lg border border-white/10 ${isDarkMode ? "bg-zinc-900/50" : "bg-white/60"}`}>
+                  <div className={`font-semibold ${isDarkMode ? "text-zinc-100" : "text-zinc-900"}`}>Health & Vaccinations</div>
 
-                  <div className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
+                  <div className={`mt-2 text-sm ${isDarkMode ? "text-zinc-300" : "text-zinc-700"}`}>
                     <div>
                       <strong>Recommended vaccines:</strong>{" "}
                       {health?.vaccines?.length ? health.vaccines.join(", ") : "Not listed"}
@@ -400,13 +402,13 @@ export default function VisaChecker() {
                     </div>
                   </div>
 
-                  <div className="mt-2 text-xs italic text-green-600 dark:text-green-400">
+                  <div className={`mt-2 text-xs italic ${isDarkMode ? "text-green-400" : "text-green-600"}`}>
                     {COMMON_HEALTH_NOTE}
                   </div>
                 </div>
               </div>
 
-              <p className="mt-4 text-xs text-zinc-500">
+              <p className={`mt-4 text-xs ${isDarkMode ? "text-zinc-400" : "text-zinc-500"}`}>
                 ⚠️ Visa policies change frequently. Always verify with official government / embassy sources before travel.
               </p>
             </div>

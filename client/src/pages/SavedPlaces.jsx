@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useDashboardData } from '../context/DashboardDataContext';
+import { config } from '../config';
 
 const SavedPlaces = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const SavedPlaces = () => {
     useEffect(() => {
         const fetchSavedPlaces = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/save/my-saved-places', {
+                const res = await fetch(`${config.API_BASE_URL}/save/my-saved-places`, {
                     method: 'GET',
                     credentials: 'include', // ✅ Important for cookies
                 });
@@ -42,7 +43,7 @@ const SavedPlaces = () => {
 
     const handleDelete = async (placeId) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/save/delete/${placeId}`, {
+            const res = await fetch(`${config.API_BASE_URL}/save/delete/${placeId}`, {
                 method: 'DELETE',
                 credentials: 'include', // ✅ Important
             });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { useTheme } from '../context/ThemeContext';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -14,6 +15,7 @@ export default function Recommendation() {
 
   const [recommendation, setRecommendation] = useState('');
   const [loading, setLoading] = useState(false);
+  const { isDarkMode } = useTheme();
 
   const handleChange = (field, value) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
@@ -54,57 +56,93 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#0f0f17] via-[#1f0f2f] to-[#1a051e] py-24 px-4">
-      <div className="flex-grow flex items-center justify-center">
-        <div className="w-full max-w-3xl bg-[rgba(30, 10, 60, 0.95)] backdrop-blur-sm text-white p-10 rounded-2xl shadow-2xl border border-pink-500">
-          <h1 className="text-3xl font-semibold mb-2 flex items-center gap-2">
+    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-50'
+    }`}>
+      <div className="flex-grow flex items-center justify-center py-24 px-4">
+        <div className={`w-full max-w-3xl backdrop-blur-md rounded-2xl p-10 border transition-all duration-500 shadow-lg ${
+          isDarkMode
+            ? 'bg-white/10 border-white/20 hover:border-white/40 hover:shadow-pink-500/20'
+            : 'bg-white/80 border-gray-200 hover:border-pink-300 hover:shadow-pink-500/20'
+        }`}>
+          <h1 className={`text-3xl font-semibold mb-2 flex items-center gap-2 transition-all duration-300 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             <span role="img" aria-label="globe">🌐</span> Travel Recommendation Engine
           </h1>
-          <p className="text-pink-200 mb-6">
+          <p className="text-pink-600 dark:text-[#FF4081] mb-6">
             Get personalized AI-based travel ideas based on your inputs.
           </p>
 
           <div className="grid md:grid-cols-2 gap-4">
             <input
-              className="p-3 rounded-lg text-rgb(153,153,153) bg-white"
+              className={`p-3 rounded-lg transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-white/20 border-white/20 text-white placeholder-gray-300 focus:border-white/40' 
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:border-pink-300'
+              } border focus:outline-none focus:ring-2 focus:ring-pink-500/20`}
               placeholder="🌴 Interests (e.g. beach, hiking)"
               onChange={(e) => handleChange('interests', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className={`p-3 rounded-lg transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-white/20 border-white/20 text-white placeholder-gray-300 focus:border-white/40' 
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:border-pink-300'
+              } border focus:outline-none focus:ring-2 focus:ring-pink-500/20`}
               placeholder="💰 Budget (e.g. ₹20k or $500)"
               onChange={(e) => handleChange('budget', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className={`p-3 rounded-lg transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-white/20 border-white/20 text-white placeholder-gray-300 focus:border-white/40' 
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:border-pink-300'
+              } border focus:outline-none focus:ring-2 focus:ring-pink-500/20`}
               placeholder="📍 Current location"
               onChange={(e) => handleChange('location', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white"
+              className={`p-3 rounded-lg transition-all duration-300 ${
+                isDarkMode 
+                  ? 'bg-white/20 border-white/20 text-white placeholder-gray-300 focus:border-white/40' 
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:border-pink-300'
+              } border focus:outline-none focus:ring-2 focus:ring-pink-500/20`}
               placeholder="🎯 Travel type (e.g. adventure, honeymoon)"
               onChange={(e) => handleChange('type', e.target.value)}
             />
             <input
-              className="p-3 rounded-lg text-[rgb(153,153,153)] bg-white md:col-span-2"
+              className={`p-3 rounded-lg transition-all duration-300 md:col-span-2 ${
+                isDarkMode 
+                  ? 'bg-white/20 border-white/20 text-white placeholder-gray-300 focus:border-white/40' 
+                  : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:border-pink-300'
+              } border focus:outline-none focus:ring-2 focus:ring-pink-500/20`}
               placeholder="🏨 Hotel preference (e.g. budget, luxury)"
               onChange={(e) => handleChange('hotel', e.target.value)}
             />
           </div>
 
           <div className="mt-6 flex flex-col sm:flex-row gap-4">
-            <button
+            <button aria-label="Search"
               onClick={handleSubmit}
               disabled={loading}
-              className="flex-shrink-0 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition-all disabled:opacity-60"
+              className="flex-shrink-0 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 disabled:opacity-60 shadow-lg hover:shadow-xl"
             >
               {loading ? 'Generating...' : 'Get Recommendations'}
             </button>
           </div>
 
           {recommendation && (
-            <div className="mt-8 bg-[#0f1220] text-white p-6 rounded-xl whitespace-pre-wrap font-sans shadow-md leading-relaxed border border-pink-400">
-              {recommendation}
+            <div className={`mt-8 backdrop-blur-md rounded-xl p-6 transition-all duration-300 shadow-md leading-relaxed border ${
+              isDarkMode
+                ? 'bg-white/10 border-white/20 text-gray-300'
+                : 'bg-white/80 border-gray-200 text-gray-900'
+            }`}>
+              <div className="whitespace-pre-wrap font-sans">
+                {recommendation}
+              </div>
             </div>
           )}
         </div>

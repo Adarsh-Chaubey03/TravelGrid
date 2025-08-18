@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@hello-pangea/dnd": "^18.0.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-oauth/google": "^0.12.2",
     "@react-pdf/renderer": "^4.3.0",
@@ -24,10 +25,14 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^12.23.12",
     "html2canvas": "^1.4.1",
+    "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
     "lucide-react": "^0.525.0",
     "motion": "^12.23.12",
     "qrcode": "^1.5.4",
@@ -35,8 +40,10 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
+    "react-i18next": "^15.6.1",
     "react-icons": "^5.5.0",
     "react-is": "^19.1.1",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.6.3",
     "recharts": "^3.1.2",
     "redux": "^5.0.1",
@@ -52,6 +59,8 @@
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/trusted-types": "^2.0.7",
+    "@types/use-sync-external-store": "^1.5.0",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.29.0",
@@ -61,6 +70,6 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.6",
-    "vite": "^7.0.0"
+    "vite": "^7.1.2"
   }
 }

@@ -333,7 +333,7 @@ const NewQuestionModal = ({ isOpen, onClose, onSubmit }) => {
                     </p>
                   </div>
                 </div>
-                <button
+                <button aria-label="Search"
                   onClick={handleClose}
                   className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110"
                   disabled={isSubmitting}
@@ -612,7 +612,7 @@ const NewQuestionModal = ({ isOpen, onClose, onSubmit }) => {
                 borderColor: isDarkMode ? "#374151" : "#e5e7eb",
               }}
             >
-              <button
+              <button aria-label="Search"
                 type="button"
                 onClick={handleClose}
                 className={`flex-1 px-8 py-4 border-2 font-bold rounded-2xl transition-all duration-300 hover:scale-105 ${
@@ -624,7 +624,7 @@ const NewQuestionModal = ({ isOpen, onClose, onSubmit }) => {
               >
                 Cancel
               </button>
-              <button
+              <button aria-label="Search"
                 type="submit"
                 disabled={
                   isSubmitting ||

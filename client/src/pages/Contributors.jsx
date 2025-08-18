@@ -93,6 +93,7 @@ export default function Contributors() {
                   <img
                     src={contributor.avatar_url}
                     alt={contributor.login}
+                    loading="lazy" 
                     className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-pink-400"
                   />
                   <div className="text-xl font-semibold text-pink-300">{contributor.login}</div>

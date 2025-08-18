@@ -6,7 +6,10 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useTheme } from "../../context/ThemeContext";
+
 const TripExpenseCalculator = () => {
+    const { isDarkMode } = useTheme();
     const [expense, setExpense] = useState({
         transport: "",
         accommodation: "",
@@ -109,108 +112,136 @@ const handleDownloadPDF = () => {
     };
 
     return (
-    <div className="bg-white/10 backdrop-blur-md  rounded-2xl shadow-2xl p-8 border-white/20 max-w-xl mx-auto my-8 mt-20 text-white">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-            Trip Expense Calculator
-        </h2>
+        <div className="flex items-center justify-center min-h-screen py-8">
+            <div className={`backdrop-blur-md rounded-2xl p-8 border max-w-xl w-full mx-4 shadow-[0_0_15px_5px] transition-all duration-300 ${
+                isDarkMode 
+                    ? 'bg-gradient-to-b from-black to-[#621639] border-white/20 shadow-[#621639] text-white' 
+                    : 'bg-white border-pink-200 shadow-pink-500/20 text-gray-900'
+            }`}>
+                <h2 className={`text-3xl md:text-4xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r ${
+                    isDarkMode 
+                        ? 'from-[#501834] to-[#945072]' 
+                        : 'from-pink-600 to-rose-600'
+                }`}>
+                    Trip Expense Calculator
+                </h2>
 
-        <div className="flex justify-center mb-6">
-        <div className="inline-flex bg-pink-100 rounded-full p-1">
-            {["Individual", "group"].map((option) => (
-            <button
-              key={option}
-              onClick={() => setMode(option)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                mode === option
-                  ? "bg-gradient-to-r from-pink-400 to-rose-500 text-white shadow-md"
-                  : "text-pink-600"
-              }`}
-            >
-              {option === "Individual" ? "Individual" : "group"}
-            </button>
-          ))}
-        </div>
-        </div>
+                <div className="flex justify-center mb-6">
+                    <div className={`inline-flex rounded-full p-1 ${
+                        isDarkMode ? 'bg-pink-100' : 'bg-pink-50'
+                    }`}>
+                        {["Individual", "group"].map((option) => (
+                            <button
+                                key={option}
+                                onClick={() => setMode(option)}
+                                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                                    mode === option
+                                        ? "bg-gradient-to-r from-[#501834] to-rose-500 text-white shadow-md"
+                                        : isDarkMode ? "text-pink-600" : "text-pink-700"
+                                }`}
+                            >
+                                {option === "Individual" ? "Individual" : "group"}
+                            </button>
+                        ))}
+                    </div>
+                </div>
 
-        {Object.keys(expense).map((category) => (
-            <ExpenseInputRow
-            key={category}
-            label={category}
-            value={expense[category]}
-            onChange={(val) => handleChange(category, val)}
-            inputClassName="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-slate-800"
-            />
-        ))}
+                {Object.keys(expense).map((category) => (
+                    <ExpenseInputRow
+                        key={category}
+                        label={category}
+                        value={expense[category]}
+                        onChange={(val) => handleChange(category, val)}
+                        isDarkMode={isDarkMode}
+                    />
+                ))}
 
-        {mode === "group" && (
-        <div className="flex items-center gap-4 mt-6">
-            <label className="text-sm font-semibold text-gray-700">
-                Number of People:
-            </label>
-            <input
-                type="number"
-                min="1"
-                value={numPeople}
-                onChange={(e) => setNumPeople(Number(e.target.value))}
-                className="w-24 px-4 py-2 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 outline-none "
-            />
-        </div>
-        )}
+                {mode === "group" && (
+                    <div className="flex items-center gap-4 mt-6">
+                        <label className={`text-sm font-semibold ${
+                            isDarkMode ? 'text-white' : 'text-gray-700'
+                        }`}>
+                            Number of People:
+                        </label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={numPeople}
+                            onChange={(e) => setNumPeople(Number(e.target.value))}
+                            className={`w-24 px-4 py-2 border-2 rounded-xl focus:ring-4 outline-none transition-all duration-300 ${
+                                isDarkMode 
+                                    ? 'border-pink-200 focus:border-pink-400 focus:ring-pink-100 bg-gray-700 text-white' 
+                                    : 'border-pink-200 focus:border-pink-400 focus:ring-pink-100 bg-white text-gray-900'
+                            }`}
+                        />
+                    </div>
+                )}
 
-        <div className="mt-8 text-center">
-            <p className="text-lg font-semibold">
-            Total Cost:
-            <span className="ml-2 text-pink-600">
-                ₹{displayedTotal.toFixed(2)}
-            </span>
-            <span className="ml-1 text-sm">
-                ({mode === "group" ? "Per Person" : "Individual Total"})
-            </span>
-            </p>
-        </div>
+                <div className="mt-8 text-center">
+                    <p className="text-lg font-semibold">
+                        Total Cost:
+                        <span className="ml-2 text-pink-600">
+                            ₹{displayedTotal.toFixed(2)}
+                        </span>
+                        <span className={`ml-1 text-sm ${
+                            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
+                            ({mode === "group" ? "Per Person" : "Individual Total"})
+                        </span>
+                    </p>
+                </div>
 
-        {/* Download Buttons */}
-        <div className="mt-6 flex justify-center gap-4">
-            <button
-                onClick={handleDownloadPDF}
-                className="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition"
-            >
-                Download PDF
-            </button>
-            <button
-                onClick={handleDownloadExcel}
-                className="bg-pink-100 text-pink-700 font-semibold px-4 py-2 rounded-xl hover:bg-pink-200 transition"
-            >
-                Download Excel
-            </button>
-        </div>
+                {/* Download Buttons */}
+                <div className="mt-6 flex justify-center gap-4">
+                    <button
+                        onClick={handleDownloadPDF}
+                        className="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition"
+                    >
+                        Download PDF
+                    </button>
+                    <button
+                        onClick={handleDownloadExcel}
+                        className={`font-semibold px-4 py-2 rounded-xl transition ${
+                            isDarkMode 
+                                ? 'bg-pink-100 text-pink-700 hover:bg-pink-200' 
+                                : 'bg-pink-50 text-pink-700 hover:bg-pink-100'
+                        }`}
+                    >
+                        Download Excel
+                    </button>
+                </div>
 
-        <div className="mt-8 p-8">
-            <h3 className="text-2xl font-bold text-center mb-2">Expense Breakdown</h3>
-            <ResponsiveContainer width="100%" height={height ? 450 : 0}>
-                <PieChart margin={{ top: 30, bottom: 60 }}>
-                    <Pie
-                        data={chartData}
-                        dataKey="value"
-                        nameKey="name"  
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={100}
-                        fill="#8884d8"
-                        label
-                        className="mt-10"
-                    >  
-                    {chartData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
-                    ))}
-                    </Pie>
-                    <Tooltip/>
-                    <Legend layout="horizontal" verticalAlign="bottom" align="center" />             
-                </PieChart>
-            </ResponsiveContainer>
+                <div className={`mt-8 p-8 rounded-xl ${
+                    isDarkMode ? 'bg-gray-800/50' : 'bg-pink-50/50'
+                }`}>
+                    <h3 className={`text-2xl font-bold text-center mb-2 ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>Expense Breakdown</h3>
+                    <ResponsiveContainer width="100%" height={height ? 450 : 0}>
+                        <PieChart margin={{ top: 30, bottom: 60 }}>
+                            <Pie
+                                data={chartData}
+                                dataKey="value"
+                                nameKey="name"  
+                                cx="50%"
+                                cy="50%"
+                                outerRadius={100}
+                                fill="#8884d8"
+                                label
+                                className="mt-10"
+                            >  
+                                {chartData.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+                                ))}
+                            </Pie>
+                            <Tooltip/>
+                            <Legend layout="horizontal" verticalAlign="bottom" align="center" />             
+                        </PieChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
         </div>
-    </div>
-  );
+    );
 };
 
 export default TripExpenseCalculator;

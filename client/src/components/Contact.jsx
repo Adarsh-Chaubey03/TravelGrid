@@ -155,7 +155,7 @@ const Contact = () => {
                     </div>
                   ))}
                 
-                <button
+                <button aria-label="Search"
                   type="submit"
                   className="w-full bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white font-bold py-4 rounded-xl transition-all transform hover:scale-105 hover:shadow-lg cursor-pointer"
                 >

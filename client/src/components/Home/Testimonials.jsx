@@ -1,6 +1,7 @@
 import React from "react";
-import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
+import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const testimonials = [
   {
@@ -58,34 +59,39 @@ const scrollStyles = `
 
 const Testimonials = () => {
   const { isDarkMode } = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <section className="w-full py-20">
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className={` relative right-1/2 left-1/2 -mr-[45vw] -ml-[50vw] w-screen py-20 ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}`}
+    >
       <style>{scrollStyles}</style>
 
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="text-center mb-16">
           <h2
-            className={`text-3xl md:text-4xl font-medium mb-6 transition-all duration-300 ${
+            className={`text-3xl md:text-4xl font-bold mb-6 transition-all duration-300 break-words ${
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            What Our{" "}
+            {t('home.whatOur')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              Travelers Say
+              {t('home.travelersSay')}
             </span>
           </h2>
           <p
-            className={`text-lg max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${
+            className={`text-lg max-w-2xl mx-auto leading-relaxed transition-all duration-300 break-words ${
               isDarkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Join thousands of satisfied travelers who have discovered amazing
-            destinations with TravelGrid.
+            {t('home.testimonialsDescription')}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
@@ -94,7 +100,7 @@ const Testimonials = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 ${
+              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 h-full ${
                 isDarkMode
                   ? "bg-gradient-to-b from-black to-zinc-700 border-white/20 hover:border-white/40"
                   : "bg-gradient-to-br from-white to-gray-200 border-pink-300 shadow-2xl shadow-gray-500 hover:border-pink-300"
@@ -103,6 +109,7 @@ const Testimonials = () => {
               <img
                 src={t.avatar}
                 alt={t.name}
+                loading="lazy" 
                 className="w-16 h-16 rounded-full mb-4 object-cover border-2 border-pink-400 group-hover:border-pink-300 transition-colors duration-300"
               />
               <h3
@@ -115,7 +122,7 @@ const Testimonials = () => {
                 {t.name}
               </h3>
               <p
-                className={`text-sm mb-6 leading-relaxed transition-colors duration-300 ${
+                className={`text-sm mb-6 leading-relaxed transition-colors duration-300 break-words ${
                   isDarkMode
                     ? "text-gray-300 group-hover:text-white"
                     : "text-gray-600 group-hover:text-gray-800"
@@ -141,7 +148,7 @@ const Testimonials = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

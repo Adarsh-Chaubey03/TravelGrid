@@ -27,12 +27,13 @@ const WishlistCard = ({ item }) => {
         <img
           src={item.image}
           alt={item.name}
+          loading="lazy" 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         
         {/* Actions overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
-          <button 
+          <button aria-label="Search"
             className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
             onClick={handleRemoveFromWishlist}
             title="Remove from wishlist"
@@ -40,7 +41,7 @@ const WishlistCard = ({ item }) => {
             <Trash2 className="h-4 w-4 text-red-500" />
           </button>
           
-          <button 
+          <button aria-label="Search"
             className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
             onClick={(e) => {
               e.stopPropagation();

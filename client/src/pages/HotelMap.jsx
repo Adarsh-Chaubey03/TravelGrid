@@ -87,7 +87,7 @@ const HotelMap = ({ hotels }) => {
 
             <div className="p-6 max-w-4xl mx-auto">\
               <div className="relative h-[45vh] w-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-pink-500">
-                <img src={selectedHotel.image} alt={selectedHotel.name} className="w-full h-full object-cover" />
+                <img src={selectedHotel.image} alt={selectedHotel.name} loading="lazy"  className="w-full h-full object-cover" />
                 <div className="absolute bottom-4 left-4 bg-pink-600/90 px-4 py-1 rounded-full text-white text-sm font-semibold flex items-center shadow-lg">
                   <StarIcon className="h-5 w-5 text-yellow-300 mr-1" />
                   {selectedHotel.rating}.0

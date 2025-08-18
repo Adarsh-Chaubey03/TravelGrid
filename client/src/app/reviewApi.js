@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { config } from '../config';
 
-const Review_Api = "http://localhost:5000"; //backened api
+const Review_Api = config.API_BASE_URL.replace('/api', ''); //backened api
 
 export const reviewApi = createApi({
   reducerPath: "reviewApi",
@@ -15,10 +16,10 @@ export const reviewApi = createApi({
       providesTags: ["Reviews"],
     }),
     addComment: builder.mutation({
-      query: ({ comment , stars }) => ({
+      query: ({ comment, stars }) => ({
         url: '/api/reviews/add',
         method: "POST",
-        body: { comment , stars },
+        body: { comment, stars },
       }),
       invalidatesTags: ["Reviews"],
     }),
@@ -26,6 +27,6 @@ export const reviewApi = createApi({
 });
 
 export const {
-    useAddCommentMutation, 
-    useGetReviewsQuery, 
+  useAddCommentMutation,
+  useGetReviewsQuery,
 } = reviewApi;

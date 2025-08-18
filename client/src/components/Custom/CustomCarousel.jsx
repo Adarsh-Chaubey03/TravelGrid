@@ -15,14 +15,14 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
   };
   return (
     <div className="carousel-container">
-      <button
+      <button aria-label="Search"
         onClick={prevSlide}
         className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${
           isDarkMode
             ? "bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40"
             : "bg-white/80 border border-gray-200 hover:bg-white hover:border-pink-300"
-        }`}
-      >
+        } cursor-pointer`}>
+            {/* add cursor pointer on prevSlide */}
         <ChevronLeft
           className={`w-6 h-6 ${isDarkMode ? "text-white" : "text-gray-700"}`}
         />
@@ -94,7 +94,7 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
               } card`}
             >
               <div className="card-image">
-                <img src={guide.image} alt={guide.name} />
+                <img src={guide.image} alt={guide.name} loading="lazy"  />
               </div>
 
               <div className="card-info">
@@ -111,7 +111,7 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                 >
                   {guide.bio}
                 </p>
-                <button
+                <button aria-label="Search"
                   className={`view-btn ${
                     isHome
                       ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
@@ -127,14 +127,14 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
         })}
       </div>
 
-      <button
+      <button aria-label="Search"
         onClick={nextSlide}
         className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${
           isDarkMode
             ? "bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40"
             : "bg-white/80 border border-gray-200 hover:bg-white hover:border-pink-300"
-        }`}
-      >
+        } cursor-pointer`} > 
+        {/* add cursor pointer on nextSlide */}
         <ChevronRight
           className={`w-6 h-6 ${isDarkMode ? "text-white" : "text-gray-700"}`}
         />

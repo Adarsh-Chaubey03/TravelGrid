@@ -5,7 +5,7 @@
 The TravelGrid application now supports a comprehensive dark/light mode toggle feature that enhances user experience and accessibility.
 
 ## Features Implemented
-
+### New Feature
 ### ✅ Core Features
 - **Theme Toggle Button**: Beautiful animated toggle with sun/moon icons
 - **Persistent Storage**: Theme preference saved in localStorage

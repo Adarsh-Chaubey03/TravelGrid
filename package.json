@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "leaflet-routing-machine": "^3.2.12",
+    "world-countries": "^5.1.0"
+  }
+}

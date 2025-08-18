@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Add this import
-import {   MapPin, Star, Calendar, Info } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom'; // Add this import
+import {   MapPin, Star, Calendar, Info, Sparkles } from 'lucide-react';
 import Navbar from '../components/Custom/Navbar';
 
 const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
@@ -8,6 +8,8 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   const [location, setLocation] = useState(null);
   const [selectedTab, setSelectedTab] = useState('overview');
   const [loading, setLoading] = useState(true);
+  const navigate=useNavigate()
+  const [expandDesc,setExpandDesc]=useState(false)
 
   // Comprehensive location data with natural descriptions
   const locationData = {
@@ -21,7 +23,7 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
       priceRange: "$$",
       bestTime: "April - October",
       shortDescription: "A volcanic island paradise famous for its dramatic clifftop villages, stunning sunsets, and distinctive blue-domed churches.",
-      image: "https://images.unsplash.com/photo-1676730056228-7e38cbb88edc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFNhbnRvcmluaSUyQyUyMEdyZWVjZXxlbnwwfHwwfHx8MA%3D%3D",
+      image: "https://images.unsplash.com/photo-1673137175648-889d7d236ba6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       overview: {
         description: "Santorini is a crescent-shaped volcanic island in the southern Aegean Sea, about 200 kilometers southeast of mainland Greece. The island was shaped by one of the largest volcanic eruptions in recorded history, which occurred around 3,600 years ago. This dramatic geological event created the island's iconic caldera - a large volcanic crater filled with brilliant blue water that serves as the backdrop for the famous clifftop towns.",
         geography: "The island covers approximately 76 square kilometers and is characterized by dramatic cliffs that rise up to 400 meters above sea level. The western coast features the famous caldera cliffs with their black, red, and white volcanic rock layers, while the eastern coast has beautiful beaches with unique colored sands - red, black, and white - all created by the volcanic activity.",
@@ -335,41 +337,57 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-pink-200">Loading destination details...</p>
+          <p className="text-pink-300">Loading destination details...</p>
         </div>
       </div>
     );
   }
 
   if (!location) {
-    return <div className="min-h-screen bg-black text-white flex items-center justify-center">Location not found</div>;
+    return <div className="min-h-screen bg-gray-50 text-white flex items-center justify-center">Location not found</div>;
   }
 
   const renderTabContent = () => {
     switch (selectedTab) {
+      // overview section
       case 'overview':
         return (
           <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-4">About {location.name}</h3>
-              <p className="text-pink-100 leading-relaxed mb-6">{location.overview.description}</p>
+            {/* Description section */}
+            <div class>
+              <h3 className="text-3xl font-bold text-pink-400 mb-4"> Description</h3>
+              <p className="text-gray-700 leading-relaxed mb-6">{location.overview.description}</p>
+              {/* State to control "Read more / Read Less" toggle for detail description */}
+               {!expandDesc && (
+                 <button className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300  bg-pink-500/10 text-gray-900 border border-pink-400 cursor-pointer" onClick={()=> setExpandDesc(true)}>Read more</button>
+              )}
+                {expandDesc && (
+                <>
+              <h4 className="text-xl font-semibold text-pink-400 mb-3">Geography & Setting</h4>
+              <p className="text-gray-700 leading-relaxed mb-6">{location.overview.geography}</p>
               
-              <h4 className="text-xl font-semibold text-white mb-3">Geography & Setting</h4>
-              <p className="text-pink-100 leading-relaxed mb-6">{location.overview.geography}</p>
-              
-              <h4 className="text-xl font-semibold text-white mb-3">Culture & Heritage</h4>
-              <p className="text-pink-100 leading-relaxed mb-6">{location.overview.culture}</p>
+              <h4 className="text-xl font-semibold text-pink-400 mb-3">Culture & Heritage</h4>
+              <p className="text-gray-700 leading-relaxed mb-6">{location.overview.culture}</p>
+                 <button className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 bg-pink-500/10 border border-pink-400 text-gray-900 cursor-pointer" onClick={()=> setExpandDesc(false)}>Read less</button>
+              </>
+              )}
             </div>
-
+                {/* Highlight section */}
             <div>
-              <h4 className="text-xl font-semibold text-white mb-4">What Makes This Place Special</h4>
+              <h4 className="text-3xl font-bold text-pink-400 mb-4">Highlights</h4>
+               <div className="bg-pink-500/10 border border-pink-400 rounded-xl p-4 inline-block mb-6">
+                <span className='text-gray-900 flex gap-2 items-center'><Calendar className='w-5 h-5 text-pink-500'/> Best time to visit:   {location.bestTime}</span>
+              </div>
+               {/* Highlight cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {location.overview.highlights.map((highlight, index) => (
-                  <div key={index} className="bg-white/10 rounded-lg p-4">
-                    <p className="text-pink-100">{highlight}</p>
+                  <div key={index} className="bg-gray-100 rounded-xl p-4 text-gray-700 border border-gray-400 shadow-sm hover:shadow-lg transition-all duration-300">
+                    <span className="flex items-start gap-4 text-gray-700">
+                      <Sparkles className='w-5 h-5 text-pink-400 flex-shrink-0'/>
+                      {highlight}</span>
                   </div>
                 ))}
               </div>
@@ -380,59 +398,64 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-pink-900">
+    <div className="min-h-screen bg-gray-50">
       <Navbar lightBackground />
 
       {/* Image */}
-      <div className="relative h-96 overflow-hidden bg-gray-800">
+      <div className="relative h-96 overflow-hidden ">
           <img
             src={location.image}
             alt={location.name}
-            className="w-full h-full object-cover"
+            loading="lazy" 
+            className="w-full h-full object-cover contrast-more:"
           />       
-        <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/60 to-black/30 z-10" />
 
         {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 z-20">
+        <div className="absolute top-20 bottom-0 left-0 right-0 p-8 z-20">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center space-x-2 text-pink-300 mb-2">
-              <MapPin className="h-5 w-5" />
-              <span>{location.region}, {location.country}</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
               {location.name}
             </h1>
-            <p className="text-xl text-pink-200 mb-6 max-w-3xl">
+            <p className="md:text-sm sm:text-xs text-md text-wrap text-gray-200 mb-4 max-w-3xl">
               {location.shortDescription}
             </p>
-            <div className="flex items-center space-x-6 text-white">
-              <div className="flex items-center space-x-1">
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <span className="font-semibold">{location.rating}</span>
-                <span className="text-pink-200">({location.reviewCount.toLocaleString()} reviews)</span>
+            {/* Map and review */}
+            <div className="flex items-start  space-x-4">
+                <div className="flex items-center space-x-1 text-gray-200">
+                <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                <span className="font-medium">{location.rating}</span>
+                <span className="text-gray-200">({location.reviewCount.toLocaleString()} reviews)</span>
               </div>
-              <div className="flex items-center space-x-1">
-                <Calendar className="h-5 w-5 text-pink-400" />
-                <span>Best: {location.bestTime}</span>
+
+              <div className="flex items-center gap-1 text-white mb-2">
+              <MapPin className="h-5 w-5 text-pink-400" />
+              <span>{location.region}, {location.country}</span>
               </div>
             </div>
+            {/* Add book now and Add to wishlist button */}
+            <div className="flex items-center space-x-6 text-gray-700">
+            <button className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-pink-50 text-black cursor-pointer" onClick={()=>navigate('/wishlist')}>Add to wishlist</button>
+          <button className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-pink-500 text-white cursor-pointer" onClick={()=> navigate(`/package/${locationId}`)}>Book now</button>
+            </div>
+           
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-pink-900/50 sticky top-0 z-10 backdrop-blur-sm">
+      <div className="bg-gray-100 shadow-lg sticky top-0 z-10 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-1 py-4 overflow-x-auto">
+          <div className="flex space-x-4 py-4 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setSelectedTab(tab.key)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-lg whitespace-nowrap transition-all font-medium ${
+                className={`flex items-center space-x-2 px-6 py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
                   selectedTab === tab.key
-                    ? 'bg-pink-600 text-white shadow-lg'
-                    : 'text-pink-200 hover:text-white hover:bg-pink-800/50'
-                }`}
+                    ? 'bg-pink-500 text-white shadow-lg'
+                    : 'text-gray-900 hover:text-gray-900 hover:bg-white/10'
+                } cursor-pointer`}
               >
                 <tab.icon className="h-5 w-5" />
                 <span>{tab.label}</span>

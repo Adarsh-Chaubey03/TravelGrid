@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   FaStar,
   FaCheckCircle,
@@ -29,9 +29,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className={`text-lg font-semibold ${
-            isItinerary ? "flex items-center gap-2" : ""
-          }`}
+          className={`text-lg font-semibold ${isItinerary ? "flex items-center gap-2" : ""
+            }`}
         >
           {isItinerary && (
             <span className="text-xs bg-[#2a002e] border border-pink-500 text-pink-300 px-2 py-0.5 rounded-full">
@@ -41,9 +40,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
           {title.split(" - ")[1] || title}
         </span>
         <FaChevronDown
-          className={`transition-transform ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       {/* only for Itinerary */}
@@ -72,9 +70,9 @@ const PackageDetails = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); //
   const { isAuthenticated, user } = useAuth();
   const { wishlist, addToWishlist } = useWishlist();
-  const packageData = packages.find((pkg) => pkg.id.toString() === id);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [formData, setFormData] = useState({
@@ -83,6 +81,25 @@ const PackageDetails = () => {
     travelers: 1,
     date: "",
   });
+
+
+  // Extract query param ?q=
+  // Get query param safely
+  const searchParams = new URLSearchParams(location.search || "");
+  const query = searchParams.get("q")?.trim() || "";
+
+  // Find package by id or query
+  let packageData = null;
+  if (id) {
+    packageData = packages.find((pkg) => pkg.id.toString() === id);
+  } else if (query) {
+    const qLower = query.toLowerCase();
+    packageData = packages.find(
+      (pkg) =>
+        pkg.title.toLowerCase().includes(qLower) ||
+        pkg.location.toLowerCase().includes(qLower)
+    );
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -140,7 +157,7 @@ const PackageDetails = () => {
 
   const {
     title,
-    location,
+    location: pkgLocation,
     duration,
     price,
     rating,
@@ -170,7 +187,7 @@ const PackageDetails = () => {
             {title}
           </h1>
           <p className="text-sm md:text-base text-[#d0d0d0]">
-            {location} • {duration}
+            {pkgLocation} • {duration}
           </p>
         </div>
       </div>
@@ -213,11 +230,10 @@ const PackageDetails = () => {
           <button
             onClick={() => handleAddToWishlist(packageData)}
             disabled={wishlist?.some((item) => item.id === packageData.id)}
-            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
-              wishlist?.some((item) => item.id === packageData.id)
+            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${wishlist?.some((item) => item.id === packageData.id)
                 ? "bg-gray-400 cursor-not-allowed text-white"
                 : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"
-            }`}
+              }`}
           >
             {wishlist?.some((item) => item.id === packageData.id)
               ? "Added to Wishlist"

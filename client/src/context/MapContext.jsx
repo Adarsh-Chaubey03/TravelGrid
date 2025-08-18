@@ -1,39 +1,23 @@
-import { createContext, useContext, useState, useEffect, useMemo } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import { createContext, useContext, useState } from "react";
 
 const MapContext = createContext();
 
-export const useMapContext = () => {
-  const context = useContext(MapContext);
-  if (!context) throw new Error("useMapContext must be used within MapProvider");
-  return context;
-};
-
 export const MapProvider = ({ children }) => {
-  const [mapReady, setMapReady] = useState(false);
+  const [itineraryStops, setItineraryStops] = useState([]);
 
-  useEffect(() => {
-    try {
-      delete L.Icon.Default.prototype._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      });
-    } catch (err) {
-      console.error("Leaflet icon fix failed:", err);
-    }
+  const addStop = (stop) => {
+    setItineraryStops((prev) => [...prev, stop]);
+  };
 
-    setMapReady(true);
-  }, []);
-
-  const contextValue = useMemo(() => ({ mapReady }), [mapReady]);
+  const setStops = (stops) => {
+    setItineraryStops(stops);
+  };
 
   return (
-    <MapContext.Provider value={contextValue}>
+    <MapContext.Provider value={{ itineraryStops, addStop, setStops }}>
       {children}
     </MapContext.Provider>
   );
 };
+
+export const useMapContext = () => useContext(MapContext);

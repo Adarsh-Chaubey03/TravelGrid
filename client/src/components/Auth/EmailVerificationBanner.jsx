@@ -54,7 +54,7 @@ const EmailVerificationBanner = () => {
           </div>
           
           <div className="flex items-center gap-2">
-            <button
+            <button aria-label="Search"
               onClick={handleVerifyClick}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 isDarkMode
@@ -66,7 +66,7 @@ const EmailVerificationBanner = () => {
               Verify Now
             </button>
             
-            <button
+            <button aria-label="Search"
               onClick={handleResendClick}
               className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                 isDarkMode
@@ -77,7 +77,7 @@ const EmailVerificationBanner = () => {
               Resend
             </button>
             
-            <button
+            <button 
               onClick={() => setIsDismissed(true)}
               className={`p-2 rounded-lg transition-all ${
                 isDarkMode

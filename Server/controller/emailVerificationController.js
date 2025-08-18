@@ -80,9 +80,9 @@ const sendVerificationEmail = async (req, res) => {
 
     await sendEmail(email, subject, html);
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'Verification code sent to your email' 
+    res.status(200).json({
+      success: true,
+      message: 'Verification code sent to your email'
     });
 
   } catch (error) {
@@ -136,8 +136,8 @@ const verifyEmailWithCode = async (req, res) => {
       picture: user.picture
     };
 
-    res.status(200).json({ 
-      success: true, 
+    res.status(200).json({
+      success: true,
       message: 'Email verified successfully',
       user: updatedUser
     });
@@ -215,9 +215,9 @@ const resendVerificationCode = async (req, res) => {
 
     await sendEmail(email, subject, html);
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'New verification code sent to your email' 
+    res.status(200).json({
+      success: true,
+      message: 'New verification code sent to your email'
     });
 
   } catch (error) {
@@ -235,15 +235,31 @@ const checkVerificationStatus = async (req, res) => {
       return res.status(400).json({ error: 'Email is required' });
     }
 
+    // Input validation and sanitization for query parameters
+    if (typeof email !== 'string') {
+      return res.status(400).json({ error: 'Invalid email parameter type' });
+    }
+
+    // Length validation to prevent injection attacks
+    if (email.length > 254) { // RFC 5321 maximum email length
+      return res.status(400).json({ error: 'Email parameter too long' });
+    }
+
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.status(200).json({ 
-      success: true, 
-      isVerified: user.isEmailVerified || false 
+    res.status(200).json({
+      success: true,
+      isVerified: user.isEmailVerified || false
     });
 
   } catch (error) {

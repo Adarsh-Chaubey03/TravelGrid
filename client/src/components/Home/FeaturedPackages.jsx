@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../../context/WishlistContext";
-
 import { useTheme } from "../../context/ThemeContext";
+import SkeletonCard from "../SkeletonCard";
 
 const packages = [
   {
@@ -57,12 +56,20 @@ const cardVariants = {
 
 const FeaturedPackages = () => {
   const navigate = useNavigate();
-
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { isDarkMode } = useTheme();
+
+  const [loading, setLoading] = useState(true);
+
+  // Simulate API fetch
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // show skeletons for 3 sec
+    return () => clearTimeout(timer);
+  }, []);
 
   const isWishlisted = (id) => wishlist.some((item) => item.id === id);
-
-  const { isDarkMode } = useTheme();
 
   return (
     <motion.section
@@ -71,18 +78,19 @@ const FeaturedPackages = () => {
       viewport={{ once: true, amount: 0.2 }}
       className="w-full py-20"
     >
-      <div
-        className={`max-w-7xl mx-auto px-4 py-4 `}
-      >
-        {" "}
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className={`text-3xl md:text-4xl font-medium mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+          <h2
+            className={`text-3xl md:text-4xl font-medium mb-6 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
             Featured{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               Travel Packages
@@ -97,78 +105,88 @@ const FeaturedPackages = () => {
             unforgettable experiences.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {packages.map((pkg, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-          className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 ${isDarkMode
-                  ? 'bg-gradient-r from-black to-zinc-600 border-white/50 hover:border-white/40 shadow-xl shadow-white/20'
-                  : 'bg-white/80 border-gray-200 hover:border-pink-300'
-                }`}
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={pkg.image}
-                  alt={pkg.name}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                {/*wishlist button */}
-                <button
-                  onClick={() => {
-                    isWishlisted(pkg.id)
-                      ? removeFromWishlist(pkg.id)
-                      : addToWishlist(pkg);
-                  }}
-                  className="absolute top-3 right-3 text-white hover:scale-110 transition-transform duration-300 z-10"
-                >
-                  <FaHeart
-                    className={`text-xl ${
-                      isWishlisted(pkg.id) ? "text-pink-500" : "text-white/60"
-                    } transition-colors duration-300`}
-                  />
-                </button>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-pink-300 text-sm font-medium">
-                    {pkg.price}
-                  </p>
-                </div>
-              </div>
 
-              <div className="p-6">
-                <h3
-                  className={`text-xl font-semibold mb-2 group-hover:text-pink-300 transition-colors duration-300 ${
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 items-stretch">
+          {loading
+            ? [...Array(4)].map((_, i) => <SkeletonCard key={i} />)
+            : packages.map((pkg, i) => (
+                <motion.div
+                  key={pkg.id}
+                  custom={i}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 h-full ${
                     isDarkMode
-                      ? "text-white group-hover:text-pink-400"
-                      : "text-gray-900 group-hover:text-pink-500"
+                      ? "bg-gradient-r from-black to-zinc-600 border-white/50 hover:border-white/40 shadow-xl shadow-white/20"
+                      : "bg-white/80 border-gray-200 hover:border-pink-300"
                   }`}
                 >
-                  {pkg.name}
-                </h3>
-                <p
-                  className={`mb-4 transition-colors group-hover:text-gray-800 duration-300 ${
-                    isDarkMode
-                      ? "text-gray-300 group-hover:text-white"
-                      : "text-gray-600"
-                  }`}
-                >
-                  {pkg.location}
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform cursor-pointer shadow-lg hover:shadow-xl"
-                  onClick={() => navigate(`/package/${i + 9}`)}
-                >
-                  Book Now
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
+                  {/* Image + Wishlist */}
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      loading="lazy"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <button
+                      aria-label="Wishlist"
+                      onClick={() =>
+                        isWishlisted(pkg.id)
+                          ? removeFromWishlist(pkg.id)
+                          : addToWishlist(pkg)
+                      }
+                      className="absolute top-3 right-3 text-white hover:scale-110 transition-transform duration-300 z-10"
+                    >
+                      <FaHeart
+                        className={`text-xl ${
+                          isWishlisted(pkg.id)
+                            ? "text-pink-500"
+                            : "text-white/60"
+                        } transition-colors duration-300`}
+                      />
+                    </button>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-pink-300 text-sm font-medium">
+                        {pkg.price}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Details */}
+                  <div className="p-6">
+                    <h3
+                      className={`text-xl font-semibold mb-2 group-hover:text-pink-300 transition-colors duration-300 ${
+                        isDarkMode
+                          ? "text-white group-hover:text-pink-400"
+                          : "text-gray-900 group-hover:text-pink-500"
+                      }`}
+                    >
+                      {pkg.name}
+                    </h3>
+                    <p
+                      className={`mb-4 transition-colors group-hover:text-gray-800 duration-300 ${
+                        isDarkMode
+                          ? "text-gray-300 group-hover:text-white"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {pkg.location}
+                    </p>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform cursor-pointer shadow-lg hover:shadow-xl"
+                      onClick={() => navigate(`/package/${i + 9}`)}
+                    >
+                      Book Now
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
         </div>
       </div>
     </motion.section>

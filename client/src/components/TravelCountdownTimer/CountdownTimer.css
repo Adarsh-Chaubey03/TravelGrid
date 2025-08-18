@@ -1,0 +1,437 @@
+/* CountdownTimer.css */
+.countdown-timer {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Progress Bar */
+.countdown-progress {
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%);
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    text-align: center;
+    display: block;
+}
+
+/* Countdown Display */
+.countdown-display {
+    text-align: center;
+}
+
+.countdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.countdown-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #ec4899;
+}
+
+.countdown-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Time Units */
+.time-units {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.time-unit {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.time-unit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.time-unit:hover::before {
+    opacity: 1;
+}
+
+.time-unit.zero {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.time-unit.critical {
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+    border-color: rgba(245, 101, 101, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.time-unit.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 101, 101, 0.1) 100%);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.time-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.time-label {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Trip Info Display */
+.trip-info-display {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #ec4899;
+}
+
+.info-item span {
+    color: #d1d5db;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Motivational Message */
+.motivational-message {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border: 1px solid rgba(236, 72, 153, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.motivational-message p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Critical Warning */
+.critical-warning {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border: 2px solid rgba(239, 68, 68, 0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    animation: criticalPulse 1.5s infinite;
+}
+
+@keyframes criticalPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+}
+
+.warning-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.critical-warning p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Theme Variations */
+.countdown-timer.theme-ocean {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+}
+
+.countdown-timer.theme-ocean .progress-fill {
+    background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
+}
+
+.countdown-timer.theme-sunset {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+}
+
+.countdown-timer.theme-sunset .progress-fill {
+    background: linear-gradient(90deg, #f97316 0%, #ef4444 100%);
+}
+
+.countdown-timer.theme-forest {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+}
+
+.countdown-timer.theme-forest .progress-fill {
+    background: linear-gradient(90deg, #22c55e 0%, #10b981 100%);
+}
+
+.countdown-timer.theme-midnight {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.1) 0%, rgba(88, 28, 135, 0.05) 100%);
+}
+
+.countdown-timer.theme-midnight .progress-fill {
+    background: linear-gradient(90deg, #1f2937 0%, #581c87 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .countdown-timer {
+        padding: 1.5rem;
+    }
+
+    .time-units {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .time-value {
+        font-size: 2rem;
+    }
+
+    .trip-info-display {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .countdown-header h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-timer {
+        padding: 1rem;
+    }
+
+    .time-units {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .time-value {
+        font-size: 1.75rem;
+    }
+
+    .time-unit {
+        padding: 1rem 0.75rem;
+    }
+
+    .motivational-message,
+    .critical-warning {
+        padding: 1rem;
+    }
+
+    .motivational-message p,
+    .critical-warning p {
+        font-size: 1rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Loading States */
+.time-unit.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.time-unit.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #ec4899;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Focus States for Accessibility */
+.time-unit:focus {
+    outline: 2px solid #ec4899;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .time-unit {
+        border-width: 2px;
+    }
+
+    .progress-bar {
+        border: 1px solid #ffffff;
+    }
+
+    .info-item {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    .time-unit,
+    .progress-fill {
+        transition: none;
+    }
+
+    .time-unit:hover {
+        transform: none;
+    }
+
+    .progress-fill::after {
+        animation: none;
+    }
+
+    .critical-warning {
+        animation: none;
+    }
+
+    .time-unit.critical {
+        animation: none;
+    }
+}

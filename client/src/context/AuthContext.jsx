@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { config } from '../config';
 
 const AuthContext = createContext();
 
@@ -18,17 +19,33 @@ export const AuthProvider = ({ children }) => {
   // Fetch user from cookie session
   const fetchUser = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+      console.log('AuthContext: fetchUser called');
+      // Try to get token from localStorage first
+      const token = localStorage.getItem('jwt_token');
+      console.log('AuthContext: Token from localStorage:', token ? 'Present' : 'Missing');
+
+      const res = await fetch(`${config.API_BASE_URL}/auth/me`, {
         method: "GET",
         credentials: "include",
+        headers: token ? {
+          "Authorization": `Bearer ${token}`
+        } : {}
       });
+      console.log('AuthContext: /auth/me response status:', res.status);
       const data = await res.json();
+      console.log('AuthContext: /auth/me response data:', data);
       if (res.ok) {
+        console.log('AuthContext: Setting user:', data.user);
         setUser(data.user);
+      } else {
+        console.log('AuthContext: /auth/me failed, clearing user');
+        setUser(null);
       }
     } catch (err) {
-      console.error("Auth check failed:", err);
+      console.error("AuthContext: Auth check failed:", err);
+      setUser(null);
     } finally {
+      console.log('AuthContext: fetchUser completed, setting isLoading to false');
       setIsLoading(false);
     }
   };
@@ -37,11 +54,20 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, []);
 
+  // Debug effect to track user and isAuthenticated changes
+  useEffect(() => {
+    console.log('AuthContext: user state changed:', user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log('AuthContext: isAuthenticated state changed:', !!user);
+  }, [user]);
+
   // Signup
   const signup = async ({ name, email, password }) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+      const res = await fetch(`${config.API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -65,7 +91,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      const res = await fetch(`${config.API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // very important
@@ -74,6 +100,11 @@ export const AuthProvider = ({ children }) => {
 
       const data = await res.json();
       if (!res.ok) return { success: false, error: data.error || data.message };
+
+      // Store JWT token in localStorage
+      if (data.token) {
+        localStorage.setItem('jwt_token', data.token);
+      }
 
       setUser(data.user);
       toast.success("Login successful 👋");
@@ -88,10 +119,12 @@ export const AuthProvider = ({ children }) => {
   // Logout
   const logout = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
+      await fetch(`${config.API_BASE_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
+      // Remove JWT token from localStorage
+      localStorage.removeItem('jwt_token');
       setUser(null);
       toast.success("Logged out 👋");
     } catch {
@@ -102,7 +135,7 @@ export const AuthProvider = ({ children }) => {
   // Email verification functions
   const sendVerificationEmail = async (email) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/email/send-verification`, {
+      const res = await fetch(`${config.API_BASE_URL}/email/send-verification`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -120,7 +153,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyEmailCode = async (email, code) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/email/verify-code`, {
+      const res = await fetch(`${config.API_BASE_URL}/email/verify-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -143,7 +176,7 @@ export const AuthProvider = ({ children }) => {
 
   const resendVerificationCode = async (email) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/email/resend-code`, {
+      const res = await fetch(`${config.API_BASE_URL}/email/resend-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -161,7 +194,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkVerificationStatus = async (email) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/email/status?email=${encodeURIComponent(email)}`, {
+      const res = await fetch(`${config.API_BASE_URL}/email/status?email=${encodeURIComponent(email)}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

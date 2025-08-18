@@ -21,14 +21,14 @@
 
 .card {
   position: absolute;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.441);
   transition: all 0.5s ease;
   opacity: 0;
   z-index: 0;
 }
 
 .card:hover {
-  box-shadow: 0 0 20px rgba(236, 72, 153, 0.15);
+  box-shadow: 0 0 20px rgba(211, 72, 141, 0.634);
 }
 
 .card.left {

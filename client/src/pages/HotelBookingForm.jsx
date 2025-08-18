@@ -13,17 +13,19 @@ const HotelBookingForm = () => {
   const { user } = useAuth();
   const { hotel } = location.state || {};
 
-  const [bookingData, setBookingData] = useState({
-    roomType: '',
-    checkIn: '',
-    checkOut: '',
-    guests: 1,
-    guestName: '',
-    specialRequests: '',
-    countryCode: '+91',
-    contactNumber: '',
-    email: user?.email || 'guest@example.com'
-  });
+const [bookingData, setBookingData] = useState({
+  roomType: '',
+  checkIn: '',
+  checkOut: '',
+  guests: 1,
+  firstName: '',
+  lastName: '',
+  specialRequests: '',
+  countryCode: '+91',
+  contactNumber: '',
+  email: user?.email || 'guest@example.com'
+});
+
 
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [bookingId, setBookingId] = useState('');
@@ -133,10 +135,16 @@ const HotelBookingForm = () => {
     const newErrors = {};
 
     // Check required fields
-    if (!bookingData.guestName) {
-      newErrors.guestName = 'Guest name is required';
-    } else if (!validateName(bookingData.guestName)) {
-      newErrors.guestName = 'Enter valid name (2-50 characters, letters only)';
+    if (!bookingData.firstName) {
+      newErrors.firstName = 'First name is required';
+    } else if (!validateName(bookingData.firstName)) {
+      newErrors.firstName = 'Enter valid first name (2-50 letters)';
+    }
+
+    if (!bookingData.lastName) {
+      newErrors.lastName = 'Last name is required';
+    } else if (!validateName(bookingData.lastName)) {
+      newErrors.lastName = 'Enter valid last name (2-50 letters)';
     }
 
     if (!bookingData.contactNumber) {
@@ -292,39 +300,78 @@ const HotelBookingForm = () => {
 
               {/* Guests */}
               <div>
-                <label className="block text-lg font-semibold mb-2">Number of Guests</label>
-                <select
-                  name="guests"
-                  value={bookingData.guests}
-                  onChange={handleInputChange}
-                  className="w-full p-3 rounded-lg bg-white/10 border border-gray-400 text-white"
-                >
-                  {[1, 2, 3, 4, 5, 6].map(num => (
-                    <option key={num} value={num} className="bg-gray-800">{num} Guest{num > 1 ? 's' : ''}</option>
-                  ))}
-                </select>
+                <label className="block mb-1 font-semibold">Number of Guests</label>
+                <div className="flex items-center gap-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white p-2 rounded-lg border border-gray-700 w-fit">
+                  <button
+                    type="button"
+                    onClick={() => setBookingData(prev => ({
+                      ...prev,
+                      guests: Math.max(1, prev.guests - 1)
+                    }))}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg text-lg font-bold"
+                  >
+                    –
+                  </button>
+
+                  <span className="w-10 text-center">{bookingData.guests}</span>
+
+                  <button
+                    type="button"
+                    onClick={() => setBookingData(prev => ({
+                      ...prev,
+                      guests: Math.min(20, prev.guests + 1) // max 20 guests
+                    }))}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg text-lg font-bold"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
               {/* Guest Name */}
-              <div>
-                <label className="block text-lg font-semibold mb-2">Guest Name *</label>
-                <input
-                  type="text"
-                  name="guestName"
-                  value={bookingData.guestName}
-                  onChange={handleInputChange}
-                  placeholder="Enter guest name"
-                  className={`w-full p-3 rounded-lg bg-white/10 border text-white placeholder-gray-400 ${
-                    errors.guestName ? 'border-red-400' : 'border-gray-400'
-                  }`}
-                  minLength="2"
-                  maxLength="50"
-                  pattern="[a-zA-Z\s]+"
-                  required
-                />
-                {errors.guestName && (
-                  <p className="text-red-400 text-sm mt-1">{errors.guestName}</p>
-                )}
+              <div className='flex flex-row gap-4'>
+                <div className='w-1/2'>
+                  <label className="block text-lg font-semibold mb-2">First Name *</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={bookingData.firstName}
+                    onChange={handleInputChange}
+                    placeholder="Enter first name"
+                    className={`w-full p-3 rounded-lg bg-white/10 border text-white placeholder-gray-400 ${
+                      errors.firstName ? 'border-red-400' : 'border-gray-400'
+                    }`}
+                    minLength="2"
+                    maxLength="50"
+                    pattern="[a-zA-Z\s]+"
+                    required
+                  />
+                  {errors.firstName && (
+                    <p className="text-red-400 text-sm mt-1">{errors.firstName}</p>
+                  )}
+                </div>
+
+
+                <div className='w-1/2'>
+                  <label className="block text-lg font-semibold mb-2">Last Name *</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={bookingData.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Enter last name"
+                    className={`w-full p-3 rounded-lg bg-white/10 border text-white placeholder-gray-400 ${
+                      errors.lastName ? 'border-red-400' : 'border-gray-400'
+                    }`}
+                    minLength="2"
+                    maxLength="50"
+                    pattern="[a-zA-Z\s]+"
+                    required
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>
+                  )}
+                </div>
               </div>
 
               {/* Contact Information */}
@@ -479,7 +526,7 @@ const HotelBookingForm = () => {
               <h2 className="text-3xl font-bold text-green-400 mb-4">Booking Confirmed!</h2>
               <div className="bg-green-500/20 rounded-lg p-6 border border-green-400">
                 <p className="text-lg mb-2">Booking ID: <span className="font-mono font-bold">{bookingId}</span></p>
-                <p className="text-lg mb-2">Guest Name: <span className="font-semibold">{bookingData.guestName}</span></p>
+                <p className="text-lg mb-2">Guest Name: <span className="font-semibold">{bookingData.firstName} {bookingData.lastName}</span></p>
                 <p className="text-lg mb-2">Hotel: <span className="font-semibold">{hotel.name}</span></p>
                 <p className="text-lg mb-2">Room: <span className="font-semibold">{roomTypes.find(r => r.id === bookingData.roomType)?.name}</span></p>
                 <p className="text-lg mb-2">Check-in: <span className="font-semibold">{bookingData.checkIn}</span></p>

@@ -5,6 +5,8 @@ import { useDashboardData } from '../context/DashboardDataContext';
 import { MapPin, Calendar, Heart, LogOut, Building2, Edit, Save, X } from 'lucide-react';
 import hotels from '../data/hotels';
 import axios from 'axios';
+import { config } from '../config';
+import { TravelCountdownTimer } from '../components/TravelCountdownTimer';
 
 import defaultAvatar from '../assets/defaultprofile.svg';
 import toast from 'react-hot-toast';
@@ -23,7 +25,7 @@ const Dashboard = () => {
         email: user?.email || ''
     });
 
-    const API_BASE = import.meta.env.VITE_API_URL;
+    const API_BASE = config.API_BASE_URL;
 
     // --- Fetch Bookings ---
     useEffect(() => {
@@ -165,19 +167,20 @@ const Dashboard = () => {
                                 <img
                                     src={selectedImage ? URL.createObjectURL(selectedImage) : user.picture || defaultAvatar}
                                     alt={user.name}
+                                    loading="lazy" 
                                     className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-4 border-pink-400 object-cover"
                                     onError={(e) => {
                                         e.target.src = defaultAvatar;
                                     }}
                                 />
                                 {isEditing && (
-                                <button
-                                    className="absolute -bottom-1 -right-1 bg-pink-500 hover:bg-pink-600 text-white p-2 rounded-full transition-all duration-300 shadow-lg border-2 border-white cursor-pointer"
-                                    onClick={handleProfileEdit}
-                                    title="Change Profile Picture"
-                                >
-                                    <Edit className="w-3 h-3" />
-                                </button> )}
+                                    <button
+                                        className="absolute -bottom-1 -right-1 bg-pink-500 hover:bg-pink-600 text-white p-2 rounded-full transition-all duration-300 shadow-lg border-2 border-white cursor-pointer"
+                                        onClick={handleProfileEdit}
+                                        title="Change Profile Picture"
+                                    >
+                                        <Edit className="w-3 h-3" />
+                                    </button>)}
                             </div>
                             <div className="flex-1">
                                 {!isEditing ? (
@@ -252,6 +255,16 @@ const Dashboard = () => {
                             Logout
                         </button>
                     </div>
+                </div>
+
+                {/* Travel Countdown Timer */}
+                <div className="mb-8 mt-8">
+                    <TravelCountdownTimer
+                        trips={[]} // This will be populated with actual trips data
+                        onTripUpdate={() => {
+                            // Handle trip updates if needed
+                        }}
+                    />
                 </div>
 
                 {/* Stats Grid */}

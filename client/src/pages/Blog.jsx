@@ -178,6 +178,7 @@ function Blog() {
                   <img
                     src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${blog.author}`}
                     alt="avatar"
+                    loading="lazy" 
                     className="w-8 h-8 rounded-full border border-pink-400"
                   />
                   <span className="text-pink-300 text-sm">

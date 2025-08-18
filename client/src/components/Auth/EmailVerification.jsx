@@ -202,7 +202,7 @@ const EmailVerification = ({
         {/* Action Buttons */}
         <div className="space-y-4">
           {/* Verify Button */}
-          <button
+          <button aria-label="Search"
             onClick={handleVerify}
             disabled={isLoading || code.join('').length !== 6}
             className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -221,7 +221,7 @@ const EmailVerification = ({
           </button>
 
           {/* Resend Button */}
-          <button
+          <button aria-label="Search"
             onClick={handleResend}
             disabled={!canResend || isResending}
             className="w-full bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed border border-white/20"
@@ -241,7 +241,7 @@ const EmailVerification = ({
 
           {/* Back Button */}
           {showBackButton && onBack && (
-            <button
+            <button aria-label="Search"
               onClick={onBack}
               className="w-full text-gray-300 hover:text-white py-2 font-medium transition-colors"
             >

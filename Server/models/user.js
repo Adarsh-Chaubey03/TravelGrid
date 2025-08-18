@@ -64,6 +64,11 @@ const userSchema = new mongoose.Schema(
         ref: 'Trip',
       },
     ],
+    language: {
+      type: String,
+      default: 'en',
+      enum: ['en', 'hi', 'es', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'de']
+    },
   },
   {
     timestamps: true, // createdAt, updatedAt

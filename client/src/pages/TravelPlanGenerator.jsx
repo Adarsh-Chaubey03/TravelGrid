@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { generateTravelPlanPDF } from "../utils/pdfGenerator";
 import { fastTravelPlanner } from "../utils/fastTravelPlanner";
 import { useTheme } from "../context/ThemeContext";
+import { config } from "../config";
+import WeatherSection from "../Weather/WeatherSection";
 
 const TravelPlanGenerator = () => {
   const { isDarkMode } = useTheme();
@@ -179,7 +181,7 @@ const TravelPlanGenerator = () => {
 
   const saveTripToDatabase = async (tripData) => {
     try {
-      const res = await fetch("http://localhost:5000/api/trips", {
+      const res = await fetch(`${config.API_BASE_URL}/trips`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -204,28 +206,24 @@ const TravelPlanGenerator = () => {
   };
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-black to-pink-900' 
+    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden ${isDarkMode
+        ? 'bg-gradient-to-br from-black to-pink-900'
         : 'bg-gradient-to-br from-blue-50 to-pink-50'
-    }`}>
+      }`}>
       <Navbar />
       <main className="flex flex-col flex-1 w-full items-center pt-24">
         <section className="w-full py-12 text-center px-4">
-          <h1 className={`text-4xl md:text-5xl font-extrabold mb-4 mt-6 ${
-            isDarkMode ? 'text-white' : 'text-gray-900'
-          }`}>
+          <h1 className={`text-4xl md:text-5xl font-extrabold mb-4 mt-6 ${isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
             Create Your <span className="text-pink-400">Travel Plan</span>
           </h1>
-          <p className={`text-lg md:text-xl max-w-2xl mx-auto mb-4 ${
-            isDarkMode ? 'text-pink-200' : 'text-gray-700'
-          }`}>
+          <p className={`text-lg md:text-xl max-w-2xl mx-auto mb-4 ${isDarkMode ? 'text-pink-200' : 'text-gray-700'
+            }`}>
             Generate personalized day-by-day travel itineraries based on your
             preferences.
           </p>
-          <p className={`text-sm max-w-2xl mx-auto ${
-            isDarkMode ? 'text-pink-300' : 'text-gray-600'
-          }`}>
+          <p className={`text-sm max-w-2xl mx-auto ${isDarkMode ? 'text-pink-300' : 'text-gray-600'
+            }`}>
             ⚡ Select your country and city for ultra-fast instant travel
             planning!
           </p>
@@ -234,34 +232,30 @@ const TravelPlanGenerator = () => {
         <div className="max-w-6xl w-full px-4 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Form Section */}
-            <div className={`backdrop-blur-sm border rounded-2xl p-8 ${
-              isDarkMode 
-                ? 'bg-white/5 border-pink-400/20' 
+            <div className={`backdrop-blur-sm border rounded-2xl p-8 ${isDarkMode
+                ? 'bg-white/5 border-pink-400/20'
                 : 'bg-white/80 border-pink-200 shadow-lg'
-            }`}>
-              <h2 className={`text-2xl font-bold mb-6 ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
+              <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                 Plan Details
               </h2>
 
               <div className="space-y-6">
                 {/* Country Selection */}
                 <div>
-                  <label className={`block font-semibold mb-2 ${
-                    isDarkMode ? 'text-pink-300' : 'text-gray-700'
-                  }`}>
+                  <label className={`block font-semibold mb-2 ${isDarkMode ? 'text-pink-300' : 'text-gray-700'
+                    }`}>
                     <MapPin className="inline w-4 h-4 mr-2" />
                     Country
                   </label>
                   <select
                     value={formData.country}
                     onChange={(e) => handleCountryChange(e.target.value)}
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${
-                      isDarkMode 
-                        ? 'bg-black/30 border-pink-400/30 text-white' 
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${isDarkMode
+                        ? 'bg-black/30 border-pink-400/30 text-white'
                         : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400'
-                    }`}
+                      }`}
                   >
                     <option value="">Select a country</option>
                     {countries.map((country) => (
@@ -278,9 +272,8 @@ const TravelPlanGenerator = () => {
 
                 {/* Destination/City Selection */}
                 <div>
-                  <label className={`block font-semibold mb-2 ${
-                    isDarkMode ? 'text-pink-300' : 'text-gray-700'
-                  }`}>
+                  <label className={`block font-semibold mb-2 ${isDarkMode ? 'text-pink-300' : 'text-gray-700'
+                    }`}>
                     <MapPin className="inline w-4 h-4 mr-2" />
                     City/Destination
                   </label>
@@ -288,11 +281,10 @@ const TravelPlanGenerator = () => {
                     value={formData.destination}
                     onChange={(e) => handleDestinationChange(e.target.value)}
                     disabled={!formData.country}
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 disabled:opacity-50 disabled:cursor-not-allowed ${
-                      isDarkMode 
-                        ? 'bg-black/30 border-pink-400/30 text-white' 
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
+                        ? 'bg-black/30 border-pink-400/30 text-white'
                         : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400'
-                    }`}
+                      }`}
                   >
                     <option value="">
                       {formData.country
@@ -311,23 +303,20 @@ const TravelPlanGenerator = () => {
                       ))}
                   </select>
                   {formData.country && !formData.destination && (
-                    <p className={`text-sm mt-1 ${
-                      isDarkMode ? 'text-pink-300' : 'text-gray-600'
-                    }`}>
+                    <p className={`text-sm mt-1 ${isDarkMode ? 'text-pink-300' : 'text-gray-600'
+                      }`}>
                       Available cities in {formData.country}
                     </p>
                   )}
 
                   {/* Selected Location Display */}
                   {formData.country && formData.destination && (
-                    <div className={`mt-3 p-3 border rounded-lg ${
-                      isDarkMode 
-                        ? 'bg-pink-600/20 border-pink-400/30' 
+                    <div className={`mt-3 p-3 border rounded-lg ${isDarkMode
+                        ? 'bg-pink-600/20 border-pink-400/30'
                         : 'bg-pink-50 border-pink-200'
-                    }`}>
-                      <p className={`text-sm ${
-                        isDarkMode ? 'text-white' : 'text-gray-800'
                       }`}>
+                      <p className={`text-sm ${isDarkMode ? 'text-white' : 'text-gray-800'
+                        }`}>
                         <span className={isDarkMode ? 'text-pink-300' : 'text-pink-600'}>Selected:</span>{" "}
                         {formData.destination}, {formData.country}
                       </p>
@@ -337,9 +326,8 @@ const TravelPlanGenerator = () => {
 
                 {/* Number of Days */}
                 <div>
-                  <label className={`block font-semibold mb-2 ${
-                    isDarkMode ? 'text-pink-300' : 'text-gray-700'
-                  }`}>
+                  <label className={`block font-semibold mb-2 ${isDarkMode ? 'text-pink-300' : 'text-gray-700'
+                    }`}>
                     <Clock className="inline w-4 h-4 mr-2" />
                     Number of Travel Days
                   </label>
@@ -354,19 +342,17 @@ const TravelPlanGenerator = () => {
                         numberOfDays: parseInt(e.target.value),
                       }))
                     }
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${
-                      isDarkMode 
-                        ? 'bg-black/30 border-pink-400/30 text-white' 
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${isDarkMode
+                        ? 'bg-black/30 border-pink-400/30 text-white'
                         : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400'
-                    }`}
+                      }`}
                   />
                 </div>
 
                 {/* Start Date */}
                 <div>
-                  <label className={`block font-semibold mb-2 ${
-                    isDarkMode ? 'text-pink-300' : 'text-gray-700'
-                  }`}>
+                  <label className={`block font-semibold mb-2 ${isDarkMode ? 'text-pink-300' : 'text-gray-700'
+                    }`}>
                     <Calendar className="inline w-4 h-4 mr-2" />
                     Start Date (Optional)
                   </label>
@@ -375,11 +361,10 @@ const TravelPlanGenerator = () => {
                     value={formData.startDate}
                     onChange={handleDateChange}
                     min={getTodayDate()}
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${
-                      isDarkMode 
-                        ? 'bg-black/30 border-pink-400/30 text-white' 
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${isDarkMode
+                        ? 'bg-black/30 border-pink-400/30 text-white'
                         : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400'
-                    }`}
+                      }`}
                   />
                   {dateError && (
                     <p className="text-red-400 text-sm mt-1">{dateError}</p>
@@ -388,9 +373,8 @@ const TravelPlanGenerator = () => {
 
                 {/* Travel Interests */}
                 <div>
-                  <label className={`block font-semibold mb-3 ${
-                    isDarkMode ? 'text-pink-300' : 'text-gray-700'
-                  }`}>
+                  <label className={`block font-semibold mb-3 ${isDarkMode ? 'text-pink-300' : 'text-gray-700'
+                    }`}>
                     <Star className="inline w-4 h-4 mr-2" />
                     Travel Interests
                   </label>
@@ -398,11 +382,10 @@ const TravelPlanGenerator = () => {
                     {travelInterests.map((interest) => (
                       <label
                         key={interest.id}
-                        className={`flex items-center space-x-2 cursor-pointer p-3 border rounded-lg hover:bg-pink-400/10 transition-colors ${
-                          isDarkMode 
-                            ? 'bg-black/20 border-pink-400/20' 
+                        className={`flex items-center space-x-2 cursor-pointer p-3 border rounded-lg hover:bg-pink-400/10 transition-colors ${isDarkMode
+                            ? 'bg-black/20 border-pink-400/20'
                             : 'bg-white border-gray-200 hover:bg-pink-50'
-                        }`}
+                          }`}
                       >
                         <input
                           type="checkbox"
@@ -411,9 +394,8 @@ const TravelPlanGenerator = () => {
                           className="w-4 h-4 text-pink-400 bg-black/30 border-pink-400/30 rounded focus:ring-pink-400"
                         />
                         <span className="text-lg">{interest.icon}</span>
-                        <span className={`text-sm ${
-                          isDarkMode ? 'text-white' : 'text-gray-900'
-                        }`}>
+                        <span className={`text-sm ${isDarkMode ? 'text-white' : 'text-gray-900'
+                          }`}>
                           {interest.label}
                         </span>
                       </label>
@@ -440,23 +422,24 @@ const TravelPlanGenerator = () => {
             </div>
 
             {/* Generated Plan Section */}
-            <div className={`backdrop-blur-sm border rounded-2xl p-8 ${
-              isDarkMode 
-                ? 'bg-white/5 border-pink-400/20' 
+            <div className={`backdrop-blur-sm border rounded-2xl p-8 ${isDarkMode
+                ? 'bg-white/5 border-pink-400/20'
                 : 'bg-white/80 border-pink-200 shadow-lg'
-            }`}>
-              <h2 className={`text-2xl font-bold mb-6 ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
+              <h2 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                 Your Travel Plan
               </h2>
+
+              {formData.destination && (
+                <WeatherSection city={formData.destination} />
+              )}
 
               {generatedPlan ? (
                 <div className="space-y-6">
                   {/* Plan Header */}
-                  <div className={`rounded-lg p-4 ${
-                    isDarkMode ? 'bg-black/20' : 'bg-gray-50'
-                  }`}>
+                  <div className={`rounded-lg p-4 ${isDarkMode ? 'bg-black/20' : 'bg-gray-50'
+                    }`}>
                     <h3 className="text-xl font-bold text-pink-400 mb-2">
                       {generatedPlan.destination}, {formData.country}
                     </h3>
@@ -479,12 +462,10 @@ const TravelPlanGenerator = () => {
                   {/* Daily Plans */}
                   <div className="space-y-4 max-h-96 overflow-y-auto">
                     {generatedPlan.days.map((day) => (
-                      <div key={day.day} className={`rounded-lg p-4 ${
-                        isDarkMode ? 'bg-black/20' : 'bg-gray-50'
-                      }`}>
-                        <h4 className={`text-lg font-semibold mb-3 ${
-                          isDarkMode ? 'text-pink-300' : 'text-gray-800'
+                      <div key={day.day} className={`rounded-lg p-4 ${isDarkMode ? 'bg-black/20' : 'bg-gray-50'
                         }`}>
+                        <h4 className={`text-lg font-semibold mb-3 ${isDarkMode ? 'text-pink-300' : 'text-gray-800'
+                          }`}>
                           {day.title}
                         </h4>
 
@@ -493,9 +474,8 @@ const TravelPlanGenerator = () => {
                             <h5 className="text-pink-400 font-medium text-sm">
                               Activities:
                             </h5>
-                            <ul className={`text-sm space-y-1 mt-1 ${
-                              isDarkMode ? 'text-white' : 'text-gray-700'
-                            }`}>
+                            <ul className={`text-sm space-y-1 mt-1 ${isDarkMode ? 'text-white' : 'text-gray-700'
+                              }`}>
                               {day.activities.map((activity, idx) => (
                                 <li key={idx} className="flex items-center">
                                   <span className="w-2 h-2 bg-pink-400 rounded-full mr-2"></span>
@@ -510,9 +490,8 @@ const TravelPlanGenerator = () => {
                               <span className="text-pink-400 font-medium">
                                 Breakfast:
                               </span>
-                              <span className={`ml-2 ${
-                                isDarkMode ? 'text-white' : 'text-gray-700'
-                              }`}>
+                              <span className={`ml-2 ${isDarkMode ? 'text-white' : 'text-gray-700'
+                                }`}>
                                 {day.meals.breakfast}
                               </span>
                             </div>
@@ -520,9 +499,8 @@ const TravelPlanGenerator = () => {
                               <span className="text-pink-400 font-medium">
                                 Lunch:
                               </span>
-                              <span className={`ml-2 ${
-                                isDarkMode ? 'text-white' : 'text-gray-700'
-                              }`}>
+                              <span className={`ml-2 ${isDarkMode ? 'text-white' : 'text-gray-700'
+                                }`}>
                                 {day.meals.lunch}
                               </span>
                             </div>
@@ -530,9 +508,8 @@ const TravelPlanGenerator = () => {
                               <span className="text-pink-400 font-medium">
                                 Dinner:
                               </span>
-                              <span className={`ml-2 ${
-                                isDarkMode ? 'text-white' : 'text-gray-700'
-                              }`}>
+                              <span className={`ml-2 ${isDarkMode ? 'text-white' : 'text-gray-700'
+                                }`}>
                                 {day.meals.dinner}
                               </span>
                             </div>
@@ -552,9 +529,8 @@ const TravelPlanGenerator = () => {
                   </button>
                 </div>
               ) : (
-                <div className={`text-center py-12 ${
-                  isDarkMode ? 'text-pink-300' : 'text-gray-600'
-                }`}>
+                <div className={`text-center py-12 ${isDarkMode ? 'text-pink-300' : 'text-gray-600'
+                  }`}>
                   <Map className="w-16 h-16 mx-auto mb-4 opacity-50" />
                   <p>
                     Fill in the form and generate your personalized travel plan

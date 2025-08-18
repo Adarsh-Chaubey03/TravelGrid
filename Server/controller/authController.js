@@ -17,12 +17,22 @@ const setTokenCookie = (res, userId) => {
     expiresIn: '7d',
   });
 
-  res.cookie("token", token, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+  };
+
+  // Set sameSite based on environment
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.sameSite = "None";
+    cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  } else {
+    // For development, don't set sameSite to allow cross-origin cookies
+    cookieOptions.sameSite = false;
+  }
+
+  res.cookie("token", token, cookieOptions);
 };
 
 // Generate 6-digit verification code
@@ -241,6 +251,7 @@ exports.loginUser = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+      token: jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' }),
       user: {
         id: user._id,
         name: user.name,

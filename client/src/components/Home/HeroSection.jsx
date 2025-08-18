@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 import Typewriter from "typewriter-effect";
 import { X, ChevronDown, Check } from "lucide-react";
 import toast from "react-hot-toast";
@@ -7,34 +10,80 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 
 const HeroSection = ({ onSearch }) => {
+  const { t } = useTranslation();
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("All Categories");
+  const [category, setCategory] = useState(t('home.allCategories'));
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]); // ✅ FIX: Added missing state
   const { isDarkMode } = useTheme();
   const { isAuthenticated } = useAuth();
-
-  const handleSearch = () => {
-    if (!isAuthenticated) {
-      toast.error("Please sign in to search for destinations.");
-      return;
-    }
-    onSearch({ location, category });
-    console.log("Search button clicked:", searchTerm, location);
-  };
+  const navigate = useNavigate();
 
   const categories = [
-    "All Categories",
-    "Restaurants",
-    "Hotels",
-    "Events",
-    "Shopping",
-    "Attractions",
-    "Transportation"
+    t('home.allCategories'),
+    t('home.restaurants'),
+    t('home.hotels'),
+    t('home.events'),
+    t('home.shopping'),
+    t('home.attractions'),
+    t('home.transportation'),
+    "Package", // ✅ Added new category
   ];
 
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
     setIsDropdownOpen(false);
+  };
+
+  // Only redirect to Hotels page with query param
+  const handleSearch = async () => {
+    if (!isAuthenticated) {
+      toast.error(t('errors.pleaseSignIn'));
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // If category is "Package", navigate to packages page
+      if (category === "Package") {
+        if (location.trim()) {
+          navigate(`/packages?query=${encodeURIComponent(location)}`);
+        } else {
+          navigate("/packages");
+        }
+        return; // Skip the API search here for packages
+      }
+
+      // ✅ Handle Hotels redirect when All Categories
+      if (category === t('home.allCategories') || category === "All Categories") {
+        if (location.trim()) {
+          navigate(`/hotels?query=${encodeURIComponent(location)}`);
+        } else {
+          navigate("/hotels");
+        }
+        return;
+      }
+
+      // Otherwise (Hotels, Restaurants, etc.)
+      const { data } = await axios.get(`/api/search?location=${encodeURIComponent(location)}&category=${encodeURIComponent(category)}`);
+      setSearchResults(data); // ✅ Store results so they show below
+
+      // Ensure it's always an array before setting state
+      setSearchResults(Array.isArray(data) ? data : []);
+
+      if (category === t('home.hotels') || category === "Hotels") {
+        navigate(`/hotels?query=${encodeURIComponent(location)}`);
+      }
+      // Add other category navigations here if needed
+
+    } catch (err) {
+      console.error(err);
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,7 +116,7 @@ const HeroSection = ({ onSearch }) => {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="flex-1 text-center lg:text-left text-white"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-6 tracking-tight leading-tight font-[Playfair Display]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight font-[Playfair Display] break-words">
               Explore&nbsp;
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 inline-block min-h-[1.5em]">
                 <Typewriter
@@ -82,8 +131,8 @@ const HeroSection = ({ onSearch }) => {
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl mb-8 font-medium text-gray-200 max-w-2xl font-[Poppins] leading-relaxed">
-              Find great places to stay, eat, shop, or visit from local experts. Discover hidden gems and create unforgettable memories.
+            <p className="text-lg md:text-xl mb-8 font-medium text-gray-200 max-w-2xl font-[Poppins] leading-relaxed break-words">
+              {t('home.heroDescription')}
             </p>
           </motion.div>
 
@@ -95,19 +144,19 @@ const HeroSection = ({ onSearch }) => {
             className="flex-1 w-full max-w-md"
           >
             <div className={`backdrop-blur-md rounded-2xl shadow-2xl p-6 space-y-4 border transition-all duration-300 ${isDarkMode
-                ? 'bg-white/10 border-white/20'
-                : 'bg-white/10 border-white/60'
+              ? 'bg-white/10 border-white/20'
+              : 'bg-white/10 border-white/60'
               }`}>
               <div className="space-y-3">
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Ex: Borivali, Mumbai, India"
+                    placeholder={t('home.locationPlaceholder')}
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className={`w-full px-4 py-3 backdrop-blur-sm border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${isDarkMode
-                        ? 'bg-white/90 text-gray-950 placeholder-gray-950 border-white/30'
-                        : 'bg-white/90 text-gray-700 placeholder-gray-500 border-white/30'
+                      ? 'bg-white/90 text-gray-950 placeholder-gray-950 border-white/30'
+                      : 'bg-white/90 text-gray-700 placeholder-gray-500 border-white/30'
                       }`}
                   />
                 </div>
@@ -119,11 +168,11 @@ const HeroSection = ({ onSearch }) => {
                       type="button"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                       className={`w-full px-4 py-3 backdrop-blur-sm border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 flex items-center justify-between ${isDarkMode
-                          ? 'bg-white/20 text-gray-950 placeholder-gray-950 border-white/30'
-                          : 'bg-white/10 text-black placeholder-gray-700 border-white/30 hover:bg-white/95'
+                        ? 'bg-white/20 text-gray-950 placeholder-gray-950 border-white/30'
+                        : 'bg-white/10 text-black placeholder-gray-700 border-white/30 hover:bg-white/95'
                         } ${isDropdownOpen ? 'ring-2 ring-pink-500 border-transparent' : ''}`}
                     >
-                      <span className="font-medium">{category}</span>
+                      <span className="font-medium break-words">{category}</span>
                       <motion.div
                         animate={{ rotate: isDropdownOpen ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
@@ -140,8 +189,8 @@ const HeroSection = ({ onSearch }) => {
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
                           className={`absolute z-50 w-full mt-2 py-2 rounded-xl shadow-2xl border backdrop-blur-xl ${isDarkMode
-                              ? 'bg-slate-800/95 border-slate-700/50'
-                              : 'bg-white/85 border-gray-200/50'
+                            ? 'bg-slate-800/95 border-slate-700/50'
+                            : 'bg-white/85 border-gray-200/50'
                             }`}
                         >
                           {categories.map((cat, index) => (
@@ -159,7 +208,7 @@ const HeroSection = ({ onSearch }) => {
                                   : 'text-gray-700 hover:text-gray-900'
                                 }`}
                             >
-                              <span className="font-medium">{cat}</span>
+                              <span className="font-medium break-words">{cat}</span>
                               {category === cat && (
                                 <motion.div
                                   initial={{ scale: 0 }}
@@ -192,16 +241,16 @@ const HeroSection = ({ onSearch }) => {
                   onClick={handleSearch}
                   className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-xl"
                 >
-                  Search
+                  {t('common.search')}
                 </motion.button>
               </div>
 
               {/* Category Filters */}
               <div className={`pt-4 border-t ${isDarkMode ? 'border-white/20' : 'border-white/20'
                 }`}>
-                <p className="text-sm font-medium text-black/80 mb-3">Quick Filters:</p>
+                <p className="text-sm font-medium text-black/80 mb-3">{t('home.quickFilters')}:</p>
                 <div className="flex flex-wrap gap-2">
-                  {["Restaurants", "Events", "Shopping"].map((filter) => (
+                  {[t('home.restaurants'), t('home.events'), t('home.shopping')].map((filter) => (
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -210,20 +259,20 @@ const HeroSection = ({ onSearch }) => {
                         setCategory(filter);
                         handleSearch();
                       }}
-                      className="px-3 py-2 bg-white/20 hover:bg-white/30 text-black/80 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer backdrop-blur-sm"
+                      className="px-3 py-2 bg-white/20 hover:bg-white/30 text-black/80 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer backdrop-blur-sm break-words"
                     >
                       {filter}
                     </motion.button>
                   ))}
 
-                  {category !== "All Categories" && (
+                  {category !== t('home.allCategories') && (
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => setCategory("All Categories")}
-                      className="px-3 py-2 inline-flex items-center gap-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg transition-all duration-200"
+                      onClick={() => setCategory(t('home.allCategories'))}
+                      className="px-3 py-2 inline-flex items-center gap-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg transition-all duration-200 break-words"
                     >
-                      Clear <X size={16} className="relative top-[1px]" />
+                      {t('common.clear')} <X size={16} className="relative top-[1px]" />
                     </motion.button>
                   )}
                 </div>
@@ -247,6 +296,21 @@ const HeroSection = ({ onSearch }) => {
           </motion.div>
         </div>
       </div>
+      {loading && (
+        <div className="text-center text-white mt-4">Searching...</div>
+      )}
+      {searchResults.length > 0 && (
+        <div className="mt-6 bg-white/80 rounded-xl p-4 max-w-md mx-auto">
+          <h3 className="font-bold mb-2 text-black">Search Results:</h3>
+          <ul>
+            {searchResults.map((item) => (
+              <li key={item._id} className="text-black">
+                {item.name} - {item.location} ({item.category})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </motion.section>
   );
 };

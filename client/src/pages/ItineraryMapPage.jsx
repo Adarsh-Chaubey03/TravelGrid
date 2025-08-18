@@ -41,40 +41,42 @@ const ItineraryMapPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6 pt-24">
-      <h1 className="text-3xl font-extrabold mb-4 text-center text-blue-400">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] p-6 pt-24">
+      <h1 className="text-3xl font-extrabold mb-4 text-center text-[var(--accent-primary)]">
         ✈️ Plan Your Trip Visually
       </h1>
 
       {/* Add Stop Form */}
       <form
         onSubmit={handleRoute}
-        className="mb-6 bg-gray-800 p-6 rounded-xl shadow-lg space-y-3"
+        className="mb-6 bg-[var(--bg-secondary)] p-6 rounded-xl shadow-lg space-y-3"
       >
         <input
           type="text"
           placeholder="Departure City"
           value={formData.from}
-          onChange={(e) => setFormData({ ...formData, from: e.target.value })}
-          className="border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+          onChange={e => setFormData({ ...formData, from: e.target.value })}
+          className="border border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-primary)] p-3 rounded w-full focus:outline-none focus:border-[var(--input-focus)]"
         />
+
         <input
           type="text"
           placeholder="Destination City"
           value={formData.to}
-          onChange={(e) => setFormData({ ...formData, to: e.target.value })}
-          className="border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+          onChange={e => setFormData({ ...formData, to: e.target.value })}
+          className="border border-[var(--input-border)] bg-[var(--input-bg)] text-[var(--text-primary)] p-3 rounded w-full focus:outline-none focus:border-[var(--input-focus)]"
         />
+
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-500 transition-colors w-full py-3 rounded text-white font-semibold"
+          className="bg-[var(--button-primary)] hover:bg-[var(--button-hover)] transition-colors w-full py-3 rounded text-[var(--text-primary)] font-semibold cursor-pointer"
         >
           Show Route
         </button>
       </form>
 
       {/* Map */}
-      <div className="rounded-lg overflow-hidden shadow-lg border border-gray-700">
+      <div className="rounded-lg overflow-hidden shadow-lg border border-[var(--border-primary)] bg-[var(--card-bg)] ">
         <ItineraryMap stops={itineraryStops} />
       </div>
     </div>

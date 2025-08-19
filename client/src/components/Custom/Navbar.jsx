@@ -120,9 +120,7 @@ const Navbar = () => {
     <div>
 
 
-      {/* Sticky Translucent Navbar */}
       <nav className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/20 px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
         <Link
           to="/"
           className="text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
@@ -130,7 +128,6 @@ const Navbar = () => {
           TravelGrid
         </Link>
 
-        {/* Desktop Nav Links - Centered */}
         <div className="hidden md:flex gap-8 items-center text-pink-500 font-medium flex-1 justify-center">
           {navLinks.map((link) => (
             <Link
@@ -147,7 +144,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Top Navbar */}
       <nav
         className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 px-4 sm:px-6 ${isDarkMode
           ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
@@ -155,94 +151,174 @@ const Navbar = () => {
           } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
         <div className="w-full max-w-full mx-auto flex justify-between items-center gap-4 px-2 py-6">
-          {/* Logo */}
-          <NavLink
-            to="/"
-            onClick={() =>
-              typeof window !== "undefined" &&
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            }
-            className="flex items-center gap-2 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200"
-          >
-            <img
-              src="/favicon.ico"
-              alt="TravelGrid Logo"
-              loading="lazy" 
-              className="w-10 h-10 rounded-full border border-pink-300 shadow-md"
-            />
-            TravelGrid
-          </NavLink>
-
-
-          {/* Desktop Nav */}
-          <div
-            className={`hidden md:flex items-center gap-4 font-medium flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
-              }`}
-          >
-            {navLinks.map((link) =>
-              link.subitems ? (
-                <div className="relative group" key={link.name}>
-                  <button aria-label="Search"
-
-                    className={`py-1.5 px-4 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
-                      ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
-                      : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
-                      }`
-                      }`}
-                  >
-                    {link.name} <ChevronDown fontSize={16} />
-                  </button>
-                  {/* Dropdown menu */}
-                  <div
-                    className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
-                      ? "bg-slate-800 text-white border border-slate-700"
-                      : "bg-white text-gray-900 border border-gray-200"
-                      }`}
-                  >
-                    {link.subitems.map((item) => (
-                      <NavLink
-                        key={item.label}
-                        to={item.path}
-                        className={({ isActive }) =>
-                          `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
-                            ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
-                            : ""
-                          }`
-                        }
-                      >
-                        {item.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  end
-                  className={({ isActive }) =>
-                    `${linkBaseClasses} break-words ${isActive
-                      ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white hover:text-white"
-                      : ""
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              )
-            )}
+          <div className="flex items-center gap-3">
+            <NavLink
+              to="/"
+              onClick={() =>
+                typeof window !== "undefined" &&
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+              className="flex items-center gap-2 text-2xl font-bold tracking-tight text-pink-500 transition-colors duration-200"
+            >
+              <img
+                src="/logo.jpg"
+                alt="TravelGrid Logo"
+                loading="lazy" 
+                className="w-10 h-10 rounded-full border-2 border-pink-500 shadow-md"
+              />
+              TravelGrid
+            </NavLink>
+            <NavLink
+              to="/"
+              className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-4 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+            >
+              {t('navigation.home')}
+            </NavLink>
           </div>
 
-          {/* Desktop Auth Buttons and Theme Toggle */}
-          <div className="hidden md:flex gap-4 items-center text-pink-500 font-medium">
-            {/* Language Selector */}
+
+          <div
+            className={`hidden md:flex items-center gap-6 font-medium flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
+              }`}
+          >
+            <NavLink
+              to="/about"
+              className={`py-1.5 px-3 text-sm font-medium rounded-sm transition-all duration-300 hover:text-pink-500 ${
+                location.pathname === '/about' ? "text-pink-500" : ""
+              }`}
+            >
+              {t('navigation.about')}
+            </NavLink>
+
+            <div className="flex flex-col items-start">
+              <NavLink
+                to="/trending-spots"
+                className={`text-sm font-semibold transition-all duration-300 hover:text-pink-500 ${
+                  location.pathname === '/trending-spots' ? "text-pink-500" : ""
+                }`}
+              >
+                {t('navigation.trendingSpots')}
+              </NavLink>
+            </div>
+
+            <div className="relative group">
+              <button aria-label="Search"
+                className={`py-1.5 px-3 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 hover:text-pink-500 ${
+                  navLinks.find(link => link.name === t('navigation.booking'))?.subitems?.some(item => location.pathname === item.path) 
+                    ? "text-pink-500" 
+                    : ""
+                }`}
+              >
+                {t('navigation.booking')} <ChevronDown fontSize={16} />
+              </button>
+              <div
+                className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
+                  ? "bg-slate-800 text-white border border-slate-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+                  }`}
+              >
+                {navLinks.find(link => link.name === t('navigation.booking'))?.subitems?.map((item) => (
+                  <NavLink
+                    key={item.label}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                        ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
+                        : ""
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button aria-label="Search"
+                className={`py-1.5 px-3 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 hover:text-pink-500 ${
+                  navLinks.find(link => link.name === t('navigation.support'))?.subitems?.some(item => location.pathname === item.path) 
+                    ? "text-pink-500" 
+                    : ""
+                }`}
+              >
+                {t('navigation.support')} <ChevronDown fontSize={16} />
+              </button>
+              <div
+                className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
+                  ? "bg-slate-800 text-white border border-slate-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+                  }`}
+              >
+                {navLinks.find(link => link.name === t('navigation.support'))?.subitems?.map((item) => (
+                  <NavLink
+                    key={item.label}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                        ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
+                        : ""
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button aria-label="Search"
+                className={`py-1.5 px-3 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 hover:text-pink-500 ${
+                  navLinks.find(link => link.name === t('navigation.tools'))?.subitems?.some(item => location.pathname === item.path) 
+                    ? "text-pink-500" 
+                    : ""
+                }`}
+              >
+                {t('navigation.tools')} <ChevronDown fontSize={16} />
+              </button>
+              <div
+                className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
+                  ? "bg-slate-800 text-white border border-slate-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+                  }`}
+              >
+                {navLinks.find(link => link.name === t('navigation.tools'))?.subitems?.map((item) => (
+                  <NavLink
+                    key={item.label}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                        ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
+                        : ""
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start">
+              <NavLink
+                to="/wishlist"
+                className={`text-sm font-medium transition-all duration-300 hover:text-pink-500 ${
+                  location.pathname === '/wishlist' ? "text-pink-500" : ""
+                }`}
+              >
+                Lista de
+              </NavLink>
+              <span className="text-xs -mt-1">Deseos</span>
+            </div>
+          </div>
+
+          <div className="hidden md:flex gap-3 items-center text-pink-500 font-medium">
             <LanguageSelector />
-            {/* Theme Toggle */}
             <ThemeToggle />
 
             {isLoggedIn ? (
               <>
-                {/* Email verification alert for unverified users */}
                 {user && !user.isEmailVerified && (
                   <NavLink
                     to={`/verify-email?email=${encodeURIComponent(user.email)}`}
@@ -285,25 +361,24 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/login"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-4 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
-                  {t('auth.login')}
+                  Iniciar Sesión
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-700 to-pink-600 text-white px-4 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
-                  {t('auth.signup')}
+                  Registrarse
                 </NavLink>
               </>
             )}
           </div>
 
-          {/* Mobile Toggle */}
           <div className="md:hidden flex items-center gap-2">
             <LanguageSelector />
             <ThemeToggle />
-            <button aria-label="Search"
+            <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
               className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1 rounded-md hover:bg-pink-500/20 cursor-pointer"
@@ -314,14 +389,12 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Overlay */}
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 md:hidden ${isDarkMode ? "bg-black/50" : "bg-black/10"
           } ${isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         onClick={() => setIsSidebarOpen(false)}
       />
 
-      {/* Mobile Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-[80vw] sm:w-[60vw] max-w-[320px] z-[1002] transition-transform duration-300 ease-in-out transform ${isDarkMode
           ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-200"
@@ -333,7 +406,7 @@ const Navbar = () => {
             className={`flex justify-end mb-6 border-b ${isDarkMode ? "border-gray-600" : "border-gray-300"
               }`}
           >
-            <button aria-label="Search"
+            <button
               onClick={() => setIsSidebarOpen(false)}
               className="text-pink-500 hover:text-pink-400 p-1 rounded-md hover:bg-pink-500/10"
               aria-label="Close menu"
@@ -342,7 +415,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Nav Links */}
           <div className="flex flex-col gap-4">
             {navLinks.map((link) =>
               link.subitems ? (
@@ -384,10 +456,8 @@ const Navbar = () => {
               )
             )}
 
-            {/* Mobile Auth Buttons */}
             {isLoggedIn ? (
               <>
-                {/* Email verification alert for mobile */}
                 {user && !user.isEmailVerified && (
                   <NavLink
                     to={`/verify-email?email=${encodeURIComponent(user.email)}`}

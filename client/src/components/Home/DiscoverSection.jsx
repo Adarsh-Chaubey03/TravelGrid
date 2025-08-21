@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 const destinations = [
   {
     name: "Manali, Himachal",
@@ -23,7 +22,11 @@ const destinations = [
   },
 ];
 
-const DiscoverSection = () => (
+const DiscoverSection = () => {
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  return(
+
+ 
   <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 py-16 text-center">
     <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black">
       Discover New Destinations
@@ -41,12 +44,45 @@ const DiscoverSection = () => (
             <p className="text-gray-600 text-sm">{place.description}</p>
           </div>
           <div className="p-4">
-          <button className="mt-auto w-full bg-zinc-800 hover:bg-zinc-900 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200 transform hover:scale-105 cursor-pointer">Book Now</button>
+          <button
+                onClick={() => setSelectedPlace(place)}
+                className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200"
+              >
+                Book Now
+              </button>
         </div>
         </div>
       ))}
     </div>
+{selectedPlace && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-2xl shadow-lg w-96 relative">
+            <img
+              src={selectedPlace.image}
+              alt={selectedPlace.name}
+              className="w-full h-40 object-cover rounded-lg"
+            />
+            <h2 className="text-xl font-bold mt-3">{selectedPlace.name}</h2>
+            <p className="text-gray-600 mt-2">{selectedPlace.description}</p>
 
+            <button
+              onClick={() =>
+                alert(`Proceeding to booking for ${selectedPlace.name}`)
+              }
+              className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+            >
+              Proceed to Book
+            </button>
+
+            <button
+              onClick={() => setSelectedPlace(null)}
+              className="mt-2 w-full bg-gray-300 py-2 rounded-lg hover:bg-gray-400"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     <div className="mt-16">
       <h3 className="text-xl md:text-2xl font-semibold mb-4 text-black">
         Ready to plan your next adventure?
@@ -62,6 +98,7 @@ const DiscoverSection = () => (
       </button>
     </div>
   </section>
-);
 
+ )
+};
 export default DiscoverSection;

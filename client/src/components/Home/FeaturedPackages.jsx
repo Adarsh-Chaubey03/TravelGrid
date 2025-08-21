@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const packages = [
   {
@@ -23,7 +23,9 @@ const packages = [
   },
 ];
 
-const FeaturedPackages = () => (
+const FeaturedPackages = () => {
+    const [selectedPackage, setSelectedPackage] = useState(null);
+  return(
   <section className="w-full bg-gradient-to-br from-blue-50 to-pink-50 py-16">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 className="text-3xl md:text-4xl font-bold text-black mb-8 text-center">
@@ -47,13 +49,40 @@ const FeaturedPackages = () => (
                 </h3>
                 <p className="text-gray-500 mb-4">{pkg.location}</p>
               </div>
-              <button className="mt-auto w-full bg-zinc-800 hover:bg-zinc-900 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200 transform hover:scale-105 cursor-pointer">Book Now</button>
+              <button className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200"   onClick={() => setSelectedPackage(pkg)}>Book Now</button>
             </div>
           </div>
         ))}
       </div>
+       {selectedPackage && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-xl p-6 w-[90%] max-w-lg relative">
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedPackage(null)}
+                className="absolute top-3 right-3 text-gray-600 hover:text-black"
+              >
+                ✖
+              </button>
+
+              <img
+                src={selectedPackage.image}
+                alt={selectedPackage.name}
+                className="w-full h-56 object-cover rounded-xl mb-4"
+              />
+              <h3 className="text-2xl font-bold mb-2">{selectedPackage.name}</h3>
+              <p className="text-gray-600 mb-4">{selectedPackage.location}</p>
+              <p className="text-gray-700 mb-4">{selectedPackage.description}</p>
+
+              <button className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-xl transition-colors duration-200">
+                Proceed to Book
+              </button>
+            </div>
+          </div>
+        )}
     </div>
   </section>
-);
+ )
+};
 
 export default FeaturedPackages; 

@@ -4,8 +4,10 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useTheme } from "../../context/ThemeContext";
 
 const PackingChecklist = () => {
+  const { isDarkMode } = useTheme();
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -321,21 +323,27 @@ const PackingChecklist = () => {
     <div className="max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4">
+        <h1 className={`text-4xl font-bold mb-4 ${
+          isDarkMode ? 'text-white' : 'text-gray-900'
+        }`}>
           Travel Packing Checklist
         </h1>
-        <p className="text-gray-300 text-lg mb-6">
+        <p className={`text-lg mb-6 ${
+          isDarkMode ? 'text-gray-300' : 'text-gray-600'
+        }`}>
           Stay organized and never forget essential items for your trip
         </p>
         
         {/* Overall Progress Bar */}
-        <div className="bg-gray-700 rounded-full h-4 mb-4">
+        <div className={`rounded-full h-4 mb-4 ${
+          isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
+        }`}>
           <div 
             className="bg-gradient-to-r from-pink-500 to-pink-600 h-4 rounded-full transition-all duration-300"
             style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
-        <p className="text-gray-300">
+        <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
           {packedCount} of {totalCount} items packed ({Math.round(progressPercentage)}%)
         </p>
       </div>
@@ -419,15 +427,23 @@ const PackingChecklist = () => {
 
       {/* Add Item Form */}
       {showAddForm && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <h3 className="text-xl font-semibold text-white mb-4">Add New Item</h3>
+        <div className={`rounded-lg p-6 mb-8 ${
+          isDarkMode ? 'bg-gray-800' : 'bg-white border border-gray-200'
+        }`}>
+          <h3 className={`text-xl font-semibold mb-4 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>Add New Item</h3>
           <div className="flex gap-3">
             <input
               type="text"
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
               placeholder="Enter item name..."
-              className="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-pink-500 focus:outline-none"
+              className={`flex-1 px-4 py-2 rounded-lg border focus:border-pink-500 focus:outline-none ${
+                isDarkMode 
+                  ? 'bg-gray-700 text-white border-gray-600' 
+                  : 'bg-gray-50 text-gray-900 border-gray-300'
+              }`}
               onKeyPress={(e) => e.key === 'Enter' && addItem()}
             />
             <button
@@ -438,7 +454,11 @@ const PackingChecklist = () => {
             </button>
             <button
               onClick={() => setShowAddForm(false)}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-colors"
+              className={`px-6 py-2 rounded-lg transition-colors ${
+                isDarkMode 
+                  ? 'bg-gray-600 hover:bg-gray-700 text-white' 
+                  : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+              }`}
             >
               Cancel
             </button>
@@ -448,15 +468,23 @@ const PackingChecklist = () => {
 
       {/* Add Section Form */}
       {showAddSectionForm && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <h3 className="text-xl font-semibold text-white mb-4">Add New Section</h3>
+        <div className={`rounded-lg p-6 mb-8 ${
+          isDarkMode ? 'bg-gray-800' : 'bg-white border border-gray-200'
+        }`}>
+          <h3 className={`text-xl font-semibold mb-4 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>Add New Section</h3>
           <div className="flex gap-3">
             <input
               type="text"
               value={newSection}
               onChange={(e) => setNewSection(e.target.value)}
               placeholder="Enter section name (e.g., 🎵 Music Gear)"
-              className="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-indigo-500 focus:outline-none"
+              className={`flex-1 px-4 py-2 rounded-lg border focus:border-indigo-500 focus:outline-none ${
+                isDarkMode 
+                  ? 'bg-gray-700 text-white border-gray-600' 
+                  : 'bg-gray-50 text-gray-900 border-gray-300'
+              }`}
               onKeyPress={(e) => e.key === 'Enter' && addSection()}
             />
             <button
@@ -467,7 +495,11 @@ const PackingChecklist = () => {
             </button>
             <button
               onClick={() => setShowAddSectionForm(false)}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-colors"
+              className={`px-6 py-2 rounded-lg transition-colors ${
+                isDarkMode 
+                  ? 'bg-gray-600 hover:bg-gray-700 text-white' 
+                  : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+              }`}
             >
               Cancel
             </button>
@@ -479,8 +511,12 @@ const PackingChecklist = () => {
       <div className="flex gap-6">
         {/* Left Sidebar - Sections */}
         <div className="w-80 flex-shrink-0">
-          <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold text-white mb-4">Sections</h3>
+          <div className={`rounded-lg p-4 border ${
+            isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+          }`}>
+            <h3 className={`text-lg font-semibold mb-4 ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>Sections</h3>
             <div className="space-y-2">
               {Object.entries(groupedItems).map(([category, categoryItems]) => {
                 const categoryPackedCount = categoryItems.filter(item => item.packed).length;
@@ -494,7 +530,9 @@ const PackingChecklist = () => {
                     className={`p-3 rounded-lg cursor-pointer transition-all ${
                       isSelected 
                         ? 'bg-pink-600 text-white' 
-                        : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                        : isDarkMode 
+                          ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                          : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -503,7 +541,9 @@ const PackingChecklist = () => {
                         {categoryPackedCount}/{categoryItems.length}
                       </span>
                     </div>
-                    <div className="bg-gray-600 rounded-full h-2">
+                    <div className={`rounded-full h-2 ${
+                      isDarkMode ? 'bg-gray-600' : 'bg-gray-300'
+                    }`}>
                       <div 
                         className={`h-2 rounded-full transition-all duration-300 ${
                           isSelected ? 'bg-white' : 'bg-blue-500'
@@ -521,23 +561,33 @@ const PackingChecklist = () => {
         {/* Right Content - Checklist Items */}
         <div className="flex-1">
           {selectedSection && groupedItems[selectedSection] ? (
-            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div className={`rounded-lg p-6 border ${
+              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`}>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                <h2 className={`text-2xl font-bold flex items-center gap-3 ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                   {selectedSection}
-                  <span className="text-lg text-gray-400">
+                  <span className={`text-lg ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     ({groupedItems[selectedSection].filter(item => item.packed).length}/{groupedItems[selectedSection].length})
                   </span>
                 </h2>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-400">
+                  <span className={`text-sm ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     {Math.round((groupedItems[selectedSection].filter(item => item.packed).length / groupedItems[selectedSection].length) * 100)}%
                   </span>
                 </div>
               </div>
               
               {/* Section Progress Bar */}
-              <div className="bg-gray-700 rounded-full h-4 mb-6">
+              <div className={`rounded-full h-4 mb-6 ${
+                isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
+              }`}>
                 <div 
                   className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full transition-all duration-300"
                   style={{ width: `${(groupedItems[selectedSection].filter(item => item.packed).length / groupedItems[selectedSection].length) * 100}%` }}
@@ -550,8 +600,12 @@ const PackingChecklist = () => {
                     key={item.id}
                     className={`flex items-center gap-3 p-4 rounded-lg transition-all ${
                       item.packed 
-                        ? 'bg-green-900/30 border border-green-500/30' 
-                        : 'bg-gray-700/50 border border-gray-600/30'
+                        ? isDarkMode 
+                          ? 'bg-green-900/30 border border-green-500/30'
+                          : 'bg-green-50 border border-green-200'
+                        : isDarkMode 
+                          ? 'bg-gray-700/50 border border-gray-600/30'
+                          : 'bg-gray-50 border border-gray-200'
                     }`}
                   >
                     <button
@@ -559,7 +613,9 @@ const PackingChecklist = () => {
                       className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
                         item.packed
                           ? 'bg-green-500 border-green-500 text-white'
-                          : 'border-gray-400 hover:border-pink-500'
+                          : isDarkMode 
+                            ? 'border-gray-400 hover:border-pink-500'
+                            : 'border-gray-300 hover:border-pink-500'
                       }`}
                     >
                       {item.packed && <Check size={16} />}
@@ -571,7 +627,11 @@ const PackingChecklist = () => {
                           type="text"
                           value={editItemName}
                           onChange={(e) => setEditItemName(e.target.value)}
-                          className="flex-1 bg-gray-600 text-white px-3 py-2 rounded border border-gray-500 focus:border-pink-500 focus:outline-none"
+                          className={`flex-1 px-3 py-2 rounded border focus:border-pink-500 focus:outline-none ${
+                            isDarkMode 
+                              ? 'bg-gray-600 text-white border-gray-500' 
+                              : 'bg-white text-gray-900 border-gray-300'
+                          }`}
                           onKeyPress={(e) => e.key === 'Enter' && saveEditItem()}
                           autoFocus
                         />
@@ -589,7 +649,11 @@ const PackingChecklist = () => {
                         </button>
                       </div>
                     ) : (
-                      <span className={`flex-1 text-lg ${item.packed ? 'line-through text-gray-400' : 'text-white'}`}>
+                      <span className={`flex-1 text-lg ${
+                        item.packed 
+                          ? 'line-through text-gray-400' 
+                          : isDarkMode ? 'text-white' : 'text-gray-900'
+                      }`}>
                         {item.name}
                       </span>
                     )}
@@ -621,10 +685,16 @@ const PackingChecklist = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 text-center">
-              <div className="text-gray-400 text-6xl mb-4">📦</div>
-              <h3 className="text-xl font-semibold text-white mb-2">No section selected</h3>
-              <p className="text-gray-400">Select a section from the sidebar to view items</p>
+            <div className={`rounded-lg p-6 border text-center ${
+              isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`}>
+              <div className={`text-6xl mb-4 ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-300'
+              }`}>📦</div>
+              <h3 className={`text-xl font-semibold mb-2 ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}>No section selected</h3>
+              <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>Select a section from the sidebar to view items</p>
             </div>
           )}
         </div>
@@ -633,9 +703,15 @@ const PackingChecklist = () => {
       {/* Empty State */}
       {items.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-gray-400 text-6xl mb-4">📦</div>
-          <h3 className="text-xl font-semibold text-white mb-2">No items in your checklist</h3>
-          <p className="text-gray-400 mb-6">Add some items to get started with your packing!</p>
+          <div className={`text-6xl mb-4 ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-300'
+          }`}>📦</div>
+          <h3 className={`text-xl font-semibold mb-2 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>No items in your checklist</h3>
+          <p className={`mb-6 ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-600'
+          }`}>Add some items to get started with your packing!</p>
           <div className="flex gap-3 justify-center">
             <button
               onClick={() => setShowAddForm(true)}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTheme } from "../../context/ThemeContext";
 
 const topics = [
   {
@@ -38,6 +39,7 @@ const cardVariants = {
 
 const ForumSection = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   return (
     <motion.section
@@ -53,18 +55,20 @@ const ForumSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">
+          <h2 className={`text-2xl md:text-3xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
             Join the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               Conversation
             </span>
           </h2>
-          <p className="text-gray-300 text-base md:text-lg mb-12 px-4 max-w-2xl mx-auto leading-relaxed">
+          <p className={`text-base md:text-lg mb-12 px-4 max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
             Connect with fellow travelers, ask questions, and share your experiences in our buzzing travel community!
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left items-stretch">
           {topics.map((topic, index) => (
             <motion.div
               key={index}
@@ -73,17 +77,25 @@ const ForumSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="group bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 relative"
+              className={`group backdrop-blur-md rounded-xl p-6 border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 relative h-full ${isDarkMode
+                  ? 'bg-gray-900 border-pink-300 hover:border-white/40'
+                  : 'bg-white/80 border-pink-200 shadow-2xl shadow-pink-200 hover:border-pink-300'
+                }`}
             >
               <div
                 className={`absolute -top-4 left-4 text-xs font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r ${topic.tagColor} shadow-lg`}
               >
                 {topic.tag}
               </div>
-              <h3 className="text-lg font-semibold text-white mt-6 mb-3 group-hover:text-pink-300 transition-colors duration-300">
+              <h3 className={`text-lg font-semibold mt-6 mb-3 group-hover:text-pink-300 transition-colors duration-300 ${
+                isDarkMode 
+                  ? 'text-white group-hover:text-pink-400'
+                  : 'text-gray-900 group-hover:text-pink-500'
+                }`}>
                 {topic.title}
               </h3>
-              <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+              <p className={`text-sm group-hover:text-gray-900 transition-colors duration-300 ${isDarkMode ? 'text-gray-300 group-hover:text-white' : 'text-gray-600'
+                }`}>
                 {topic.replies} replies
               </p>
             </motion.div>

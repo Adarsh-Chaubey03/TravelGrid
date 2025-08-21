@@ -2,7 +2,7 @@
 name: Preferred Template
 about: " Use this format for all types of issues."
 title: ''
-labels: ''
+labels: 'gssoc25'
 assignees: ''
 
 ---
@@ -31,3 +31,5 @@ Attach screenshots if needed.
 ## ✅ Additional Context (Optional)
 
 Add any other relevant info.
+
+

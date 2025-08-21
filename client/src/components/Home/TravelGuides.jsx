@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
+import CustomCarousel from "../Custom/CustomCarousel";
+import SkeletonGuide from "../SkeletonGuide"; // our loader component
 
+// Static guide data (replace with API later if needed)
 const guides = [
   {
     name: "Aarav Mehta",
@@ -23,110 +25,85 @@ const guides = [
     image: "https://randomuser.me/api/portraits/men/34.jpg",
   },
   {
+    name: "Snowy Kat",
+    expertise: "🐾 Mountain Treks & Pet Adventures",
+    bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes.",
+    image: "https://randomuser.me/api/portraits/men/17.jpg",
+  },
+  {
     name: "Mei Lin",
     expertise: "East Asia Tours",
     bio: "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine.",
     image: "https://randomuser.me/api/portraits/women/43.jpg",
   },
+  {
+    name: "Ayushi Uniyal",
+    expertise: "🐾 Pet Travel & Coastal Getaways",
+    bio: "Loves helping travelers explore India’s beaches with their furry companions.",
+    image: "https://randomuser.me/api/portraits/women/17.jpg",
+  },
+  {
+    name: "Weddy Brown",
+    expertise: "🐾 Urban Travel with Pets",
+    bio: "Amsterdam-based guide specializing in navigating cities with pets.",
+    image: "https://randomuser.me/api/portraits/men/74.jpg"
+  }
 ];
 
 const TravelGuides = () => {
-  const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
-  const prev = () => setIndex((index - 1 + guides.length) % guides.length);
-  const next = () => setIndex((index + 1) % guides.length);
-
-  const getVisibleIndices = () => {
-    const left = (index - 1 + guides.length) % guides.length;
-    const center = index;
-    const right = (index + 1) % guides.length;
-    return [left, center, right];
+  const handleguide = (guideName) => {
+    navigate("/guides", { state: { selectedGuideId: guideName } });
   };
 
-  const handleguide = (name) => {
-    navigate("/guides", { state: { selectedGuideId: name } });
-  };
+  // Simulate API fetch with delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // show skeleton for 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section className="w-full py-20">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2
+            className={`text-3xl md:text-4xl font-medium mb-6 transition-all duration-300 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
             Meet Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               Top Travel Guides
             </span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p
+            className={`text-lg max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${
+              isDarkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Connect with experienced local guides who will make your journey truly unforgettable.
           </p>
         </div>
 
-        <div className="relative">
-          <button
-            onClick={prev}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-3 rounded-full hover:bg-white/20 hover:border-white/40 transition-all duration-300"
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-3 rounded-full hover:bg-white/20 hover:border-white/40 transition-all duration-300"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
-
-          <div className="overflow-hidden px-12">
-            <div className="flex justify-center gap-6 flex-wrap">
-              <AnimatePresence mode="wait">
-                {getVisibleIndices().map((i, pos) => {
-                  const guide = guides[i];
-                  const isCenter = i === index;
-
-                  return (
-                    <motion.div
-                      key={guide.name}
-                      initial={{ opacity: 0, scale: 0.85, y: 40 }}
-                      animate={{ opacity: 1, scale: isCenter ? 1 : 0.9, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.8, y: 40 }}
-                      transition={{ duration: 0.4 }}
-                      whileHover={{
-                        y: -10,
-                        boxShadow: "0 20px 40px -10px rgba(236, 72, 153, 0.3)",
-                      }}
-                      className={`flex-shrink-0 w-[280px] md:w-[300px] h-[400px] bg-white/10 backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 ease-in-out cursor-pointer border border-white/20 hover:border-white/40 ${
-                        isCenter ? "z-10 scale-100" : "opacity-80"
-                      }`}
-                    >
-                      <img
-                        src={guide.image}
-                        alt={guide.name}
-                        className="w-24 h-24 rounded-full object-cover border-4 border-pink-400 mb-4"
-                      />
-                      <h3 className="text-[18px] font-semibold text-white mb-2">
-                        {guide.name}
-                      </h3>
-                      <p className="text-pink-300 text-[15px] font-medium mb-3">
-                        {guide.expertise}
-                      </p>
-                      <p className="text-gray-300 text-[15px] leading-snug px-2 mb-4">
-                        {guide.bio}
-                      </p>
-
-                      <button
-                        onClick={() => handleguide(guide.name)}
-                        className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                      >
-                        View Profile
-                      </button>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </div>
+        {/* If loading show skeletons, else carousel */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {[...Array(3)].map((_, i) => (
+              <SkeletonGuide key={i} />
+            ))}
           </div>
-        </div>
+        ) : (
+          <CustomCarousel
+            guides={guides}
+            viewprofilehandle={handleguide}
+            isHome={true}
+          />
+        )}
       </div>
     </section>
   );

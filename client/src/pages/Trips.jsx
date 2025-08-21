@@ -55,7 +55,7 @@ function Trips() {
               <h3 className="text-left text-lg sm:text-xl font-semibold text-white mb-4">
                 {trip.title}
               </h3>
-              <button
+              <button aria-label="Search"
                 onClick={() => navigate(trip.path)}
                 className="mt-6 px-4 py-3 sm:px-6 sm:py-4 text-sm sm:text-base bg-pink-500 text-white font-medium rounded-lg hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:scale-105 transition-all duration-300 flex justify-items-start cursor-pointer"
               >

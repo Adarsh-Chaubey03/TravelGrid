@@ -1,27 +1,25 @@
-import React, { useEffect , useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { FaStar, FaCheckCircle, FaTimesCircle, FaChevronDown, FaCalendarAlt, FaRupeeSign } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import {
+  FaStar,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaChevronDown,
+  FaCalendarAlt,
+  FaRupeeSign,
+  FaCheck,
+  FaTimes,
+} from "react-icons/fa";
 import Navbar from "../components/Custom/Navbar";
 import { packages } from "../data/PackageData";
-import { useWishlist } from '../context/WishlistContext';
-
-
-
-
-
-
+import { useWishlist } from "../context/WishlistContext";
 import PackageDetailsSkeleton from "../components/Loaders/PackageDetailsSkeleton";
-
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 
 // For FAQs and Itinerary
 const Accordion = ({ title, content, variant = "default" }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-
-
-
   const isItinerary = variant === "itinerary";
 
   return (
@@ -31,9 +29,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className={`text-lg font-semibold ${
-            isItinerary ? "flex items-center gap-2" : ""
-          }`}
+          className={`text-lg font-semibold ${isItinerary ? "flex items-center gap-2" : ""
+            }`}
         >
           {isItinerary && (
             <span className="text-xs bg-[#2a002e] border border-pink-500 text-pink-300 px-2 py-0.5 rounded-full">
@@ -43,9 +40,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
           {title.split(" - ")[1] || title}
         </span>
         <FaChevronDown
-          className={`transition-transform ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       {/* only for Itinerary */}
@@ -71,22 +67,12 @@ const Accordion = ({ title, content, variant = "default" }) => {
 };
 
 const PackageDetails = () => {
-
   const [loading, setLoading] = useState(true);
-
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setLoading(false);
-  }, 1200); // ⏳ fake delay or replace with API fetch
-
-  return () => clearTimeout(timer);
-}, []);
-
-
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); //
   const { isAuthenticated, user } = useAuth();
-  const packageData = packages.find((pkg) => pkg.id.toString() === id);
+  const { wishlist, addToWishlist } = useWishlist();
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [formData, setFormData] = useState({
@@ -96,19 +82,46 @@ useEffect(() => {
     date: "",
   });
 
+
+  // Extract query param ?q=
+  // Get query param safely
+  const searchParams = new URLSearchParams(location.search || "");
+  const query = searchParams.get("q")?.trim() || "";
+
+  // Find package by id or query
+  let packageData = null;
+  if (id) {
+    packageData = packages.find((pkg) => pkg.id.toString() === id);
+  } else if (query) {
+    const qLower = query.toLowerCase();
+    packageData = packages.find(
+      (pkg) =>
+        pkg.title.toLowerCase().includes(qLower) ||
+        pkg.location.toLowerCase().includes(qLower)
+    );
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const openForm = (pkg) => {
     if (!isAuthenticated) {
       toast.error("Please login to book this package");
       navigate("/login", { state: { from: { pathname: `/package/${id}` } } });
       return;
     }
-    
+
     setSelectedPackage(pkg);
-    setFormData({ 
-      name: user?.name || "", 
-      email: user?.email || "", 
+    setFormData({
+      name: user?.name || "",
+      email: user?.email || "",
       travelers: 1,
-      date: ""
+      date: "",
     });
     setBookingConfirmed(false);
   };
@@ -123,24 +136,28 @@ useEffect(() => {
     setBookingConfirmed(true);
   };
 
-  if (!packageData)
+  const handleAddToWishlist = (pkg) => {
+    const isAlreadyInWishlist = wishlist?.some((item) => item.id === pkg.id);
+
+    if (!isAlreadyInWishlist) {
+      addToWishlist(pkg);
+      toast.success("Added to wishlist!");
+    } else {
+      toast("Already in your wishlist");
+    }
+  };
+
+  if (!packageData) {
     return <p className="text-center text-red-500">Package not found</p>;
-
-  const { wishlist, addToWishlist } = useWishlist();
-
-const handleAddToWishlist = (pkg) => {
-  const isAlreadyInWishlist = wishlist.some(item => item.id === pkg.id);
-  
-  if (!isAlreadyInWishlist) {
-    addToWishlist(pkg);
   }
-};
 
-
+  if (loading) {
+    return <PackageDetailsSkeleton />;
+  }
 
   const {
     title,
-    location,
+    location: pkgLocation,
     duration,
     price,
     rating,
@@ -155,13 +172,10 @@ const handleAddToWishlist = (pkg) => {
     image,
   } = packageData;
 
-  if (loading) {
-  return <PackageDetailsSkeleton />;
-}
-
-
   return (
     <div className="bg-gradient-to-br from-gray-900 via-[#1f1d2b] to-pink-900 text-white min-h-screen pb-16">
+      <Navbar />
+
       {/* Header Image with Overlay */}
       <div
         className="w-full h-[60vh] bg-cover bg-center relative"
@@ -173,17 +187,15 @@ const handleAddToWishlist = (pkg) => {
             {title}
           </h1>
           <p className="text-sm md:text-base text-[#d0d0d0]">
-            {location} • {duration}
+            {pkgLocation} • {duration}
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative max-w-6xl mx-auto px-6 md:px-12 pt-16 md:pt-24 space-y-12">
+      <div className="relative max-w-6xl mx-auto px-4 md:px-12 pt-16 md:pt-24 space-y-12">
         {/* Floating Bar */}
-        <div
-          className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:absolute sm:-top-10 sm:left-1/2 sm:-translate-x-1/2 sm:shadow-lg"
-        >
+        <div className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:relative sm:shadow-lg">
           <div className="flex items-center gap-3">
             <FaCalendarAlt className="text-pink-400 text-xl" />
             <div>
@@ -216,21 +228,25 @@ const handleAddToWishlist = (pkg) => {
           </button>
 
           <button
-  onClick={() => handleAddToWishlist(packageData)}
-  disabled={wishlist.some(item => item.id === packageData.id)}
-  className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105
-    ${wishlist.some(item => item.id === packageData.id)
-      ? "bg-gray-400 cursor-not-allowed text-white"
-      : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"}`}
->
-  {wishlist.some(item => item.id === packageData.id) ? "Added to Wishlist" : "Add to Wishlist"}
-</button>
-
+            onClick={() => handleAddToWishlist(packageData)}
+            disabled={wishlist?.some((item) => item.id === packageData.id)}
+            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${wishlist?.some((item) => item.id === packageData.id)
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"
+              }`}
+          >
+            {wishlist?.some((item) => item.id === packageData.id)
+              ? "Added to Wishlist"
+              : "Add to Wishlist"}
+          </button>
         </div>
+
         {/* Description */}
-        <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base">
-          {description}
-        </p>
+        <div className="flex items-center justify-center">
+          <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base text-center">
+            {description}
+          </p>
+        </div>
 
         {/* Highlights */}
         <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 p-6 rounded-2xl shadow-lg">
@@ -239,9 +255,9 @@ const handleAddToWishlist = (pkg) => {
             {highlights.map((point, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 backdrop-blur-md bg-white/5  p-3 rounded-xl text-sm text-[#cfcfcf]"
+                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm text-[#cfcfcf]"
               >
-                <FaCheckCircle className="text-pink-400" />
+                <FaCheck className="text-pink-400" />
                 {point}
               </div>
             ))}
@@ -426,8 +442,8 @@ const handleAddToWishlist = (pkg) => {
                   Booking Confirmed!
                 </h2>
                 <p className="mt-2">
-                  Thank you, {formData.name}. Your booking for {selectedPackage.title} on {formData.date} is
-                  successful.
+                  Thank you, {formData.name}. Your booking for{" "}
+                  {selectedPackage.title} on {formData.date} is successful.
                 </p>
                 <div className="mt-4 space-y-2">
                   <button

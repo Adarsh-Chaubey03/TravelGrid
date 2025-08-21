@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DiscoverCard from '@/components/DiscoverCard';
+import DiscoverCard from '../components/DiscoverCard';
+import { useTheme } from "../context/ThemeContext";
+
 
 function DiscovermoreDestination() {
     const navigate = useNavigate();
-
+    const { isDarkMode } = useTheme();
     const handleBookNowClick = () => {
-        navigate("/packages"); // Redirect to /packages when clicked
+        navigate("/packages");
     };
 
     const destinations = [
@@ -42,12 +44,12 @@ function DiscovermoreDestination() {
         },
         {
             name: "Tawang, Arunachal Pradesh",
-            description: "A remote Himalayan town home to ancient monasteries and breathtaking landscapes.",
+            description: "A remote Himalayan town home to ancient monasteries and landscapes.",
             image: "https://media.istockphoto.com/id/187510803/photo/ancient-buddhist-monastery-tawang-arunachal-pradesh-india.webp?a=1&b=1&s=612x612&w=0&k=20&c=FX8tHuN0SvTW8bvUmZZ3FeGMTT8pjlH06p-gc9doEtg="
         },
         {
             name: "Hampi, Karnataka",
-            description: "A UNESCO World Heritage site with majestic ruins and surreal boulder landscapes.",
+            description: "A UNESCO World Heritage site with majestic ruins surreal landscapes.",
             image: "https://media.istockphoto.com/id/1270774245/photo/hampi-stone-chariot-the-antique-stone-art-piece-from-unique-angle-with-amazing-blue-sk.webp?a=1&b=1&s=612x612&w=0&k=20&c=FN6uQp0ywkO9PxQ1bXerkryHSGyNNDEc3cCbQ7IzMdU="
         },
         {
@@ -67,17 +69,34 @@ function DiscovermoreDestination() {
         }
     ];
 
+    // Pagination logic
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 4;
+
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = destinations.slice(indexOfFirstCard, indexOfLastCard);
+    const totalPages = Math.ceil(destinations.length / cardsPerPage);
+    // const { isDarkMode } = useTheme();
+    const handleNext = () => {
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+
+    const handlePrev = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
     return (
-        <section className="w-full bg-gradient-to-br text-cyan-950 py-16 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-black mt-6">
+        <section className={`w-full  text-cyan-950 ${isDarkMode?'bg-[#1e293b]':'bg-gradient-to-br'} py-16 text-center`}>
+            <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode?'text-white':'text-black'} mt-6`}>
                 Discover New Destinations
             </h2>
-            <p className="text-gray-800 text-base md:text-lg mb-10">
+            <p className={`${isDarkMode?'text-gray-300':'text-gray-800'} text-base md:text-lg mb-10`}>
                 Explore trending places, hidden gems, and must-visit spots curated just for you.
             </p>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-2">
-                {destinations.map((place, index) => (
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
+                {currentCards.map((place, index) => (
                     <DiscoverCard
                         key={index}
                         index={index}
@@ -86,8 +105,27 @@ function DiscovermoreDestination() {
                     />
                 ))}
             </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-4 mt-10">
+                <button
+                    onClick={handlePrev}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-pink-600 text-white rounded disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                <span className={`${isDarkMode?'text-white':'text-black'} font-semibold`}>{`Page ${currentPage} of ${totalPages}`}</span>
+                <button
+                    onClick={handleNext}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-pink-600 text-black rounded disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
         </section>
-    )
+    );
 }
 
 export default DiscovermoreDestination;

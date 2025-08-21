@@ -1,9 +1,13 @@
+// imports
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 
+// Footer component
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
+  const { isDarkMode } = useTheme();
 
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
@@ -25,13 +29,12 @@ const Footer = () => {
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-
     if (!email) {
       showToast("Please enter a valid email address", "error");
       return;
     }
 
-    // Simulate API call
+    // Simulated API call
     setTimeout(() => {
       console.log("Newsletter subscription:", email);
       showToast("Successfully subscribed to our newsletter! 🎉", "success");
@@ -45,173 +48,77 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="relative bg-gradient-to-br from-black to-pink-900 text-white">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+      <footer className={`relative text-white transition-all duration-300 ${
+     isDarkMode 
+          ? 'bg-gradient-to-b from-black via-zinc-800 to-zinc-800' 
+          : 'bg-gradient-to-br from-gray-900  to-pink-900'
+      }`}>
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />
 
         <div className="relative z-10">
-          {/* Main Footer Content */}
-          <div className="container mx-auto px-4 py-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-              {/* Company Info */}
+          {/* remove extra padding in footer */}
+          <div className="container mx-auto px-4 pt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
               <div className="space-y-6">
-                <div className="flex items-center space-x-3 justify-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-pink-300 bg-clip-text text-transparent">
-                    TravelGrid
-                  </h3>
-                </div>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Discover amazing destinations and create unforgettable
-                  memories with our curated travel experiences around the world.
-                  Your journey starts here.
-                </p>
+  <div className="flex items-center space-x-3">
+    <img
+      src="/favicon.ico"
+      alt="TravelGrid Logo"
+      loading="lazy" 
+      className="w-10 h-10"
+    />
+    <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-pink-300 bg-clip-text text-transparent">
+      TravelGrid
+    </h3>
+  </div>
+  <p className="text-gray-300 text-sm leading-relaxed">
+    Discover amazing destinations and create unforgettable memories with our curated travel experiences around the world. Your journey starts here.
+  </p>
+  {/* Social Media Links */}
+  <div className="flex space-x-4">
+    {/* Icons like Twitter, Pinterest, YouTube, Contributors */}
+  </div>
+</div>
 
-                {/* Social Media Links */}
-                <div className="flex space-x-12 max-w-xs">
 
-                  {/* Twitter/X */}
-                  <a
-                    href="#"
-                    className="w-11 h-11 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full flex items-center justify-center hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                      className="w-5 h-5"
-                    >
-                      <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
-                    </svg>
-                  </a>
-
-                  {/* Pinterest */}
-                  <a
-                    href="#"
-                    className="w-11 h-11 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full flex items-center justify-center hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z" />
-                    </svg>
-                  </a>
-
-                  {/* Youtube */}
-                  <a
-                    href="#"
-                    className="w-11 h-11 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full flex items-center justify-center hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="/contributors"
-                    className="w-11 h-11 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full flex items-center justify-center hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4
-             v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                  </a>
-
-                </div>
-              </div>
               {/* Quick Links */}
-              <div className="space-y-6 text-center md:text-left">
+              <div className="space-y-6">
                 <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2 text-center">
                   Quick Links
                 </h4>
-                <nav className="flex flex-col space-y-3 items-center">
-                  <Link
-                    to="/"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-500 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Home
-                  </Link>
-                  <Link
-                    to="/about"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-400 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    About Us
-                  </Link>
-                  <Link
-                    to="/trips"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-500 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Trips
-                  </Link>
-                  <Link
-                    to="/destinations"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-400 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Destinations
-                  </Link>
-                  <Link
-                    to="/hotels"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-500 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Hotels
-                  </Link>
-                  <Link
-                    to="/forum"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-400 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Forums
-                  </Link>
-                  <Link
-                    to="/feedback"
-                    onClick={scrollToTop}
-                    className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                  >
-                    <span className="w-2 h-2 bg-pink-500 rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
-                    Feedback
-                  </Link>
+                <nav className="flex flex-col space-y-3 items-left">
+                  {[
+                    { name: "Home", path: "/" },
+                    { name: "About Us", path: "/about" },
+                    { name: "Trips", path: "/trips" },
+                    { name: "Destinations", path: "/destinations" },
+                    { name: "Hotels", path: "/hotels" },
+                    { name: "Forums", path: "/forum" },
+                    { name: "Feedback", path: "/feedback" },
+                    { name: "Currency Converter", path: "/enhanced-currency" },
+                  ].map((link) => (
+                    <Link
+                      key={link.name}
+                      to={link.path}
+                      onClick={scrollToTop}
+                      className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
+                    >
+                      <span className="w-4 flex justify-center">
+                        <span className="w-2 h-2 bg-pink-500 rounded-full group-hover:scale-150 transition-transform"></span>
+                      </span>
+                      <span className="ml-3">{link.name}</span>
+                    </Link>
+                  ))}
                 </nav>
               </div>
+
               {/* Contact Info */}
               <div className="space-y-6">
-                <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2">
+                <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2 text-center">
                   Contact Info
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-4 flex flex-col justify-center items-left">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <svg
@@ -224,7 +131,7 @@ const Footer = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
                         />
                         <path
                           strokeLinecap="round"
@@ -234,18 +141,17 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-
                     <div>
-                        <a
-                          href="https://www.google.com/maps?q=123+Travel+Street,+Adventure+City,+AC+12345"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 text-sm hover:underline block"
-                        >
-                          123 Travel Street<br />
-                          Adventure City, AC 12345
-                        </a>
-
+                      <a
+                        href="https://www.google.com/maps?q=123+Travel+Street,+Adventure+City,+AC+12345"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-300 text-sm hover:underline block"
+                      >
+                        123 Travel Street
+                        <br />
+                        Adventure City, AC 12345
+                      </a>
                     </div>
                   </div>
 
@@ -265,14 +171,14 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-                    <div className="text-center md:text-left">
+                    <div>
                       <p className="text-gray-300 text-sm">+1 (555) 123-4567</p>
                       <p className="text-gray-300 text-sm">Mon-Fri 9AM-6PM</p>
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center md:items-start space-y-2">
-                    <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0" style={{minWidth: '32px', width: '32px', height: '32px'}}>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <svg
                         className="w-4 h-4 text-white"
                         fill="none"
@@ -287,7 +193,7 @@ const Footer = () => {
                         />
                       </svg>
                     </div>
-                    <div className="text-center md:text-left">
+                    <div>
                       <p className="text-gray-300 text-sm">
                         hello@travelgrid.com
                       </p>
@@ -298,9 +204,10 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
+
               {/* Newsletter */}
               <div className="space-y-6">
-                <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2">
+                <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2 text-center">
                   Newsletter
                 </h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
@@ -314,68 +221,41 @@ const Footer = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white 
-                          placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-                          text-sm transition-all duration-300 hover:bg-gray-700"
+                      className={`w-full px-4 py-3 border rounded-l focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm transition-all duration-300 ${
+                        isDarkMode 
+                          ? ' text-white placeholder-gray-400 bg-zinc-800 border-slate-600' 
+                          : 'text-black placeholder-gray-700 bg-gray-50 border-gray-600'
+                      }`}
                       required
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      <svg
-                        className="w-5 h-5 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
+                      {/* Envelope icon */}
                     </div>
                   </div>
-                  <button
+                  <button aria-label="Search"
                     type="submit"
-                    className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 
-                               text-white py-3 px-4 rounded-lg transition-all duration-300 text-sm font-medium 
-                               transform hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] cursor-pointer
-                               flex items-center justify-center space-x-2"
+                    className="w-full bg-gradient-to-r from-pink-500 to-purple-700 hover:from-pink-600 hover:to-pink-700 text-white py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
                   >
                     <span>Subscribe</span>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                      />
-                    </svg>
+                    {/* Send icon */}
                   </button>
                 </form>
-
                 <div className="text-xs text-gray-400">
                   🔒 We respect your privacy. Unsubscribe at any time.
                 </div>
               </div>
             </div>
+
             {/* Bottom Section */}
-            <div className="border-t border-gray-700 mt-12 pt-8">
-              <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
-                <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
+            <div className="border-t border-gray-700 mt-12 py-6">
+              <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                   <p className="text-gray-400 text-sm">
-                    © 2025 TravelGrid. All rights reserved.
+                     © {new Date().getFullYear()} TravelGrid. All rights reserved.
                   </p>
-                  <div className="flex space-x-4 text-sm">
-                    <Link
-                      to="/privacy"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
-                    >
+                  {/* Links stacked on mobile, inline on desktop */}
+                  <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
+                    <Link to="/privacy" className="text-gray-400 hover:text-pink-300 transition-colors">
                       Privacy Policy
                     </Link>
                     <Link
@@ -399,7 +279,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-center space-x-2 text-gray-400 text-sm">
+              <div className="flex flex-wrap items-center justify-center space-x-2 text-gray-400 text-sm mt-4 text-center">
                 <span>Made with</span>
                 <svg
                   className="w-4 h-4 text-red-500"
@@ -414,15 +294,16 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+
       {/* Toast Notification */}
       {toast.show && (
         <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2 duration-300">
           <div
-            className={`
-            max-w-sm w-full bg-white rounded-lg shadow-xl border-l-4 p-4 flex items-center space-x-3
-            ${toast.type === "success" ? "border-green-500" : "border-red-500"}
-          `}
-          >
+            className={`max-w-sm w-full rounded-lg shadow-xl border-l-4 p-4 flex items-center space-x-3 transition-all duration-300 ${isDarkMode
+              ? 'bg-slate-800 text-white border-slate-600'
+              : 'bg-white text-gray-900 border-gray-200'
+              } ${toast.type === "success" ? "border-green-500" : "border-red-500"
+              }`}>
             <div className="flex-shrink-0">
               {toast.type === "success" ? (
                 <svg
@@ -430,11 +311,7 @@ const Footer = () => {
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
+                  <path fillRule="evenodd" d="..." />
                 </svg>
               ) : (
                 <svg
@@ -442,32 +319,24 @@ const Footer = () => {
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
+                  <path fillRule="evenodd" d="..." />
                 </svg>
               )}
             </div>
             <div className="flex-1">
               <p
-                className={`text-sm font-medium ${toast.type === "success" ? "text-green-800" : "text-red-800"
+                className={`text-sm font-medium ${toast.type === "success" ? "text-green-400" : "text-red-400"
                   }`}
               >
                 {toast.message}
               </p>
             </div>
-            <button
+            <button aria-label="Search"
               onClick={hideToast}
-              className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
+                <path fillRule="evenodd" d="..." />
               </svg>
             </button>
           </div>

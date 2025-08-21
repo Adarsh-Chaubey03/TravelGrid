@@ -1,15 +1,15 @@
-import React ,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useDashboardData } from '../context/DashboardDataContext';
 import { MapPin, Calendar, Heart, LogOut, Building2, Edit, Save, X } from 'lucide-react';
-import  hotels from '../data/hotels'; 
+import hotels from '../data/hotels';
 import axios from 'axios';
-
+import { config } from '../config';
+import { TravelCountdownTimer } from '../components/TravelCountdownTimer';
 
 import defaultAvatar from '../assets/defaultprofile.svg';
 import toast from 'react-hot-toast';
-
 
 const Dashboard = () => {
     const { user, logout, updateUser } = useAuth();
@@ -18,86 +18,63 @@ const Dashboard = () => {
 
     const [bookedHotels, setBookedHotels] = useState([]);
     const [showHotels, setShowHotels] = useState(false);
-
+    const [selectedImage, setSelectedImage] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState({
         name: user?.name || '',
         email: user?.email || ''
     });
 
-      const [bookings, setBookings] = useState([]);
-      const [loading, setLoading] = useState(true);
-     
-      console.log("currentUser:", user);
-useEffect(() => {
-  const fetchBookings = async () => {
-    try {
-      const res = await axios.get(`https://travelgrid.onrender.com/api/bookings/${user.id}`);
-      const bookingsData = Array.isArray(res.data) ? res.data : res.data?.bookings || [];
+    const API_BASE = config.API_BASE_URL;
 
-      // ✅ hotels is from hardcoded array, NOT fetched via axios
-      const bookingsWithHotels = bookingsData.map((booking) => {
-        const hotel = hotels.find((h) => h._id === booking.hotelId); // match _id with hotelId
-        return {
-          ...booking,
-          hotel,
+    // --- Fetch Bookings ---
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const userId = user?.id || user?._id;
+                const res = await axios.get(`${API_BASE}/api/users/${user?.id}`);
+                const bookingsData = Array.isArray(res.data) ? res.data : res.data?.bookings || [];
+
+                const bookingsWithHotels = bookingsData.map((booking) => {
+                    const hotel = hotels.find((h) => h._id === booking.hotelId);
+                    return { ...booking, hotel };
+                });
+
+                setBookedHotels(
+                    bookingsWithHotels.map((b) => ({
+                        bookedBy: b.name || 'Unknown User',
+                        name: b.hotelId || 'Unknown Hotel',
+                        bookedAt: b.createdAt || '',
+                    }))
+                );
+            } catch (err) {
+                console.error('Error fetching bookings:', err);
+            }
         };
-      });
 
-      setBookings(bookingsWithHotels);
-
-      setBookedHotels(
-  bookingsWithHotels.map((b) => ({
-    bookedBy:b.name||'Unknown User',
-    name: b.hotelId || 'Unknown Hotel',
-    bookedAt: b.createdAt || '',
-  }))
-);
-
-      console.log("Mapped hotels:", bookingsWithHotels);
-    } catch (err) {
-      console.error('Error fetching bookings:', err);
-    }
-  };
-
-  if (user?.id) {
-    fetchBookings();
-  }
-}, [user?.id, hotels]);
+        if (user?.id) fetchBookings();
+    }, [user?.id]);
 
 
-   
-
-
-
+    /** Handle profile picture selection **/
     const handleProfileEdit = () => {
-        // Create a file input element
         const fileInput = document.createElement('input');
         fileInput.type = 'file';
         fileInput.accept = 'image/*';
-        fileInput.capture = 'user'; // Opens camera on mobile devices
         fileInput.onchange = (e) => {
             const file = e.target.files[0];
             if (file) {
-                // Create a preview URL
+                setSelectedImage(file); // bas file save karo
+                // UI preview ke liye temporary URL
                 const imageUrl = URL.createObjectURL(file);
-                
-                // TODO: Here you would typically upload to server
-                // For now, we'll just update the local state
-                console.log('Selected image:', file);
-                console.log('Image URL:', imageUrl);
-                
-                // Update user avatar in context (temporary)
-                updateUser({ ...user, avatar: imageUrl });
-                
-                // Clean up the object URL
-                setTimeout(() => URL.revokeObjectURL(imageUrl), 1000);
+                setEditData((prev) => ({ ...prev, picture: imageUrl }));
             }
         };
-        
         fileInput.click();
     };
-    
+
+
+    /** Enable editing mode **/
     const handleEditClick = () => {
         setIsEditing(true);
         setEditData({
@@ -106,29 +83,39 @@ useEffect(() => {
         });
     };
 
-    const handleSave = () => {
-        // Validate required fields
-        if (!editData.name.trim()) {
-            toast.error('Name cannot be empty!');
-            return;
+    /** Save profile changes **/
+    const handleSave = async () => {
+        if (!editData.name.trim()) return toast.error('Name cannot be empty!');
+        if (!editData.email.trim()) return toast.error('Email cannot be empty!');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editData.email.trim())) return toast.error('Enter valid email!');
+
+        try {
+            const token = localStorage.getItem('token');
+            const formData = new FormData();
+            formData.append('name', editData.name);
+            formData.append('email', editData.email);
+            if (selectedImage) formData.append('picture', selectedImage);
+
+            const res = await axios.put(
+                `${API_BASE}/api/users/${user?.id}`,
+                formData,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (res.data?.user) {
+                updateUser(res.data.user); // Context update
+                localStorage.setItem("travelgrid_user", JSON.stringify(res.data.user)); // Persist update
+                toast.success('Profile updated successfully!');
+                setIsEditing(false);
+                setSelectedImage(null);
+            }
+        } catch (err) {
+            console.error('Error updating profile:', err);
+            toast.error(err.response?.data?.message || 'Failed to update profile');
         }
-        
-        if (!editData.email.trim()) {
-            toast.error('Email cannot be empty!');
-            return;
-        }
-        
-        // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(editData.email.trim())) {
-            toast.error('Please enter a valid email address!');
-            return;
-        }
-        
-        // Show backend pending toast
-        toast.error('Backend is pending! Profile update functionality will be implemented soon.');
-        setIsEditing(false);
     };
+
+
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -165,13 +152,11 @@ useEffect(() => {
         {
             label: "Hotels Booked",
             value: bookedHotels.length,
-            icon: <Building2 className="w-6 h-6" /> 
+            icon: <Building2 className="w-6 h-6" />
         }
-
     ];
 
     return (
-
         <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 px-4 sm:px-8 md:px-16 py-10 md:py-20">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
@@ -180,20 +165,22 @@ useEffect(() => {
                         <div className="flex items-center gap-4">
                             <div className="relative">
                                 <img
-                                    src={user.avatar || defaultAvatar}
+                                    src={selectedImage ? URL.createObjectURL(selectedImage) : user.picture || defaultAvatar}
                                     alt={user.name}
+                                    loading="lazy" 
                                     className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-4 border-pink-400 object-cover"
                                     onError={(e) => {
                                         e.target.src = defaultAvatar;
                                     }}
                                 />
-                                <button 
-                                    className="absolute -bottom-1 -right-1 bg-pink-500 hover:bg-pink-600 text-white p-2 rounded-full transition-all duration-300 shadow-lg border-2 border-white cursor-pointer"
-                                    onClick={handleProfileEdit}
-                                    title="Change Profile Picture"
-                                >
-                                    <Edit className="w-3 h-3" />
-                                </button>
+                                {isEditing && (
+                                    <button
+                                        className="absolute -bottom-1 -right-1 bg-pink-500 hover:bg-pink-600 text-white p-2 rounded-full transition-all duration-300 shadow-lg border-2 border-white cursor-pointer"
+                                        onClick={handleProfileEdit}
+                                        title="Change Profile Picture"
+                                    >
+                                        <Edit className="w-3 h-3" />
+                                    </button>)}
                             </div>
                             <div className="flex-1">
                                 {!isEditing ? (
@@ -270,6 +257,16 @@ useEffect(() => {
                     </div>
                 </div>
 
+                {/* Travel Countdown Timer */}
+                <div className="mb-8 mt-8">
+                    <TravelCountdownTimer
+                        trips={[]} // This will be populated with actual trips data
+                        onTripUpdate={() => {
+                            // Handle trip updates if needed
+                        }}
+                    />
+                </div>
+
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                     {stats.map((stat, index) => (
@@ -294,31 +291,30 @@ useEffect(() => {
                     ))}
                 </div>
 
-     {/* Booked Hotels Section */}
+                {/* Booked Hotels Section */}
                 {showHotels && bookedHotels.length > 0 && (
                     <div className="mt-10">
                         <h2 className="text-2xl font-bold text-white mb-4">Your Booked Hotels</h2>
                         <ul className="space-y-4">
-                        {bookedHotels.map((hotel, index) => (
-                            <li
-                            key={index}
-                            className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md shadow-pink-900/20"
-                            >
-                            <p className="text-white text-lg font-semibold">
-                                {hotel.name || `Hotel #${index + 1}`}
-                            </p>
-                             <p className="text-gray-300 text-sm">
-                                Booked by: {hotel.bookedBy || `Hotel #${index + 1}`}
-                            </p>
-                            <p className="text-gray-300 text-sm">
-                                Booked on: {hotel.bookedAt ? new Date(hotel.bookedAt).toLocaleString() : 'N/A'}
-                            </p>
-                            </li>
-                        ))}
+                            {bookedHotels.map((hotel, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md shadow-pink-900/20"
+                                >
+                                    <p className="text-white text-lg font-semibold">
+                                        {hotel.name || `Hotel #${index + 1}`}
+                                    </p>
+                                    <p className="text-gray-300 text-sm">
+                                        Booked by: {hotel.bookedBy || `Hotel #${index + 1}`}
+                                    </p>
+                                    <p className="text-gray-300 text-sm">
+                                        Booked on: {hotel.bookedAt ? new Date(hotel.bookedAt).toLocaleString() : 'N/A'}
+                                    </p>
+                                </li>
+                            ))}
                         </ul>
                     </div>
-                    )}
-
+                )}
 
                 {/* Call-to-action section */}
                 <div className="bg-white/5 border border-white/20 rounded-2xl p-6 sm:p-10 text-center mt-8">
@@ -329,7 +325,6 @@ useEffect(() => {
                     <button
                         onClick={() => navigate('/DiscovermoreDestination')}
                         className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer"
-                        
                     >
                         Discover New Places
                     </button>
@@ -340,4 +335,3 @@ useEffect(() => {
 };
 
 export default Dashboard;
-

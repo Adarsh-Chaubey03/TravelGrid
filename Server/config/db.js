@@ -1,19 +1,14 @@
-const mongoose = require('mongoose');
-const User = require('../models/user');
+const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB connected');
-
-    // const user = await User.create({
-    //   name: 'Test User',
-    //   email: 'test@example.com',
-    //   password: 'testpass',
-    // });
-
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB connected");
   } catch (err) {
-    console.error('MongoDB connection failed:', err.message);
+    console.error("MongoDB connection failed:", err.message);
     process.exit(1);
   }
 };

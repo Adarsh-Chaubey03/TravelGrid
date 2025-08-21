@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Custom/Navbar";
 import Footer from "../components/Custom/Footer";
-import TravelTips from "@/components/Home/TravelTips";
+import TravelTips from "../components/Home/TravelTips";
 import toast from "react-hot-toast";
 
 const blogs = [
@@ -178,6 +178,7 @@ function Blog() {
                   <img
                     src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${blog.author}`}
                     alt="avatar"
+                    loading="lazy" 
                     className="w-8 h-8 rounded-full border border-pink-400"
                   />
                   <span className="text-pink-300 text-sm">

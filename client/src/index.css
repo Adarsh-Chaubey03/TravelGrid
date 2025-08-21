@@ -1,18 +1,355 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+/* 
 @tailwind base;
-@tailwind components;
+@tailwind components; */
 @tailwind utilities;
 
-/* It is used to make custom scrollbar in the Dashboard cards */
+/* CSS Variables for Theme Colors */
+:root {
+  /* Light Theme Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --accent-primary: #ec4899;
+  --accent-secondary: #be1865;
+  --shadow-primary: rgba(0, 0, 0, 0.1);
+  --shadow-secondary: rgba(0, 0, 0, 0.05);
+  --gradient-primary: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+  --gradient-secondary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --navbar-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-focus: #ec4899;
+  --input-text:#ffc5e3;
+  --button-primary: #ec4899;
+  --button-hover: #be185d;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+}
+
+/* Dark Theme Colors */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-primary: #334155;
+  --border-secondary: #475569;
+  --accent-primary: #ec4899;
+  --accent-secondary: #be185d;
+  --shadow-primary: rgba(0, 0, 0, 0.3);
+  --shadow-secondary: rgba(0, 0, 0, 0.2);
+  --gradient-primary: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+  --gradient-secondary: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  --navbar-bg: rgba(15, 23, 42, 0.9);
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --input-bg: #334155;
+  --input-border: #475569;
+  --input-focus: #ec4899;
+  --button-primary: #ec4899;
+  --button-hover: #be185d;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+}
+
+/* Base styles */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Custom scrollbar */
 .custom-scroll::-webkit-scrollbar {
   width: 6px;
 }
+
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: rgba(236, 72, 153, 0.5); /* pink-500 */
+  background: var(--accent-primary);
   border-radius: 4px;
 }
+
 .custom-scroll::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] .custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+}
+
+/* Theme transition utilities */
+.theme-transition {
+  transition: all 0.3s ease;
+}
+
+/* Utility class for content below fixed navbar */
+.content-below-navbar {
+  padding-top: 5rem;
+  /* h-20 = 5rem = 80px */
+  margin-top: 1rem;
+}
+
+/* Global fix for fixed navbar spacing */
+body {
+  padding-top: 0;
+}
+
+/* Ensure main content areas have proper spacing */
+main,
+.main-content {
+  padding-top: 5rem;
+  /* Account for fixed navbar */
+}
+
+/* Custom component styles for dark mode */
+[data-theme="dark"] .bg-white {
+  background-color: var(--card-bg);
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .text-gray-700 {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .text-gray-500 {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .border-gray-200 {
+  border-color: var(--border-primary);
+}
+
+[data-theme="dark"] .bg-gray-50 {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  background-color: var(--bg-tertiary);
+}
+
+/* Navbar specific dark mode styles */
+[data-theme="dark"] .navbar-dark {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(10px);
+}
+
+/* Card styles for dark mode */
+[data-theme="dark"] .card-dark {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Input styles for dark mode */
+[data-theme="dark"] .input-dark {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .input-dark:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+}
+
+/* Button styles for dark mode */
+[data-theme="dark"] .btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+/* index.css or a global stylesheet */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom animations for About page */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.8s ease-out;
+}
+
+/* Smooth transitions for elements */
+.transition-all-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects */
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Intersection observer animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Leaflet routing panel - theme aware */
+.leaflet-routing-container {
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+[data-theme="dark"] .leaflet-routing-container {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+:root .leaflet-routing-container {
+  background-color: #ffffff !important;
+  color: #1f293b !important;
+  border: 1px solid #f9a8d4 !important; /* pink border in light */
+}
+
+.leaflet-routing-container a {
+  color: #ec4899 !important;
+}
+
+[data-theme="dark"] .leaflet-routing-container a {
+  color: #60a5fa !important;
+}
+
+.leaflet-routing-container h2,
+.leaflet-routing-container h3 {
+  color: inherit !important;
+}
+
+
+/* Make sure map is always on top */
+.leaflet-container {
+  z-index: 1;
+  position: relative;
+}
+
+/* Make sure routing control box is above map tiles */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 1000 !important;
+  position: relative;
+}
+
+select {
+  background-color: #f0f0f0; /* light gray instead of white */
+  color: #000; /* black text */
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+select option {
+  background-color: #fff; /* options background */
+  color: #000; /* options text color */
+}
+
+.dark select {
+  background-color: #333; /* dark mode dropdown */
+  color: #fff;
+}
+
+.dark select option {
+  background-color: #444;
+  color: #fff;
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, AlertCircle, Send } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import Navbar from "@/components/Custom/Navbar";
-import Footer from "@/components/Custom/Footer";
+import Navbar from "../components/Custom/Navbar";
+import Footer from "../components/Custom/Footer";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

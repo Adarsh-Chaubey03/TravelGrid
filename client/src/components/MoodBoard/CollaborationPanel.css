@@ -1,0 +1,702 @@
+.collaboration-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 2000;
+}
+
+.collaboration-panel {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Panel Header */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.header-content h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.collaborator-count {
+    display: block;
+    font-size: 0.875rem;
+    opacity: 0.9;
+    margin-top: 0.25rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.close-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Panel Tabs */
+.panel-tabs {
+    display: flex;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tab-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1rem 0.5rem;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #374151;
+    background: #f1f5f9;
+}
+
+.tab-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    background: white;
+}
+
+.tab-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Tab Content */
+.tab-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Tab */
+.chat-tab {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: 80%;
+}
+
+.message.own {
+    align-self: flex-end;
+}
+
+.message.own .message-content {
+    background: #667eea;
+    color: white;
+}
+
+.message:not(.own) .message-content {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.message.system .message-content {
+    background: #fef3c7;
+    color: #92400e;
+    font-style: italic;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.sender-name {
+    font-weight: 600;
+}
+
+.message-time {
+    opacity: 0.8;
+}
+
+.message-content {
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.message-input {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-top: 1px solid #e5e7eb;
+    background: white;
+}
+
+.message-input textarea {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    resize: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.message-input textarea:focus {
+    border-color: #667eea;
+}
+
+.send-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.send-btn:hover:not(:disabled) {
+    background: #5a67d8;
+    transform: scale(1.05);
+}
+
+.send-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* Collaborators Tab */
+.collaborators-tab {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.collaborators-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collaborators-header h4 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.invite-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.invite-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.invite-form {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.invite-input {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.invite-input:focus {
+    border-color: #667eea;
+}
+
+.invite-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.invite-submit-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    background: #667eea;
+    color: white;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.invite-submit-btn:hover:not(:disabled) {
+    background: #5a67d8;
+}
+
+.invite-submit-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+.invite-cancel-btn {
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.invite-cancel-btn:hover {
+    background: #f3f4f6;
+}
+
+.collaborators-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.collaborator-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.collaborator-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.collaborator-avatar {
+    position: relative;
+}
+
+.collaborator-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.status-indicator.online {
+    background: #10b981;
+}
+
+.status-indicator.offline {
+    background: #6b7280;
+}
+
+.status-indicator.pending {
+    background: #f59e0b;
+}
+
+.collaborator-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.collaborator-name {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+}
+
+.collaborator-email {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.collaborator-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f3f4f6;
+    color: #6b7280;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* Call Tab */
+.call-tab {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.call-status {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.call-active {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+}
+
+.call-participants {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.call-participant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.call-participant img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #667eea;
+}
+
+.call-participant span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.call-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.control-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: #e5e7eb;
+    transform: scale(1.05);
+}
+
+.control-btn.muted {
+    background: #ef4444;
+    color: white;
+}
+
+.control-btn.disabled {
+    background: #6b7280;
+    color: white;
+}
+
+.control-btn.end-call {
+    background: #ef4444;
+    color: white;
+}
+
+.control-btn.end-call:hover {
+    background: #dc2626;
+}
+
+.call-inactive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.call-placeholder h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.call-placeholder p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.start-call-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-call-btn:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .collaboration-panel {
+        max-width: 100%;
+    }
+
+    .panel-header {
+        padding: 1rem;
+    }
+
+    .header-content h3 {
+        font-size: 1.125rem;
+    }
+
+    .panel-tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        min-width: 80px;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .tab-btn svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .messages-container {
+        padding: 0.75rem;
+    }
+
+    .message-input {
+        padding: 0.75rem;
+    }
+
+    .collaborators-tab,
+    .call-tab {
+        padding: 0.75rem;
+    }
+
+    .call-participants {
+        gap: 0.75rem;
+    }
+
+    .call-participant img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .control-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collaboration-panel-overlay {
+        padding: 0;
+    }
+
+    .panel-header {
+        padding: 0.75rem;
+    }
+
+    .header-content h3 {
+        font-size: 1rem;
+    }
+
+    .collaborator-count {
+        font-size: 0.75rem;
+    }
+
+    .action-btn,
+    .close-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tab-btn {
+        min-width: 70px;
+        padding: 0.5rem 0.25rem;
+        font-size: 0.7rem;
+    }
+
+    .messages-container {
+        padding: 0.5rem;
+    }
+
+    .message-input {
+        padding: 0.5rem;
+    }
+
+    .collaborators-tab,
+    .call-tab {
+        padding: 0.5rem;
+    }
+
+    .call-participant img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -20,6 +20,7 @@
 
 ## Related Issues
 <!-- List any related issues, e.g. Fixes #123, Closes #456 -->
+<!-- PR will not be merged is=f issue number is not mentioned -->
 
 ## Screenshots (if applicable)
 <!-- Add screenshots to help explain your changes -->

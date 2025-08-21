@@ -11,6 +11,54 @@ export const useLanguage = () => {
   return context;
 };
 
+// ✅ All translations defined here
+const translations = {
+  en: {
+    welcome: "Welcome to our Travel Platform!",
+    description: "Discover amazing places around the world."
+  },
+  hi: {
+    welcome: "हमारे ट्रैवल प्लेटफ़ॉर्म पर आपका स्वागत है!",
+    description: "दुनिया भर की अद्भुत जगहों की खोज करें।"
+  },
+  es: {
+    welcome: "¡Bienvenido a nuestra plataforma de viajes!",
+    description: "Descubre lugares increíbles en todo el mundo."
+  },
+  bn: {
+    welcome: "আমাদের ভ্রমণ প্ল্যাটফর্মে স্বাগতম!",
+    description: "সারা বিশ্বের আশ্চর্যজনক জায়গাগুলি আবিষ্কার করুন।"
+  },
+  ta: {
+    welcome: "எங்கள் பயண தளத்திற்கு வரவேற்கிறோம்!",
+    description: "உலகம் முழுவதும் அற்புதமான இடங்களை கண்டறியுங்கள்."
+  },
+  te: {
+    welcome: "మా ట్రావెల్ ప్లాట్‌ఫారమ్‌కు స్వాగతం!",
+    description: "ప్రపంచంలోని అద్భుతమైన ప్రదేశాలను కనుగొనండి."
+  },
+  mr: {
+    welcome: "आमच्या ट्रॅव्हल प्लॅटफॉर्मवर आपले स्वागत आहे!",
+    description: "जगभरातील अद्भुत ठिकाणे शोधा."
+  },
+  gu: {
+    welcome: "અમારા ટ્રાવેલ પ્લેટફોર્મમાં આપનું સ્વાગત છે!",
+    description: "વિશ્વભરના અદ્ભુત સ્થળો શોધો."
+  },
+  kn: {
+    welcome: "ನಮ್ಮ ಪ್ರವಾಸ ವೇದಿಕೆಗೆ ಸುಸ್ವಾಗತ!",
+    description: "ವಿಶ್ವದ ಅದ್ಭುತ ಸ್ಥಳಗಳನ್ನು ಅನ್ವೇಷಿಸಿ."
+  },
+  ml: {
+    welcome: "ഞങ്ങളുടെ ട്രാവൽ പ്ലാറ്റ്‌ഫോമിലേക്ക് സ്വാഗതം!",
+    description: "ലോകമെമ്പാടുമുള്ള അത്ഭുതകരമായ സ്ഥലങ്ങൾ കണ്ടെത്തുക."
+  },
+  de: {
+    welcome: "Willkommen auf unserer Reiseplattform!",
+    description: "Entdecken Sie erstaunliche Orte auf der ganzen Welt."
+  }
+};
+
 export const LanguageProvider = ({ children }) => {
   const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState('en');
@@ -76,7 +124,7 @@ export const LanguageProvider = ({ children }) => {
     if (supportedLanguage) {
       initialLanguage = savedLanguage;
     } else if (browserSupportedLanguage) {
-      initialLanguage = browserSupportedLanguage.code; // Use code from supported language
+      initialLanguage = browserSupportedLanguage.code;
     }
 
     setCurrentLanguage(initialLanguage);
@@ -88,7 +136,8 @@ export const LanguageProvider = ({ children }) => {
     changeLanguage,
     languages,
     getCurrentLanguageInfo,
-    isRTL: currentLanguage === 'ar' || currentLanguage === 'he'
+    isRTL: currentLanguage === 'ar' || currentLanguage === 'he',
+    translations   // ✅ Add translations here for direct access
   };
 
   return (

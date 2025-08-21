@@ -47,7 +47,7 @@ const HeroSection = ({ onSearch }) => {
          <div className="flex-1 text-center lg:text-left text-white">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight leading-tight font-[Playfair Display]">
               Explore&nbsp;
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 inline-block min-h-[1.5em]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 to-pink-600 inline-block min-h-[1.5em]">
                 <Typewriter
                   options={{
                     strings: ['Restaurants!', 'Events!', 'Shopping!', 'Hotels!', 'Your City!'],

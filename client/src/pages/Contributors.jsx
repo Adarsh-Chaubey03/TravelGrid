@@ -1,67 +1,147 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Contributors() {
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [visiblePRs, setVisiblePRs] = useState({});
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/Adarsh-Chaubey03/TravelGrid/contributors')
-      .then((res) => {
+    const fetchContributors = async () => {
+      try {
+        const res = await fetch(
+          'https://api.github.com/repos/Adarsh-Chaubey03/TravelGrid/contributors'
+        );
         if (!res.ok) throw new Error('Failed to fetch contributors');
-        return res.json();
-      })
-      .then((data) => {
-        setContributors(data);
+        const data = await res.json();
+
+        const enriched = await Promise.all(
+          data.map(async (contributor) => {
+            try {
+              const prRes = await fetch(
+                `https://api.github.com/search/issues?q=type:pr+repo:Adarsh-Chaubey03/TravelGrid+author:${contributor.login}`
+              );
+              const prData = await prRes.json();
+
+              const allPRs = (prData.items || []).slice(0, 3);
+
+              const mergedPRs = await Promise.all(
+                allPRs.map(async (pr) => {
+                  const prNumber = pr.number;
+                  const prDetailsRes = await fetch(
+                    `https://api.github.com/repos/Adarsh-Chaubey03/TravelGrid/pulls/${prNumber}`
+                  );
+                  if (!prDetailsRes.ok) return null;
+                  const prDetails = await prDetailsRes.json();
+                  return prDetails.merged ? pr : null;
+                })
+              );
+
+              return {
+                ...contributor,
+                pullRequests: mergedPRs.filter(Boolean),
+              };
+            } catch {
+              return { ...contributor, pullRequests: [] };
+            }
+          })
+        );
+
+        setContributors(enriched);
+      } catch (err) {
+        setError(err.message);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
+      }
+    };
+
+    fetchContributors();
   }, []);
 
+  const togglePRs = (login) => {
+    setVisiblePRs((prev) => ({ ...prev, [login]: !prev[login] }));
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <p className="text-pink-200 text-xl">Loading contributors...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <p className="text-red-400 text-lg">{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex flex-col items-center py-12">
-      {/* Home Icon */}
-      <a
-        href="/"
-        className="fixed top-6 left-6 z-50 flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg hover:bg-pink-100 transition-colors border border-pink-300"
-        title="Back to Home"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="#ec4899" className="w-7 h-7">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9M4.5 10.5V21h15V10.5" />
-        </svg>
-      </a>
-      <h1 className="text-4xl font-bold text-pink-400 mb-8">Our Contributors</h1>
-      {loading ? (
-        <div className="text-pink-200 text-xl">Loading...</div>
-      ) : error ? (
-        <div className="text-pink-200 text-xl">Unable to load contributors. Please try again later.</div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-5xl px-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-12 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold text-pink-400 mb-8 text-center">Our Contributors</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {contributors.map((contributor) => (
-            <a
+            <div
               key={contributor.id}
-              href={contributor.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-black bg-opacity-80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform border-2 border-pink-400"
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
             >
-              <img
-                src={contributor.avatar_url}
-                alt={contributor.login}
-                className="w-24 h-24 rounded-full border-4 border-pink-400 mb-4 shadow-md"
-              />
-              <div className="text-xl font-semibold text-pink-300">{contributor.login}</div>
-              <div className="text-pink-200 text-sm mb-2">@{contributor.login}</div>
-              <div className="text-white text-xs bg-pink-500 rounded-full px-3 py-1 mt-2 shadow">
-                {contributor.contributions} commit{contributor.contributions !== 1 ? 's' : ''}
+              <div className="text-center">
+                <a href={contributor.html_url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={contributor.avatar_url}
+                    alt={contributor.login}
+                    loading="lazy" 
+                    className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-pink-400"
+                  />
+                  <div className="text-xl font-semibold text-pink-300">{contributor.login}</div>
+                  <div className="text-pink-200 text-sm">@{contributor.login}</div>
+                  <div className="text-pink-100 text-sm mt-1">
+                    {contributor.contributions} commit
+                    {contributor.contributions !== 1 ? 's' : ''}
+                  </div>
+                </a>
               </div>
-            </a>
+
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={() => togglePRs(contributor.login)}
+                  className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-1 rounded-md text-sm"
+                >
+                  {visiblePRs[contributor.login] ? 'Hide Merged PRs' : 'Show Merged PRs'}
+                </button>
+              </div>
+
+              {visiblePRs[contributor.login] && (
+                <div className="mt-4 text-pink-100 text-sm">
+                  {contributor.pullRequests.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-1">
+                      {contributor.pullRequests.map((pr) => (
+                        <li key={pr.id}>
+                          <a
+                            href={pr.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-pink-200 hover:underline"
+                          >
+                            {pr.title.length > 50
+                              ? pr.title.slice(0, 50) + '...'
+                              : pr.title}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="italic">No merged PRs</p>
+                  )}
+                </div>
+              )}
+            </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
-} 
+}

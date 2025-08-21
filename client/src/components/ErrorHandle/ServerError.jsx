@@ -59,7 +59,7 @@ const ServerError = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button
+              <button aria-label="Search"
                 onClick={() => window.location.reload()}
                 className="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
               >

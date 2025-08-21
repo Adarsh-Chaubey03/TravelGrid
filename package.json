@@ -1,22 +1,7 @@
 {
-  "name": "travelgrid",
-  "version": "1.0.0",
-  "description": "**Note**: This repository is dedicated to contributors of **GirlScript Summer of Code 2025 (GSSoC'25)**.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "vite": "^6.3.5"
+    "leaflet-routing-machine": "^3.2.12",
+    "react-countup": "^6.5.3",
+    "world-countries": "^5.1.0"
   }
 }

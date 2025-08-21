@@ -1,17 +1,18 @@
-<pre>Note: This repository is created for the contributors of GSSoC'25</pre> 
+<pre>Note: This repository is created for the contributors of GSSoC'25</pre>
+
 # TravelGrid
 
 Welcome to **TravelGrid**, a comprehensive travel platform designed to simplify your travel planning experience! With TravelGrid, you can seamlessly book travel tickets, hire or rent vehicles, reserve hotels, explore travel guides, and choose complete or customizable travel packages—all in one place. Whether you're a solo adventurer or planning a group getaway, TravelGrid has you covered.
 
 This project is proudly part of **GirlScript Summer of Code 2025 (GSSoC)**, and we invite passionate contributors to join us in building an intuitive and user-friendly travel solution.
 
-
-## Initial Preview 
+## Initial Preview
 
 <img width="1917" height="812" alt="image" src="https://github.com/user-attachments/assets/ad006691-dba5-4527-b854-de8b2e995f67" />
 <img width="1915" height="916" alt="image" src="https://github.com/user-attachments/assets/25e99aa5-02ee-4263-8882-7b9f5cf9b8c5" />
 
 ### Check out or create issues to contribute.
+
 ---
 
 ## 📖 Table of Contents
@@ -109,6 +110,7 @@ Ensure you have the following installed:
 5. Open `http://localhost:5173` in your browser to view the app.
 
 ---
+
 ## 🤝 Contributing to TravelGrid
 
 We welcome **GSSoC 2025** contributors! Follow these guidelines for a smooth collaboration.
@@ -116,6 +118,9 @@ We welcome **GSSoC 2025** contributors! Follow these guidelines for a smooth col
 - **Issues**: Pick an unassigned issue from the [Issues section](https://github.com/Adarsh-Chaubey03/TravelGrid/issues) or create a new one with a clear description. Wait for admin approval before starting.
 - **Responsive Design**: Ensure all code is responsive across screen sizes using **Tailwind CSS**.
 - **Code Quality**: Write clean, modular code in `src/components/`. Use **ESLint** and **Prettier**.
+- **Styling Consistency**: Use only **one styling method** across the project.  
+  Avoid mixing different approaches like Tailwind, inline styles (`style={{ }}`), or separate `.css` files.  
+  Currently, **Tailwind CSS** is preferred for styling components.
 - **Pull Requests**: Address a specific issue, test thoroughly, and include a clear description. Buggy PRs will not be merged.
 - **Task & PR Review**: Assignments and reviews happen daily from **6:00 PM to 7:00 PM**.
 - **Communication**: Avoid unnecessary comments or complaints. For support, contact:
@@ -151,6 +156,4 @@ All contributors are expected to adhere to the [GirlScript Code of Conduct](http
 
 ---
 
-
 Happy coding, and let's make **TravelGrid** the ultimate travel companion! 🚗✈️🏨
-

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 const Contact = () => {
+  const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -24,11 +26,11 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen`}>
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-24 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+      <div className={`py-24 px-4 relative overflow-hidden`}>
+        <div className={`absolute inset-0`}></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="text-5xl font-bold mb-6 leading-tight">
             Get in <span className="text-yellow-400">Touch</span>
@@ -44,18 +46,24 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           
           {/* Contact Info */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Contact Information</h3>
+          <div className={`rounded-2xl shadow-2xl p-8 ${
+            isDarkMode ? 'bg-gray-800' : 'bg-white'
+          }`}>
+            <h3 className={`text-2xl font-bold mb-8 text-center`}>Contact Information</h3>
             <div className="space-y-6">
               {contactCards.map((card, index) => (
-                <div key={index} className={`flex items-center p-4 ${card.bg} rounded-xl transition-colors`}>
+                <div key={index} className={`flex items-center p-4 rounded-xl transition-colors`}>
                   <div className={`w-12 h-12 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-xl mr-4`}>
                     {card.icon}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{card.title}</h4>
+                    <h4 className={`font-semibold ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>{card.title}</h4>
                     <p className={`${card.color} font-medium`}>{card.info}</p>
-                    <p className="text-gray-500 text-sm">{card.sub}</p>
+                    <p className={`text-sm ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-500'
+                    }`}>{card.sub}</p>
                   </div>
                 </div>
               ))}
@@ -63,14 +71,20 @@ const Contact = () => {
           </div>
           
           {/* Contact Form */}
-          <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl shadow-2xl p-8 border border-pink-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Send us a Message</h2>
+          <div className={`rounded-2xl shadow-2xl p-8 border ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-600' 
+              : 'bg-gradient-to-br from-pink-50 to-rose-50 border-pink-100'
+          }`}>
+            <h2 className={`text-2xl font-bold mb-8 text-center ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>Send us a Message</h2>
             
             {isSubmitted ? (
               <div className="text-center py-12">
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">✓</div>
                 <h3 className="text-2xl font-bold text-green-600 mb-4">Message Sent!</h3>
-                <p className="text-gray-600">Our travel experts will get back to you within 24 hours.</p>
+                <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>Our travel experts will get back to you within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -80,14 +94,20 @@ const Contact = () => {
                   { name: 'message', type: 'textarea', placeholder: 'Tell us about your dream destination...', label: 'Message' }
                 ].map((field, index) => (
                   <div key={index}>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">{field.label}</label>
+                    <label className={`block text-sm font-semibold mb-2 ${
+                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                    }`}>{field.label}</label>
                     {field.type === 'textarea' ? (
                       <textarea
                         name={field.name}
                         rows="6"
                         value={formData[field.name]}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none resize-none bg-white"
+                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none resize-none ${
+                          isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' 
+                            : 'bg-white border-pink-200'
+                        }`}
                         placeholder={field.placeholder}
                         required
                       />
@@ -97,7 +117,11 @@ const Contact = () => {
                         name={field.name}
                         value={formData[field.name]}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white"
+                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none ${
+                          isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' 
+                            : 'bg-white border-pink-200'
+                        }`}
                         placeholder={field.placeholder}
                         required
                       />

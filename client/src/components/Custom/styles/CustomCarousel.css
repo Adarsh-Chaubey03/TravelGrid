@@ -1,0 +1,109 @@
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  height: 460px;
+  margin-top: -40px;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.441);
+  transition: all 0.5s ease;
+  opacity: 0;
+  z-index: 0;
+}
+
+.card:hover {
+  box-shadow: 0 0 20px rgba(211, 72, 141, 0.634);
+}
+
+.card.left {
+  transform: translateX(-360px);
+  opacity: 1;
+  z-index: 2;
+}
+
+.card.center {
+  transform: translateX(0px);
+  opacity: 1;
+  z-index: 3;
+}
+
+.card.right {
+  transform: translateX(360px);
+  opacity: 1;
+  z-index: 2;
+}
+
+.card-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  border: 4px solid #ec4899;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+}
+
+.expertise {
+  color: #f472b6;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.bio {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.view-btn {
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  transform: scale(1.05);
+}
+
+.card:not(.left):not(.center):not(.right) {
+  transform: translateX(0) scale(0.8);
+  opacity: 0;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .card.left,
+  .card.right {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

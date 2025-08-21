@@ -1,123 +1,228 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import { config } from '../config';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    // Mock user data for demonstration
-    const mockUsers = [
-        {
-            id: 1,
-            email: 'demo@travelgrid.com',
-            password: 'password123',
-            name: 'John Doe',
-            avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
-        },
-        {
-            id: 2,
-            email: 'jane@travelgrid.com',
-            password: 'password123',
-            name: 'Jane Smith',
-            avatar: 'https://randomuser.me/api/portraits/women/32.jpg'
-        }
-    ];
+  // Fetch user from cookie session
+  const fetchUser = async () => {
+    try {
+      console.log('AuthContext: fetchUser called');
+      // Try to get token from localStorage first
+      const token = localStorage.getItem('jwt_token');
+      console.log('AuthContext: Token from localStorage:', token ? 'Present' : 'Missing');
 
-    // Check for stored user session on app load
-    useEffect(() => {
-        const storedUser = localStorage.getItem('travelgrid_user');
-        if (storedUser) {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (error) {
-                localStorage.removeItem('travelgrid_user');
-            }
-        }
-        setIsLoading(false);
-    }, []);
-
-    const login = async (email, password) => {
-        setIsLoading(true);
-
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        const foundUser = mockUsers.find(
-            u => u.email === email && u.password === password
-        );
-
-        if (foundUser) {
-            const userSession = {
-                id: foundUser.id,
-                email: foundUser.email,
-                name: foundUser.name,
-                avatar: foundUser.avatar
-            };
-
-            setUser(userSession);
-            localStorage.setItem('travelgrid_user', JSON.stringify(userSession));
-            setIsLoading(false);
-            return { success: true };
-        } else {
-            setIsLoading(false);
-            return { success: false, error: 'Invalid email or password' };
-        }
-    };
-
-    const signup = async (userData) => {
-        setIsLoading(true);
-
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Check if email already exists
-        const emailExists = mockUsers.some(u => u.email === userData.email);
-
-        if (emailExists) {
-            setIsLoading(false);
-            return { success: false, error: 'Email already exists' };
-        }
-
-        // Create new user
-        const newUser = {
-            id: Date.now(),
-            email: userData.email,
-            name: userData.name,
-            avatar: `https://randomuser.me/api/portraits/${userData.name.toLowerCase().includes('jane') || userData.name.toLowerCase().includes('maria') ? 'women' : 'men'}/${Math.floor(Math.random() * 90) + 1}.jpg`
-        };
-
-        setUser(newUser);
-        localStorage.setItem('travelgrid_user', JSON.stringify(newUser));
-        setIsLoading(false);
-        return { success: true };
-    };
-
-    const logout = () => {
+      const res = await fetch(`${config.API_BASE_URL}/auth/me`, {
+        method: "GET",
+        credentials: "include",
+        headers: token ? {
+          "Authorization": `Bearer ${token}`
+        } : {}
+      });
+      console.log('AuthContext: /auth/me response status:', res.status);
+      const data = await res.json();
+      console.log('AuthContext: /auth/me response data:', data);
+      if (res.ok) {
+        console.log('AuthContext: Setting user:', data.user);
+        setUser(data.user);
+      } else {
+        console.log('AuthContext: /auth/me failed, clearing user');
         setUser(null);
-        localStorage.removeItem('travelgrid_user');
-    };
+      }
+    } catch (err) {
+      console.error("AuthContext: Auth check failed:", err);
+      setUser(null);
+    } finally {
+      console.log('AuthContext: fetchUser completed, setting isLoading to false');
+      setIsLoading(false);
+    }
+  };
 
-    const value = {
-        user,
-        isLoading,
-        login,
-        signup,
-        logout,
-        isAuthenticated: !!user
-    };
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+  // Debug effect to track user and isAuthenticated changes
+  useEffect(() => {
+    console.log('AuthContext: user state changed:', user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log('AuthContext: isAuthenticated state changed:', !!user);
+  }, [user]);
+
+  // Signup
+  const signup = async ({ name, email, password }) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      setUser(data.user);
+      toast.success("Signup successful! 🎉");
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: "Signup failed" };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Login
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // very important
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      // Store JWT token in localStorage
+      if (data.token) {
+        localStorage.setItem('jwt_token', data.token);
+      }
+
+      setUser(data.user);
+      toast.success("Login successful 👋");
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: "Login failed" };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Logout
+  const logout = async () => {
+    try {
+      await fetch(`${config.API_BASE_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+      // Remove JWT token from localStorage
+      localStorage.removeItem('jwt_token');
+      setUser(null);
+      toast.success("Logged out 👋");
+    } catch {
+      toast.error("Logout failed");
+    }
+  };
+
+  // Email verification functions
+  const sendVerificationEmail = async (email) => {
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/email/send-verification`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      return { success: true, message: data.message };
+    } catch (err) {
+      return { success: false, error: "Failed to send verification email" };
+    }
+  };
+
+  const verifyEmailCode = async (email, code) => {
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/email/verify-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, code }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      // Update user state if verification successful
+      if (data.user) {
+        setUser(data.user);
+      }
+
+      return { success: true, message: data.message };
+    } catch (err) {
+      return { success: false, error: "Failed to verify email" };
+    }
+  };
+
+  const resendVerificationCode = async (email) => {
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/email/resend-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      return { success: true, message: data.message };
+    } catch (err) {
+      return { success: false, error: "Failed to resend verification code" };
+    }
+  };
+
+  const checkVerificationStatus = async (email) => {
+    try {
+      const res = await fetch(`${config.API_BASE_URL}/email/status?email=${encodeURIComponent(email)}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      if (!res.ok) return { success: false, error: data.error || data.message };
+
+      return { success: true, isVerified: data.isVerified };
+    } catch (err) {
+      return { success: false, error: "Failed to check verification status" };
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{
+      user,
+      isAuthenticated: !!user,
+      isLoading,
+      login,
+      signup,
+      logout,
+      sendVerificationEmail,
+      verifyEmailCode,
+      resendVerificationCode,
+      checkVerificationStatus
+    }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

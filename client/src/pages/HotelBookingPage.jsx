@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 import "./styles/HotelBookingPage.css";
 
 const hotelsData = [
@@ -15,6 +18,8 @@ const hotelsData = [
 ];
 
 const HotelBookingPage = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("default");
 
@@ -52,10 +57,19 @@ const HotelBookingPage = () => {
             <h2>{hotel.name}</h2>
             <p>Price: ₹{hotel.price} / night</p>
             <p>Rating: ⭐ {hotel.rating}</p>
-            <button>Book Now</button>
+            <button onClick={() => {
+              // Temporarily bypass authentication for testing
+              // if (!user) {
+              //   toast.error('Please login to book a hotel');
+              //   return;
+              // }
+              navigate('/hotel-booking', { state: { hotel } });
+            }}>Book Now</button>
           </div>
         ))}
       </div>
+
+
     </div>
   );
 };

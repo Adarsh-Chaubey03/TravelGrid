@@ -1,21 +1,67 @@
 import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { useDashboardData } from '../context/DashboardDataContext';
+import { config } from '../config';
 
 const SavedPlaces = () => {
     const navigate = useNavigate();
-    const { setPlaceCount } = useDashboardData(); // ✅ Correct context setter
+    const { setPlaceCount } = useDashboardData();
+    const toastShown = useRef(false);
 
-    const [places] = useState([
-        { name: 'Paris, France', description: 'Visited Eiffel Tower and Louvre Museum' },
-        { name: 'Kyoto, Japan', description: 'Explored Fushimi Inari Shrine' },
-        { name: 'Rome, Italy', description: 'Saw Colosseum and Vatican City' },
-        { name: 'New York, USA', description: 'Times Square and Central Park' },
-        { name: 'Barcelona, Spain', description: 'La Sagrada Familia and beaches' },
-        { name: 'Istanbul, Turkey', description: 'Blue Mosque and Grand Bazaar' },
-    ]);
+    const [places, setPlaces] = useState([]);
 
-    // ✅ Correct useEffect with context
+    useEffect(() => {
+        const fetchSavedPlaces = async () => {
+            try {
+                const res = await fetch(`${config.API_BASE_URL}/save/my-saved-places`, {
+                    method: 'GET',
+                    credentials: 'include', // ✅ Important for cookies
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    setPlaces(data.savedPlaces);
+                    setPlaceCount(data.savedPlaces.length);
+                    if (!toastShown.current) {
+                        toast.success('Loaded saved places!');
+                        toastShown.current = true;
+                    }
+                } else {
+                    toast.error(data.message || 'Failed to load saved places.');
+                }
+            } catch (err) {
+                console.error('Fetch failed:', err);
+                toast.error('Error fetching saved places.');
+            }
+        };
+
+        fetchSavedPlaces();
+    }, [setPlaceCount]);
+
+    const handleDelete = async (placeId) => {
+        try {
+            const res = await fetch(`${config.API_BASE_URL}/save/delete/${placeId}`, {
+                method: 'DELETE',
+                credentials: 'include', // ✅ Important
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                toast.success('Place removed from saved list!');
+                setPlaces(prev => prev.filter(place => place.placeId !== placeId));
+            } else {
+                toast.error(data.message || 'Could not delete the place');
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+            toast.error('Something went wrong while deleting!');
+        }
+    };
+
     useEffect(() => {
         setPlaceCount(places.length);
     }, [places, setPlaceCount]);
@@ -28,23 +74,36 @@ const SavedPlaces = () => {
                         <h2 className="text-2xl font-bold text-white">Saved Places</h2>
                         <button
                             onClick={() => navigate('/dashboard')}
-                            className="text-sm px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition hover: cursor-pointer"
+                            className="text-sm px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition"
                         >
                             Back to Dashboard
                         </button>
                     </div>
+
                     <div className="max-h-[350px] overflow-y-auto pr-2 custom-scroll">
                         <ul className="space-y-4">
                             {places.map((place, index) => (
-                                <li
-                                    key={index}
-                                    className="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition"
-                                >
+                                <li key={index} className="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition">
                                     <h3 className="text-white font-semibold">{place.name}</h3>
                                     <p className="text-gray-300 text-sm">{place.description}</p>
+                                    <button
+                                        onClick={() => navigate(`/hotels/${place.placeId}`)}
+                                        className="mt-2 text-pink-400 hover:underline text-sm"
+                                    >
+                                        View Hotel
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(place.placeId)}
+                                        className="ml-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg text-sm"
+                                    >
+                                        Delete
+                                    </button>
                                 </li>
                             ))}
                         </ul>
+                        {places.length === 0 && (
+                            <p className="text-gray-300 text-center mt-4">No saved places found.</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -53,8 +112,3 @@ const SavedPlaces = () => {
 };
 
 export default SavedPlaces;
-
-
-
-
-

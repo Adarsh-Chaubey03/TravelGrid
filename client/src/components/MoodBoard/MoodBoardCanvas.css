@@ -1,0 +1,688 @@
+.mood-board-canvas-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #f8fafc;
+}
+
+/* Canvas Toolbar */
+.canvas-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:hover {
+    border-color: #667eea;
+    transform: translateY(-1px);
+}
+
+.toolbar-btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.toolbar-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.toolbar-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.element-type-selector {
+    display: flex;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease;
+}
+
+.element-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.element-type-btn:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+    transform: translateY(-2px);
+}
+
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.zoom-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: white;
+    color: #374151;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.zoom-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.zoom-level {
+    min-width: 50px;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Canvas Wrapper */
+.canvas-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #f8fafc;
+    cursor: grab;
+}
+
+.canvas-wrapper:active {
+    cursor: grabbing;
+}
+
+.canvas-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+    min-width: 1200px;
+    transform-origin: center;
+}
+
+/* Canvas Grid */
+.canvas-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+/* Drop Zone Indicator */
+.drop-zone-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(248, 250, 252, 0.8);
+    pointer-events: none;
+}
+
+.drop-zone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9ca3af;
+}
+
+.drop-zone-content p {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Image Upload Modal */
+.image-upload-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease;
+}
+
+.modal-content h3 {
+    margin: 0 0 1.5rem 0;
+    color: #1f2937;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.upload-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.url-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.url-input-field {
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.3s ease;
+}
+
+.url-input-field:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.upload-btn {
+    padding: 0.75rem 1.5rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover:not(:disabled) {
+    background: #5a67d8;
+    transform: translateY(-1px);
+}
+
+.upload-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.file-upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #f3f4f6;
+    color: #374151;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-upload-btn:hover {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+}
+
+.close-modal-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #f3f4f6;
+    color: #374151;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+}
+
+/* Enhanced Canvas Element Interactions */
+.canvas-element {
+    position: absolute;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+}
+
+.canvas-element:hover {
+    border-color: rgba(102, 126, 234, 0.3);
+    transform: scale(1.02);
+}
+
+.canvas-element.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    transform: scale(1.02);
+}
+
+.canvas-element.dragging {
+    opacity: 0.8;
+    transform: scale(1.05);
+    z-index: 1000;
+}
+
+/* Selection Indicators */
+.selection-indicator {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    pointer-events: none;
+}
+
+.selection-handle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.selection-handle.top-left {
+    top: -4px;
+    left: -4px;
+    cursor: nw-resize;
+}
+
+.selection-handle.top-right {
+    top: -4px;
+    right: -4px;
+    cursor: ne-resize;
+}
+
+.selection-handle.bottom-left {
+    bottom: -4px;
+    left: -4px;
+    cursor: sw-resize;
+}
+
+.selection-handle.bottom-right {
+    bottom: -4px;
+    right: -4px;
+    cursor: se-resize;
+}
+
+/* Improved Image Element */
+.image-element {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+.image-element img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-element:hover img {
+    transform: scale(1.05);
+}
+
+.text-element {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shape-element {
+    border-radius: 8px;
+}
+
+/* Element Controls */
+.element-controls {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    display: flex;
+    gap: 0.25rem;
+    background: white;
+    border-radius: 6px;
+    padding: 0.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s ease;
+}
+
+.control-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.control-btn.delete:hover {
+    background: #ef4444;
+}
+
+/* Element Properties Panel */
+.element-properties {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    overflow-y: auto;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease;
+}
+
+.element-properties h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.property-group {
+    margin-bottom: 1.5rem;
+}
+
+.property-group label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.size-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.size-controls input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.size-controls span {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.property-group input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.property-group span {
+    display: block;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.property-group input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.property-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.property-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.property-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.property-btn.delete:hover {
+    background: #fef2f2;
+    border-color: #f87171;
+    color: #dc2626;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .element-properties {
+        width: 280px;
+        padding: 1rem;
+    }
+
+    .canvas-content {
+        min-width: 1000px;
+        min-height: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .canvas-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .element-type-selector {
+        justify-content: center;
+    }
+
+    .element-properties {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 300px;
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+        animation: slideUp 0.3s ease;
+    }
+
+    .canvas-content {
+        min-width: 800px;
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .element-type-btn {
+        min-width: 70px;
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .canvas-content {
+        min-width: 600px;
+        min-height: 400px;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -15,6 +15,7 @@ import FeedbackButton from "./components/FeedbackButton";
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
+import WeatherChecklist from "./components/WeatherChecklist/code";
 
 function App() {
   const location = useLocation();

@@ -48,7 +48,6 @@ const samplePastTrips = [
     }
 ];
 
-
 const fetchBookingHistory = async () => {
     try {
         const response = await axios.get(`${backendUrl}/api/bookings/getAllBookings`);
@@ -71,7 +70,6 @@ const cancelBooking = async (bookingId) => {
 
 const confirmBooking = async (bookingId) => {
     try {
-        // Logic to complete a booking with other necessary data
         const response = await axios.post(`${backendUrl}/api/bookings/editBooking/${bookingId}`, { status: 'Completed' });
         return response.data;
     } catch (error) {
@@ -82,7 +80,6 @@ const confirmBooking = async (bookingId) => {
 
 const rebookTrip = async (bookingId) => {
     try {
-        // Logic to rebook a trip, possibly fetching the original booking details
         const response = await axios.post(`${backendUrl}/api/bookings/rebook/${bookingId}`);
         return response.data;
     } catch (error) {
@@ -94,33 +91,42 @@ const rebookTrip = async (bookingId) => {
 const BookingHistory = () => {
     const { isDarkMode } = useTheme();
 
-    const [upcomingTrips, setUpcomingTrips] = useState(sampleUpcomingTrips);
-    const [pastTrips, setPastTrips] = useState(samplePastTrips);
+    const [upcomingTrips, setUpcomingTrips] = useState([]);
+    const [pastTrips, setPastTrips] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getBookingHistory = async () => {
+            setLoading(true);
             const bookings = await fetchBookingHistory();
             const upcoming = bookings.filter(booking => new Date(booking.startDate) > new Date());
             const past = bookings.filter(booking => new Date(booking.startDate) <= new Date());
             setUpcomingTrips(upcoming);
             setPastTrips(past);
+            setLoading(false);
         }
 
         getBookingHistory();
-    }, [])
+    }, []);
 
     return (
-        <div className={`flex flex-col min-h-screen w-full px-2 bg-gradient-to-br ${isDarkMode ? 'from-gray-900 to-gray-800' : 'from-black to-pink-900'} overflow-x-hidden`}>
-            <div className='flex flex-col items-center mt-30 justify-center text-white px-4'>
-                <h1 className='text-3xl sm:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-lg text-center'>Booking History</h1>
-                <p className='text-sm sm:text-lg mb-8 opacity-80 text-center'>Check your Past Booking History & Manage your Upcoming Journey</p>
+        <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>
+            <div className='flex flex-col items-center mt-30 justify-center px-4'>
+                <h1 className={`text-3xl sm:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-lg text-center transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-pink-700'}`}>
+                    Booking History
+                </h1>
+                <p className={`text-sm sm:text-lg mb-8 opacity-80 text-center transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-pink-700'}`}>
+                    Check your Past Booking History & Manage your Upcoming Journey
+                </p>
             </div>
-            <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch my-2 px-2 w-full max-w-6xl mx-auto">
-                {/* Upcoming Trips */}
-                <TripsCard isDarkMode={isDarkMode} title="upcoming trips" tripsData={upcomingTrips} />
-                {/* Past Trips */}
-                <TripsCard isDarkMode={isDarkMode} title="past trips" tripsData={pastTrips} />
-            </div>
+            {loading ? (
+                <p className='text-sm sm:text-lg mb-8 opacity-80 text-center'> Loading Booking History....</p>
+            ) : (
+                <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch my-2 px-2 w-full max-w-6xl mx-auto">
+                    <TripsCard isDarkMode={isDarkMode} title="upcoming trips" tripsData={upcomingTrips} />
+                    <TripsCard isDarkMode={isDarkMode} title="past trips" tripsData={pastTrips} />
+                </div>
+            )}
         </div>
     )
 }
@@ -157,7 +163,7 @@ const TripsCard = ({ isDarkMode, title, tripsData }) => {
     }
 
     return (
-        <div className={`p-4 sm:p-8 rounded-2xl shadow-2xl m-2 sm:m-4 w-full lg:w-1/2 flex-1 ${isDarkMode ? 'bg-gray-900/90' : 'bg-white/90'}`}>
+        <div className={`p-4 sm:p-8 rounded-2xl shadow-2xl m-2 sm:m-4 w-full lg:w-1/2 flex-1 transition-all duration-300 ${isDarkMode ? 'bg-gray-900/90' : 'bg-white/90'}`}>
             <h2 className={`capitalize text-2xl sm:text-3xl font-bold mb-6 flex items-center gap-2 ${isDarkMode ? 'text-pink-400' : 'text-pink-700'}`}>
                 {title}
             </h2>
@@ -204,7 +210,6 @@ const TripsCard = ({ isDarkMode, title, tripsData }) => {
                                         onClick={() => confirmBookingHandler(trip._id)}
                                     />
                                 ) : (
-                                    // Booking is completed or cancelled, so show rebook option
                                     <ActionButton
                                         isDarkMode={isDarkMode}
                                         label="Rebook Trip"
@@ -223,10 +228,9 @@ const TripsCard = ({ isDarkMode, title, tripsData }) => {
     )
 }
 
-
 const ActionButton = ({ isDarkMode, label, color, onClick }) => (
     <button
-        className={`mt-4 w-full px-4 py-2 rounded-lg font-semibold shadow transition ${isDarkMode
+        className={`mt-4 w-full px-4 py-2 rounded-lg font-semibold shadow transition-all duration-300 ${isDarkMode
             ? `bg-${color}-800 text-white hover:bg-${color}-700`
             : `bg-${color}-600 text-white hover:bg-${color}-500`
             }`}
@@ -236,4 +240,4 @@ const ActionButton = ({ isDarkMode, label, color, onClick }) => (
     </button>
 );
 
-export default BookingHistory
+export default BookingHistory;

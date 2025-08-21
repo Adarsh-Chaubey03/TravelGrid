@@ -1,0 +1,412 @@
+/* TravelCountdownTimer.css */
+.countdown-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Add top margin to account for fixed navbar (h-20 = 5rem = 80px) */
+    margin-top: 2rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.empty-icon {
+    width: 4rem;
+    height: 4rem;
+    color: #ec4899;
+    opacity: 0.7;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.empty-state p {
+    color: #d1d5db;
+    font-size: 1rem;
+    margin: 0;
+    max-width: 400px;
+}
+
+/* Trip Selector */
+.trip-selector {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.trip-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.trip-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.trip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.trip-card:hover::before {
+    opacity: 1;
+}
+
+.trip-card.active {
+    border-color: #ec4899;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
+}
+
+.trip-card.active::before {
+    opacity: 1;
+}
+
+.trip-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #ec4899;
+    margin-bottom: 1rem;
+}
+
+.trip-info h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+}
+
+.trip-info p {
+    color: #d1d5db;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.trip-date {
+    display: inline-block;
+    background: rgba(236, 72, 153, 0.2);
+    color: #ec4899;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.trip-countdown {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* Main Countdown */
+.main-countdown {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+}
+
+.countdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.trip-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.destination-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem 0;
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.trip-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.trip-duration,
+.trip-date {
+    background: rgba(236, 72, 153, 0.2);
+    color: #ec4899;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.countdown-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.action-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .countdown-container {
+        padding: 1rem;
+        /* Ensure proper spacing on mobile */
+        margin-top: 1.5rem;
+    }
+
+    .trip-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .countdown-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .trip-details {
+        min-width: auto;
+    }
+
+    .destination-title {
+        font-size: 1.5rem;
+    }
+
+    .trip-meta {
+        justify-content: center;
+    }
+
+    .countdown-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-countdown {
+        padding: 1.5rem;
+    }
+
+    .trip-card {
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #ec4899;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Focus States for Accessibility */
+.trip-card:focus,
+.action-btn:focus {
+    outline: 2px solid #ec4899;
+    outline-offset: 2px;
+}
+
+/* Ensure proper layering and spacing */
+.countdown-container {
+    position: relative;
+    z-index: 1;
+    /* Ensure proper spacing from navbar */
+    scroll-margin-top: 5rem;
+}
+
+/* Add extra top padding for the main countdown section */
+.main-countdown {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure trip selector has proper spacing */
+.trip-selector {
+    margin-bottom: 3rem;
+    /* Add top margin for better separation */
+    margin-top: 1rem;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .trip-card {
+        border-width: 2px;
+    }
+
+    .action-btn {
+        border-width: 2px;
+    }
+
+    .trip-duration,
+    .trip-date {
+        border: 1px solid #ec4899;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    .trip-card,
+    .action-btn {
+        transition: none;
+    }
+
+    .trip-card:hover,
+    .action-btn:hover {
+        transform: none;
+    }
+}

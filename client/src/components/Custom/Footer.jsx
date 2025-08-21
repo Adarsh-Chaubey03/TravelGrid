@@ -57,13 +57,15 @@ const Footer = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />
 
         <div className="relative z-10">
-          <div className="container mx-auto px-4 py-16">
+          {/* remove extra padding in footer */}
+          <div className="container mx-auto px-4 pt-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
               <div className="space-y-6">
   <div className="flex items-center space-x-3">
     <img
       src="/favicon.ico"
       alt="TravelGrid Logo"
+      loading="lazy" 
       className="w-10 h-10"
     />
     <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-pink-300 bg-clip-text text-transparent">
@@ -94,7 +96,7 @@ const Footer = () => {
                     { name: "Hotels", path: "/hotels" },
                     { name: "Forums", path: "/forum" },
                     { name: "Feedback", path: "/feedback" },
-                    { name: "Currency Converter", path: "/currency-converter" },
+                    { name: "Currency Converter", path: "/enhanced-currency" },
                   ].map((link) => (
                     <Link
                       key={link.name}
@@ -230,7 +232,7 @@ const Footer = () => {
                       {/* Envelope icon */}
                     </div>
                   </div>
-                  <button
+                  <button aria-label="Search"
                     type="submit"
                     className="w-full bg-gradient-to-r from-pink-500 to-purple-700 hover:from-pink-600 hover:to-pink-700 text-white py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
                   >
@@ -245,11 +247,11 @@ const Footer = () => {
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-700 mt-12 pt-8 pb-8">
+            <div className="border-t border-gray-700 mt-12 py-6">
               <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                   <p className="text-gray-400 text-sm">
-                    © 2025 TravelGrid. All rights reserved.
+                     © {new Date().getFullYear()} TravelGrid. All rights reserved.
                   </p>
                   {/* Links stacked on mobile, inline on desktop */}
                   <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
@@ -329,7 +331,7 @@ const Footer = () => {
                 {toast.message}
               </p>
             </div>
-            <button
+            <button aria-label="Search"
               onClick={hideToast}
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >

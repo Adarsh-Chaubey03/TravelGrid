@@ -1,7 +1,7 @@
 export const packages = [
 	{
 		id: 1,
-		title: "Tropical Paradise – Maldives",
+		title: "Tropical Paradise - Maldives",
 		location: "Maldives",
 		duration: "5 Days / 4 Nights",
 		country: "Maldives",
@@ -108,20 +108,19 @@ export const packages = [
 			{
 				name: "Alice",
 				rating: 5,
-				comment: "Loved the Tropical Paradise – Maldives! Highly recommend.",
+				comment: "The Maldives was breathtaking! The overwater villa and snorkeling tours were unforgettable.",
 				date: "2 weeks ago",
 			},
 			{
 				name: "Bob",
-				rating: 3,
-				comment: "Great experience, would book again.",
+				rating: 4,
+				comment: "Loved the seaplane transfer and the spa treatments. Perfect tropical getaway.",
 				date: "1 month ago",
 			},
 			{
 				name: "Sarah",
-				rating: 4,
-				comment:
-					"Beautiful location and excellent service. The overwater villa was amazing!",
+				rating: 5,
+				comment: "Crystal-clear waters and luxury everywhere. Highly recommend for couples!",
 				date: "3 weeks ago",
 			},
 		],
@@ -178,10 +177,10 @@ export const packages = [
 	},
 	{
 		id: 2,
-		title: "European Explorer – Italy & France",
-		location: "Italy & France",
+		title: "European Explorer - Italy & France",
+		location: "Rome, Florence, Venice, Paris",
 		duration: "7 Days / 6 Nights",
-		country: "France",
+		country: "Italy & France",
 		continent: "Europe",
 		season: "Spring",
 		isPetFriendly: false,
@@ -189,135 +188,137 @@ export const packages = [
 		rating: 4,
 		reviewCount: 127,
 		description:
-			"Experience a curated travel adventure with immersive experiences, premium accommodations, and unforgettable memories.",
+			"Embark on a journey through two of Europe's most romantic and culturally rich countries. Explore iconic landmarks, savor exquisite cuisine, and experience the charm of Italy and France in one unforgettable trip.",
 		image:
 			"https://images.unsplash.com/photo-1533333980833-8340a468dfec?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		highlights: [
-			"Beachfront overwater villa",
-			"All meals included",
-			"Seaplane transfers",
-			"Professional photoshoot",
-			"Guided snorkeling tours",
-			"Luxury spa treatments",
+			"Guided tour of Rome's Colosseum & Vatican City",
+			"Gondola ride in Venice",
+			"Wine tasting in Tuscany",
+			"Visit to the Eiffel Tower & Louvre Museum",
+			"Day trip to Versailles",
+			"Authentic Italian & French dining experiences",
 		],
 		itinerary: [
 			{
 				day: 1,
-				title: "Arrival & Welcome",
+				title: "Arrival in Rome",
 				description:
-					"Arrive at Malé International Airport, seaplane transfer to resort, welcome drinks, and check-in to your overwater villa.",
+					"Arrive in Rome, transfer to your hotel, and enjoy a welcome dinner with your tour group.",
 				activities: [
 					"Airport pickup",
-					"Seaplane transfer",
-					"Welcome reception",
-					"Villa orientation",
+					"Hotel check-in",
+					"Evening city walk",
+					"Welcome Italian dinner",
 				],
 			},
 			{
 				day: 2,
-				title: "Italy Adventures",
+				title: "Historic Rome",
 				description:
-					"Full day of exploring various tourist places within Italy.",
+					"Full day exploring ancient Roman landmarks and Renaissance art.",
 				activities: [
-					"Visiting Colosseum",
-					"Visiting Pantheon",
-					"Sunset cruise",
-					"BBQ dinner",
+					"Guided tour of the Colosseum & Roman Forum",
+					"Visit the Pantheon",
+					"Tour of Vatican City & Sistine Chapel",
+					"Gelato tasting",
 				],
 			},
 			{
 				day: 3,
-				title: "France Adventures",
+				title: "Florence & Tuscany",
 				description:
-					"Full day of sight-seeing in France with tour to famous France tourist places.",
+					"Travel to Florence and discover its artistic treasures, then enjoy a Tuscan wine-tasting experience.",
 				activities: [
-					"Louvre Museum",
-					"Exploring Eiffel Tower",
-					"Disneyland Paris",
-					"BBQ dinner",
+					"High-speed train to Florence",
+					"Walking tour of Florence",
+					"Uffizi Gallery visit",
+					"Tuscan vineyard tour & wine tasting",
 				],
 			},
 			{
 				day: 4,
-				title: "Island Exploration",
+				title: "Venice - The Floating City",
 				description:
-					"Visit local islands, experience Maldivian culture, and enjoy island hopping.",
+					"Journey to Venice for a day of canals, art, and romance.",
 				activities: [
-					"Local island visit",
-					"Cultural tour",
-					"Traditional lunch",
-					"Fishing trip",
+					"High-speed train to Venice",
+					"Gondola ride",
+					"St. Mark's Basilica tour",
+					"Free time for shopping",
 				],
 			},
 			{
 				day: 5,
-				title: "Relaxation Day",
-				description: "Spa treatments, beach time, and romantic sunset dinner.",
+				title: "Paris Arrival",
+				description:
+					"Travel to Paris via high-speed train or short flight, then begin your French adventure.",
 				activities: [
-					"Couples spa treatment",
-					"Private beach time",
-					"Yoga session",
-					"Romantic dinner",
+					"Hotel check-in",
+					"Evening Seine River cruise",
+					"French bistro dinner",
 				],
 			},
 			{
 				day: 6,
-				title: "Open exploratin day",
+				title: "Paris Highlights",
 				description:
-					"Visiteers are free to explore places on their in the guidance of our guides.",
-				activities: ["Free to do what you like :)"],
+					"See the best of Paris with guided tours and cultural experiences.",
+				activities: [
+					"Visit Eiffel Tower",
+					"Louvre Museum guided tour",
+					"Champs-Élysées walk",
+					"Evening cabaret show",
+				],
 			},
 			{
 				day: 7,
-				title: "Departure",
+				title: "Versailles & Departure",
 				description:
-					"Final breakfast, check-out, and transfer back to Malé International Airport.",
+					"Day trip to Versailles before your flight home.",
 				activities: [
-					"Leisure breakfast",
-					"Check-out",
-					"Shopping time",
+					"Palace of Versailles tour",
+					"Gardens walk",
+					"Final French lunch",
 					"Airport transfer",
 				],
 			},
 		],
 		inclusions: [
-			"6 nights accommodation in overwater villa",
-			"All meals (breakfast, lunch, dinner)",
-			"Seaplane transfers (both ways)",
-			"Guided snorkeling tours",
-			"Dolphin watching excursion",
-			"Welcome drinks and daily refreshments",
-			"Resort activities and entertainment",
-			"Professional photoshoot session",
+			"6 nights in 4-star centrally located hotels",
+			"Daily breakfast and select dinners",
+			"High-speed train tickets between cities",
+			"Guided tours with professional English-speaking guides",
+			"Entrance fees to major attractions",
+			"Wine tasting in Tuscany",
+			"Seine River cruise in Paris",
 		],
 		exclusions: [
-			"International airfare to/from Maldives",
+			"International airfare to/from Europe",
 			"Travel insurance",
 			"Visa fees (if applicable)",
 			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
-			"Laundry services",
+			"Alcoholic beverages (except included tastings)",
+			"Optional tours not mentioned in itinerary",
 			"Tips and gratuities",
 		],
 		reviews: [
 			{
 				name: "Alice",
 				rating: 5,
-				comment: "Loved the Tropical Paradise – Maldives! Highly recommend.",
+				comment: "Exploring Rome and Paris in one trip was magical! Loved the Colosseum and Eiffel Tower tours.",
 				date: "2 weeks ago",
 			},
 			{
 				name: "Bob",
-				rating: 5,
-				comment: "Great experience, would book again.",
+				rating: 4,
+				comment: "Great guides and comfortable hotels. The wine tasting in Tuscany was a highlight.",
 				date: "1 month ago",
 			},
 			{
 				name: "Sarah",
 				rating: 4,
-				comment:
-					"Beautiful location and excellent service. The overwater villa was amazing!",
+				comment: "Beautiful cities and amazing food. The Seine River cruise in Paris was unforgettable.",
 				date: "3 weeks ago",
 			},
 		],
@@ -339,8 +340,14 @@ export const packages = [
 				answer: "Free cancellation up to 15 days before travel. Cancellations within 15 days are subject to charges as per our terms and conditions."
 			},
 			{
-				question: "Are meals included in the package?",
-				answer: "All meals are included (breakfast, lunch, and dinner) at the main resort restaurant. Alcoholic beverages and premium drinks are not included unless specified."
+				question: "Are internal transfers between countries included?",
+				answer:
+					"Yes, all high-speed train tickets or short-haul flights between cities are included.",
+			},
+			{
+				question: "Are meals included?",
+				answer:
+					"Daily breakfast is included, along with select dinners. Other meals are at your own expense so you can explore local cuisine.",
 			},
 			{
 				question: "Will there be a guide for the tours?",
@@ -352,17 +359,30 @@ export const packages = [
 			},
 			{
 				question: "What kind of accommodation is included?",
-				answer: "You’ll stay in premium 4-star hotels in city centers, ensuring comfort and easy access to major attractions."
+				answer: "You'll stay in premium 4-star hotels in city centers, ensuring comfort and easy access to major attractions."
 			},
 			{
 				question: "Are internal transfers between Italy & France included?",
 				answer: "Yes, high-speed train or short-haul flights between cities are included in the package."
 			},
+			{
+				question: "Will there be free time for personal exploration?",
+				answer:
+					"Yes, the itinerary includes free time in each city for shopping, dining, or optional activities.",
+			},
+			{
+				question: "What currencies do you accept for payments?",
+				answer: "We accept all major currencies including USD, EUR, GBP, and INR. Payments are automatically converted to your selected currency during checkout."
+			},
+			{
+				question: "Will I be charged in my local currency?",
+				answer: "Yes. While our prices may be displayed in USD for consistency, your bank or payment provider will process the payment in your local currency at the current exchange rate."
+			},
 		],
 	},
 	{
 		id: 3,
-		title: "Desert Delight – Dubai",
+		title: "Desert Delight - Dubai",
 		location: "Dubai",
 		duration: "4 Days / 3 Nights",
 		country: "United Arab Emirates",
@@ -373,104 +393,103 @@ export const packages = [
 		rating: 5,
 		reviewCount: 127,
 		description:
-			"Experience the ultimate desert getaway with luxury accommodations, thrilling adventures, and world-class amenities in the stunning Dubai.",
+			"Embark on a luxurious escape to Dubai, where golden deserts meet world-class luxury. This package combines thrilling desert adventures, cultural experiences, and moments of pure relaxation, making it the ultimate Middle Eastern getaway.",
 		image:
 			"https://images.unsplash.com/photo-1624664929067-5bc278a7c57e?q=80&w=1195&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		highlights: [
-			"Beachfront overwater villa",
-			"All meals included",
-			"Seaplane transfers",
-			"Professional photoshoot",
-			"Guided snorkeling tours",
+			"Luxury desert resort stay",
+			"Dune bashing and camel riding",
+			"Private beach access",
+			"Romantic desert dinner under the stars",
 			"Luxury spa treatments",
+			"Guided cultural tours"
 		],
 		itinerary: [
 			{
 				day: 1,
 				title: "Arrival & Welcome",
 				description:
-					"Arrive at Malé International Airport, seaplane transfer to resort, welcome drinks, and check-in to your overwater villa.",
+					"Arrive at Dubai International Airport, enjoy a private transfer to your luxury desert resort, receive a warm welcome with refreshments, and settle into your elegantly designed suite.",
 				activities: [
 					"Airport pickup",
-					"Seaplane transfer",
-					"Welcome reception",
-					"Villa orientation",
+					"Private resort transfer",
+					"Welcome drinks",
+					"Room orientation and leisure time"
 				],
 			},
 			{
 				day: 2,
 				title: "Desert Adventures",
 				description:
-					"Full day of desert activities including camel riding and adventrous activities like Dune bashing.",
+					"Immerse yourself in the thrill of Dubai's desert. Enjoy heart-pounding dune bashing, serene camel rides, and a stunning desert sunset followed by a traditional Bedouin-style dinner.",
 				activities: [
-					"Guided snorkeling",
+					"Dune bashing",
 					"Camel riding",
-					"Dune Bashing",
-					"Desert camping",
+					"Sandboarding",
+					"Desert sunset dinner"
 				],
 			},
 			{
 				day: 3,
-				title: "Relaxation Day",
-				description: "Spa treatments, beach time, and romantic sunset dinner.",
+				title: "Luxury & Leisure",
+				description:
+					"Spend the day rejuvenating your body and mind at the resort's spa, relax on the private beach, and savor a romantic dinner under the stars.",
 				activities: [
-					"Couples spa treatment",
-					"Private beach time",
-					"Yoga session",
-					"Romantic dinner",
+					"Luxury spa treatments",
+					"Private beach relaxation",
+					"Yoga and wellness session",
+					"Romantic dinner setup"
 				],
 			},
 			{
 				day: 4,
 				title: "Departure",
 				description:
-					"Final breakfast, check-out, and transfer back to Malé International Airport.",
+					"Enjoy your final breakfast with a view, pick up some souvenirs, and transfer back to Dubai International Airport.",
 				activities: [
-					"Leisure breakfast",
+					"Breakfast",
 					"Check-out",
-					"Shopping time",
-					"Airport transfer",
+					"Souvenir shopping",
+					"Airport transfer"
 				],
 			},
 		],
 		inclusions: [
-			"4 nights accommodation in overwater villa",
-			"All meals (breakfast, lunch, dinner)",
-			"Seaplane transfers (both ways)",
-			"Guided snorkeling tours",
-			"Camel riding",
-			"Welcome drinks and daily refreshments",
-			"Resort activities and entertainment",
-			"Professional photoshoot session",
+			"3 nights stay at a luxury desert resort",
+			"Daily breakfast, lunch, and dinner",
+			"Private transfers from/to Dubai International Airport",
+			"Dune bashing, camel riding, and sandboarding activities",
+			"One romantic desert dinner experience",
+			"Luxury spa session (one per person)",
+			"Access to resort facilities and entertainment"
 		],
 		exclusions: [
-			"International airfare to/from Maldives",
+			"International flights to/from Dubai",
 			"Travel insurance",
-			"Visa fees (if applicable)",
-			"Personal expenses and shopping",
+			"UAE visa fees (if applicable)",
+			"Personal shopping and expenses",
 			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Extra spa treatments",
 			"Laundry services",
-			"Tips and gratuities",
+			"Tips and gratuities"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Rita",
 				rating: 5,
-				comment: "Loved the Tropical Paradise – Maldives! Highly recommend.",
+				comment: "The desert dinner under the stars was magical! Loved the dune bashing and luxury resort.",
 				date: "2 weeks ago",
 			},
 			{
-				name: "Bob",
+				name: "Derek",
 				rating: 5,
-				comment: "Great experience, would book again.",
+				comment: "Dubai's desert adventures were thrilling. The spa and private beach were perfect for relaxation.",
 				date: "1 month ago",
 			},
 			{
 				name: "Sarah",
 				rating: 4,
-				comment:
-					"Beautiful location and excellent service. The overwater villa was amazing!",
+				comment: "Beautiful desert scenery and very comfortable accommodations. Highly recommend!",
 				date: "3 weeks ago",
 			},
 		],
@@ -536,8 +555,8 @@ export const packages = [
 	},
 	{
 		id: 4,
-		title: "Himalayan Adventure – Manali",
-		location: "Manali, India",
+		title: "Himalayan Adventure - Manali",
+		location: "Manali",
 		duration: "5 Days / 4 Nights",
 		country: "India",
 		continent: "Asia",
@@ -547,116 +566,115 @@ export const packages = [
 		rating: 5,
 		reviewCount: 127,
 		description:
-			"Experience the ultimate Himalayan getaway with breathtaking landscapes, adventure activities, and world-class amenities in the stunning Manali.",
+			"Discover the magic of the Himalayas with an adventure-packed getaway to Manali. From snow-capped peaks and lush valleys to thrilling outdoor activities and cozy mountain stays, this trip blends nature, culture, and adrenaline in perfect harmony.",
 		image:
 			"https://plus.unsplash.com/premium_photo-1661964400999-264ce5993f8d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		highlights: [
-			"Beachfront overwater villa",
-			"All meals included",
-			"Seaplane transfers",
-			"Professional photoshoot",
-			"Guided snorkeling tours",
-			"Luxury spa treatments",
+			"Stay in a luxury mountain resort",
+			"Guided trekking through Himalayan trails",
+			"River rafting on the Beas River",
+			"Paragliding over Solang Valley",
+			"Scenic drives to Rohtang Pass",
+			"Local Himachali cultural experiences"
 		],
 		itinerary: [
 			{
 				day: 1,
 				title: "Arrival & Welcome",
 				description:
-					"Arrive at Malé International Airport, seaplane transfer to resort, welcome drinks, and check-in to your overwater villa.",
+					"Arrive in Manali and check in to your mountain resort. Enjoy welcome drinks, explore the property, and unwind in the fresh mountain air.",
 				activities: [
-					"Airport pickup",
-					"Seaplane transfer",
+					"Private transfer from Bhuntar Airport",
 					"Welcome reception",
-					"Villa orientation",
+					"Resort orientation",
+					"Leisure evening"
 				],
 			},
 			{
 				day: 2,
-				title: "Ocean Adventures",
+				title: "Adventure Begins - Solang Valley",
 				description:
-					"Full day of water activities including snorkeling, diving, and dolphin watching.",
+					"Head to Solang Valley for paragliding, zorbing, and ropeway rides, followed by a picnic lunch surrounded by majestic peaks.",
 				activities: [
-					"Guided snorkeling",
-					"Dolphin excursion",
-					"Sunset cruise",
-					"Beach BBQ dinner",
+					"Paragliding",
+					"Zorbing",
+					"Ropeway ride",
+					"Picnic lunch"
 				],
 			},
 			{
 				day: 3,
-				title: "Island Exploration",
+				title: "Trekking & Cultural Exploration",
 				description:
-					"Visit local islands, experience Maldivian culture, and enjoy island hopping.",
+					"Embark on a guided trek to Jogini Waterfalls and spend the afternoon exploring Old Manali's charming cafes, markets, and temples.",
 				activities: [
-					"Local island visit",
-					"Cultural tour",
-					"Traditional lunch",
-					"Fishing trip",
+					"Trek to Jogini Waterfalls",
+					"Visit Manu Temple",
+					"Cafe hopping in Old Manali",
+					"Evening bonfire"
 				],
 			},
 			{
 				day: 4,
-				title: "Relaxation Day",
-				description: "Spa treatments, beach time, and romantic sunset dinner.",
+				title: "River Rafting & Rohtang Pass",
+				description:
+					"Experience thrilling white-water rafting on the Beas River and enjoy a scenic drive to Rohtang Pass (subject to weather).",
 				activities: [
-					"Couples spa treatment",
-					"Private beach time",
-					"Yoga session",
-					"Romantic dinner",
+					"River rafting",
+					"Scenic drive",
+					"Photography stops",
+					"Local street food tasting"
 				],
 			},
 			{
 				day: 5,
 				title: "Departure",
 				description:
-					"Final breakfast, check-out, and transfer back to Malé International Airport.",
+					"After breakfast, bid farewell to the mountains and depart with unforgettable memories.",
 				activities: [
-					"Leisure breakfast",
+					"Breakfast",
 					"Check-out",
-					"Shopping time",
-					"Airport transfer",
+					"Souvenir shopping",
+					"Transfer to airport"
 				],
 			},
 		],
 		inclusions: [
-			"4 nights accommodation in overwater villa",
-			"All meals (breakfast, lunch, dinner)",
-			"Seaplane transfers (both ways)",
-			"Guided snorkeling tours",
-			"Dolphin watching excursion",
-			"Welcome drinks and daily refreshments",
-			"Resort activities and entertainment",
-			"Professional photoshoot session",
+			"4 nights accommodation in a luxury mountain resort",
+			"Daily breakfast and dinner",
+			"Airport transfers",
+			"Guided trekking tour",
+			"Paragliding and Solang Valley activities",
+			"River rafting experience",
+			"Scenic Rohtang Pass drive (if open)"
 		],
 		exclusions: [
-			"International airfare to/from Maldives",
+			"Airfare to/from Bhuntar Airport",
 			"Travel insurance",
-			"Visa fees (if applicable)",
+			"Entry fees to certain attractions",
 			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Alcoholic beverages",
+			"Extra adventure activities not listed",
 			"Laundry services",
-			"Tips and gratuities",
+			"Tips and gratuities"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Ram",
 				rating: 5,
-				comment: "Loved the Tropical Paradise – Maldives! Highly recommend.",
+				comment: "The adventure activities in Manali were thrilling! Paragliding and river rafting were my favorites.",
 				date: "2 weeks ago",
 			},
 			{
 				name: "Bob",
 				rating: 5,
-				comment: "Great experience, would book again.",
+				comment: "Manali's mountain views and cozy resort made for a perfect getaway.",
 				date: "1 month ago",
 			},
 			{
-				name: "Sarah",
+				name: "Prince",
 				rating: 4,
-				comment:
-					"Beautiful location and excellent service. The overwater villa was amazing!",
+				comment: "Loved the trekking and bonfire evenings. Wish we had more time at Rohtang Pass.",
 				date: "3 weeks ago",
 			},
 		],
@@ -672,6 +690,11 @@ export const packages = [
 			{
 				question: "What's the cancellation policy?",
 				answer: "Free cancellation up to 15 days before travel. Cancellations within 15 days are subject to charges as per our terms and conditions."
+			},
+			{
+				question: "What meals are included in the package?",
+				answer:
+					"Daily breakfast and dinner are included. Lunch is not included, allowing you to explore local restaurants.",
 			},
 			{
 				question: "What activities are included?",
@@ -694,34 +717,42 @@ export const packages = [
 				question: "Can I bring my pet on this trip?",
 				answer: "No, this package is not pet-friendly. Due to the nature of the accommodations and activities, we are unable to accommodate pets on this adventure."
 			},
+			{
+				question: "Which currency is accepted in Manali?",
+				answer:
+					"The Indian Rupee (INR) is the official currency. Card payments are accepted in most hotels and shops, but it's recommended to carry cash for small vendors.",
+			},
 		],
 	},
 	{
 		id: 5,
-		title: "Manali – Himachal",
-		location: "Himachal",
+		title: "Manali - Himachal",
+		location: "Himachal Pradesh",
 		duration: "5 Days / 4 Nights",
+		country: "India",
 		isPetFriendly: true,
 		price: 39999,
 		rating: 5,
 		reviewCount: 127,
-		description: "Experience the ultimate tropical getaway with crystal-clear waters, overwater bungalows, and world-class amenities in the stunning Maldives.",
-		image: "https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuYWxpfGVufDB8fDB8fHww",
+		description:
+			"Escape to the majestic Himalayas with this enchanting Manali getaway. From snow-covered valleys and thrilling adventure sports to serene temples and cozy evenings by the fire, this trip blends natural beauty with rich local culture for an unforgettable experience.",
+		image:
+			"https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuYWxpfGVufDB8fDB8fHww",
 		highlights: [
-		"Visit to Solang Valley",
-		"Tour manager assistance",
-		"Viceregal Lodge",
-		"Mall road",
-		"Visit townhall",
-		"Snow photoshoot session"
+			"Snow adventures in Solang Valley",
+			"Excursion to Rohtang Pass (seasonal)",
+			"Evening bonfire with mountain views",
+			"Visits to Hadimba & Manu Temples",
+			"Local market shopping on Mall Road",
+			"Scenic stopovers at Rahala Falls and Vashisht hot springs"
 		],
 		itinerary: [
 			{
 				day: 1,
 				title: "Arrival & Check-In",
-				description: "Reach Manali, check into your resort, and enjoy a relaxed evening with local surroundings.",
+				description: "Arrive in Manali and settle into your cozy mountain resort.",
 				activities: [
-					"Pickup from Bhuntar Airport / Volvo bus stand",
+					"Pickup from Bhuntar Airport or Volvo bus stand",
 					"Check-in at resort",
 					"Leisure walk on Mall Road",
 					"Evening bonfire with snacks"
@@ -729,88 +760,85 @@ export const packages = [
 			},
 			{
 				day: 2,
-				title: "Solang Valley Adventures",
-				description: "Get ready for a thrilling day in the snow at Solang Valley.",
+				title: "Snow Adventures at Solang Valley",
+				description: "Spend the day surrounded by snow-capped peaks, trying exciting adventure sports.",
 				activities: [
 					"Drive to Solang Valley",
-					"Skiing, ATV rides & ziplining",
-					"Snow tube ride",
-					"Mountain view lunch",
-					"Evening return and rest"
+					"Optional skiing, ATV rides, and ziplining",
+					"Snow tube fun",
+					"Mountain-view lunch",
+					"Return to resort and rest"
 				]
 			},
 			{
 				day: 3,
-				title: "Rohtang Pass Excursion",
-				description: "Scenic excursion to Rohtang Pass (subject to permit and weather).",
+				title: "Scenic Rohtang Pass Excursion",
+				description: "Breathtaking drive to Rohtang Pass for snow play and mountain photography.",
 				activities: [
-					"Early morning drive to Rohtang Pass",
-					"Play in the snow and take pictures",
-					"Stopover at Rahala Falls",
-					"Hot tea with snow views",
-					"Back to resort by evening"
+					"Early morning departure",
+					"Snow activities at Rohtang (subject to permits)",
+					"Photo stop at Rahala Falls",
+					"Tea break with snow views",
+					"Evening return"
 				]
 			},
 			{
 				day: 4,
-				title: "Cultural Exploration & Local Relaxation",
-				description: "Explore Manali town, visit temples and enjoy the local vibes.",
+				title: "Cultural & Local Exploration",
+				description: "Discover the charm of Manali town and unwind in nature.",
 				activities: [
-					"Visit Hadimba Temple and Manu Temple",
-					"Explore Old Manali cafes",
-					"Vashisht hot springs dip",
+					"Visit Hadimba Temple & Manu Temple",
+					"Café-hopping in Old Manali",
+					"Relaxing dip at Vashisht hot springs",
 					"Evening shopping at Mall Road"
 				]
 			},
 			{
 				day: 5,
-				title: "Departure Day",
-				description: "Pack memories, have breakfast, and depart with mountain calm.",
+				title: "Departure",
+				description: "Say goodbye to Manali with a heart full of memories.",
 				activities: [
-					"Breakfast at the resort",
-					"Checkout & transfer",
+					"Breakfast at resort",
+					"Checkout and transfer",
 					"Optional last-minute shopping",
-					"Goodbye Manali!"
+					"Departure"
 				]
-			},
+			}
 		],
 		inclusions: [
-			"4 nights accommodation in overwater villa",
-			"All meals (breakfast, lunch, dinner)",
-			"Sightseeing tours in private cab",
-			"Guided snorkeling tours",
-			"Evening bonfire and entertainment",
-			"Welcome drinks and daily refreshments",
-			"Resort activities and entertainment",
-			"Professional photoshoot session"
+			"4 nights stay in a deluxe mountain resort",
+			"Daily breakfast and dinner",
+			"Private cab for all sightseeing",
+			"Evening bonfire sessions",
+			"Welcome drink on arrival",
+			"Assistance of a tour manager"
 		],
 		exclusions: [
 			"Permit fees for Rohtang Pass",
+			"Adventure sports charges",
 			"Travel insurance",
-			"Personal expenses of any nature",
-			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Alcoholic beverages",
 			"Laundry services",
-			"Tips and gratuities"
+			"Tips and gratuities",
+			"Personal expenses and shopping"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Alia",
 				rating: 5,
-				comment: "Loved the experience of being so close to nature in Himanchal Pradesh. Will totally recomment it!",
+				comment: "The snow adventures in Solang Valley were amazing! Loved the bonfire and mountain views.",
 				date: "2 weeks ago"
 			},
 			{
-				name: "Bob",
-				rating: 3,
-				comment: "Great experience, would book again.",
+				name: "Chris",
+				rating: 4,
+				comment: "Great trip for families. The temple visits and Mall Road shopping were fun.",
 				date: "1 month ago"
 			},
 			{
 				name: "Sarah",
-				rating: 4,
-				comment: "Beautiful location and excellent service. The resort was amazing!",
+				rating: 5,
+				comment: "Beautiful Himachal scenery and excellent service at the resort.",
 				date: "3 weeks ago"
 			}
 		],
@@ -832,6 +860,10 @@ export const packages = [
 				answer: "Free cancellation up to 15 days before travel. Cancellations within 15 days are subject to charges as per our terms and conditions."
 			},
 			{
+				question: "What meals are included in the package?",
+				answer: "Breakfast and dinner are included daily. Lunch is not included to allow flexibility during sightseeing."
+			},
+			{
 				question: "Is Rohtang Pass always open?",
 				answer:
 				"Rohtang Pass is open from May to November, but access depends on weather conditions and permits issued by the authorities."
@@ -844,7 +876,7 @@ export const packages = [
 			{
 				question: "Is this trip suitable for pets?",
 				answer:
-				"Yes! This package is pet-friendly, but it’s recommended to inform the resort in advance about your pet’s size and needs."
+				"Yes! This package is pet-friendly, but it's recommended to inform the resort in advance about your pet's size and needs."
 			},
 			{
 				question: "What should I pack for this Manali trip?",
@@ -867,117 +899,117 @@ export const packages = [
 	},
 	{
 		id: 6,
-		title: "Jaipur – Rajisthan",
-		location: "Rajisthan",
+		title: "Jaipur - Rajasthan",
+		location: "Rajasthan",
 		duration: "5 Days / 4 Nights",
+		country: "India",
 		isPetFriendly: true,
 		price: 35999,
 		rating: 5,
 		reviewCount: 127,
-		description: "The Pink City with rich history, forts, and vibrant culture.",
+		description: "Experience the charm of Rajasthan with its royal forts, palaces, and vibrant streets. From the heritage of Jaipur to the colors of Jodhpur and the sands of Jaisalmer, this package offers culture, adventure, and unforgettable moments.",
 		image: "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8amFpcHVyfGVufDB8fDB8fHww",
 		highlights: [
-			"Visit Jaisalmer Fort",
-			"Explore Bhadariya Library(Asia's largest underground library)",
-			"Blue city visit",
-			"Professional photoshoot",
-			"Guided snorkeling tours",
-			"Admire Amer fort"
+			"Explore Amer, Nahargarh & Mehrangarh Forts",
+			"Discover the Blue City charm of Jodhpur",
+			"Visit Bhadariya Library - Asia's largest underground library",
+			"Enjoy a cultural folk dance evening",
+			"Camel ride in the desert",
+			"Professional vacation photoshoot"
 		],
 		itinerary: [
 			{
 				day: 1,
 				title: "Arrival & Welcome",
-				description: "Arrive at Airport, transfer to resort, welcome drinks, and check-in to your resort.",
-				activities : [
+				description: "Arrive in Jaipur, enjoy a royal welcome with drinks, and check into your comfortable stay.",
+				activities: [
 					"Airport pickup",
-					"Seaplane transfer",
 					"Welcome reception",
-					"Resort orientation"
+					"Resort orientation",
+					"Evening leisure walk"
 				]
 			},
 			{
 				day: 2,
 				title: "Heritage Forts & City Tour",
-				description: "Begin your cultural exploration with Jaipur’s iconic forts and vibrant markets.",
+				description: "A deep dive into Jaipur's history and royal grandeur.",
 				activities: [
-					"Visit Amer Fort",
-					"Explore Nahargarh Fort",
-					"City Palace walk-through",
-					"Traditional Rajasthani lunch"
+					"Amer Fort visit",
+					"Nahargarh Fort exploration",
+					"City Palace tour",
+					"Traditional Rajasthani lunch",
+					"Shopping at local bazaars"
 				]
 			},
 			{
 				day: 3,
-				title: "Jodhpur & Blue City Experience",
-				description: "Day trip to the Blue City — Jodhpur — known for its architecture and local charm.",
+				title: "Jodhpur - The Blue City",
+				description: "Witness the architectural beauty and peaceful vibes of Jodhpur.",
 				activities: [
-					"Travel to Jodhpur",
-					"Explore the Blue City streets",
-					"Visit Mehrangarh Fort",
+					"Scenic drive to Jodhpur",
+					"Explore Blue City streets",
+					"Mehrangarh Fort visit",
 					"Lunch at rooftop cafe"
 				]
 			},
 			{
 				day: 4,
-				title: "Desert Day & Local Wonders",
-				description: "Dive into the desert culture with a glimpse into Jaisalmer and surrounding heritage.",
+				title: "Desert & Cultural Evening",
+				description: "Step into the desert and immerse yourself in the rich traditions of Rajasthan.",
 				activities: [
-					"Virtual tour of Jaisalmer Fort",
-					"Visit Bhadariya Library (Asia’s largest underground library)",
-					"Camel ride experience (simulated or local)",
+					"Jaisalmer Fort virtual/onsite experience",
+					"Bhadariya Library visit",
+					"Camel ride experience",
 					"Cultural folk dance evening"
 				]
 			},
 			{
 				day: 5,
 				title: "Departure",
-				description: "Time to say goodbye! Enjoy your breakfast, capture last memories, and head to the airport..",
+				description: "Wrap up your royal journey and head home with memories.",
 				activities: [
 					"Leisure breakfast",
 					"Check-out",
-					"Shopping time",
+					"Last-minute shopping",
 					"Airport transfer"
 				]
 			}
 		],
 		inclusions: [
-			"4 nights accommodation in overwater villa",
-			"All meals (breakfast, lunch, dinner)",
-			"Seaplane transfers (both ways)",
-			"Guided snorkeling tours",
-			"Dolphin watching excursion",
-			"Welcome drinks and daily refreshments",
-			"Resort activities and entertainment",
+			"4 nights premium accommodation",
+			"Daily breakfast, lunch, and dinner",
+			"All intercity transfers and sightseeing",
+			"Professional guide services",
+			"Cultural evening with folk performances",
 			"Professional photoshoot session"
 		],
 		exclusions: [
-			"International airfare to/from Maldives",
+			"Airfare to/from Rajasthan",
 			"Travel insurance",
 			"Visa fees (if applicable)",
-			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Personal expenses",
+			"Alcoholic beverages",
+			"Spa & wellness treatments",
 			"Laundry services",
 			"Tips and gratuities"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Ravi",
 				rating: 5,
-				comment: "A perfect blend of culture and comfort.",
+				comment: "Jaipur's forts and palaces were stunning. The cultural evening was a highlight!",
 				date: "3 weeks ago"
 			},
 			{
-				name: "Bob",
-				rating: 3,
-				comment: "Great experience, would book again.",
+				name: "Anusha",
+				rating: 4,
+				comment: "Loved the Blue City of Jodhpur and the camel ride in Jaisalmer.",
 				date: "1 month ago"
 			},
 			{
 				name: "Sarah",
-				rating: 4,
-				comment: "Beautiful location and excellent service. An unforgettable royal getaway!",
+				rating: 5,
+				comment: "A royal experience in Rajasthan! The professional photoshoot was a nice touch.",
 				date: "3 weeks ago"
 			}
 		],
@@ -1023,6 +1055,10 @@ export const packages = [
 				answer:
 				"Carry light cotton clothes for the day, a light jacket for cooler evenings in winter, comfortable walking shoes, sunscreen, and sunglasses."
 			},
+			{
+				question: "Which currency is accepted in Rajasthan?",
+				answer: "The Indian Rupee (INR) is the official currency. Most hotels and shops accept cards, but carrying cash is recommended for local markets."
+			},
 		],
 	},
 	{
@@ -1030,136 +1066,137 @@ export const packages = [
 		title: "Goa",
 		location: "Goa",
 		duration: "7 Days / 6 Nights",
+		country: "India",
 		price: 49499,
 		isPetFriendly: true,
 		rating: 5,
 		reviewCount: 127,
-		description: "Popular beach destination with nightlife, water sports, and vibrant culture.",
+		description: "A tropical paradise with golden beaches, vibrant nightlife, thrilling water sports, and a rich blend of Portuguese and Indian culture.",
 		image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29hfGVufDB8fDB8fHww",
 		highlights: [
-			"Luxury beachfront resort stay",
-			"All meals included",
+			"Stay in a premium beachfront resort",
+			"All-inclusive meals",
 			"Private beach access",
-			"Professional photoshoot",
-			"Guided water sports activities",
-			"Nightlife experience"
+			"Professional photoshoot experience",
+			"Thrilling water sports adventures",
+			"Guided nightlife exploration"
 		],
 		itinerary: [
 			{
 				day: 1,
-				title: "Arrival in Goa & Beachside welcome",
-				description: "Arrive at Goa Airport, transfer to beachfront resort, welcome drinks, and check-in.",
-				activities : [
-					"Airport pickup",
-					"Beachside welcome ceremony",
+				title: "Arrival in Goa & Beachside Welcome",
+				description: "Land in Goa and enjoy a warm seaside welcome before settling into your luxury resort.",
+				activities: [
+					"Airport pickup & transfer",
+					"Beachside welcome drinks",
 					"Resort check-in",
-					"Evening walk by beach"
+					"Evening stroll on the beach"
 				]
 			},
 			{
 				day: 2,
-				title: "North Goa Exploration",
-				description: "Explore iconic North Goa beaches and historical sites with a guided local tour.",
+				title: "North Goa Discovery",
+				description: "Dive into the energetic charm of North Goa with its bustling beaches and iconic landmarks.",
 				activities: [
-					"Visit to Calangute, Baga & Anjuna Beaches",
-					"Chapora Fort viewpoint",
-					"Flea market shopping",
+					"Visit Calangute, Baga & Anjuna Beaches",
+					"Panoramic view from Chapora Fort",
+					"Shopping at local flea markets",
 					"Sunset at Fort Aguada"
 				]
 			},
 			{
 				day: 3,
-				title: "Adventure & Water Sports",
-				description: "Get your adrenaline pumping with an exciting day of water activities.",
+				title: "Water Sports & Adventure",
+				description: "Experience Goa's adventurous side with adrenaline-pumping water sports.",
 				activities: [
-					"Parasailing and Jet Skiing",
-					"Banana Boat Ride",
-					"Guided snorkeling",
-					"Evening BBQ dinner at the beach"
+					"Parasailing & Jet Ski rides",
+					"Banana Boat adventure",
+					"Snorkeling with expert guides",
+					"Beach BBQ dinner under the stars"
 				]
 			},
 			{
 				day: 4,
-				title: "South Goa Serenity",
-				description: "Unwind in the peaceful and lush South Goa side with serene beaches and churches.",
+				title: "Serene South Goa",
+				description: "Slow down the pace with South Goa's calm beaches, heritage sites, and tranquil vibes.",
 				activities: [
-					"Visit Palolem & Colva Beaches",
-					"St. Xavier's Church tour",
-					"Cruise on the Mandovi River",
-					"Candlelight dinner by the sea"
+					"Palolem & Colva beach visits",
+					"Tour of St. Xavier's Church",
+					"Mandovi River evening cruise",
+					"Romantic candlelight dinner"
 				]
 			},
 			{
 				day: 5,
-				title: "Goan Culture & Cuisine",
-				description: "Immerse in local traditions, food, and cultural performances.",
+				title: "Cultural Immersion",
+				description: "Get a taste of Goa's traditions through its food, lifestyle, and performances.",
 				activities: [
-					"Traditional Goan cooking class",
+					"Goan cooking workshop",
 					"Village walk experience",
-					"Visit spice plantation",
-					"Live folk music and dance night"
+					"Visit to a spice plantation",
+					"Folk music & dance night"
 				]
 			},
 			{
 				day: 6,
-				title: "Relax & Rejuvenate",
-				description: "Enjoy a leisure day at the resort with wellness sessions and beach time.",
+				title: "Leisure & Wellness",
+				description: "A day to relax, pamper yourself, and soak in the beach resort's luxury.",
 				activities: [
-					"Luxury spa treatments",
-					"Private beach time",
-					"Professional photoshoot session",
+					"Luxury spa therapy",
+					"Private beach relaxation",
+					"Professional photo session",
 					"Yoga & meditation workshop"
 				]
 			},
 			{
 				day: 7,
-				title: "Departure from Goa",
-				description: "Final breakfast, check-out, and transfer to airport with beautiful memories.",
+				title: "Farewell Goa",
+				description: "Relish a final breakfast before bidding goodbye to Goa's sunny shores.",
 				activities: [
 					"Farewell breakfast",
-					"Check-out from resort",
-					"Last-minute shopping",
+					"Resort check-out",
+					"Last-minute souvenir shopping",
 					"Airport drop-off"
 				]
-			}    
+			}
 		],
 		inclusions: [
-			"6 nights stay at luxury beachfront resort",
+			"6 nights in luxury beachfront accommodation",
 			"Daily breakfast, lunch, and dinner",
-			"Airport transfers (both ways)",
-			"Water sports activities (snorkeling, jet skiing, etc.)",
-			"Sightseeing tours in North & South Goa",
+			"Airport transfers both ways",
+			"Adventure water sports package",
+			"North & South Goa sightseeing tours",
 			"Professional photoshoot session",
-			"Spa and yoga sessions",
-			"Evening entertainment shows"
+			"Spa & wellness activities",
+			"Evening entertainment programs"
 		],
 		exclusions: [
 			"Airfare to/from Goa",
 			"Travel insurance",
-			"Visa fees (if applicable)",
-			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Visa charges (if applicable)",
+			"Personal shopping & expenses",
+			"Premium alcoholic beverages",
+			"Extra spa treatments",
 			"Laundry services",
 			"Tips and gratuities"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Alyssa",
 				rating: 5,
-				comment: "One of the best beach vacations I've had! Totally will recommend it.",
+				comment: "Goa's beaches and water sports were fantastic! Loved the private resort and nightlife tour.",
 				date: "2 weeks ago"
 			},
 			{
-				name: "Bob",
-				rating: 3,
-				comment: "Loved the South Goa serenity and the cooking class! Could've used a bit more time at the spice plantation.",
+				name: "Puleng",
+				rating: 4,
+				comment: "The spice plantation and South Goa's calm beaches were my favorite parts.",
 				date: "1 month ago"
 			},
 			{
-				name: "Sarah",
-				rating: 4,
-				comment: "Perfect honeymoon escape. Private beach, romantic dinners, and spa – all amazing!",
+				name: "June",
+				rating: 5,
+				comment: "Perfect romantic escape! The candlelight dinner and spa session were magical.",
 				date: "3 weeks ago"
 			}
 		],
@@ -1203,54 +1240,55 @@ export const packages = [
 		],
 	},
 	{
-		id : 8,
+		id: 8,
 		title: "Rishikesh - Uttarakhand",
 		location: "Uttarakhand",
 		duration: "3 Days / 2 Nights",
+		country: "India",
 		price: 29999,
 		isPetFriendly: true,
 		rating: 5,
 		reviewCount: 127,
-		description: "A tranquil spiritual town along the Ganges, known for yoga, river rafting, and scenic Himalayan views.",
+		description: "Immerse yourself in the serene charm of Rishikesh — the spiritual heart of the Himalayas. From soulful Ganga Aartis to the adrenaline of white-water rafting, rejuvenating yoga sessions, and peaceful riverside stays, this trip blends spirituality, adventure, and nature in perfect harmony.",
 		image: "https://plus.unsplash.com/premium_photo-1697730398251-40cd8dc57e0b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmlzaGlrZXNofGVufDB8fDB8fHww",
 		highlights: [
-			"Holy Ganga Aarti at Triveni Ghat",
-			"White water river rafting",
-			"Stay in riverside cottages",
-			"Yoga and meditation sessions",
-			"Visit iconic temples & ashrams",
-			"Lakshman Jhula & Ram Jhula walk"
+			"Evening Ganga Aarti at Triveni Ghat",
+			"White-water rafting on the Ganges",
+			"Stay in scenic riverside cottages",
+			"Daily yoga and meditation sessions",
+			"Explore iconic temples & ashrams",
+			"Walk across Lakshman Jhula & Ram Jhula"
 		],
 		itinerary: [
 			{
 				day: 1,
 				title: "Arrival & Spiritual Welcome",
-				description: "Arrive in Rishikesh, check in to your riverside resort, followed by a peaceful evening of cultural immersion.",
-				activities : [
-					"Pickup from Haridwar/Dehradun station/airport",
-					"Check-in at riverside cottage",
+				description: "Arrive in Rishikesh and settle into your riverside stay. Experience the magic of the Ganga Aarti as chants and lights fill the air.",
+				activities: [
+					"Pickup from Haridwar/Dehradun station or airport",
+					"Check-in at a cozy riverside cottage",
 					"Evening Ganga Aarti at Triveni Ghat",
-					"Welcome dinner under the stars"
+					"Welcome dinner under a starlit sky"
 				]
 			},
 			{
 				day: 2,
 				title: "Adventure & Exploration",
-				description: "Experience the thrill of white-water rafting and discover the spiritual side of Rishikesh.",
+				description: "Balance thrill and tranquility with an exhilarating rafting session and visits to Rishikesh's cultural landmarks.",
 				activities: [
-					"White water river rafting (16 km stretch)",
+					"White-water rafting (16 km stretch with guide & safety gear)",
 					"Visit Lakshman Jhula & Beatles Ashram",
-					"Local café hopping",
-					"Bonfire night with music at resort"
+					"Café hopping by the riverside",
+					"Evening bonfire with music at the resort"
 				]
 			},
 			{
 				day: 3,
 				title: "Wellness & Departure",
-				description: "Begin your day with yoga, enjoy your final breakfast, and check out with a calm mind.",
+				description: "Start your day with soulful yoga, enjoy a hearty breakfast, and bid farewell with a calm mind and happy heart.",
 				activities: [
-					"Morning yoga & meditation session",
-					"Nature walk near the Ganges",
+					"Morning yoga & guided meditation",
+					"Nature walk along the Ganges",
 					"Breakfast with Himalayan views",
 					"Check-out and departure transfer"
 				]
@@ -1259,40 +1297,40 @@ export const packages = [
 		inclusions: [
 			"2 nights stay in a riverside resort/cottage",
 			"Daily breakfast and dinner",
-			"White water rafting experience with safety gear",
+			"White-water rafting experience with all safety gear",
 			"Evening Ganga Aarti experience",
-			"Yoga & meditation sessions",
+			"Yoga & meditation sessions with a trained instructor",
 			"Welcome drinks and daily refreshments",
-			"Bonfire and light entertainment",
+			"Evening bonfire and light entertainment",
 			"Pickup & drop from Haridwar/Dehradun"
 		],
 		exclusions: [
-			"Travel to Haridwar/Dehradun from home city",
+			"Travel to Haridwar/Dehradun from your home city",
 			"Travel insurance",
-			"Additional adventure activities (zip-lining, bungee)",
+			"Optional adventure activities (zip-lining, bungee jumping)",
 			"Personal expenses and shopping",
-			"Alcoholic beverages (premium brands)",
-			"Spa treatments (except included ones)",
+			"Alcoholic beverages",
+			"Spa treatments (unless specified)",
 			"Laundry services",
 			"Tips and gratuities"
 		],
 		reviews: [
 			{
-				name: "Alice",
+				name: "Kim",
 				rating: 5,
-				comment: "Peaceful and adventurous! Loved the yoga, rafting, and vibe of Rishikesh. Would definitely recommend.",
+				comment: "The Ganga Aarti and yoga sessions in Rishikesh were so peaceful. Rafting was a thrill!",
 				date: "2 weeks ago"
 			},
 			{
-				name: "Bob",
-				rating: 3,
-				comment: "The bonfire night and riverside view were magical. Rafting was a bit intense for beginners though!",
+				name: "Kate",
+				rating: 4,
+				comment: "Loved the riverside cottage and bonfire night. Rafting was a bit intense for beginners.",
 				date: "1 month ago"
 			},
 			{
-				name: "Sarah",
-				rating: 4,
-				comment: "A perfect quick getaway. The spiritual aura and friendly guides made it special.",
+				name: "Donald",
+				rating: 5,
+				comment: "A perfect spiritual and adventure getaway. The guides were very friendly.",
 				date: "3 weeks ago"
 			}
 		],
@@ -1341,7 +1379,7 @@ export const packages = [
 	},
 	{
 		id: 9,
-		title: "Santorini Escape – Greece",
+		title: "Santorini Escape - Greece",
 		location: "Santorini",
 		duration: "3 Days / 2 Nights",
 		country: "Greece",
@@ -1401,8 +1439,8 @@ export const packages = [
 			},
 		],
 		inclusions: [
-			"2 nights accommodation",
-			"Breakfasts and 1 traditional dinner",
+			"2 nights accommodation in cliffside hotel",
+			"Daily breakfast and 1 traditional Greek dinner",
 			"Catamaran cruise with lunch",
 			"Airport transfers",
 			"Local wine tasting session",
@@ -1412,6 +1450,7 @@ export const packages = [
 			"Travel insurance",
 			"Extra meals and drinks",
 			"Personal expenses",
+			"Tips and gratuities",
 		],
 		reviews: [
 			{
@@ -1419,6 +1458,12 @@ export const packages = [
 				rating: 5,
 				comment: "Magical sunsets and beautiful experience!",
 				date: "2 weeks ago",
+			},
+			{
+				name: "James",
+				rating: 4,
+				comment: "Amazing cruise and wine tour. Hotel had a stunning view!",
+				date: "1 month ago",
 			},
 		],
 		faqs: [
@@ -1433,6 +1478,18 @@ export const packages = [
 			{
 				question: "What's the cancellation policy?",
 				answer: "Free cancellation up to 15 days before travel. Cancellations within 15 days are subject to charges as per our terms and conditions."
+			},
+			{
+				question: "Is this package suitable for solo travelers?",
+				answer: "Yes, solo travelers can join this package safely and enjoy guided activities with other guests.",
+			},
+			{
+				question: "Are meals included?",
+				answer: "Breakfast is included daily, and one traditional Greek dinner is included in the package.",
+			},
+			{
+				question: "Can the itinerary be customized?",
+				answer: "Yes, optional activities like spa sessions, beach visits, or additional sightseeing can be added on request.",
 			},
 			{
 				question: "Do I need a visa to travel to Greece?",
@@ -1458,11 +1515,15 @@ export const packages = [
 				question: "What should I pack for this trip?",
 				answer: "Light clothing, comfortable walking shoes, swimwear, sunscreen, a hat, and a light jacket for cooler evenings."
 			},
+			{
+				question: "Are tips included in the price?",
+				answer: "No, tips for guides, hotel staff, and drivers are not included and can be given at your discretion.",
+			},
 		],
 	},
 	{
 		id: 10,
-		title: "Alpine Adventure – Switzerland",
+		title: "Alpine Adventure - Switzerland",
 		location: "Swiss Alps",
 		duration: "3 Days / 2 Nights",
 		country: "Switzerland",
@@ -1488,9 +1549,9 @@ export const packages = [
 				day: 1,
 				title: "Arrival & Glacier Express",
 				description:
-					"Arrive in Zurich, board Glacier Express for panoramic ride, check-in to alpine lodge.",
+					"Arrive in Zurich, board the Glacier Express for a panoramic ride, and check-in to your alpine lodge.",
 				activities: [
-					"Train journey",
+					"Train journey through the Alps",
 					"Alpine photography",
 					"Lodge check-in",
 					"Evening bonfire",
@@ -1500,46 +1561,54 @@ export const packages = [
 				day: 2,
 				title: "Snow Sports & Spa",
 				description:
-					"Enjoy winter sports followed by a relaxing spa and traditional Swiss dinner.",
+					"Enjoy thrilling winter sports followed by a relaxing spa session and traditional Swiss dinner.",
 				activities: [
-					"Skiing/snowboarding",
-					"Snowshoe trek",
-					"Hot tub & sauna",
-					"Swiss fondue night",
+					"Skiing or snowboarding",
+					"Snowshoe trekking",
+					"Hot tub & sauna experience",
+					"Swiss fondue dinner night",
 				],
 			},
 			{
 				day: 3,
 				title: "Farewell",
 				description:
-					"Breakfast with mountain views, check-out and return train to Zurich.",
+					"Breakfast with mountain views, check-out, and scenic return to Zurich for onward journey.",
 				activities: [
 					"Mountain view breakfast",
-					"Check-out",
-					"Scenic return ride",
-					"Airport drop",
+					"Check-out from lodge",
+					"Scenic train ride back to Zurich",
+					"Airport transfer",
 				],
 			},
 		],
 		inclusions: [
-			"2 nights chalet stay",
-			"Daily breakfast and 1 dinner",
+			"2 nights chalet accommodation",
+			"Daily breakfast and 1 Swiss dinner",
 			"Glacier Express tickets",
-			"Winter sports gear",
-			"Access to alpine spa",
+			"Winter sports gear and safety equipment",
+			"Access to alpine spa facilities",
+			"Airport/train transfers within Switzerland",
 		],
 		exclusions: [
 			"International flights",
-			"Meals not mentioned",
+			"Meals not mentioned in inclusions",
 			"Travel insurance",
-			"Personal expenses",
+			"Personal expenses and shopping",
+			"Tips and gratuities",
 		],
 		reviews: [
 			{
-				name: "Liam",
+				name: "Vincent",
 				rating: 5,
-				comment: "Perfect winter escape! Loved the train ride.",
+				comment: "The Glacier Express ride through the Alps was unforgettable! Loved the skiing and fondue dinner.",
 				date: "1 week ago",
+			},
+			{
+				name: "Sophia",
+				rating: 4,
+				comment: "Cozy chalet stay and amazing snow sports. Highly recommend for winter lovers!",
+				date: "2 weeks ago",
 			},
 		],
 		faqs: [
@@ -1554,6 +1623,11 @@ export const packages = [
 			{
 				question: "Is the package customizable?",
 				answer: "Yes, we can customize the package based on your preferences. Contact our travel experts for personalized options."
+			},
+			{
+				question: "Can the itinerary be customized?",
+				answer:
+					"Yes, optional activities like spa treatments or extra excursions can be arranged on request.",
 			},
 			{
 				question: "What's the cancellation policy?",
@@ -1591,7 +1665,7 @@ export const packages = [
 	},
 	{
 		id: 11,
-		title: "Safari Journey – Kenya",
+		title: "Safari Journey - Kenya",
 		location: "Maasai Mara",
 		duration: "2 Days / 1 Night",
 		country: "Kenya",
@@ -1602,7 +1676,7 @@ export const packages = [
 		rating: 4.7,
 		reviewCount: 68,
 		description:
-			"Embark on a thrilling safari through the Maasai Mara and witness Africa’s iconic wildlife in their natural habitat.",
+			"Embark on a thrilling safari through the Maasai Mara and witness Africa's iconic wildlife in their natural habitat.",
 		image:
 			"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80",
 		highlights: [
@@ -1616,46 +1690,53 @@ export const packages = [
 				day: 1,
 				title: "Arrival & First Safari",
 				description:
-					"Arrive at Nairobi, drive to Maasai Mara, check-in and evening game drive.",
+					"Arrive at Nairobi, drive to Maasai Mara, check-in to safari camp, and enjoy your first evening game drive.",
 				activities: [
-					"Scenic transfer",
-					"Evening safari",
-					"Campfire dinner",
-					"Wildlife orientation",
+					"Scenic transfer from Nairobi",
+					"Evening safari game drive",
+					"Campfire dinner under the stars",
+					"Wildlife orientation session",
 				],
 			},
 			{
 				day: 2,
 				title: "Morning Game Drive & Departure",
 				description:
-					"Early morning safari followed by breakfast and return to Nairobi.",
+					"Early morning game drive to spot the Big Five, followed by breakfast and return transfer to Nairobi.",
 				activities: [
 					"Sunrise game drive",
 					"Big Five spotting",
-					"Safari camp breakfast",
-					"Transfer to airport",
+					"Breakfast at safari camp",
+					"Transfer back to Nairobi airport",
 				],
 			},
 		],
 		inclusions: [
-			"1 night safari camp stay",
-			"2 game drives",
-			"Meals and drinks",
-			"Transfers from Nairobi",
-			"Park entry fees",
+			"1 night accommodation in luxury safari tent",
+			"2 guided game drives",
+			"All meals and drinks at the camp",
+			"Transfers from Nairobi to Maasai Mara and back",
+			"Park entry fees and conservation fees",
 		],
 		exclusions: [
 			"International flights",
-			"Vaccination requirements",
-			"Tips and gratuities",
+			"Vaccination requirements and medical expenses",
 			"Travel insurance",
+			"Personal expenses and shopping",
+			"Tips and gratuities",
 		],
 		reviews: [
 			{
 				name: "Noah",
 				rating: 5,
-				comment: "Unforgettable! Saw lions up close!",
+				comment: "Saw lions and elephants up close in Maasai Mara! The campfire dinner was a unique experience.",
 				date: "3 weeks ago",
+			},
+			{
+				name: "Aisha",
+				rating: 4,
+				comment: "The guides were knowledgeable and the safari tent was luxurious. Loved the game drives.",
+				date: "1 month ago",
 			},
 		],
 		faqs: [
@@ -1715,7 +1796,7 @@ export const packages = [
 	},
 	{
 		id: 12,
-		title: "Bali Bliss – Indonesia",
+		title: "Bali Bliss - Indonesia",
 		location: "Bali",
 		duration: "2 Days / 1 Night",
 		country: "Indonesia",
@@ -1740,21 +1821,21 @@ export const packages = [
 				day: 1,
 				title: "Arrival & Culture Tour",
 				description:
-					"Arrive in Bali, explore local temples and enjoy a traditional Balinese performance in the evening.",
+					"Arrive in Bali, check-in at resort, visit local temples, and enjoy a traditional Balinese performance in the evening.",
 				activities: [
-					"Airport pickup",
-					"Uluwatu temple visit",
+					"Airport pickup and resort check-in",
+					"Visit Uluwatu Temple",
 					"Kecak dance performance",
-					"Beach dinner",
+					"Beachfront dinner",
 				],
 			},
 			{
 				day: 2,
 				title: "Leisure & Departure",
 				description:
-					"Morning spa and beach time, check-out, and transfer to airport.",
+					"Morning spa and beach leisure, followed by breakfast, check-out, and airport transfer.",
 				activities: [
-					"Balinese massage",
+					"Balinese massage session",
 					"Private beach walk",
 					"Resort breakfast",
 					"Airport drop-off",
@@ -1762,16 +1843,17 @@ export const packages = [
 			},
 		],
 		inclusions: [
-			"1 night resort stay",
-			"All meals",
-			"Cultural show tickets",
+			"1 night accommodation at beachfront resort",
+			"All meals during stay",
+			"Cultural show tickets (Kecak dance)",
 			"Airport transfers",
 			"Complimentary spa session",
 		],
 		exclusions: [
-			"Flights to/from Bali",
-			"Extra spa services",
-			"Shopping and personal expenses",
+			"Flights to and from Bali",
+			"Additional spa services",
+			"Personal expenses and shopping",
+			"Tips and gratuities",
 		],
 		reviews: [
 			{
@@ -1779,6 +1861,18 @@ export const packages = [
 				rating: 5,
 				comment: "So relaxing and beautiful. Bali never disappoints.",
 				date: "1 month ago",
+			},
+			{
+				name: "David",
+				rating: 5,
+				comment: "Absolutely loved the serene beaches and the Balinese culture tour. Spa session was heavenly!",
+				date: "3 weeks ago",
+			},
+			{
+				name: "Arjun",
+				rating: 4,
+				comment: "Loved the temple visit and spa session. Perfect short getaway.",
+				date: "2 weeks ago",
 			},
 		],
 		faqs: [
@@ -1825,4 +1919,3 @@ export const packages = [
 		],
 	}
 ];
-

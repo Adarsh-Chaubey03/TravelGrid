@@ -115,7 +115,7 @@ const NetworkError = () => {
           )}
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
+            <button aria-label="Search"
               onClick={() => window.location.reload()}
               className="px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-xl font-semibold transition-colors text-white flex items-center justify-center"
             >

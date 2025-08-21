@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDashboardData } from '../context/DashboardDataContext';
+import { TravelCountdownTimer } from '../components/TravelCountdownTimer';
 
 const TripsPlanned = () => {
   const navigate = useNavigate();
@@ -64,6 +65,19 @@ const TripsPlanned = () => {
               Back to Dashboard
             </button>
           </div>
+          {/* Travel Countdown Timer for Upcoming Trips */}
+          {trips.length > 0 && (
+            <div className="mb-8 mt-8">
+              <TravelCountdownTimer
+                trips={trips}
+                onTripUpdate={() => {
+                  // Refresh trips data if needed
+                  fetchTrips();
+                }}
+              />
+            </div>
+          )}
+
           <div className="max-h-[350px] overflow-y-auto pr-2 custom-scroll">
             <div className="space-y-4">
               {trips.length > 0 ? (
@@ -77,7 +91,7 @@ const TripsPlanned = () => {
                         {trip.destination}, {trip.country}
                       </h3>
                       {trip.startDate && (
-                        <p className="text-gray-300 text-sm">
+                        <p className="text-pink-300 text-sm">
                           {new Date(trip.startDate).toLocaleDateString()}
                         </p>
                       )}

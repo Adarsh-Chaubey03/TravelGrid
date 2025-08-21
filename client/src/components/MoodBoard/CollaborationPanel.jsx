@@ -144,7 +144,7 @@ const CollaborationPanel = ({
                                 placeholder="Type your message..."
                                 rows={2}
                             />
-                            <button
+                            <button aria-label="Search"
                                 onClick={handleSendMessage}
                                 disabled={!newMessage.trim()}
                                 className="send-btn"
@@ -160,7 +160,7 @@ const CollaborationPanel = ({
                     <div className="collaborators-tab">
                         <div className="collaborators-header">
                             <h4>Active Collaborators</h4>
-                            <button
+                            <button aria-label="Search"
                                 onClick={() => setShowInviteForm(!showInviteForm)}
                                 className="invite-btn"
                             >
@@ -179,7 +179,7 @@ const CollaborationPanel = ({
                                     className="invite-input"
                                 />
                                 <div className="invite-actions">
-                                    <button
+                                    <button aria-label="Search"
                                         onClick={handleInvite}
                                         disabled={!inviteEmail.trim()}
                                         className="invite-submit-btn"
@@ -227,14 +227,14 @@ const CollaborationPanel = ({
                                     <div className="call-participants">
                                         {collaborators.slice(0, 3).map((collaborator) => (
                                             <div key={collaborator.id} className="call-participant">
-                                                <img src={collaborator.avatar} alt={collaborator.name} />
+                                                <img src={collaborator.avatar} alt={collaborator.name} loading="lazy"  />
                                                 <span>{collaborator.name}</span>
                                             </div>
                                         ))}
                                     </div>
 
                                     <div className="call-controls">
-                                        <button
+                                        <button aria-label="Search"
                                             onClick={toggleMute}
                                             className={`control-btn ${isMuted ? 'muted' : ''}`}
                                         >
@@ -260,7 +260,7 @@ const CollaborationPanel = ({
                                         <Video className="w-16 h-16 text-gray-400" />
                                         <h4>Start a video call</h4>
                                         <p>Collaborate in real-time with your team</p>
-                                        <button
+                                        <button aria-label="Search"
                                             onClick={toggleCall}
                                             className="start-call-btn"
                                         >
@@ -320,14 +320,14 @@ const CollaborationPanel = ({
 
                         {/* Panel Tabs */}
                         <div className="panel-tabs">
-                            <button
+                            <button aria-label="Search"
                                 onClick={() => setActiveTab('chat')}
                                 className={`tab-btn ${activeTab === 'chat' ? 'active' : ''}`}
                             >
                                 <MessageCircle className="w-4 h-4" />
                                 Chat
                             </button>
-                            <button
+                            <button aria-label="Search"
                                 onClick={() => setActiveTab('collaborators')}
                                 className={`tab-btn ${activeTab === 'collaborators' ? 'active' : ''}`}
                             >

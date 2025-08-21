@@ -66,7 +66,7 @@ const Testimonials = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className={`w-full py-20 ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}`}
+      className={` relative right-1/2 left-1/2 -mr-[45vw] -ml-[50vw] w-screen py-20`}
     >
       <style>{scrollStyles}</style>
 
@@ -91,7 +91,7 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
@@ -100,15 +100,12 @@ const Testimonials = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 ${
-                isDarkMode
-                  ? "bg-gradient-to-b from-black to-zinc-700 border-white/20 hover:border-white/40"
-                  : "bg-gradient-to-br from-white to-gray-200 border-pink-300 shadow-2xl shadow-gray-500 hover:border-pink-300"
-              }`}
+              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 h-full`}
             >
               <img
                 src={t.avatar}
                 alt={t.name}
+                loading="lazy" 
                 className="w-16 h-16 rounded-full mb-4 object-cover border-2 border-pink-400 group-hover:border-pink-300 transition-colors duration-300"
               />
               <h3

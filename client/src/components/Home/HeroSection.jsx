@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import Typewriter from "typewriter-effect";
@@ -12,17 +14,11 @@ const HeroSection = ({ onSearch }) => {
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState(t('home.allCategories'));
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]); // ✅ FIX: Added missing state
   const { isDarkMode } = useTheme();
   const { isAuthenticated } = useAuth();
-
-  const handleSearch = () => {
-    if (!isAuthenticated) {
-      toast.error(t('errors.pleaseSignIn'));
-      return;
-    }
-    onSearch({ location, category });
-    console.log("Search button clicked:", location, category);
-  };
+  const navigate = useNavigate();
 
   const categories = [
     t('home.allCategories'),
@@ -31,12 +27,63 @@ const HeroSection = ({ onSearch }) => {
     t('home.events'),
     t('home.shopping'),
     t('home.attractions'),
-    t('home.transportation')
+    t('home.transportation'),
+    "Package", // ✅ Added new category
   ];
 
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
     setIsDropdownOpen(false);
+  };
+
+  // Only redirect to Hotels page with query param
+  const handleSearch = async () => {
+    if (!isAuthenticated) {
+      toast.error(t('errors.pleaseSignIn'));
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // If category is "Package", navigate to packages page
+      if (category === "Package") {
+        if (location.trim()) {
+          navigate(`/packages?query=${encodeURIComponent(location)}`);
+        } else {
+          navigate("/packages");
+        }
+        return; // Skip the API search here for packages
+      }
+
+      // ✅ Handle Hotels redirect when All Categories
+      if (category === t('home.allCategories') || category === "All Categories") {
+        if (location.trim()) {
+          navigate(`/hotels?query=${encodeURIComponent(location)}`);
+        } else {
+          navigate("/hotels");
+        }
+        return;
+      }
+
+      // Otherwise (Hotels, Restaurants, etc.)
+      const { data } = await axios.get(`/api/search?location=${encodeURIComponent(location)}&category=${encodeURIComponent(category)}`);
+      setSearchResults(data); // ✅ Store results so they show below
+
+      // Ensure it's always an array before setting state
+      setSearchResults(Array.isArray(data) ? data : []);
+
+      if (category === t('home.hotels') || category === "Hotels") {
+        navigate(`/hotels?query=${encodeURIComponent(location)}`);
+      }
+      // Add other category navigations here if needed
+
+    } catch (err) {
+      console.error(err);
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -249,6 +296,21 @@ const HeroSection = ({ onSearch }) => {
           </motion.div>
         </div>
       </div>
+      {loading && (
+        <div className="text-center text-white mt-4">Searching...</div>
+      )}
+      {searchResults.length > 0 && (
+        <div className="mt-6 bg-white/80 rounded-xl p-4 max-w-md mx-auto">
+          <h3 className="font-bold mb-2 text-black">Search Results:</h3>
+          <ul>
+            {searchResults.map((item) => (
+              <li key={item._id} className="text-black">
+                {item.name} - {item.location} ({item.category})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </motion.section>
   );
 };

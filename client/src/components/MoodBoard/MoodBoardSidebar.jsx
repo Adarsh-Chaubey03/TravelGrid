@@ -230,6 +230,7 @@ const MoodBoardSidebar = ({
                                         <img
                                             src={imageUrl}
                                             alt={`Sample ${index + 1}`}
+                                            loading="lazy" 
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/200x150?text=Image+Error';
                                             }}
@@ -491,6 +492,7 @@ const MoodBoardSidebar = ({
                                         <img
                                             src={board.thumbnail || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&h=100&fit=crop'}
                                             alt={board.title}
+
                                             onError={(e) => {
                                                 e.target.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&h=100&fit=crop';
                                             }}
@@ -659,7 +661,7 @@ const MoodBoardSidebar = ({
                                     <div className="collaborators-list">
                                         {collaborators.map((collaborator) => (
                                             <div key={collaborator.id} className="collaborator-preview">
-                                                <img src={collaborator.avatar} alt={collaborator.name} />
+                                                <img src={collaborator.avatar} alt={collaborator.name} loading="lazy"  />
                                                 <span>{collaborator.name}</span>
                                             </div>
                                         ))}

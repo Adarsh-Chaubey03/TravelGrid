@@ -75,6 +75,100 @@ const initialForumTopics = [
     postType: "experience",
     trending: true,
   },
+  // adding more questions related to new topics
+  {
+    id: 4,
+    title: "Best hotels in Mumbai for business travelers",
+    description: "Looking for recommendations for hotels with good wifi, conference rooms, and central location in Mumbai.",
+    category: "accommodation",
+    author: "BusinessNomad",
+    createdAt: "2024-01-12",
+    replies: [
+      {
+        senderName: "TravelPro",
+        message: "Try The Taj Mahal Palace or The Oberoi for luxury options.",
+        createdAt: "2025-07-28T10:15:00.000Z",
+        _id: "reply3",
+      }
+    ],
+    views: 145,
+    postType: "question",
+    trending: false,
+  },
+  {
+    id: 5,
+    title: "Flight vs train: Delhi to Goa comparison",
+    description: "Weighing options between flight and train for Delhi to Goa journey. What are the pros and cons?",
+    category: "transport",
+    author: "RouteExplorer",
+    createdAt: "2024-01-09",
+    replies: [],
+    views: 98,
+    postType: "question", 
+    trending: false,
+  },
+  {
+    id: 6,
+    title: "Street food safety tips for India",
+    description: "First time traveling to India. What are the best practices for trying street food safely?",
+    category: "food",
+    author: "FoodieBackpacker",
+    createdAt: "2024-01-14",
+    replies: [
+      {
+        senderName: "IndiaExpert",
+        message: "Stick to busy stalls, avoid raw vegetables, and carry hand sanitizer.",
+        createdAt: "2025-07-29T14:30:00.000Z",
+        _id: "reply4",
+      }
+    ],
+    views: 203,
+    postType: "tips",
+    trending: true,
+  },
+  {
+    id: 7,
+    title: "Essential travel apps and tools",
+    description: "Share your favorite apps and digital tools that make traveling easier and more organized.",
+    category: "tips",
+    author: "TechTraveler",
+    createdAt: "2024-01-11",
+    replies: [],
+    views: 167,
+    postType: "tips",
+    trending: false,
+  },
+  {
+    id: 8,
+    title: "Hidden gems around Rishikesh",
+    description: "Planning a spiritual journey to Rishikesh. Any lesser-known places worth visiting nearby?",
+    category: "destinations", 
+    author: "SpiritSeeker",
+    createdAt: "2024-01-13",
+    replies: [
+      {
+        senderName: "YogaLover",
+        message: "Visit Kunjapuri Temple for sunrise and Beatles Ashram for history.",
+        createdAt: "2025-07-30T08:45:00.000Z",
+        _id: "reply5",
+      }
+    ],
+    views: 134,
+    postType: "question",
+    trending: false,
+  },
+  {
+    id: 9,
+    title: "Backpacking Southeast Asia: Complete guide",
+    description: "Comprehensive guide for first-time backpackers in Southeast Asia covering routes, budget, and essential tips.",
+    category: "general",
+    author: "BackpackGuru",
+    createdAt: "2024-01-07",
+    replies: [],
+    views: 312,
+    postType: "experience",
+    trending: true,
+  },
 ];
 
 export default function Forum() {
@@ -99,8 +193,22 @@ export default function Forum() {
   // Define the data fetching logic in its own function
 const fetchForumTopics = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/post/allPosts");
-    const transformed = res.data.map((post) => ({
+// Add error handling for network issues
+const fetchForumTopics = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/post/allPosts", {
+      timeout: 10000, // 10 second timeout
+    });
+    // ... rest of your code
+  } catch (err) {
+    console.error("Failed to load forum topics:", err);
+    if (err.code === 'ECONNREFUSED' || err.message.includes('Network Error')) {
+      toast.error("Unable to connect to server. Please check if the backend is running on port 5000.");
+    } else {
+      toast.error("Failed to fetch forum topics");
+    }
+  }
+};    const transformed = res.data.map((post) => ({
       id: post._id,
       title: post.title,
       description: post.info,
@@ -351,15 +459,10 @@ const fetchForumTopics = async () => {
 
     // 1. Filter by selected category
     if (selectedCategory !== "all") {
-      // Note: We use `label` here to match the `category` property on your topic objects.
-      const categoryLabel = categories.find(
-        (cat) => cat.value === selectedCategory
-      )?.label;
-      if (categoryLabel) {
-        filteredTopics = filteredTopics.filter(
-          (topic) => topic.category === categoryLabel
-        );
-      }
+      // comparing directly with the category value instead of label
+      filteredTopics = filteredTopics.filter(
+        (topic) => topic.category === selectedCategory
+      );
     }
 
     // 2. Filter by search query

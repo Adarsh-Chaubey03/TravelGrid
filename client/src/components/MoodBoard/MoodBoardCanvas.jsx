@@ -384,6 +384,7 @@ const MoodBoardCanvas = ({ board, setBoard, isCollaborating, onSave, selectedEle
                         <img
                             src={element.imageUrl}
                             alt="Mood board element"
+                            loading="lazy" 
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             onError={(e) => {
                                 e.target.src = 'https://via.placeholder.com/200x150?text=Image+Error';

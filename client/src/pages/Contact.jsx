@@ -26,19 +26,11 @@ const Contact = () => {
   ];
 
   return (
-    <div className={`min-h-screen ${
-      isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-rose-100 via-rose-200 to-gray-300'
-    }`}>
+    <div className={`min-h-screen`}>
       
       {/* Hero Section */}
-      <div className={`py-24 px-4 relative overflow-hidden ${
-        isDarkMode 
-          ? 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white'
-          : 'bg-gradient-to-br from-rose-100 via-rose-200 to-gray-300 text-gray-900'
-      }`}>
-        <div className={`absolute inset-0 ${
-          isDarkMode ? 'bg-black bg-opacity-10' : 'bg-white bg-opacity-20'
-        }`}></div>
+      <div className={`py-24 px-4 relative overflow-hidden`}>
+        <div className={`absolute inset-0`}></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="text-5xl font-bold mb-6 leading-tight">
             Get in <span className="text-yellow-400">Touch</span>
@@ -57,16 +49,10 @@ const Contact = () => {
           <div className={`rounded-2xl shadow-2xl p-8 ${
             isDarkMode ? 'bg-gray-800' : 'bg-white'
           }`}>
-            <h3 className={`text-2xl font-bold mb-8 text-center ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>Contact Information</h3>
+            <h3 className={`text-2xl font-bold mb-8 text-center`}>Contact Information</h3>
             <div className="space-y-6">
               {contactCards.map((card, index) => (
-                <div key={index} className={`flex items-center p-4 rounded-xl transition-colors ${
-                  isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600' 
-                    : 'bg-white hover:bg-gray-50 border border-gray-200'
-                }`}>
+                <div key={index} className={`flex items-center p-4 rounded-xl transition-colors`}>
                   <div className={`w-12 h-12 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-xl mr-4`}>
                     {card.icon}
                   </div>

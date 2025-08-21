@@ -12,7 +12,7 @@ import CustomCarousel from "../components/Custom/CustomCarousel";
 import { useTheme } from "../context/ThemeContext";
 import "./styles/TravelGuidesCarousel.css";
 
-const guides = [
+const guides1 = [
   {
     name: "Aarav Mehta",
     expertise: "Himalayan Treks",
@@ -65,11 +65,27 @@ const guides = [
       contact: "mei.eastasia@example.com",
     },
   },
+];
+//seperated pet guides and non pet guides with addition of one more pet guide
+const guides = [
+  {
+    name: "Snowy Kat",
+    expertise: "🐾 Mountain Treks & Pet Adventures",
+    bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes. Specialist in safe trekking experiences for dogs and cats.",
+    image: "https://randomuser.me/api/portraits/men/17.jpg",
+    details: {
+      location: "Manali, India",
+      languages: "English, Hindi, Himachali",
+      certifications: "Certified Pet Adventure Guide (CPAG)",
+      experience: "Led 80+ pet-friendly trekking expeditions",
+      contact: "rohit.petguide@example.com",
+    },
+  },
   {
     name: "Ayushi Uniyal",
     expertise: "🐾 Pet Travel & Coastal Getaways",
     bio: "Loves helping travelers explore India’s beaches with their furry companions. Expert in pet-friendly accommodations and transport.",
-    image: "https://randomuser.me/api/portraits/women/54.jpg",
+    image: "https://randomuser.me/api/portraits/women/17.jpg",
     details: {
       location: "Goa, India",
       languages: "English, Hindi, Konkani",
@@ -150,16 +166,19 @@ const TravelGuidesCarousel = () => {
   return (
     <section
       className="travel-guides-section"
-      style={{ 
+      style={{
         scrollMarginTop: "80px",
-        background: isDarkMode 
+        background: isDarkMode
           ? "linear-gradient(to bottom right, #000000, #831843)"
-          : "linear-gradient(to bottom right, #f8fafc, #fdf2f8)"
+          : "linear-gradient(to bottom right, #ffffffff, #c0349d57)",
       }}
     >
-      <h1 className="main-heading unique-heading-1" style={{
-        color: isDarkMode ? "#ffffff" : "#1f2937"
-      }}>
+      <h1
+        className="main-heading unique-heading-1"
+        style={{
+          color: isDarkMode ? "#ffffff" : "#1f2937",
+        }}
+      >
         Travel <span className="main-span">Guides</span>
       </h1>
 
@@ -215,7 +234,7 @@ const TravelGuidesCarousel = () => {
               border: "none",
               outline: "none",
               fontSize: "16px",
-              background: isDarkMode ? "#fcfcfc" : "#ffffff",
+              background: isDarkMode ? "rgba(252, 252, 252, 1)" : "#dc89b854",
               color: isDarkMode ? "#2d3748" : "#1f2937",
               fontWeight: "500",
               borderRadius: "10px",
@@ -296,11 +315,11 @@ const TravelGuidesCarousel = () => {
                   style={{
                     background: isDarkMode
                       ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                      : "linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)",
+                      : "linear-gradient(135deg, #f8fafc 0%, #fce0ffff 100%)",
                     borderRadius: "25px",
                     padding: "30px",
                     color: isDarkMode ? "white" : "#1f2937",
-                    boxShadow: isDarkMode 
+                    boxShadow: isDarkMode
                       ? "0 10px 30px rgba(102, 126, 234, 0.3)"
                       : "0 10px 30px rgba(102, 126, 234, 0.1)",
                     transition: "all 0.3s ease",
@@ -344,6 +363,7 @@ const TravelGuidesCarousel = () => {
                     <img
                       src={guide.image}
                       alt={guide.name}
+                      loading="lazy"
                       style={{
                         width: "70px",
                         height: "70px",
@@ -506,68 +526,122 @@ const TravelGuidesCarousel = () => {
         </div>
       ) : (
         // Default Carousel View
-        <CustomCarousel guides={guides} viewprofilehandle={viewProfile} />
+        // seperated pet and non pet guides
+        <>
+          <CustomCarousel guides={guides1} viewprofilehandle={viewProfile} />
+          <hr
+            style={{
+              border: "none",
+              height: "2px", // base thickness
+              background:
+                "linear-gradient(to right, transparent, #a52167ff, transparent)", // light gray fade
+              margin: "30px 0",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "40px",
+              fontWeight: "700",
+              lineHeight: "1.6",
+              marginTop: "14px",
+              marginBottom: "50px",
+              color: isDarkMode ? "#fcfcfc" : "#1f2937",
+
+            }}
+          >
+            🐶 Pet Guides 🐱
+          </p>{" "}
+          <CustomCarousel guides={guides} viewprofilehandle={viewProfile} />
+        </>
       )}
 
       {selectedGuide && (
         <div className="profile-section" ref={profileRef}>
+          {/* Heading */}
           <div className="profile-heading">
             <div className="line" />
-            <h2 style={{
-              color: isDarkMode ? "#ffffff" : "#1f2937"
-            }}>{selectedGuide.name}'s Profile</h2>
+            <h2 style={{ color: isDarkMode ? "#ffffff" : "#1f2937" }}>
+              {selectedGuide.name}'s Profile
+            </h2>
             <div className="line" />
           </div>
+
+          {/* Profile Card */}
           <div className="flex items-center justify-center p-6 font-sans">
-            <div className={`w-full max-w-lg p-8 bg-white/20 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/30 transition-all duration-300 hover:shadow-pink-500/30 ${
-              isDarkMode 
-                ? 'bg-white/5 backdrop-blur-md' 
-                : 'bg-white shadow-lg'
-            }`}>
+            <div
+              className={`w-full max-w-lg p-8 rounded-3xl border transition-all duration-300
+          ${
+            isDarkMode
+              ? "bg-white/5 backdrop-blur-md border-white/30 hover:shadow-pink-500/30"
+              : "bg-white shadow-lg border-white/30 hover:shadow-pink-500/30"
+          }`}
+            >
+              {/* Profile Content */}
               <div className="flex flex-col items-center text-center space-y-4">
-                {/* profile image */}
+                {/* Profile Image */}
                 <div className="relative p-1 rounded-full bg-gradient-to-br from-pink-500 to-purple-500">
                   <img
                     src={selectedGuide.image}
                     alt="Profile"
+                    loading="lazy"
                     className={`w-28 h-28 rounded-full object-cover border-4 ${
-                      isDarkMode ? 'border-gray-800' : 'border-white'
+                      isDarkMode ? "border-gray-800" : "border-white"
                     }`}
                   />
                 </div>
-                {/* name and bio section */}
+
+                {/* Name & Bio */}
                 <div className="space-y-1">
-                  <h2 className={`text-3xl font-bold ${
-                    isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h2
+                    className={`text-3xl font-bold ${
+                      isDarkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
                     {selectedGuide.name}
                   </h2>
-                  <p className={`text-md ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
+                  <p
+                    className={`text-md ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     {selectedGuide.bio}
                   </p>
                 </div>
+
+                {/* Contact */}
                 <div className="flex justify-center space-x-4">
-                    <Mail size={24} /><p className={isDarkMode ? 'text-white' : 'text-gray-900'}>{selectedGuide.details.contact}</p>
+                  <Mail size={24} />
+                  <p className={isDarkMode ? "text-white" : "text-gray-900"}>
+                    {selectedGuide.details.contact}
+                  </p>
                 </div>
               </div>
-              <hr className={`my-6 ${
-                isDarkMode ? 'border-gray-600' : 'border-gray-200'
-              }`} />
+
+              <hr
+                className={`my-6 ${
+                  isDarkMode ? "border-gray-600" : "border-gray-200"
+                }`}
+              />
+
+              {/* Details Section */}
               <div className="space-y-6">
-                {/* location */}
-                <div className={`flex items-center space-x-4 ${
-                  isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>
+                {/* Location */}
+                <div
+                  className={`flex items-center space-x-4 ${
+                    isDarkMode ? "text-gray-200" : "text-gray-700"
+                  }`}
+                >
                   <MapPin size={20} className="text-pink-500 flex-shrink-0" />
                   <p className="text-lg">{selectedGuide.details.location}</p>
                 </div>
-                {/* expertise */}
+
+                {/* Expertise */}
                 <div className="space-y-2">
-                  <h3 className={`flex items-center space-x-2 text-xl font-semibold ${
-                    isDarkMode ? 'text-white' : 'text-gray-800'
-                  }`}>
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     <Trophy size={20} className="text-pink-500" />
                     <span>Expertise</span>
                   </h3>
@@ -578,50 +652,63 @@ const TravelGuidesCarousel = () => {
                   </div>
                 </div>
 
-                {/* experience section */}
+                {/* Experience */}
                 <div className="space-y-2">
-                  <h3 className={`flex items-center space-x-2 text-xl font-semibold ${
-                    isDarkMode ? 'text-white' : 'text-gray-800'
-                  }`}>
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     <Briefcase size={20} className="text-pink-500" />
                     <span>Experience</span>
                   </h3>
-                  <ul className={`list-inside space-y-1 ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
-                    <li className="text-left pr-4" >
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    <li className="text-left pr-4">
                       - {selectedGuide.details.experience}
                     </li>
                   </ul>
                 </div>
 
-                {/* Certifications section */}
+                {/* Certifications */}
                 <div className="space-y-2">
-                  <h3 className={`flex items-center space-x-2 text-xl font-semibold ${
-                    isDarkMode ? 'text-white' : 'text-gray-800'
-                  }`}>
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     <GraduationCap size={20} className="text-pink-500" />
                     <span>Certifications</span>
                   </h3>
-                  <ul className={`list-inside space-y-1 ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     <li className="text-left pr-4">
                       - {selectedGuide.details.certifications}
                     </li>
                   </ul>
                 </div>
-                {/* languages section */}
+
+                {/* Languages */}
                 <div className="space-y-2">
-                  <h3 className={`flex items-center space-x-2 text-xl font-semibold ${
-                    isDarkMode ? 'text-white' : 'text-gray-800'
-                  }`}>
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     <LanguagesIcon size={20} className="text-pink-500" />
                     <span>Languages</span>
                   </h3>
-                  <ul className={`list-inside space-y-1 ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     <li className="text-left pr-4">
                       - {selectedGuide.details.languages}
                     </li>

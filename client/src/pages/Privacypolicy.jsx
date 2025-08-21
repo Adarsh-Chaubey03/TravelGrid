@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Custom/Navbar';
+import { useTheme } from "../context/ThemeContext";
 
 
 export default function PrivacyPolicy() {
+  const { isDarkMode } = useTheme();
   return (
     <>
     <Navbar />
-    <div style={{ paddingTop: '70px' }} className="bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-4xl font-extrabold text-gray-800 mb-6 text-center">Privacy Policy</h2>
+    <div style={{ paddingTop: '120px' }} className="bg-white p-8 rounded-lg shadow-lg">
+      <h2 className={`text-4xl font-extrabold  ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-6 text-center`}>Privacy Policy</h2>
 
       <section className="mb-8">
         <h3 className="text-2xl font-semibold text-gray-700 mb-3">1. Introduction</h3>

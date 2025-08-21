@@ -89,7 +89,7 @@ const cardVariants = {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -97,7 +97,7 @@ const cardVariants = {
               variants={cardVariants}
               className="group relative"
             >
-              <div className={`backdrop-blur-md rounded-2xl p-8 border transition-all duration-500 hover:scale-105 hover:shadow-2xl ${isDarkMode
+              <div className={`backdrop-blur-md rounded-2xl p-8 border transition-all duration-500 hover:scale-105 hover:shadow-2xl h-full ${isDarkMode
                 ? 'bg-gradient-to-b from-black  to-zinc-800 border-white/70 hover:border-white/40 hover:shadow-pink-500/20 shadow-xl shadow-gray-700'
                 : 'bg-gradient-to-b from-white  to-pink-200 border-pink-600 hover:border-pink-300 hover:shadow-pink-500/20 shadow-xl shadow-gray-600'
                 }`}>

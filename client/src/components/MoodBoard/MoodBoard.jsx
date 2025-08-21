@@ -400,7 +400,7 @@ const MoodBoard = () => {
                                     className="board-card"
                                 >
                                     <div className="board-thumbnail">
-                                        <img src={board.elements?.[0]?.imageUrl || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'} alt={board.title} />
+                                        <img src={board.elements?.[0]?.imageUrl || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'} alt={board.title} loading="lazy"  />
                                         <div className="board-overlay">
                                             <div className="overlay-actions">
                                                 <button className="action-btn">

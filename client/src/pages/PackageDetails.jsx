@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   FaStar,
   FaCheckCircle,
@@ -29,9 +29,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className={`text-lg font-semibold ${
-            isItinerary ? "flex items-center gap-2" : ""
-          }`}
+          className={`text-lg font-semibold ${isItinerary ? "flex items-center gap-2" : ""
+            }`}
         >
           {isItinerary && (
             <span className="text-xs bg-[#2a002e] border border-pink-500 text-pink-300 px-2 py-0.5 rounded-full">
@@ -41,9 +40,8 @@ const Accordion = ({ title, content, variant = "default" }) => {
           {title.split(" - ")[1] || title}
         </span>
         <FaChevronDown
-          className={`transition-transform ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`transition-transform ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       {/* only for Itinerary */}
@@ -72,9 +70,9 @@ const PackageDetails = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); //
   const { isAuthenticated, user } = useAuth();
   const { wishlist, addToWishlist } = useWishlist();
-  const packageData = packages.find((pkg) => pkg.id.toString() === id);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [formData, setFormData] = useState({
@@ -83,6 +81,25 @@ const PackageDetails = () => {
     travelers: 1,
     date: "",
   });
+
+
+  // Extract query param ?q=
+  // Get query param safely
+  const searchParams = new URLSearchParams(location.search || "");
+  const query = searchParams.get("q")?.trim() || "";
+
+  // Find package by id or query
+  let packageData = null;
+  if (id) {
+    packageData = packages.find((pkg) => pkg.id.toString() === id);
+  } else if (query) {
+    const qLower = query.toLowerCase();
+    packageData = packages.find(
+      (pkg) =>
+        pkg.title.toLowerCase().includes(qLower) ||
+        pkg.location.toLowerCase().includes(qLower)
+    );
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -140,7 +157,7 @@ const PackageDetails = () => {
 
   const {
     title,
-    location,
+    location: pkgLocation,
     duration,
     price,
     rating,
@@ -156,7 +173,7 @@ const PackageDetails = () => {
   } = packageData;
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-[#1f1d2b] to-pink-900 text-white min-h-screen pb-16">
+    <div className="text-white min-h-screen pb-16">
       <Navbar />
 
       {/* Header Image with Overlay */}
@@ -164,13 +181,13 @@ const PackageDetails = () => {
         className="w-full h-[60vh] bg-cover bg-center relative"
         style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/40 to-transparent"></div>
+        <div className="absolute inset-0"></div>
         <div className="absolute bottom-10 md:bottom-16 left-6 md:left-16">
           <h1 className="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">
             {title}
           </h1>
           <p className="text-sm md:text-base text-[#d0d0d0]">
-            {location} • {duration}
+            {pkgLocation} • {duration}
           </p>
         </div>
       </div>
@@ -180,17 +197,17 @@ const PackageDetails = () => {
         {/* Floating Bar */}
         <div className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:relative sm:shadow-lg">
           <div className="flex items-center gap-3">
-            <FaCalendarAlt className="text-pink-400 text-xl" />
+            <FaCalendarAlt className="text-xl" />
             <div>
               <p className="text-sm text-[#999]">Duration</p>
-              <p className="text-white font-semibold text-base">{duration}</p>
+              <p className="font-semibold text-base">{duration}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <FaRupeeSign className="text-pink-400 text-xl" />
             <div>
               <p className="text-sm text-[#999]">Price</p>
-              <p className="text-white font-semibold text-base">₹{price}</p>
+              <p className="font-semibold text-base">₹{price}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -213,11 +230,10 @@ const PackageDetails = () => {
           <button
             onClick={() => handleAddToWishlist(packageData)}
             disabled={wishlist?.some((item) => item.id === packageData.id)}
-            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
-              wishlist?.some((item) => item.id === packageData.id)
+            className={`mt-2 self-start px-5 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${wishlist?.some((item) => item.id === packageData.id)
                 ? "bg-gray-400 cursor-not-allowed text-white"
                 : "bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-400 hover:to-pink-500 text-white"
-            }`}
+              }`}
           >
             {wishlist?.some((item) => item.id === packageData.id)
               ? "Added to Wishlist"
@@ -227,7 +243,7 @@ const PackageDetails = () => {
 
         {/* Description */}
         <div className="flex items-center justify-center">
-          <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base text-center">
+          <p className="leading-relaxed text-sm md:text-base text-center">
             {description}
           </p>
         </div>
@@ -239,7 +255,7 @@ const PackageDetails = () => {
             {highlights.map((point, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm text-[#cfcfcf]"
+                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm"
               >
                 <FaCheck className="text-pink-400" />
                 {point}
@@ -273,7 +289,7 @@ const PackageDetails = () => {
               {inclusions.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <FaCheckCircle className="text-green-500 mt-1" />
-                  <span className="text-[#cfcfcf]">{item}</span>
+                  <span className>{item}</span>
                 </li>
               ))}
             </ul>
@@ -286,7 +302,7 @@ const PackageDetails = () => {
               {exclusions.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <FaTimesCircle className="text-red-500 mt-1" />
-                  <span className="text-[#cfcfcf]">{item}</span>
+                  <span className>{item}</span>
                 </li>
               ))}
             </ul>
@@ -296,7 +312,7 @@ const PackageDetails = () => {
         {/* Reviews */}
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-white">Reviews</h2>
+            <h2 className="text-2xl font-bold">Reviews</h2>
             <button className="text-sm text-white px-4 py-1.5 rounded-lg hover:text-pink-300 transition-colors duration-200">
               View All Reviews
             </button>
@@ -320,7 +336,7 @@ const PackageDetails = () => {
                   </div>
                 </div>
 
-                <blockquote className="mt-3 text-pink-100 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
+                <blockquote className="mt-3 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
                   {review.comment}
                 </blockquote>
                 <div className="flex items-center mt-3 text-yellow-400 text-sm">

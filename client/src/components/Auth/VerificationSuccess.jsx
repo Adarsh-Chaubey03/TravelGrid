@@ -118,7 +118,7 @@ const VerificationSuccess = ({
       {/* Action Buttons */}
       {showActions && (
         <div className="space-y-4">
-          <button
+          <button aria-label="Search"
             onClick={handleContinue}
             className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
           >
@@ -126,7 +126,7 @@ const VerificationSuccess = ({
             Start Exploring
           </button>
           
-          <button
+          <button aria-label="Search"
             onClick={handleDashboard}
             className="w-full bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-white/20"
           >

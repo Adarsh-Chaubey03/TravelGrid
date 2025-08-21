@@ -68,7 +68,7 @@ const ForumSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left items-stretch">
           {topics.map((topic, index) => (
             <motion.div
               key={index}
@@ -77,7 +77,7 @@ const ForumSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className={`group backdrop-blur-md rounded-xl p-6 border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 relative ${isDarkMode
+              className={`group backdrop-blur-md rounded-xl p-6 border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 relative h-full ${isDarkMode
                   ? 'bg-gray-900 border-pink-300 hover:border-white/40'
                   : 'bg-white/80 border-pink-200 shadow-2xl shadow-pink-200 hover:border-pink-300'
                 }`}

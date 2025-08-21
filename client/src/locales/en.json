@@ -44,6 +44,7 @@
   },
   "navigation": {
     "home": "Home",
+    "about": "About",
     "trendingSpots": "Trending Spots",
     "booking": "Booking",
     "support": "Support",
@@ -224,5 +225,64 @@
     "newsletter": "Newsletter",
     "subscribe": "Subscribe",
     "allRightsReserved": "All rights reserved"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to your account to continue your journey",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "orContinue": "Or continue with",
+    "googleSignIn": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "signupHere": "Sign up here",
+    "forgotPassword": "Forgot Password?",
+    "clickHere": "Click Here",
+    "errors": {
+      "emptyEmail": "Please enter your email.",
+      "invalidEmail": "Please enter a valid email address.",
+      "emptyPassword": "Please enter your password.",
+      "verifyEmail": "Please verify your email before logging in.",
+      "invalidCredentials": "Invalid email or password"
+    },
+    "actions": {
+      "resendConfirm": "Would you like to resend the verification email?"
+    }
+  },
+  "signup": {
+    "title": "Create Account",
+    "subtitle": "Join TravelGrid and start your adventure",
+    "name": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Create a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "createAccount": "Create Account",
+    "creatingAccount": "Creating Account...",
+    "orContinue": "Or continue with",
+    "googleSignUp": "Continue with Google",
+    "alreadyAccount": "Already have an account?",
+    "signinHere": "Sign in here",
+    "weakPassword": "Weak password",
+    "mediumPassword": "Medium strength",
+    "strongPassword": "Strong password",
+    "passwordsMatch": "Passwords match",
+    "passwordsDontMatch": "Passwords don't match",
+    "success": "Account created! Please verify your email to continue.",
+    "errors": {
+      "fillAll": "Please fill in all the required details to proceed.",
+      "invalidEmail": "Please enter a valid email address",
+      "invalidName": "Name can only contain letters and spaces",
+      "shortName": "Name must be at least 2 characters long",
+      "weakPassword": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
+      "passwordMismatch": "Passwords do not match.",
+      "signupFailed": "Signup failed"
+    }
   }
 }

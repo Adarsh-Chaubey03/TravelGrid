@@ -233,5 +233,64 @@
     "newsletter": "न्यूजलेटर",
     "subscribe": "सदस्यता घ्या",
     "allRightsReserved": "सर्व हक्क राखीव"
+  },
+  "login": {
+    "title": "पुन्हा स्वागत आहे",
+    "subtitle": "तुमचा प्रवास सुरू ठेवण्यासाठी तुमच्या खात्यात लॉगिन करा",
+    "email": "ईमेल पत्ता",
+    "emailPlaceholder": "तुमचा ईमेल प्रविष्ट करा",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "तुमचा पासवर्ड प्रविष्ट करा",
+    "signIn": "लॉगिन",
+    "signingIn": "लॉगिन होत आहे...",
+    "orContinue": "किंवा पुढे जा",
+    "googleSignIn": "Google सह पुढे जा",
+    "noAccount": "खाते नाही?",
+    "signupHere": "येथे साइन अप करा",
+    "forgotPassword": "पासवर्ड विसरलात?",
+    "clickHere": "येथे क्लिक करा",
+    "errors": {
+      "emptyEmail": "कृपया तुमचा ईमेल प्रविष्ट करा.",
+      "invalidEmail": "कृपया वैध ईमेल पत्ता प्रविष्ट करा.",
+      "emptyPassword": "कृपया तुमचा पासवर्ड प्रविष्ट करा.",
+      "verifyEmail": "लॉगिन करण्यापूर्वी कृपया तुमचा ईमेल पडताळा.",
+      "invalidCredentials": "ईमेल किंवा पासवर्ड चुकीचा आहे"
+    },
+    "actions": {
+      "resendConfirm": "तुम्हाला पडताळणी ईमेल पुन्हा पाठवायचा आहे का?"
+    }
+  },
+  "signup": {
+    "title": "खाते तयार करा",
+    "subtitle": "TravelGrid मध्ये सामील व्हा आणि तुमचे साहस सुरू करा",
+    "name": "पूर्ण नाव",
+    "namePlaceholder": "तुमचे पूर्ण नाव प्रविष्ट करा",
+    "email": "ईमेल पत्ता",
+    "emailPlaceholder": "तुमचा ईमेल प्रविष्ट करा",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "पासवर्ड तयार करा",
+    "confirmPassword": "पासवर्ड पुष्टी करा",
+    "confirmPasswordPlaceholder": "तुमचा पासवर्ड पुष्टी करा",
+    "createAccount": "खाते तयार करा",
+    "creatingAccount": "खाते तयार होत आहे...",
+    "orContinue": "किंवा पुढे जा",
+    "googleSignUp": "Google सह पुढे जा",
+    "alreadyAccount": "आधीपासून खाते आहे?",
+    "signinHere": "येथे लॉगिन करा",
+    "weakPassword": "कमकुवत पासवर्ड",
+    "mediumPassword": "मध्यम ताकद",
+    "strongPassword": "मजबूत पासवर्ड",
+    "passwordsMatch": "पासवर्ड जुळले",
+    "passwordsDontMatch": "पासवर्ड जुळत नाहीत",
+    "success": "खाते तयार झाले! पुढे जाण्यासाठी कृपया तुमचा ईमेल पडताळा.",
+    "errors": {
+      "fillAll": "कृपया पुढे जाण्यासाठी सर्व आवश्यक माहिती भरा.",
+      "invalidEmail": "कृपया वैध ईमेल पत्ता प्रविष्ट करा",
+      "invalidName": "नावात फक्त अक्षरे आणि स्पेस असू शकतात",
+      "shortName": "नाव किमान 2 अक्षरे असावे",
+      "weakPassword": "पासवर्डमध्ये किमान 8 अक्षरे, एक मोठा अक्षर, एक लहान अक्षर, एक संख्या आणि एक विशेष चिन्ह असावे.",
+      "passwordMismatch": "पासवर्ड जुळत नाहीत.",
+      "signupFailed": "साइन अप अयशस्वी"
+    }
   }
 }

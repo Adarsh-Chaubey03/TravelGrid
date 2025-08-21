@@ -224,5 +224,64 @@
     "newsletter": "ન્યૂઝલેટર",
     "subscribe": "સબ્સ્ક્રાઇબ કરો",
     "allRightsReserved": "બધા અધિકારો સુરક્ષિત"
+  },
+  "login": {
+    "title": "પાછા આવકારો",
+    "subtitle": "તમારી યાત્રા ચાલુ રાખવા માટે તમારા એકાઉન્ટમાં લૉગિન કરો",
+    "email": "ઈમેઇલ સરનામું",
+    "emailPlaceholder": "તમારું ઈમેઇલ દાખલ કરો",
+    "password": "પાસવર્ડ",
+    "passwordPlaceholder": "તમારો પાસવર્ડ દાખલ કરો",
+    "signIn": "લૉગિન",
+    "signingIn": "લૉગિન થઈ રહ્યું છે...",
+    "orContinue": "અથવા ચાલુ રાખો",
+    "googleSignIn": "Google સાથે ચાલુ રાખો",
+    "noAccount": "એકાઉન્ટ નથી?",
+    "signupHere": "અહીં સાઇન અપ કરો",
+    "forgotPassword": "પાસવર્ડ ભૂલી ગયા?",
+    "clickHere": "અહીં ક્લિક કરો",
+    "errors": {
+      "emptyEmail": "કૃપા કરીને તમારું ઈમેઇલ દાખલ કરો.",
+      "invalidEmail": "કૃપા કરીને માન્ય ઈમેઇલ સરનામું દાખલ કરો.",
+      "emptyPassword": "કૃપા કરીને તમારો પાસવર્ડ દાખલ કરો.",
+      "verifyEmail": "લૉગિન કરતા પહેલા કૃપા કરીને તમારું ઈમેઇલ ચકાસો.",
+      "invalidCredentials": "ઈમેઇલ અથવા પાસવર્ડ ખોટું છે"
+    },
+    "actions": {
+      "resendConfirm": "શું તમે ચકાસણી ઈમેઇલ ફરીથી મોકલવા માંગો છો?"
+    }
+  },
+  "signup": {
+    "title": "એકાઉન્ટ બનાવો",
+    "subtitle": "TravelGrid સાથે જોડાઓ અને તમારી સાહસિક યાત્રા શરૂ કરો",
+    "name": "પૂર્ણ નામ",
+    "namePlaceholder": "તમારું પૂર્ણ નામ દાખલ કરો",
+    "email": "ઈમેઇલ સરનામું",
+    "emailPlaceholder": "તમારું ઈમેઇલ દાખલ કરો",
+    "password": "પાસવર્ડ",
+    "passwordPlaceholder": "પાસવર્ડ બનાવો",
+    "confirmPassword": "પાસવર્ડની પુષ્ટિ કરો",
+    "confirmPasswordPlaceholder": "તમારો પાસવર્ડ પુષ્ટિ કરો",
+    "createAccount": "એકાઉન્ટ બનાવો",
+    "creatingAccount": "એકાઉન્ટ બનાવી રહ્યા છીએ...",
+    "orContinue": "અથવા ચાલુ રાખો",
+    "googleSignUp": "Google સાથે ચાલુ રાખો",
+    "alreadyAccount": "પહેલેથી એકાઉન્ટ છે?",
+    "signinHere": "અહીં લૉગિન કરો",
+    "weakPassword": "નબળો પાસવર્ડ",
+    "mediumPassword": "મધ્યમ મજબૂતી",
+    "strongPassword": "મજબૂત પાસવર્ડ",
+    "passwordsMatch": "પાસવર્ડ મેળ ખાતા છે",
+    "passwordsDontMatch": "પાસવર્ડ મેળ ખાતા નથી",
+    "success": "એકાઉન્ટ બનાવાયું! આગળ વધવા માટે કૃપા કરીને તમારું ઈમેઇલ ચકાસો.",
+    "errors": {
+      "fillAll": "કૃપા કરીને આગળ વધવા માટે બધી જરૂરી વિગતો ભરો.",
+      "invalidEmail": "કૃપા કરીને માન્ય ઈમેઇલ સરનામું દાખલ કરો",
+      "invalidName": "નામમાં માત્ર અક્ષરો અને ખાલી જગ્યા હોઈ શકે છે",
+      "shortName": "નામ ઓછામાં ઓછું 2 અક્ષરનું હોવું જોઈએ",
+      "weakPassword": "પાસવર્ડમાં ઓછામાં ઓછા 8 અક્ષરો, એક કેપિટલ અક્ષર, એક નાના અક્ષર, એક નંબર અને એક વિશેષ અક્ષર હોવો જોઈએ.",
+      "passwordMismatch": "પાસવર્ડ મેળ ખાતા નથી.",
+      "signupFailed": "સાઇન અપ નિષ્ફળ ગયું"
+    }
   }
 }

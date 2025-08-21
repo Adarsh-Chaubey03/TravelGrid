@@ -60,7 +60,7 @@ i18n
     debug: false,
     
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['querystring','localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
     },
     

@@ -6,6 +6,7 @@ import { MapPin, Calendar, Heart, LogOut, Building2, Edit, Save, X } from 'lucid
 import hotels from '../data/hotels';
 import axios from 'axios';
 import { config } from '../config';
+import { TravelCountdownTimer } from '../components/TravelCountdownTimer';
 
 import defaultAvatar from '../assets/defaultprofile.svg';
 import toast from 'react-hot-toast';
@@ -166,6 +167,7 @@ const Dashboard = () => {
                                 <img
                                     src={selectedImage ? URL.createObjectURL(selectedImage) : user.picture || defaultAvatar}
                                     alt={user.name}
+                                    loading="lazy" 
                                     className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-4 border-pink-400 object-cover"
                                     onError={(e) => {
                                         e.target.src = defaultAvatar;
@@ -253,6 +255,16 @@ const Dashboard = () => {
                             Logout
                         </button>
                     </div>
+                </div>
+
+                {/* Travel Countdown Timer */}
+                <div className="mb-8 mt-8">
+                    <TravelCountdownTimer
+                        trips={[]} // This will be populated with actual trips data
+                        onTripUpdate={() => {
+                            // Handle trip updates if needed
+                        }}
+                    />
                 </div>
 
                 {/* Stats Grid */}

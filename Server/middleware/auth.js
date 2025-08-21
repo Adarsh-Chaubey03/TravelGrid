@@ -7,7 +7,7 @@ console.log('Auth middleware: JWT_SECRET is', JWT_SECRET ? 'set' : 'using fallba
 exports.verifyJWT = async (req, res, next) => {
   try {
     console.log('Auth middleware: verifyJWT called for path:', req.path);
-    
+
     // Get token from cookies or Authorization header
     const token =
       req.cookies?.token ||
@@ -51,9 +51,12 @@ exports.verifyJWT = async (req, res, next) => {
       error.name === "TokenExpiredError"
         ? "Token expired"
         : error.name === "JsonWebTokenError"
-        ? "Invalid token"
-        : "Token verification failed";
+          ? "Invalid token"
+          : "Token verification failed";
 
     return res.status(401).json({ message, success: false });
   }
 };
+
+// Export protect middleware (alias for verifyJWT)
+exports.protect = exports.verifyJWT;

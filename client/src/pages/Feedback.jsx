@@ -202,17 +202,9 @@ const Feedback = () => {
   ];
 
   return (
-    <div className={`min-h-screen ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-black via-gray-900 to-pink-900'
-        : 'bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50'
-    }`}>
+    <div className={`min-h-screen`}>
       {/* Hero Section */}
-      <div className={`py-32 px-4 relative overflow-hidden ${
-        isDarkMode 
-          ? 'bg-gradient-to-r from-red-900 via-pink-800 to-fuchsia-500 text-white'
-          : 'bg-gradient-to-r from-red-100 via-pink-100 to-fuchsia-100 text-gray-900'
-      }`}>
+      <div className={`py-32 px-4 relative overflow-hidden`}>
         <div className={`absolute inset-0 ${
           isDarkMode ? 'bg-black bg-opacity-10' : 'bg-white bg-opacity-20'
         }`}></div>

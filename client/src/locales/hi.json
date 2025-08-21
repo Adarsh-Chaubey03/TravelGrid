@@ -44,6 +44,7 @@
   },
   "navigation": {
     "home": "होम",
+    "about": "हमारे बारे में",
     "trendingSpots": "ट्रेंडिंग स्पॉट्स",
     "booking": "बुकिंग",
     "support": "सहायता",
@@ -224,5 +225,64 @@
     "newsletter": "न्यूजलेटर",
     "subscribe": "सदस्यता लें",
     "allRightsReserved": "सर्वाधिकार सुरक्षित"
+  },
+  "login": {
+    "title": "फिर से स्वागत है",
+    "subtitle": "अपनी यात्रा जारी रखने के लिए अपने खाते में साइन इन करें",
+    "email": "ईमेल पता",
+    "emailPlaceholder": "अपना ईमेल दर्ज करें",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "अपना पासवर्ड दर्ज करें",
+    "signIn": "साइन इन",
+    "signingIn": "साइन इन हो रहा है...",
+    "orContinue": "या जारी रखें",
+    "googleSignIn": "Google से जारी रखें",
+    "noAccount": "खाता नहीं है?",
+    "signupHere": "यहाँ साइन अप करें",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "clickHere": "यहाँ क्लिक करें",
+    "errors": {
+      "emptyEmail": "कृपया अपना ईमेल दर्ज करें।",
+      "invalidEmail": "कृपया एक मान्य ईमेल पता दर्ज करें।",
+      "emptyPassword": "कृपया अपना पासवर्ड दर्ज करें।",
+      "verifyEmail": "साइन इन करने से पहले कृपया अपना ईमेल सत्यापित करें।",
+      "invalidCredentials": "ईमेल या पासवर्ड गलत है"
+    },
+    "actions": {
+      "resendConfirm": "क्या आप सत्यापन ईमेल फिर से भेजना चाहते हैं?"
+    }
+  },
+  "signup": {
+    "title": "खाता बनाएं",
+    "subtitle": "TravelGrid से जुड़ें और अपनी यात्रा शुरू करें",
+    "name": "पूरा नाम",
+    "namePlaceholder": "अपना पूरा नाम दर्ज करें",
+    "email": "ईमेल पता",
+    "emailPlaceholder": "अपना ईमेल दर्ज करें",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "पासवर्ड बनाएं",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "confirmPasswordPlaceholder": "अपना पासवर्ड पुष्टि करें",
+    "createAccount": "खाता बनाएं",
+    "creatingAccount": "खाता बनाया जा रहा है...",
+    "orContinue": "या जारी रखें",
+    "googleSignUp": "Google से जारी रखें",
+    "alreadyAccount": "पहले से खाता है?",
+    "signinHere": "यहाँ साइन इन करें",
+    "weakPassword": "कमजोर पासवर्ड",
+    "mediumPassword": "मध्यम ताकत",
+    "strongPassword": "मजबूत पासवर्ड",
+    "passwordsMatch": "पासवर्ड मेल खाते हैं",
+    "passwordsDontMatch": "पासवर्ड मेल नहीं खाते",
+    "success": "खाता बन गया! जारी रखने के लिए कृपया अपना ईमेल सत्यापित करें।",
+    "errors": {
+      "fillAll": "कृपया आगे बढ़ने के लिए सभी आवश्यक विवरण भरें।",
+      "invalidEmail": "कृपया एक मान्य ईमेल पता दर्ज करें",
+      "invalidName": "नाम में केवल अक्षर और स्पेस हो सकते हैं",
+      "shortName": "नाम कम से कम 2 अक्षर का होना चाहिए",
+      "weakPassword": "पासवर्ड में कम से कम 8 अक्षर, एक बड़ा अक्षर, एक छोटा अक्षर, एक संख्या और एक विशेष अक्षर होना चाहिए।",
+      "passwordMismatch": "पासवर्ड मेल नहीं खाते।",
+      "signupFailed": "साइन अप विफल"
+    }
   }
 }

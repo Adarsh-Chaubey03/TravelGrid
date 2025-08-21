@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Menu, X, User, LogOut, LogIn, ChevronDown, Mail, AlertTriangle } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "../LanguageSelector";
-import path from "path";
+
 
 
 
@@ -22,6 +22,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: t('navigation.home'), path: "/" },
+    { name: t('navigation.about'), path: "/about" },
     { name: t('navigation.trendingSpots'), path: "/trending-spots" },
     {
       name: t('navigation.booking'),
@@ -39,20 +40,26 @@ const Navbar = () => {
         { label: t('navigation.guide'), path: "/guides" },
         { label: t('navigation.contact'), path: "/contact" },
         { label: t('navigation.reviewSummarizer'), path: "/Summarizer" },
+        {label:t('Visa'),path:"/visa-checker"},
       ],
     },
     {
       name: t('navigation.tools'),
       subitems: [
         { label: t('navigation.tripCalculator'), path: "/trip-calculator" },
-        { label: t('navigation.packingChecklist'), path: "/packing-checklist" },
-        { label: t('navigation.travelRecommendations'), path: "/recommendation" },
+       { label: t('navigation.packingChecklist'), path: "/packing-checklist" },
+       { label: "Destination Packing List", path: "/destination-packing" },
+ 
+       { label: t('navigation.travelRecommendations'), path: "/recommendation" },
         { label: t('navigation.feedback'), path: "/feedback" },
-
         { label: "AI Mood Board", path: "/mood-board" },
+        { label: "AI Travel Planner", path: "/ai-travel-planner" },
+        { label: "Travel Countdown Timer", path: "/countdown-demo" },
+        { label: "Music", path: "/music" },
+        {label:"Map",path:"/itinerary-map"},
 
-        { label: t('navigation.petTravelGuide'), path: "/pettravel" }
-
+        { label: t('navigation.petTravelGuide'), path: "/pettravel" },
+        { label: "Enhanced Currency Converter", path: "/enhanced-currency" }
       ],
     },
     { name: t('navigation.wishlist'), path: "/wishlist" },
@@ -97,10 +104,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    setIsSidebarOpen(false);
-  }, [location.pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = isSidebarOpen ? "hidden" : "auto";
   }, [isSidebarOpen]);
 
@@ -122,7 +125,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
+          className="w-full max-w-[300px] text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
         >
           TravelGrid
         </Link>
@@ -134,8 +137,8 @@ const Navbar = () => {
               key={link.name}
               to={link.path}
               className={`px-4 py-2 rounded-lg hover:text-white hover:bg-pink-500 hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${location.pathname === link.path
-                  ? "bg-pink-500/20 text-white shadow-md"
-                  : ""
+                ? "bg-pink-500/20 text-white shadow-md"
+                : ""
                 }`}
             >
               {link.name}
@@ -147,8 +150,8 @@ const Navbar = () => {
       {/* Top Navbar */}
       <nav
         className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 px-4 sm:px-6 ${isDarkMode
-            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
-            : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
+          ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
+          : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
           } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
         <div className="w-full max-w-full mx-auto flex justify-between items-center gap-4 px-2 py-6">
@@ -159,40 +162,44 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-2 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200"
+            className="flex items-center gap-1 text-2xl font-bold tracking-tight 
+                      bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent 
+                      transition-colors duration-200"
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
-              className="w-10 h-10 rounded-full border border-pink-300 shadow-md"
+              loading="lazy"
+              className="w-8 h-8 rounded-full border border-pink-300 shadow-md"
             />
             TravelGrid
           </NavLink>
 
 
+
           {/* Desktop Nav */}
           <div
-            className={`hidden md:flex items-center gap-4 font-medium flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
+            className={`hidden md:flex items-center gap-2 font-small flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
               }`}
           >
             {navLinks.map((link) =>
               link.subitems ? (
                 <div className="relative group" key={link.name}>
-                  <button
+                  <button aria-label="Search"
 
-                    className={`py-1.5 px-4 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
-                        ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
-                        : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
-                        }`
+                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
+                      ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
+                      : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
+                      }`
                       }`}
-    >
-                    {link.name} <ChevronDown fontSize={16} />
+                  >
+                    {link.name} <ChevronDown fontSize={14} />
                   </button>
                   {/* Dropdown menu */}
                   <div
                     className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
-                        ? "bg-slate-800 text-white border border-slate-700"
-                        : "bg-white text-gray-900 border border-gray-200"
+                      ? "bg-slate-800 text-white border border-slate-700"
+                      : "bg-white text-gray-900 border border-gray-200"
                       }`}
                   >
                     {link.subitems.map((item) => (
@@ -200,7 +207,7 @@ const Navbar = () => {
                         key={item.label}
                         to={item.path}
                         className={({ isActive }) =>
-                          `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                          `py-2 px-2 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
                             ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
                             : ""
                           }`
@@ -258,6 +265,7 @@ const Navbar = () => {
                     <img
                       src={user.picture}
                       alt="User Avatar"
+                      loading="lazy" 
                       className="w-6 h-6 rounded-full object-cover"
                     />
                   ) : user?.name ? (
@@ -269,7 +277,7 @@ const Navbar = () => {
                   )}
                   {t('navigation.dashboard')}
                 </NavLink>
-                <button
+                <button aria-label="Search"
                   onClick={handleLogout}
                   className="hover:text-pink-500 flex items-center gap-1 transition-colors"
                 >
@@ -319,8 +327,8 @@ const Navbar = () => {
       {/* Mobile Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-[80vw] sm:w-[60vw] max-w-[320px] z-[1002] transition-transform duration-300 ease-in-out transform ${isDarkMode
-            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-200"
-            : "bg-gradient-to-r from-white via-gray-50 to-white text-gray-900"
+          ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-200"
+          : "bg-gradient-to-r from-white via-gray-50 to-white text-gray-900"
           } ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="p-5 flex flex-col h-full">
@@ -342,7 +350,7 @@ const Navbar = () => {
             {navLinks.map((link) =>
               link.subitems ? (
                 <div key={link.name} className="flex flex-col">
-                  <button
+                  <button aria-label="Search"
                     onClick={() => toggleGroup(link.name)}
                     className="py-2 px-3 w-full flex justify-between items-center rounded hover:bg-pink-500 transition-all duration-200"
                   >
@@ -398,7 +406,7 @@ const Navbar = () => {
                 >
                   <User size={18} /> {t('navigation.dashboard')}
                 </NavLink>
-                <button
+                <button aria-label="Search"
                   onClick={handleLogout}
                   className="flex gap-2 items-center text-red-400 py-2 px-3 hover:bg-red-500/10"
                 >

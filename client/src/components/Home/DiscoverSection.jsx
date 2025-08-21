@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import DiscoverCard from "../DiscoverCard.jsx";
@@ -8,35 +8,47 @@ const destinations = [
   {
     id: 1,
     name: "Manali, Himachal",
+    category: "Mountain",
+    rating: 4.7,
+    popularity: 800,
+    price: 4500,
     description:
       "A beautiful hill station known for its scenic beauty and adventure sports.",
-    image:
-      "https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60",
   },
   {
     id: 2,
     name: "Jaipur, Rajasthan",
+    category: "Historical",
+    rating: 4.5,
+    popularity: 700,
+    price: 3500,
     description: "The Pink City with rich history, forts, and vibrant culture.",
-    image:
-      "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&auto=format&fit=crop&q=60",
   },
   {
     id: 3,
     name: "Goa",
-    description:
-      "Popular beach destination with nightlife, water sports, and culture.",
-    image:
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&auto=format&fit=crop&q=60",
+    category: "Beach",
+    rating: 4.8,
+    popularity: 950,
+    price: 5000,
+    description: "Popular beach destination with nightlife, water sports, and culture.",
+    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&auto=format&fit=crop&q=60",
   },
   {
     id: 4,
     name: "Rishikesh, Uttarakhand",
-    description:
-      "The yoga capital of the world, nestled on the banks of the Ganges.",
-    image:
-      "https://plus.unsplash.com/premium_photo-1697730398251-40cd8dc57e0b?w=600&auto=format&fit=crop&q=60",
+    category: "Mountain",
+    rating: 4.6,
+    popularity: 650,
+    price: 3000,
+    description: "The yoga capital of the world, nestled on the banks of the Ganges.",
+    image: "https://plus.unsplash.com/premium_photo-1697730398251-40cd8dc57e0b?w=600&auto=format&fit=crop&q=60",
   },
 ];
+
+
 
 const container = {
   hidden: {},
@@ -63,6 +75,21 @@ const DiscoverSection = () => {
   const handleDiscoverMore = () => {
     navigate("/destinations");
   };
+const [searchTerm, setSearchTerm] = useState("");
+const [category, setCategory] = useState("All");
+const [sortBy, setSortBy] = useState("popularity");
+
+const filteredDestinations = destinations
+  .filter((place) =>
+    place.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .filter((place) => category === "All" || place.category === category)
+  .sort((a, b) => {
+    if (sortBy === "popularity") return b.popularity - a.popularity;
+    if (sortBy === "rating") return b.rating - a.rating;
+    if (sortBy === "price") return a.price - b.price;
+    return 0;
+  });
 
   return (
     <motion.section
@@ -101,28 +128,41 @@ const DiscoverSection = () => {
           </motion.p>
         </div>
 
-        {/* Cards */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-stretch mb-16"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
-          {destinations.map((place) => (
-            <motion.div
-              key={place.id}
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-              className="h-full"
-            >
-              <DiscoverCard
-                place={place}
-                handleBookNowClick={handleBookNowClick}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+
+      {/* Cards */}
+<motion.div
+  variants={container}
+  initial="hidden"
+  animate="show"
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch"
+>
+  {filteredDestinations.length > 0 ? (
+    filteredDestinations.map((place) => (
+      <motion.div
+        key={place.id}
+        variants={item}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+        className="h-full"
+      >
+        <DiscoverCard
+          place={place}
+          handleBookNowClick={handleBookNowClick}
+        />
+      </motion.div>
+    ))
+  ) : (
+    <motion.div
+      className="col-span-full text-center text-gray-500 py-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      No destinations found.
+    </motion.div>
+  )}
+</motion.div>
+
+
 
         {/* CTA Section */}
         <div className="text-center mt-16">

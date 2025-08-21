@@ -32,12 +32,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300" 
-      style={{ 
-        background: isDarkMode ? 'var(--bg-primary)' : 'linear-gradient(to right bottom, #f9fafb, #f3f4f6)', 
-        color: 'var(--text-primary)'
-      }}
-    >
+    <div className="min-h-screen transition-colors duration-300">
       <Navbar lightBackground />
 
       {/* Hero Section */}
@@ -50,9 +45,9 @@ const Wishlist = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-              Your <span className="text-pink-600 dark:text-pink-400">Wishlist</span>
+              Your <span className="text-pink-600 dark:text-pink">Wishlist</span>
             </h1>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-primary)' }}>
               All your favorite destinations saved in one place for your future adventures.
             </p>
           </div>
@@ -63,19 +58,19 @@ const Wishlist = () => {
       <div className="px-4 pb-16">
         <div className="max-w-7xl mx-auto">
           {wishlist.length === 0 ? (
-            <div className={`text-center py-16 rounded-xl bg-white dark:bg-gray-800 shadow-md transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className={`text-center py-16 rounded-xl bg-white dark:bg-gradient-to-br from-black to-[#ec4899] shadow-md transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="flex justify-center mb-6">
-                <Heart className="h-16 w-16 text-gray-300 dark:text-gray-600" />
+                <Heart className="h-16 w-16 text-white-300 dark:text-white" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: 'var(--bg-tertiary)' }}>
                 Your wishlist is empty
               </h3>
-              <p className="text-md max-w-md mx-auto mb-6" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-md max-w-md mx-auto mb-6" style={{ color: 'var(--input-text)' }}>
                 Start saving your dream destinations to plan your next adventure!
               </p>
               <button 
                 onClick={handleNavigateToTrending}
-                className="inline-flex items-center px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-full font-medium transition-colors duration-200"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-black to-[#4e1431] hover:bg-pink-700 text-white rounded-full font-medium transition-colors duration-200"
               >
                 <TrendingUp className="h-5 w-5 mr-2" />
                 Explore Trending Spots
@@ -88,7 +83,7 @@ const Wishlist = () => {
                   <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
                     Saved Destinations ({wishlist.length})
                   </h2>
-                  <button 
+                  <button aria-label="Search"
                     onClick={handleNavigateToTrending}
                     className="text-sm flex items-center text-pink-600 dark:text-pink-400 hover:underline"
                   >
@@ -112,7 +107,7 @@ const Wishlist = () => {
                 {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex justify-center items-center gap-4 mt-10">
-                    <button
+                    <button aria-label="Search"
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page - 1)}
                       disabled={page === 1}
@@ -123,7 +118,7 @@ const Wishlist = () => {
                     <span className="text-sm font-medium px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md" style={{ color: 'var(--text-primary)' }}>
                       Page {page} of {totalPages}
                     </span>
-                    <button
+                    <button aria-label="Search"
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page + 1)}
                       disabled={page === totalPages}

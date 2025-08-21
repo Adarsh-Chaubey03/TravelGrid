@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+/* 
 @tailwind base;
-@tailwind components;
+@tailwind components; */
 @tailwind utilities;
 
 /* CSS Variables for Theme Colors */
@@ -17,7 +17,7 @@
   --border-primary: #e2e8f0;
   --border-secondary: #cbd5e1;
   --accent-primary: #ec4899;
-  --accent-secondary: #be185d;
+  --accent-secondary: #be1865;
   --shadow-primary: rgba(0, 0, 0, 0.1);
   --shadow-secondary: rgba(0, 0, 0, 0.05);
   --gradient-primary: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
@@ -28,6 +28,7 @@
   --input-bg: #ffffff;
   --input-border: #d1d5db;
   --input-focus: #ec4899;
+  --input-text:#ffc5e3;
   --button-primary: #ec4899;
   --button-hover: #be185d;
   --success-color: #10b981;
@@ -65,7 +66,7 @@
 }
 
 /* Base styles */
-* {
+body {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -96,6 +97,25 @@ body {
 /* Theme transition utilities */
 .theme-transition {
   transition: all 0.3s ease;
+}
+
+/* Utility class for content below fixed navbar */
+.content-below-navbar {
+  padding-top: 5rem;
+  /* h-20 = 5rem = 80px */
+  margin-top: 1rem;
+}
+
+/* Global fix for fixed navbar spacing */
+body {
+  padding-top: 0;
+}
+
+/* Ensure main content areas have proper spacing */
+main,
+.main-content {
+  padding-top: 5rem;
+  /* Account for fixed navbar */
 }
 
 /* Custom component styles for dark mode */
@@ -167,7 +187,169 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Custom animations for About page */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.8s ease-out;
+}
+
+/* Smooth transitions for elements */
+.transition-all-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects */
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Intersection observer animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Leaflet routing panel - theme aware */
+.leaflet-routing-container {
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+[data-theme="dark"] .leaflet-routing-container {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+:root .leaflet-routing-container {
+  background-color: #ffffff !important;
+  color: #1f293b !important;
+  border: 1px solid #f9a8d4 !important; /* pink border in light */
+}
+
+.leaflet-routing-container a {
+  color: #ec4899 !important;
+}
+
+[data-theme="dark"] .leaflet-routing-container a {
+  color: #60a5fa !important;
+}
+
+.leaflet-routing-container h2,
+.leaflet-routing-container h3 {
+  color: inherit !important;
+}
+
+
+/* Make sure map is always on top */
+.leaflet-container {
+  z-index: 1;
+  position: relative;
+}
+
+/* Make sure routing control box is above map tiles */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 1000 !important;
+  position: relative;
+}
+
+select {
+  background-color: #f0f0f0; /* light gray instead of white */
+  color: #000; /* black text */
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+select option {
+  background-color: #fff; /* options background */
+  color: #000; /* options text color */
+}
+
+.dark select {
+  background-color: #333; /* dark mode dropdown */
+  color: #fff;
+}
+
+.dark select option {
+  background-color: #444;
+  color: #fff;
 }

@@ -44,6 +44,7 @@
   },
   "navigation": {
     "home": "Inicio",
+    "about": "Acerca de",
     "trendingSpots": "Lugares Populares",
     "booking": "Reserva",
     "support": "Soporte",
@@ -224,5 +225,64 @@
     "newsletter": "Boletín",
     "subscribe": "Suscribirse",
     "allRightsReserved": "Todos los derechos reservados"
+  },
+  "login": {
+    "title": "Bienvenido de nuevo",
+    "subtitle": "Inicia sesión en tu cuenta para continuar tu viaje",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "signIn": "Iniciar Sesión",
+    "signingIn": "Iniciando sesión...",
+    "orContinue": "O continúa con",
+    "googleSignIn": "Continuar con Google",
+    "noAccount": "¿No tienes una cuenta?",
+    "signupHere": "Regístrate aquí",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "clickHere": "Haz clic aquí",
+    "errors": {
+      "emptyEmail": "Por favor ingresa tu correo electrónico.",
+      "invalidEmail": "Por favor ingresa una dirección de correo válida.",
+      "emptyPassword": "Por favor ingresa tu contraseña.",
+      "verifyEmail": "Por favor verifica tu correo electrónico antes de iniciar sesión.",
+      "invalidCredentials": "Correo electrónico o contraseña incorrectos"
+    },
+    "actions": {
+      "resendConfirm": "¿Deseas reenviar el correo de verificación?"
+    }
+  },
+  "signup": {
+    "title": "Crear Cuenta",
+    "subtitle": "Únete a TravelGrid y comienza tu aventura",
+    "name": "Nombre completo",
+    "namePlaceholder": "Ingresa tu nombre completo",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Crea una contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "createAccount": "Crear Cuenta",
+    "creatingAccount": "Creando cuenta...",
+    "orContinue": "O continúa con",
+    "googleSignUp": "Continuar con Google",
+    "alreadyAccount": "¿Ya tienes una cuenta?",
+    "signinHere": "Inicia sesión aquí",
+    "weakPassword": "Contraseña débil",
+    "mediumPassword": "Fuerza media",
+    "strongPassword": "Contraseña fuerte",
+    "passwordsMatch": "Las contraseñas coinciden",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "success": "¡Cuenta creada! Por favor verifica tu correo electrónico para continuar.",
+    "errors": {
+      "fillAll": "Por favor completa todos los campos requeridos para continuar.",
+      "invalidEmail": "Por favor ingresa una dirección de correo válida",
+      "invalidName": "El nombre solo puede contener letras y espacios",
+      "shortName": "El nombre debe tener al menos 2 caracteres",
+      "weakPassword": "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "signupFailed": "Registro fallido"
+    }
   }
 }

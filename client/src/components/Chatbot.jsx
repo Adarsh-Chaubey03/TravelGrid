@@ -99,7 +99,7 @@ const Chatbot = () => {
   return (
     <div className="fixed bottom-24 right-6 z-50">
       {!open && (
-        <button
+        <button 
           onClick={toggleChat}
           className="group relative bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 p-4 rounded-full text-white shadow-2xl hover:shadow-pink-500/25 transform hover:scale-110 transition-all duration-300 ease-out"
           aria-label="Open travel chat"
@@ -150,7 +150,7 @@ const Chatbot = () => {
               </div>
               <button 
                 onClick={toggleChat}
-                className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 hover:rotate-90"
+                className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 hover:rotate-90 cursor-pointer"
                 aria-label="Close chat"
               >
                 <X className="w-5 h-5" />
@@ -245,23 +245,25 @@ const Chatbot = () => {
               ? 'border-slate-600 bg-slate-800/80 backdrop-blur-sm' 
               : 'border-pink-100 bg-white/80 backdrop-blur-sm'
           }`}>
-            <div className="flex items-end space-x-3">
+            {/* changed items-end to items-center for better layout consistency */}
+            <div className="flex items-center justify-between  space-x-3">
               <div className="flex-1 relative">
+                 {/* Reduce padding area and hide scrollbar in textarea for better ux and for long input*/}
                 <textarea
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask about destinations..."
-                  className={`w-full p-4 pr-4 text-sm border rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all max-h-32 min-h-[52px] ${
+                  className={`w-full px-3 py-2 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 overflow-hidden focus:border-transparent transition-all duration-300 max-h-28 min-h-[52px] ${
                     isDarkMode 
                       ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' 
-                      : 'bg-gray-50/80 border-pink-200 text-gray-700 placeholder-gray-400'
+                      : 'bg-gray-50/80 border-pink-500 text-gray-700 placeholder-gray-400'
                   }`}
                   style={{ 
                     height: 'auto',
-                    minHeight: '55px',
-                    maxHeight: '128px'
+                    minHeight: '52px',
+                    maxHeight: '128px',
                   }}
                   onInput={(e) => {
                     e.target.style.height = 'auto';
@@ -270,10 +272,11 @@ const Chatbot = () => {
                   disabled={isLoading}
                 />
               </div>
+              {/* Update button styles for consistent rounded shape and changed color scheme for better visibility */}
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
-                className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-2xl hover:from-pink-600 hover:to-rose-600 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 hover:shadow-lg flex-shrink-0 shadow-md"
+                className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-full hover:from-pink-600 hover:to-rose-600 disabled:text-gray-400 disabled:from-white/10 disabled:to-white/10 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 hover:shadow-lg flex-shrink-0 shadow-md cursor-pointer"
                 aria-label="Send message"
               >
                 <Send className="w-4 h-4" />

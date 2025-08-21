@@ -286,22 +286,35 @@ main,
   transform: translateY(0);
 }
 
-/* Fix Leaflet routing panel text color for dark themes */
+/* Leaflet routing panel - theme aware */
 .leaflet-routing-container {
-  background-color: #1f2937 !important; /* dark gray background */
-  color: #ffffff !important; /* white text */
   font-size: 0.9rem;
   border-radius: 8px;
   padding: 8px;
 }
 
+[data-theme="dark"] .leaflet-routing-container {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+:root .leaflet-routing-container {
+  background-color: #ffffff !important;
+  color: #1f293b !important;
+  border: 1px solid #f9a8d4 !important; /* pink border in light */
+}
+
 .leaflet-routing-container a {
-  color: #60a5fa !important; /* light blue links */
+  color: #ec4899 !important;
+}
+
+[data-theme="dark"] .leaflet-routing-container a {
+  color: #60a5fa !important;
 }
 
 .leaflet-routing-container h2,
 .leaflet-routing-container h3 {
-  color: #ffffff !important;
+  color: inherit !important;
 }
 
 

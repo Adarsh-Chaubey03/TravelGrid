@@ -203,218 +203,183 @@ export default function VisaChecker() {
   };
 
   return (
-    <div className={`min-h-screen  ${isDarkMode? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900':'bg-gradient-to-br from-blue-50 to-pink-50'} px-4 py-8`}>
-      <div className="max-w-4xl mx-auto">
-        {/* Heading */}
-        <div className="mb-6">
-          <h1 className={`text-3xl font-extrabold  ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>
-            Visa & Travel Requirements Checker
-          </h1>
-          <p className="mt-9 text-7xl font-stretch-50% border-8 p-5 border-dotted font-bold text-blue-400 text-center ">
-            Visa Checker
-          </p>
+    <div className={`min-h-screen pt-24 px-4 py-8 ${isDarkMode ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900' : 'bg-gradient-to-br from-blue-50 to-pink-50'}`}>
+  <div className="max-w-5xl mx-auto space-y-8">
+
+    {/* Heading */}
+    {/* Full-width Hero Section */}
+<div className={`h-[50vh] w-full flex flex-col justify-center items-center bg-pink-100`}>
+  <h1 className="text-4xl md:text-6xl font-bold text-pink-700 text-center">
+    Visa & Travel Requirements
+  </h1>
+  <p className="mt-6 text-sm md:text-lg text-black text-center max-w-full whitespace-nowrap overflow-x-auto">
+    Quickly check visa requirements and travel guidelines for any country with ease.
+  </p>
+</div>
+
+
+
+    {/* Form Card */}
+    <form
+      onSubmit={onCheck}
+      className={`border p-6 rounded-3xl shadow-lg backdrop-blur-sm ${isDarkMode ? 'bg-zinc-900/70 border-zinc-700' : 'bg-white border-pink-500'}`}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        {/* Passport */}
+        <div>
+          <label className={`block text-xs font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+            Passport Country
+          </label>
+          <select
+            value={passport}
+            onChange={(e) => setPassport(e.target.value)}
+            required
+            className={`w-full p-3 rounded-xl border ${isDarkMode ? 'bg-zinc-800/80 text-zinc-100 border-zinc-700' : 'bg-white text-zinc-900 border-zinc-300'}`}
+            style={{ appearance: "auto" }}
+          >
+            <option value="">Select Passport</option>
+            {countries.map((c) => (
+              <option key={c.code} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* Form card */}
-        <form
-          onSubmit={onCheck}
-          className={` border p-5 rounded-2xl shadow-sm backdrop-blur ${isDarkMode?'bg-zinc-900/60 border-zinc-700 ':'bg-white '}`}
+        {/* Destination */}
+        <div>
+          <label className={`block text-xs font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+            Destination Country
+          </label>
+          <select
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            required
+            className={`w-full p-3 rounded-xl border ${isDarkMode ? 'bg-zinc-800/80 text-zinc-100 border-zinc-700' : 'bg-white text-zinc-900 border-zinc-300'}`}
+            style={{ appearance: "auto" }}
+          >
+            <option value="">Select Destination</option>
+            {destinationOptions.map((c) => (
+              <option key={c.code} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Dates */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className={`block text-xs font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+              From (Optional)
+            </label>
+            <input
+              type="date"
+              value={dates.from}
+              onChange={(e) => setDates((d) => ({ ...d, from: e.target.value }))}
+              className={`w-full p-2 rounded-xl border ${isDarkMode ? 'bg-zinc-800/80 text-zinc-100 border-zinc-400' : 'bg-white text-zinc-900 border-zinc-300'}`}
+            />
+          </div>
+          <div>
+            <label className={`block text-xs font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+              To (Optional)
+            </label>
+            <input
+              type="date"
+              value={dates.to}
+              onChange={(e) => setDates((d) => ({ ...d, to: e.target.value }))}
+              className={`w-full p-2 rounded-xl border ${isDarkMode ? 'bg-zinc-800/80 text-zinc-100 border-zinc-400' : 'bg-white text-zinc-900 border-zinc-300'}`}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="mt-6 flex flex-col md:flex-row gap-4 md:gap-3 justify-center md:justify-start">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full md:w-auto px-5 py-3 rounded-xl font-semibold bg-pink-600 hover:bg-pink-700 text-white disabled:opacity-60 transition"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Passport */}
+          {loading ? "Checking..." : "Check Requirements"}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setPassport(""); setDestination(""); setDates({ from: "", to: "" });
+            setResult(null); setRestInfo(null); setAdvisory(null); setHealth(null); setVisaHint(null);
+          }}
+          className={`w-full md:w-auto px-5 py-3 rounded-xl border font-medium ${isDarkMode ? 'border-zinc-500 text-zinc-100' : 'border-zinc-300 text-zinc-800'}`}
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+
+    {/* Result */}
+    {result && (
+      <div className="space-y-6">
+        <div className={`p-6 rounded-3xl border shadow-md ${isDarkMode ? 'bg-zinc-900/70 border-zinc-700' : 'bg-white border-zinc-200'}`}>
+          
+          {/* Header */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <label className={`block text-xs font-medium  ${isDarkMode?'text-zinc-300':'text-zinc-600'} mb-2`}>
-                Passport country
-              </label>
-              <select
-                value={passport}
-                onChange={(e) => setPassport(e.target.value)}
-                className={`w-full p-2 rounded-xl border ${isDarkMode?'text-zinc-100 bg-zinc-800/80 border-zinc-700 ':'text-zinc-900 bg-white border-zinc-300'}`}
-                style={{ appearance: "auto" }}
-                required
-              >
-                <option value="">Select passport</option>
-                {countries.map((c) => (
-                  <option
-                    key={c.code}
-                    value={c.name}
-                    style={{ color: "#111", background: "#fff" }}
-                  >
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Destination */}
-            <div>
-              <label className={`block text-xs font-medium ${isDarkMode?'text-zinc-300':'text-zinc-600'} mb-2`}>
-                Destination country
-              </label>
-              <select
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                className={`w-full p-2 rounded-xl border ${isDarkMode?'text-zinc-100 bg-zinc-800/80 border-zinc-700 ':'text-zinc-900 bg-white border-zinc-300'}`}
-                style={{ appearance: "auto" }}
-                required
-              >
-                <option value="">Select destination</option>
-                {destinationOptions.map((c) => (
-                  <option
-                    key={c.code}
-                    value={c.name}
-                    style={{ color: "#111", background: "#fff" }}
-                  >
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Dates (optional) */}
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className={`block text-xs font-medium ${isDarkMode?'text-zinc-300':'text-zinc-600'} mb-2`}>
-                  From (optional)
-                </label>
-                <input
-                  type="date"
-                  value={dates.from}
-                  onChange={(e) => setDates((d) => ({ ...d, from: e.target.value }))}
-                  className={`w-full p-2 rounded-xl border ${isDarkMode?'text-zinc-100 bg-zinc-800/80 border-zinc-400 ':'text-zinc-600 bg-white border-zinc-300'}`}
-                />
-              </div>
-              <div>
-                <label className={`block text-xs font-medium ${isDarkMode?'text-zinc-300':'text-zinc-600'} mb-2`}>
-                  To (optional)
-                </label>
-                <input
-                  type="date"
-                  value={dates.to}
-                  onChange={(e) => setDates((d) => ({ ...d, to: e.target.value }))}
-                  className={`w-full p-2 rounded-xl border ${isDarkMode?'text-zinc-100 bg-zinc-800/80 border-zinc-400 ':'text-zinc-600 bg-white border-zinc-300'}`}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex gap-3">
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex items-center justify-center rounded-xl bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 font-semibold disabled:opacity-60"
-            >
-              {loading ? "Checking..." : "Check Requirements"}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setPassport("");
-                setDestination("");
-                setDates({ from: "", to: "" });
-                setResult(null);
-                setRestInfo(null);
-                setAdvisory(null);
-                setHealth(null);
-                setVisaHint(null);
-              }}
-              className={`rounded-xl border px-4 py-2 ${isDarkMode?'text-zinc-100 border-zinc-500':'text-zinc-800 border-zinc-300'}`}
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-
-        {/* Result */}
-        {result && (
-          <div className="mt-6 space-y-5">
-            <div className={` rounded-2xl p-5 border shadow-sm ${isDarkMode?'border-zinc-700 bg-zinc-900/60 ':'bg-white'}`}>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className={`text-lg font-semibold ${isDarkMode?'text-zinc-100':'text-zinc-900 '}`}>
-                    {result.passport.name} → {result.destination.name}
-                  </h2>
-                  <p className={`text-sm mt-1 ${isDarkMode?'text-zinc-400':'text-zinc-600 '}`}>
-                    {dates.from && dates.to
-                      ? `Travel window: ${dates.from} → ${dates.to}`
-                      : "Travel window: not specified"}
-                  </p>
-                </div>
-
-                <div>
-                  <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${
-                      visaHint ? "bg-amber-600 text-white" : "bg-gray-500 text-white"
-                    }`}
-                  >
-                    {visaHint ? visaHint : "Confirm with embassy"}
-                  </span>
-                </div>
-              </div>
-
-              {/* Details cards */}
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className={`p-3 rounded-xl border  ${isDarkMode?'bg-zinc-900/50 border-white/10':'border-zinc/10 bg-white/70 '}`}>
-                  <div className={`text-xs  ${isDarkMode?'text-zinc-400':'text-zinc-500'} mb-1`}>Status</div>
-                  <div className={`font-semibold ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>
-                    {visaHint ? visaHint.split("•")[0] : "Check embassy/official source"}
-                  </div>
-                </div>
-
-                <div className={`p-3 rounded-xl border ${isDarkMode?'bg-zinc-900/50 border-white/10':'border-zinc/10 bg-white/70 '}`}>
-                  <div className={`text-xs ${isDarkMode?'text-zinc-400':'text-zinc-500'} mb-1`}>Currency</div>
-                  <div className={`font-medium ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>
-                    {currencyDisplay}
-                  </div>
-                </div>
-
-                <div className={`p-3 rounded-xl border ${isDarkMode?'bg-zinc-900/50 border-white/10':'border-zinc/10 bg-white/70 '}`}>
-                  <div className={`text-xs ${isDarkMode?'text-zinc-400':'text-zinc-500'} mb-1`}>Languages</div>
-                  <div className={`font-medium ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>
-                    {languageDisplay}
-                  </div>
-                </div>
-              </div>
-
-              {/* Advisory & health */}
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className={`p-4 rounded-lg border ${isDarkMode?'bg-zinc-900/50 border-white/10':'bg-white/60 '}`}>
-                  <div className={`font-semibold ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>Travel Advisory</div>
-                  <div className={`mt-2 text-sm ${isDarkMode?'text-zinc-300 ':'text-zinc-700 '}`}>
-                    {advisory?.message || "Not available from advisory API."}
-                  </div>
-                  <div className={`mt-2 text-xs italic  ${isDarkMode?'text-amber-400':'text-amber-600'}`}>
-                    {COMMON_TRAVEL_ADVISORY_NOTE}
-                  </div>
-                </div>
-
-                <div className={`p-4 rounded-lg  border  ${isDarkMode?'bg-zinc-900/50 border-white/10':'bg-white/60 '}`}>
-                  <div className={`font-semibold ${isDarkMode?'text-zinc-100':'text-zinc-900'}`}>Health & Vaccinations</div>
-
-                  <div className={`mt-2 text-sm ${isDarkMode?'text-zinc-300 ':'text-zinc-700 '}`}>
-                    <div>
-                      <strong>Recommended vaccines:</strong>{" "}
-                      {health?.vaccines?.length ? health.vaccines.join(", ") : "Not listed"}
-                    </div>
-                    <div className="mt-2">
-                      <strong>Water safety:</strong> {health?.water?.short || "Not listed"}
-                    </div>
-                  </div>
-
-                  <div className={`mt-2 text-xs italic ${isDarkMode?'text-green-400':'text-green-600'}`}>
-                    {COMMON_HEALTH_NOTE}
-                  </div>
-                </div>
-              </div>
-
-              <p className={`mt-4 text-xs  ${isDarkMode?'text-zinc-400':'text-zinc-600'}`}>
-                ⚠️ Visa policies change frequently. Always verify with official government / embassy sources before travel.
+              <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>
+                {result.passport.name} → {result.destination.name}
+              </h2>
+              <p className={`text-sm mt-1 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                {dates.from && dates.to ? `Travel window: ${dates.from} → ${dates.to}` : "Travel window: not specified"}
               </p>
             </div>
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${visaHint ? 'bg-amber-600 text-white' : 'bg-gray-500 text-white'}`}>
+              {visaHint || "Confirm with embassy"}
+            </span>
           </div>
-        )}
+
+          {/* Details Cards */}
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-900/50 border-white/10' : 'bg-white/70 border-zinc-200'}`}>
+              <div className={`text-xs mb-1 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Status</div>
+              <div className={`font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>
+                {visaHint ? visaHint.split("•")[0] : "Check embassy/official source"}
+              </div>
+            </div>
+            <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-900/50 border-white/10' : 'bg-white/70 border-zinc-200'}`}>
+              <div className={`text-xs mb-1 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Currency</div>
+              <div className={`font-medium ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>{currencyDisplay}</div>
+            </div>
+            <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-900/50 border-white/10' : 'bg-white/70 border-zinc-200'}`}>
+              <div className={`text-xs mb-1 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Languages</div>
+              <div className={`font-medium ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>{languageDisplay}</div>
+            </div>
+          </div>
+
+          {/* Advisory & Health */}
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-900/50 border-white/10' : 'bg-white/60'}`}>
+              <div className={`font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>Travel Advisory</div>
+              <div className={`mt-2 text-sm ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>{advisory?.message || "Not available from advisory API."}</div>
+              <div className={`mt-2 text-xs italic ${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>{COMMON_TRAVEL_ADVISORY_NOTE}</div>
+            </div>
+            <div className={`p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-900/50 border-white/10' : 'bg-white/60'}`}>
+              <div className={`font-semibold ${isDarkMode ? 'text-zinc-100' : 'text-zinc-900'}`}>Health & Vaccinations</div>
+              <div className={`mt-2 text-sm ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                <div><strong>Recommended vaccines:</strong> {health?.vaccines?.length ? health.vaccines.join(", ") : "Not listed"}</div>
+                <div className="mt-2"><strong>Water safety:</strong> {health?.water?.short || "Not listed"}</div>
+              </div>
+              <div className={`mt-2 text-xs italic ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>{COMMON_HEALTH_NOTE}</div>
+            </div>
+          </div>
+
+          <p className={`mt-4 text-xs ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+            ⚠️ Visa policies change frequently. Always verify with official government / embassy sources before travel.
+          </p>
+        </div>
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 }

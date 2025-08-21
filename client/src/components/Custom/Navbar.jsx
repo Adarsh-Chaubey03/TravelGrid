@@ -118,7 +118,7 @@ const Navbar = () => {
       <nav className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/20 px-4 py-3 flex justify-between items-center">
         <Link
           to="/"
-          className="text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
+          className="w-full max-w-[300px] text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
         >
           TravelGrid
         </Link>
@@ -152,34 +152,46 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-2 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200"
+            className="flex items-center gap-1 text-2xl font-bold tracking-tight 
+                      bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent 
+                      transition-colors duration-200"
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
               loading="lazy"
+
               className="w-10 h-10 rounded-full border border-pink-300 shadow-md"
+
             />
             TravelGrid
           </NavLink>
 
+
+          {/* Desktop Nav */}
+
           <div
-            className={`hidden md:flex items-center gap-4 font-medium flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
+            className={`hidden md:flex items-center gap-2 font-small flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
               }`}
           >
             {navLinks.map((link) =>
               link.subitems ? (
                 <div className="relative group" key={link.name}>
-                  <button
-                    onClick={() => toggleGroup(link.name)}
-                    className={`py-1.5 px-4 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
+
+<button
+  aria-label="Search"
+  onClick={() => toggleGroup(link.name)}
+  className={`py-1.5 px-3 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${
+    activeParentTab === link.name
+  }`}
+>
                       ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
                       : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
                       }`
                       }`}
                     aria-label={link.name}
                   >
-                    {link.name} <ChevronDown fontSize={16} />
+                    {link.name} <ChevronDown fontSize={14} />
                   </button>
                   <div
                     className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${isDarkMode
@@ -192,7 +204,7 @@ const Navbar = () => {
                         key={item.label}
                         to={item.path}
                         className={({ isActive }) =>
-                          `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                          `py-2 px-2 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
                             ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
                             : ""
                           }`

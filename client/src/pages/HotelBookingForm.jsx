@@ -20,6 +20,7 @@ const [bookingData, setBookingData] = useState({
   guests: 1,
   firstName: '',
   lastName: '',
+  dob: '',
   specialRequests: '',
   countryCode: '+91',
   contactNumber: '',
@@ -135,6 +136,9 @@ const [bookingData, setBookingData] = useState({
     const newErrors = {};
 
     // Check required fields
+    if (!bookingData.dob) {
+      newErrors.dob = 'Date of birth is required';
+    } 
     if (!bookingData.firstName) {
       newErrors.firstName = 'First name is required';
     } else if (!validateName(bookingData.firstName)) {
@@ -372,6 +376,24 @@ const [bookingData, setBookingData] = useState({
                     <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>
                   )}
                 </div>
+              </div>
+
+              {/* Date of Birth */}
+              <div>
+                <label className="block text-lg font-semibold mb-2">Date of Birth *</label>
+                <input
+                  type="date"
+                  name="dob"
+                  value={bookingData.dob}
+                  onChange={handleInputChange}
+                  className={`w-full p-3 rounded-lg bg-white/10 border text-white ${
+                    errors.dob ? 'border-red-400' : 'border-gray-400'
+                  }`}
+                  required
+                />
+                {errors.dob && (
+                  <p className="text-red-400 text-sm mt-1">{errors.dob}</p>
+                )}
               </div>
 
               {/* Contact Information */}

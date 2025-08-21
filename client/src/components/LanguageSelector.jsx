@@ -52,8 +52,9 @@ const LanguageSelector = () => {
                 aria-label="Select language"
             >
                 <Globe size={16} className="text-pink-500" />
+                <span className="text-lg mr-1">{currentLangInfo.flag}</span>
                 <span className="text-sm font-medium">
-                    {currentLangInfo.flag}
+                    {currentLangInfo.name}
                 </span>
                 <ChevronDown
                     size={14}
@@ -65,7 +66,7 @@ const LanguageSelector = () => {
 
             {isOpen && (
                 <div
-                    className={`absolute right-0 mt-2 w-56 rounded-lg shadow-lg border z-50 ${
+                    className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-50 ${
                         isDarkMode
                             ? "bg-slate-800 border-slate-700 text-white"
                             : "bg-white border-gray-200 text-gray-900"
@@ -74,23 +75,16 @@ const LanguageSelector = () => {
                     <div className="py-1">
                         {languages.map((language) => (
                             <button
-                                aria-label="Search"
                                 key={language.code}
-                                onClick={() =>
-                                    handleLanguageChange(language.code)
-                                }
+                                onClick={() => handleLanguageChange(language.code)}
                                 className={`w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-pink-500 hover:text-white transition-colors duration-200 ${
                                     currentLanguage === language.code
                                         ? "bg-pink-500 text-white"
                                         : ""
                                 }`}
                             >
-                                <span className="text-lg flex-shrink-0">
-                                    {language.flag}
-                                </span>
-                                {currentLanguage === language.code && (
-                                    <div className="ml-auto w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
-                                )}
+                                <span className="text-lg">{language.flag}</span>
+                                <span>{language.name}</span>
                             </button>
                         ))}
                     </div>

@@ -47,15 +47,16 @@ const HotelMap = ({ hotels }) => {
   useEffect(() => {
     document.body.style.overflow = selectedHotel ? 'hidden' : 'auto';
   }, [selectedHotel]);
+  const tileLayerUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+  const attribution = '&copy; <a href="https://carto.com/">CartoDB</a> contributors';
 
   return (
-    <div className="relative h-[600px] w-full rounded-xl overflow-hidden shadow-xl ring-2 ring-pink-400">
+    <div className="relative h-[600px] w-full rounded-xl overflow-hidden shadow-xl ring-2 ring-pink-400 bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100">
       <MapContainer center={[20, 0]} zoom={2} style={{ height: '100%', width: '100%' }}>
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CartoDB</a> contributors'
+        url={tileLayerUrl}
+        attribution={attribution}
         />
-
         <MapBoundsController hotels={hotels} selectedHotel={selectedHotel} />
 
         {hotels.map((hotel) => (

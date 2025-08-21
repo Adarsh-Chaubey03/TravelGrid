@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { useTheme } from '../../context/ThemeContext';
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 
 const ItineraryMap = ({ stops }) => {
+  const { isDarkMode } = useTheme();
   useEffect(() => {
     if (!stops || stops.length === 0) return;
 
@@ -16,9 +18,16 @@ const ItineraryMap = ({ stops }) => {
 
     const map = L.map("map").setView([stops[0].lat, stops[0].lng], 6);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© OpenStreetMap contributors',
-    }).addTo(map);
+    const tileLayerUrl = isDarkMode
+      ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+      : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+
+    const attribution = isDarkMode 
+      ? '&copy; <a href="https://carto.com/">CartoDB</a> contributors'
+      : '&copy; <a href="https://carto.com/">CartoDB</a> contributors';
+
+    L.tileLayer(tileLayerUrl, { attribution, subdomains: "abcd", maxZoom: 19 }).addTo(map);
+
 
     if (stops.length >= 2) {
       L.Routing.control({
@@ -34,7 +43,7 @@ const ItineraryMap = ({ stops }) => {
     return () => {
       map.remove();
     };
-  }, [stops]);
+  }, [stops, isDarkMode]);
 
   return <div id="map" style={{ height: "500px", width: "100%" }}></div>;
 };

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { useMapContext } from "../context/MapContext";
 import ItineraryMap from "../components/Map/ItineraryMap";
 
 const ItineraryMapPage = () => {
   const { itineraryStops, setStops } = useMapContext();
   const [formData, setFormData] = useState({ from: "", to: "" });
+  const { isDarkMode } = useTheme();
 
   const geocodeLocation = async (place) => {
     try {
@@ -41,40 +43,118 @@ const ItineraryMapPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6 pt-24">
-      <h1 className="text-3xl font-extrabold mb-4 text-center text-blue-400">
+    <div
+      className={
+        isDarkMode
+          ? "min-h-screen bg-gray-900 text-white p-6 pt-24"
+          : "min-h-screen p-6 pt-24"
+      }
+      style={
+        isDarkMode
+          ? undefined
+          : {
+              background: "linear-gradient(135deg, #fff 0%, #ffe3f1 100%)",
+              color: "#1e293b",
+            }
+      }
+    >
+      <h1
+        className={
+          isDarkMode
+            ? "text-3xl font-extrabold mb-4 text-center text-blue-400"
+            : "text-3xl font-extrabold mb-4 text-center"
+        }
+        style={isDarkMode ? undefined : { color: "#be185d" }}
+      >
         ✈️ Plan Your Trip Visually
       </h1>
 
       {/* Add Stop Form */}
       <form
         onSubmit={handleRoute}
-        className="mb-6 bg-gray-800 p-6 rounded-xl shadow-lg space-y-3"
+        className={
+          isDarkMode
+            ? "mb-6 bg-gray-800 p-6 rounded-xl shadow-lg space-y-3"
+            : "mb-6 p-6 rounded-xl shadow-lg space-y-3"
+        }
+        style={
+          isDarkMode
+            ? undefined
+            : {
+                background: "#ffffff",
+                border: "1px solid #f9a8d4",
+              }
+        }
       >
         <input
           type="text"
           placeholder="Departure City"
           value={formData.from}
           onChange={(e) => setFormData({ ...formData, from: e.target.value })}
-          className="border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+          className={
+            isDarkMode
+              ? "border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+              : "border p-3 rounded w-full focus:outline-none"
+          }
+          style={
+            isDarkMode
+              ? undefined
+              : {
+                  borderColor: "#f9a8d4",
+                  background: "#fff",
+                  color: "#1e293b",
+                }
+          }
         />
         <input
           type="text"
           placeholder="Destination City"
           value={formData.to}
           onChange={(e) => setFormData({ ...formData, to: e.target.value })}
-          className="border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+          className={
+            isDarkMode
+              ? "border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+              : "border p-3 rounded w-full focus:outline-none"
+          }
+          style={
+            isDarkMode
+              ? undefined
+              : {
+                  borderColor: "#f9a8d4",
+                  background: "#fff",
+                  color: "#1e293b",
+                }
+          }
         />
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-500 transition-colors w-full py-3 rounded text-white font-semibold"
+          className={
+            isDarkMode
+              ? "bg-blue-600 hover:bg-blue-500 transition-colors w-full py-3 rounded text-white font-semibold"
+              : "transition-colors w-full py-3 rounded font-semibold"
+          }
+          style={
+            isDarkMode
+              ? undefined
+              : {
+                  background: "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
+                  color: "#fff",
+                }
+          }
         >
           Show Route
         </button>
       </form>
 
       {/* Map */}
-      <div className="rounded-lg overflow-hidden shadow-lg border border-gray-700">
+      <div
+        className={
+          isDarkMode
+            ? "rounded-lg overflow-hidden shadow-lg border border-gray-700"
+            : "rounded-lg overflow-hidden shadow-lg"
+        }
+        style={isDarkMode ? undefined : { border: "1px solid #f9a8d4" }}
+      >
         <ItineraryMap stops={itineraryStops} />
       </div>
     </div>

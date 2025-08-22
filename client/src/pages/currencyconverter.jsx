@@ -161,7 +161,7 @@ const CurrencyConverter = () => {
           <div className="mt-4">
             <Link
               to="/enhanced-currency"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               🚀 Try Enhanced Version
               <span className="text-sm opacity-90">(Real-time rates, expense tracking, charts)</span>

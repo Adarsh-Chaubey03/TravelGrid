@@ -7,7 +7,7 @@ const PetTravel = () => {
     return (
         <div className={`mx-auto p-4 min-h-screen w-full overflow-x-hidden transition-all duration-300 ${
             isDarkMode 
-                ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900' 
+                ? 'bg-gradient-to-br from-black to-pink-900' 
                 : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
         }`}>
             <div className={`backdrop-blur-md rounded-2xl shadow-2xl p-8 border max-w-xl mx-auto my-8 mt-20 transition-all duration-300 ${

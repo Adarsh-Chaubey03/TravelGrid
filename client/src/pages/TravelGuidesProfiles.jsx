@@ -529,25 +529,24 @@ const TravelGuidesCarousel = () => {
         // seperated pet and non pet guides
         <>
           <CustomCarousel guides={guides1} viewprofilehandle={viewProfile} />
-
           <hr
-  style={{
-    border: "none",
-    height: "2px", // base thickness
-    background: "linear-gradient(to right, transparent, #a52167ff, transparent)", // light gray fade
-    margin: "30px 0",
-  }}
-/>
-
+            style={{
+              border: "none",
+              height: "2px", // base thickness
+              background:
+                "linear-gradient(to right, transparent, #a52167ff, transparent)", // light gray fade
+              margin: "30px 0",
+            }}
+          />
           <p
             style={{
               fontSize: "40px",
               fontWeight: "700",
               lineHeight: "1.6",
               marginTop: "14px",
-              marginBottom: "10px",
-              color: isDarkMode ? "#fcfcfc" : "#1f2937",
               marginBottom: "50px",
+              color: isDarkMode ? "#fcfcfc" : "#1f2937",
+
             }}
           >
             🐶 Pet Guides 🐱

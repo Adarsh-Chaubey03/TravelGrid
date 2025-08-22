@@ -81,10 +81,7 @@ const WeatherSection = ({ city }) => {
   };
 
   return (
-    <div className={`rounded-lg p-4 mb-6 border ${isDarkMode
-      ? 'bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border-blue-400/30'
-      : 'bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200'
-    }`}>
+    <div className={`rounded-lg p-4 mb-6 border`}>
       <h3 className={`text-lg font-semibold mb-3 flex items-center ${isDarkMode ? 'text-blue-300' : 'text-blue-800'}`}>
         <Cloud className="w-5 h-5 mr-2" />
         Weather in {city}

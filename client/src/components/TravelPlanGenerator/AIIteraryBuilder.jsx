@@ -186,9 +186,9 @@ const AIIteraryBuilder = ({
   return (
     <div className="space-y-6">
       {/* AI Suggestions Panel */}
-      <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm rounded-xl p-6 border border-blue-700">
+      <div className="backdrop-blur-sm rounded-xl p-6 border border-blue-700">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-semibold flex items-center text-blue-300">
+          <h3 className="text-xl font-semibold flex items-center">
             <Lightbulb className="w-5 h-5 mr-2" />
             AI Itinerary Suggestions
           </h3>

@@ -56,11 +56,7 @@ Provide the suggestions in plain text (no markdown) with bullet points and short
   };
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' 
-        : 'bg-gradient-to-br from-gray-50 via-white to-gray-50'
-    }`}>
+    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>
       <div className="flex-grow flex items-center justify-center py-24 px-4">
         <div className={`w-full max-w-3xl backdrop-blur-md rounded-2xl p-10 border transition-all duration-500 shadow-lg ${
           isDarkMode

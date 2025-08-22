@@ -46,22 +46,14 @@ const ItineraryMapPage = () => {
     <div
       className={
         isDarkMode
-          ? "min-h-screen bg-gray-900 text-white p-6 pt-24"
+          ? "min-h-screen p-6 pt-24"
           : "min-h-screen p-6 pt-24"
-      }
-      style={
-        isDarkMode
-          ? undefined
-          : {
-              background: "linear-gradient(135deg, #fff 0%, #ffe3f1 100%)",
-              color: "#1e293b",
-            }
       }
     >
       <h1
         className={
           isDarkMode
-            ? "text-3xl font-extrabold mb-4 text-center text-blue-400"
+            ? "text-3xl font-extrabold mb-4 text-center"
             : "text-3xl font-extrabold mb-4 text-center"
         }
         style={isDarkMode ? undefined : { color: "#be185d" }}
@@ -74,7 +66,7 @@ const ItineraryMapPage = () => {
         onSubmit={handleRoute}
         className={
           isDarkMode
-            ? "mb-6 bg-gray-800 p-6 rounded-xl shadow-lg space-y-3"
+            ? "mb-6 p-6 rounded-xl shadow-lg space-y-3"
             : "mb-6 p-6 rounded-xl shadow-lg space-y-3"
         }
         style={
@@ -93,7 +85,7 @@ const ItineraryMapPage = () => {
           onChange={(e) => setFormData({ ...formData, from: e.target.value })}
           className={
             isDarkMode
-              ? "border border-gray-600 bg-gray-700 text-white p-3 rounded w-full focus:outline-none focus:border-blue-500"
+              ? "border border-gray-600 p-3 rounded w-full focus:outline-none focus:border-blue-500"
               : "border p-3 rounded w-full focus:outline-none"
           }
           style={

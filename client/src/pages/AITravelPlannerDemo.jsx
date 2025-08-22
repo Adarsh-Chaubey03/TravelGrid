@@ -109,11 +109,7 @@ const AITravelPlannerDemo = () => {
 
     return (
         <div
-            className={`min-h-screen transition-all duration-300 ${
-                isDarkMode
-                    ? "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white"
-                    : "bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-gray-900"
-            }`}
+            className={`min-h-screen transition-all duration-300`}
         >
             {/* Header */}
             <div

@@ -66,7 +66,7 @@ const Testimonials = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className={` relative right-1/2 left-1/2 -mr-[45vw] -ml-[50vw] w-screen py-20 ${isDarkMode ? "bg-slate-900" : "bg-gray-50"}`}
+      className={` relative right-1/2 left-1/2 -mr-[45vw] -ml-[50vw] w-screen py-20`}
     >
       <style>{scrollStyles}</style>
 
@@ -100,11 +100,7 @@ const Testimonials = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 h-full ${
-                isDarkMode
-                  ? "bg-gradient-to-b from-black to-zinc-700 border-white/20 hover:border-white/40"
-                  : "bg-gradient-to-br from-white to-gray-200 border-pink-300 shadow-2xl shadow-gray-500 hover:border-pink-300"
-              }`}
+              className={`group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 h-full`}
             >
               <img
                 src={t.avatar}

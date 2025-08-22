@@ -16,6 +16,7 @@ import {
   Eye,
   Lightbulb
 } from "lucide-react";
+import GitHubStats from "./GitHubStats";
 
 function About() {
   const navigate = useNavigate();
@@ -203,10 +204,7 @@ function About() {
   ];
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${isDarkMode
-      ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900'
-      : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
-      }`}>
+    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -306,7 +304,6 @@ function About() {
         id="vision"
         data-animate
         className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.vision ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -427,7 +424,6 @@ function About() {
         id="team"
         data-animate
         className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -526,7 +522,6 @@ function About() {
         id="contact"
         data-animate
         className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          } ${isDarkMode ? 'bg-black bg-opacity-50' : 'bg-white bg-opacity-50'
           }`}
       >
         <div className="max-w-4xl mx-auto">
@@ -670,7 +665,7 @@ function About() {
       <section
         id="gssoc"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 transition-all duration-1000 ${isVisible.gssoc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-20 px-4 sm:px-6 lg:px-8 ${isDarkMode ? "text-pink-300" : "text-black"} bg-opacity-50 transition-all duration-1000 ${isVisible.gssoc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-4xl mx-auto text-center">
@@ -679,7 +674,8 @@ function About() {
             initial={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-white mb-8"
+            className={`text-3xl sm:text-4xl font-bold mb-8 ${isDarkMode ? 'text-white' : 'text-black'}`}
+
           >
             Part of{" "}
             <span className="text-pink-400">
@@ -691,9 +687,9 @@ function About() {
             initial={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-pink-900 to-purple-900 rounded-lg p-8 border border-pink-400"
+            className="rounded-lg p-8 border border-pink-400"
           >
-            <p className="text-lg text-gray-200 mb-6 leading-relaxed">
+            <p className={`text-lg mb-6 leading-relaxed ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
               TravelGrid is proudly part of GirlScript Summer of Code 2025
               (GSSoC), providing contributors with an opportunity to collaborate
               on a real-world application, honing their skills and building a
@@ -713,6 +709,8 @@ function About() {
           </motion.div>
         </div>
       </section>
+
+      <GitHubStats></GitHubStats>
 
       {/* Tech Stack Section */}
       <section

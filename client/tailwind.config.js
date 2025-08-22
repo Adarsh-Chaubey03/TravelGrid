@@ -1,3 +1,5 @@
+import { backgroundImage } from 'html2canvas/dist/types/css/property-descriptors/background-image'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,7 +9,7 @@ export default {
   darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
-      colors: {
+      /*colors: {
         // Custom color palette for better dark mode support
         dark: {
           50: '#f8fafc',
@@ -21,6 +23,9 @@ export default {
           800: '#1e293b',
           900: '#0f172a',
         }
+      },*/
+      backgroundImage: {
+        'dark-gradient': 'linear-gradient(to bottom right, black, #881337)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

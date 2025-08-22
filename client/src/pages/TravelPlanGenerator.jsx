@@ -206,10 +206,7 @@ const TravelPlanGenerator = () => {
   };
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden ${isDarkMode
-        ? 'bg-gradient-to-br from-black to-pink-900'
-        : 'bg-gradient-to-br from-blue-50 to-pink-50'
-      }`}>
+    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden`}>
       <Navbar />
       <main className="flex flex-col flex-1 w-full items-center pt-24">
         <section className="w-full py-12 text-center px-4">

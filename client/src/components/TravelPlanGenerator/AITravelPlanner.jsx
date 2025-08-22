@@ -308,17 +308,17 @@ const AITravelPlannerComponent = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <Brain className="w-12 h-12 text-purple-400 mr-4" />
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold bg-clip-text text-transparent">
               AI Travel Planner
             </h1>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-black-300 max-w-3xl mx-auto">
             Experience the future of travel planning with our advanced AI-powered system.
             Get personalized recommendations, intelligent itineraries, and predictive insights.
           </p>
@@ -468,7 +468,7 @@ const AITravelPlannerComponent = () => {
                 <div className="space-y-4">
                   <div className="w-full bg-gray-700 rounded-full h-3">
                     <div
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-300"
+                      className="h-3 rounded-full transition-all duration-300"
                       style={{ width: `${generationProgress}%` }}
                     ></div>
                   </div>

@@ -8,10 +8,7 @@ const MoodBoardPage = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <div className={`min-h-screen transition-all duration-300 ${isDarkMode
-                ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900'
-                : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
-            }`}>
+        <div className={`min-h-screen transition-all duration-300`}>
             <Navbar />
 
             <main className="flex-1 pt-20">

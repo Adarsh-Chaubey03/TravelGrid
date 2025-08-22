@@ -272,11 +272,7 @@ const EnhancedCurrencyConverter = () => {
     }, {});
 
     return (
-        <div className={`min-h-screen p-4 pt-24 font-inter transition-all duration-300 ${
-            isDarkMode
-                ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
-                : 'bg-gradient-to-br from-blue-50 to-indigo-100'
-        }`}>
+        <div className={`min-h-screen p-4 pt-24 font-inter transition-all duration-300`}>
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-8">

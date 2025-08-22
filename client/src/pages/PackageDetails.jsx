@@ -173,7 +173,7 @@ const PackageDetails = () => {
   } = packageData;
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-[#1f1d2b] to-pink-900 text-white min-h-screen pb-16">
+    <div className="text-white min-h-screen pb-16">
       <Navbar />
 
       {/* Header Image with Overlay */}
@@ -181,7 +181,7 @@ const PackageDetails = () => {
         className="w-full h-[60vh] bg-cover bg-center relative"
         style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/40 to-transparent"></div>
+        <div className="absolute inset-0"></div>
         <div className="absolute bottom-10 md:bottom-16 left-6 md:left-16">
           <h1 className="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">
             {title}
@@ -197,17 +197,17 @@ const PackageDetails = () => {
         {/* Floating Bar */}
         <div className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:relative sm:shadow-lg">
           <div className="flex items-center gap-3">
-            <FaCalendarAlt className="text-pink-400 text-xl" />
+            <FaCalendarAlt className="text-xl" />
             <div>
               <p className="text-sm text-[#999]">Duration</p>
-              <p className="text-white font-semibold text-base">{duration}</p>
+              <p className="font-semibold text-base">{duration}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <FaRupeeSign className="text-pink-400 text-xl" />
             <div>
               <p className="text-sm text-[#999]">Price</p>
-              <p className="text-white font-semibold text-base">₹{price}</p>
+              <p className="font-semibold text-base">₹{price}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -243,7 +243,7 @@ const PackageDetails = () => {
 
         {/* Description */}
         <div className="flex items-center justify-center">
-          <p className="text-[#cfcfcf] leading-relaxed text-sm md:text-base text-center">
+          <p className="leading-relaxed text-sm md:text-base text-center">
             {description}
           </p>
         </div>
@@ -255,7 +255,7 @@ const PackageDetails = () => {
             {highlights.map((point, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm text-[#cfcfcf]"
+                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm"
               >
                 <FaCheck className="text-pink-400" />
                 {point}
@@ -289,7 +289,7 @@ const PackageDetails = () => {
               {inclusions.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <FaCheckCircle className="text-green-500 mt-1" />
-                  <span className="text-[#cfcfcf]">{item}</span>
+                  <span className>{item}</span>
                 </li>
               ))}
             </ul>
@@ -302,7 +302,7 @@ const PackageDetails = () => {
               {exclusions.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <FaTimesCircle className="text-red-500 mt-1" />
-                  <span className="text-[#cfcfcf]">{item}</span>
+                  <span className>{item}</span>
                 </li>
               ))}
             </ul>
@@ -312,7 +312,7 @@ const PackageDetails = () => {
         {/* Reviews */}
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-white">Reviews</h2>
+            <h2 className="text-2xl font-bold">Reviews</h2>
             <button className="text-sm text-white px-4 py-1.5 rounded-lg hover:text-pink-300 transition-colors duration-200">
               View All Reviews
             </button>
@@ -336,7 +336,7 @@ const PackageDetails = () => {
                   </div>
                 </div>
 
-                <blockquote className="mt-3 text-pink-100 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
+                <blockquote className="mt-3 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
                   {review.comment}
                 </blockquote>
                 <div className="flex items-center mt-3 text-yellow-400 text-sm">

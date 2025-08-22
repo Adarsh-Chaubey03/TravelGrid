@@ -273,17 +273,17 @@ const MusicPage = () => {
     };
 
     return (
-        <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div className={`min-h-screen`}>
             {/* Hero Section */}
-            <div className={`relative overflow-hidden ${isDarkMode ? 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900' : 'bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100'}`}>
-                <div className="absolute inset-0 bg-black/20"></div>
+            <div className={`relative overflow-hidden`}>
+                <div className="absolute inset-0 bg-pink-100"></div>
                 <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 text-center">
                     <div className="flex justify-center mb-8">
-                        <div className={`p-4 rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-white/20'} backdrop-blur-sm`}>
-                            <Music className="w-16 h-16 text-purple-400" />
+                        <div className={`p-4 rounded-full ${isDarkMode ? 'bg-white/10' : 'bg-pink-900/70'} backdrop-blur-sm`}>
+                            <Music className="w-16 h-16 text-pink-200" />
                         </div>
                     </div>
-                    <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                    <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-pink-900 to-blue-800 bg-clip-text text-transparent">
                         Travel Music Hub
                     </h1>
                     <p className="text-xl mb-8 max-w-3xl mx-auto">
@@ -311,10 +311,14 @@ const MusicPage = () => {
                             placeholder="Search for songs or artists..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className={`w-full pl-10 pr-4 py-3 rounded-xl border-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all ${isDarkMode
-                                ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
-                                : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                                }`}
+                            className={`w-full pl-10 pr-4 py-3 rounded-xl border-2 
+  focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all 
+  ${isDarkMode
+    ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400'
+    : 'bg-pink-50 border-pink-300 text-pink-900 placeholder-pink-400'
+  }`}
+
+
                         />
                     </div>
                 </div>
@@ -327,7 +331,7 @@ const MusicPage = () => {
                             <button
                                 key={type.value}
                                 onClick={() => setSelectedType(type.value)}
-                                className={`px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 ${selectedType === type.value
+                                className={`px-6 py-3 cursor-pointer rounded-full font-medium transition-all transform hover:scale-105 ${selectedType === type.value
                                     ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
                                     : isDarkMode
                                         ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'

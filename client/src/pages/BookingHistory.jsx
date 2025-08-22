@@ -110,10 +110,7 @@ const BookingHistory = () => {
     }, []);
 
     return (
-        <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300 ${isDarkMode
-            ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900'
-            : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
-        }`}>
+        <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>
             <div className='flex flex-col items-center mt-30 justify-center px-4'>
                 <h1 className={`text-3xl sm:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-lg text-center transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-pink-700'}`}>
                     Booking History

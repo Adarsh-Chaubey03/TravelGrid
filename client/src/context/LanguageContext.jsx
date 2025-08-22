@@ -16,19 +16,19 @@ export const LanguageProvider = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   // Available languages (all supported languages)
-  const languages = [
-    { code: 'en', name: 'English', flag: 'English' },
-    { code: 'hi', name: 'हिंदी', flag: 'हिंदी' },
-    { code: 'es', name: 'Español', flag: 'Español' },
-    { code: 'bn', name: 'বাংলা', flag: 'বাংলা' },
-    { code: 'ta', name: 'தமிழ்', flag: 'தமிழ்' },
-    { code: 'te', name: 'తెలుగు', flag: 'తెలుగు' },
-    { code: 'mr', name: 'मराठी', flag: 'मराठी' },
-    { code: 'gu', name: 'ગુજરાતી', flag: 'ગુજરાતી' },
-    { code: 'kn', name: 'ಕನ್ನಡ', flag: 'ಕನ್ನಡ' },
-    { code: 'ml', name: 'മലയാളം', flag: 'മലയാളം' },
-    { code: 'de', name: 'Deutsch', flag: 'Deutsch' }
-  ];
+ const languages = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'bn', name: 'বাংলা', flag: '🇧🇩' },
+  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
+  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
+  { code: 'mr', name: 'मराठी', flag: '🇮🇳' },
+  { code: 'gu', name: 'ગુજરાતી', flag: '🇮🇳' },
+  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
+  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' }
+];
 
   // Change language
   const changeLanguage = async (languageCode) => {

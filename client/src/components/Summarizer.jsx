@@ -55,15 +55,11 @@ Input:
   };
 
   return (
-    <div className={`min-h-screen flex flex-col py-24 px-4 ${
-      isDarkMode 
-        ? 'bg-gradient-to-b from-[#0f0f17] via-[#1f0f2f] to-[#1a051e]' 
-        : 'bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50'
-    }`}>
+    <div className={`min-h-screen flex flex-col py-24 px-4`}>
       <div className="flex-grow flex items-center justify-center">
         <div className={`w-full max-w-3xl backdrop-blur-sm text-white p-10 rounded-2xl shadow-2xl border ${
           isDarkMode 
-            ? 'bg-[rgba(30,10,60,0.95)] border-pink-500' 
+            ? 'bg-black border-pink-500' 
             : 'bg-white/90 border-pink-200 text-gray-900'
         }`}>
           <h1 className={`text-3xl font-semibold mb-2 flex items-center gap-2 ${

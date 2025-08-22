@@ -74,13 +74,13 @@ const [qrDataUrl, setQrDataUrl] = useState('');
 
   if (!hotel) {
     return (
-      <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-black to-pink-900 text-white">
+      <div className="flex flex-col min-h-screen w-full">
         <Navbar />
         <main className="flex flex-col flex-1 items-center justify-center">
           <h2 className="text-3xl font-bold mb-4">Hotel not found</h2>
           <button
             onClick={() => navigate('/hotels')}
-            className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-6 py-3 rounded-lg font-semibold"
+            className="px-6 py-3 rounded-lg font-semibold"
           >
             Back to Hotels
           </button>
@@ -109,7 +109,7 @@ const [qrDataUrl, setQrDataUrl] = useState('');
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="flex flex-col w-full bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
+        <div className="flex flex-col w-full overflow-x-hidden">
           <Navbar />
           <main className="flex flex-col flex-1 w-full items-center">
             {/* Hero image */}
@@ -131,9 +131,9 @@ const [qrDataUrl, setQrDataUrl] = useState('');
             </section>
 
             {/* Details */}
-            <section className="max-w-4xl w-full px-4 py-16 mb-10 md:mb-16 text-pink-100">
-              <h2 className="text-2xl font-bold mb-4 text-white">About</h2>
-              <p className="leading-relaxed mb-8 text-pink-200 whitespace-pre-line">
+            <section className="max-w-4xl w-full px-4 py-16 mb-10 md:mb-16">
+              <h2 className="text-2xl font-bold mb-4">About</h2>
+              <p className="leading-relaxed mb-8 whitespace-pre-line">
                 {hotel.description}
               </p>
 

@@ -32,12 +32,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300" 
-      style={{ 
-        background: isDarkMode ? 'var(--bg-primary)' : 'linear-gradient(to right bottom, #f9fafb, #f3f4f6)', 
-        color: 'var(--text-primary)'
-      }}
-    >
+    <div className="min-h-screen transition-colors duration-300">
       <Navbar lightBackground />
 
       {/* Hero Section */}

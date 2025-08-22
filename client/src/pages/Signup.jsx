@@ -90,7 +90,7 @@ const Signup = () => {
     <div>
       <Navbar />
       <div className={`pt-24 min-h-screen flex items-center justify-center p-4 ${isDarkMode
-      ? 'bg-gradient-to-br from-gray-900 via-slate-800 to-blue-900'
+      ? 'bg-gradient-to-br from-black to-pink-900 text-white'
       : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
       }`}>
         <div className="max-w-md w-full">

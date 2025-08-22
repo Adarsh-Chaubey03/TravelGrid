@@ -125,7 +125,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
+          className="w-full max-w-[300px] text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
         >
           TravelGrid
         </Link>
@@ -162,21 +162,24 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-2 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200"
+            className="flex items-center gap-1 text-2xl font-bold tracking-tight 
+                      bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent 
+                      transition-colors duration-200"
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
-              loading="lazy" 
-              className="w-10 h-10 rounded-full border border-pink-300 shadow-md"
+              loading="lazy"
+              className="w-8 h-8 rounded-full border border-pink-300 shadow-md"
             />
             TravelGrid
           </NavLink>
 
 
+
           {/* Desktop Nav */}
           <div
-            className={`hidden md:flex items-center gap-4 font-medium flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
+            className={`hidden md:flex items-center gap-2 font-small flex-1 justify-center ${isDarkMode ? "text-gray-200" : "text-gray-700"
               }`}
           >
             {navLinks.map((link) =>
@@ -184,13 +187,13 @@ const Navbar = () => {
                 <div className="relative group" key={link.name}>
                   <button aria-label="Search"
 
-                    className={`py-1.5 px-4 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
+                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
                       ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
                       : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
                       }`
                       }`}
                   >
-                    {link.name} <ChevronDown fontSize={16} />
+                    {link.name} <ChevronDown fontSize={14} />
                   </button>
                   {/* Dropdown menu */}
                   <div
@@ -204,7 +207,7 @@ const Navbar = () => {
                         key={item.label}
                         to={item.path}
                         className={({ isActive }) =>
-                          `py-2 px-4 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
+                          `py-2 px-2 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${isActive
                             ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
                             : ""
                           }`
@@ -303,7 +306,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center gap-2">
             <LanguageSelector />
             <ThemeToggle />
-            <button aria-label="Search"
+            <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
               className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1 rounded-md hover:bg-pink-500/20 cursor-pointer"
@@ -333,7 +336,7 @@ const Navbar = () => {
             className={`flex justify-end mb-6 border-b ${isDarkMode ? "border-gray-600" : "border-gray-300"
               }`}
           >
-            <button aria-label="Search"
+            <button
               onClick={() => setIsSidebarOpen(false)}
               className="text-pink-500 hover:text-pink-400 p-1 rounded-md hover:bg-pink-500/10"
               aria-label="Close menu"

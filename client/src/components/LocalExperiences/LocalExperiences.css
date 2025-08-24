@@ -1,0 +1,54 @@
+.local-experiences-list {
+  padding: 2rem;
+}
+.experiences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.experience-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+.experience-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.experience-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.local-experience-detail {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.experience-image-large {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.book-btn {
+  background: #0077ff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.book-btn:hover {
+  background: #005bb5;
+}

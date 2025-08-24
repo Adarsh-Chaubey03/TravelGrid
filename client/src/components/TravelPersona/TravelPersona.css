@@ -1,0 +1,57 @@
+.travel-persona-quiz, .travel-persona-result {
+  background: #f9f9fc;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.quiz-question p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.quiz-options button {
+  margin: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #4f8cff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.quiz-options button:hover {
+  background: #357ae8;
+}
+.quiz-progress {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #888;
+}
+.persona-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4f8cff;
+  margin-bottom: 1rem;
+}
+.travel-persona-result ul {
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+}
+.travel-persona-result button {
+  background: #ffb347;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+.travel-persona-result button:hover {
+  background: #ff9800;
+}
+.travel-persona-result li {
+  margin-bottom: 0.5rem;
+}

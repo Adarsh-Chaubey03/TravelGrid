@@ -14,6 +14,7 @@ import { WishlistProvider } from './context/WishlistContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import AuthLayout from './components/AuthLayout';
+import "./components/LocalExperiences/LocalExperiences.css";
 //import TrendingSpots from './pages/TrendingSpots.jsx';
 //import PackingChecklistPage from './pages/PackingChecklist.jsx';
 //import Summarizer from './components/Summarizer';
@@ -42,6 +43,9 @@ import appStore from './app/store.js';
 //import PetTravel from './pages/PetTravel';
 
 //import ProtectedRoute from './components/Auth/ProtectedRoute';
+import TravelPersona from "./pages/TravelPersona";
+const LocalExperiences = lazy(() => import("./pages/LocalExperiences"));
+const LocalExperienceConfirmation = lazy(() => import("./pages/LocalExperienceConfirmation"));
 
 
 // Lazy imports for pages
@@ -152,8 +156,9 @@ const router = createBrowserRouter([
       { path: '/music', element: <Suspense fallback={<Spinner />}><Music /></Suspense> },
       {path:"/itinerary-map", element:<Suspense fallback={<Spinner />}><ItineraryMapPage/></Suspense>},
       { path: '/visa-checker', element: <Suspense fallback={<Spinner />}><VisaChecker /></Suspense> },
-
-
+      { path: '/travel-persona', element: <Suspense fallback={<Spinner />}><TravelPersona /></Suspense> },
+      { path: '/local-experiences', element: <Suspense fallback={<Spinner />}><LocalExperiences /></Suspense> },
+      { path: '/local-experiences/confirmation', element: <Suspense fallback={<Spinner />}><LocalExperienceConfirmation /></Suspense> },
       {
         path: '/dashboard',
         element: <ProtectedRoute><Dashboard /></ProtectedRoute>

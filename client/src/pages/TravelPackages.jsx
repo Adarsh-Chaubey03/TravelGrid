@@ -426,7 +426,6 @@ const TravelPackages = () => {
       </main>
     </div>
   );
-=======
   return (
     <div
       className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-colors duration-300`}

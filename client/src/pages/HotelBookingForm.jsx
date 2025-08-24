@@ -32,6 +32,7 @@ const [bookingData, setBookingData] = useState({
   const [bookingId, setBookingId] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [errors, setErrors] = useState({});
+  const [acceptedTerms, setAcceptedTerms] = useState(false); // <-- Added state
 
   const roomTypes = [
     { id: 'standard', name: 'Standard Room', price: 1500, description: 'Comfortable room with basic amenities' },
@@ -131,7 +132,6 @@ const [bookingData, setBookingData] = useState({
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Clear all previous errors
     setErrors({});
     const newErrors = {};
 
@@ -188,6 +188,11 @@ const [bookingData, setBookingData] = useState({
       if (new Date(bookingData.checkIn) < today) {
         newErrors.checkIn = 'Check-in date cannot be in the past';
       }
+    }
+
+    // Terms and conditions validation
+    if (!acceptedTerms) {
+      newErrors.acceptedTerms = 'You must accept the terms and conditions to continue';
     }
 
     // If there are errors, set them and return
@@ -524,6 +529,23 @@ const [bookingData, setBookingData] = useState({
                 </div>
               )}
 
+              {/* Terms and Conditions Checkbox */}
+              <div className="flex items-center gap-2 mt-4">
+                <input
+                  type="checkbox"
+                  id="acceptedTerms"
+                  checked={acceptedTerms}
+                  onChange={e => setAcceptedTerms(e.target.checked)}
+                  className="w-5 h-5 accent-pink-500"
+                />
+                <label htmlFor="acceptedTerms" className="text-sm">
+                  I agree to the company's <a href="/terms" target="_blank" className="underline text-pink-500">terms and conditions</a>
+                </label>
+              </div>
+              {errors.acceptedTerms && (
+                <p className="text-red-400 text-sm mt-1">{errors.acceptedTerms}</p>
+              )}
+
               {/* Submit Button */}
               <div className="flex gap-4">
                 <button
@@ -535,9 +557,10 @@ const [bookingData, setBookingData] = useState({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+                  disabled={!acceptedTerms}
+                  className={`flex-1 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ${!acceptedTerms ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Confirm Booking
+                  Agree and Continue
                 </button>
               </div>
             </form>

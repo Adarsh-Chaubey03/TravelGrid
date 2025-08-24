@@ -45,6 +45,7 @@ import appStore from './app/store.js';
 
 
 // Lazy imports for pages
+const TravelGuides = lazy(() => import('./pages/TravelGuides.jsx'));
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -108,6 +109,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
+      { path: '/travel-guides', element: <Suspense fallback={<Spinner />}><TravelGuides /></Suspense> },
       { path: '/', element: <Suspense fallback={<Spinner />}><Home /></Suspense> },
       { path: '/about', element: <Suspense fallback={<Spinner />}><About /></Suspense> },
       { path: '/blog', element: <Suspense fallback={<Spinner />}><Blog /></Suspense> },

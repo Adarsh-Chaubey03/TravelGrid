@@ -345,7 +345,7 @@ const navigate = useNavigate();
       </div>
 
       {/* Filter Tabs */}
-      <div className="bg-pink-900 shadow-sm sticky top-0 z-10" style={{ marginTop: "-5rem", marginBottom: "5rem" }}>
+      <div className="bg-pink-900 shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-start md:justify-center space-x-2 md:space-x-4 py-3 md:py-4 overflow-x-auto scrollbar-hide">
             {categories.map((category) => (
@@ -372,7 +372,7 @@ const navigate = useNavigate();
 
       {/* Trending Stats Banner */}
       <div className="border-b" style={{ borderColor: 'var(--border-primary)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             <div className="border-white/20 hover:border-white/40 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 rounded-2xl border shadow-lg overflow-hidden transition-all duration-300 group p-4 md:p-6 text-center" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-primary)' }}>{filteredSpots.length}+</div>

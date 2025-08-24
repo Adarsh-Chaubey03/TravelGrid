@@ -5,7 +5,7 @@
     padding: 2rem;
     margin-bottom: 2rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(143, 13, 76);
 }
 
 /* Progress Bar */
@@ -16,7 +16,7 @@
 .progress-bar {
     width: 100%;
     height: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(182, 28, 92);
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -54,7 +54,7 @@
 
 .progress-text {
     font-size: 0.9rem;
-    color: #9ca3af;
+    color: #a40057;
     text-align: center;
     display: block;
 }
@@ -75,13 +75,13 @@
 .countdown-icon {
     width: 2rem;
     height: 2rem;
-    color: #ec4899;
+    color: #7c003e;
 }
 
 .countdown-header h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #de4694;
     margin: 0;
 }
 
@@ -94,8 +94,8 @@
 }
 
 .time-unit {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(255, 240, 249);
+    border: 1px solid rgb(196, 32, 109);
     border-radius: 16px;
     padding: 1.5rem 1rem;
     text-align: center;
@@ -151,7 +151,7 @@
 .time-value {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #000000c7;
     margin-bottom: 0.5rem;
     display: block;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -159,7 +159,7 @@
 
 .time-label {
     font-size: 0.9rem;
-    color: #9ca3af;
+    color: #1e2530;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 500;
@@ -178,10 +178,10 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255, 255, 255);
     padding: 0.75rem 1rem;
     border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(210, 42, 106);
 }
 
 .info-icon {
@@ -191,7 +191,7 @@
 }
 
 .info-item span {
-    color: #d1d5db;
+    color: #58003f;
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -206,7 +206,7 @@
 }
 
 .motivational-message p {
-    color: #ffffff;
+    color: #a80a4c;
     font-size: 1.1rem;
     font-weight: 500;
     text-align: center;

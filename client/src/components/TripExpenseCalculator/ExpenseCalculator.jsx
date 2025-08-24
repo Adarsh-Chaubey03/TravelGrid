@@ -37,7 +37,7 @@ const TripExpenseCalculator = () => {
     );
 
     const displayedTotal =
-        mode === "group" ? total / Math.max(numPeople, 1) : total;
+        mode === "Group" ? total / Math.max(numPeople, 1) : total;
 
     const chartData = Object.entries(expense)
         .filter(([ , value]) => Number(value) > 0)
@@ -46,7 +46,7 @@ const TripExpenseCalculator = () => {
             value: Number(value),
         }));
 
-    const COLORS = ['#f43f5e', '#fb7185', '#fda4af', '#fecdd4', '#fbcfe8', '#f9a8d4'];
+    const COLORS = ['#f43f5e', '#fb7185', '#EC4899', '#8B5CF6', '#F472B6', '#EF4444'];
 
     // ----------- PDF Export -------------
 const handleDownloadPDF = () => {
@@ -68,7 +68,7 @@ const handleDownloadPDF = () => {
   });
 
   tableRows.push([
-    mode === "group" ? "Total (Per Person)" : "Total",
+    mode === "Group" ? "Total (Per Person)" : "Total",
     displayedTotal.toFixed(2),
   ]);
 
@@ -91,7 +91,7 @@ const handleDownloadPDF = () => {
             }));
 
         data.push({
-            Category: mode === "group" ? "Total (Per Person)" : "Total",
+            Category: mode === "Group" ? "Total (Per Person)" : "Total",
             Amount: displayedTotal,
         });
 
@@ -113,14 +113,14 @@ const handleDownloadPDF = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen py-8">
-            <div className={`backdrop-blur-md rounded-2xl p-8 border max-w-xl w-full mx-4 shadow-[0_0_15px_5px] transition-all duration-300 ${
+            <div className={`mt-16 backdrop-blur-md rounded-2xl p-8 border max-w-xl w-full mx-4 transition-all duration-300 ${
                 isDarkMode 
-                    ? 'bg-gradient-to-b from-black to-[#621639] border-white/20 shadow-[#621639] text-white' 
-                    : 'bg-white border-pink-200 shadow-pink-500/20 text-gray-900'
+                    ? 'border-pink-500 bg-gray-200/10 shadow-lg  backdrop-blur-md hover:shadow-pink-500/20 hover:bg-gray-200/15 text-white' 
+                    : 'bg-white border-gray-300 shadow-pink-500/20 text-gray-900'
             }`}>
                 <h2 className={`text-3xl md:text-4xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r ${
                     isDarkMode 
-                        ? 'from-[#501834] to-[#945072]' 
+                        ? 'from-pink-400 to-rose-400' 
                         : 'from-pink-600 to-rose-600'
                 }`}>
                     Trip Expense Calculator
@@ -128,19 +128,19 @@ const handleDownloadPDF = () => {
 
                 <div className="flex justify-center mb-6">
                     <div className={`inline-flex rounded-full p-1 ${
-                        isDarkMode ? 'bg-pink-100' : 'bg-pink-50'
+                        isDarkMode ? 'bg-gray-200 border-none' : 'bg-pink-50 border border-pink-500'
                     }`}>
-                        {["Individual", "group"].map((option) => (
+                        {["Individual", "Group"].map((option) => (
                             <button
                                 key={option}
                                 onClick={() => setMode(option)}
-                                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
                                     mode === option
-                                        ? "bg-gradient-to-r from-[#501834] to-rose-500 text-white shadow-md"
-                                        : isDarkMode ? "text-pink-600" : "text-pink-700"
+                                        ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md"
+                                        : "text-pink-700"
                                 }`}
                             >
-                                {option === "Individual" ? "Individual" : "group"}
+                                {option === "Individual" ? "Individual" : "Group"}
                             </button>
                         ))}
                     </div>
@@ -156,7 +156,7 @@ const handleDownloadPDF = () => {
                     />
                 ))}
 
-                {mode === "group" && (
+                {mode === "Group" && (
                     <div className="flex items-center gap-4 mt-6">
                         <label className={`text-sm font-semibold ${
                             isDarkMode ? 'text-white' : 'text-gray-700'
@@ -168,25 +168,25 @@ const handleDownloadPDF = () => {
                             min="1"
                             value={numPeople}
                             onChange={(e) => setNumPeople(Number(e.target.value))}
-                            className={`w-24 px-4 py-2 border-2 rounded-xl focus:ring-4 outline-none transition-all duration-300 ${
+                            className={`w-28 pl-4 pr-2 py-2 rounded-lg focus:ring-2 outline-none transition-all duration-300 backdrop-blur-lg border ${
                                 isDarkMode 
-                                    ? 'border-pink-200 focus:border-pink-400 focus:ring-pink-100 bg-gray-700 text-white' 
-                                    : 'border-pink-200 focus:border-pink-400 focus:ring-pink-100 bg-white text-gray-900'
+                                    ? 'border-white/30 focus:border-pink-400 focus:ring-pink-400 bg-white/10 text-white' 
+                                    : 'border-black/20  focus:ring-pink-500 bg-black/10  text-gray-900'
                             }`}
                         />
                     </div>
                 )}
 
                 <div className="mt-8 text-center">
-                    <p className="text-lg font-semibold">
+                    <p className="text-lg font-semibold text-gray-700">
                         Total Cost:
-                        <span className="ml-2 text-pink-600">
+                        <span className="ml-2 text-pink-500">
                             ₹{displayedTotal.toFixed(2)}
                         </span>
                         <span className={`ml-1 text-sm ${
                             isDarkMode ? 'text-gray-300' : 'text-gray-600'
                         }`}>
-                            ({mode === "group" ? "Per Person" : "Individual Total"})
+                            ({mode === "Group" ? "Per Person" : "Individual Total"})
                         </span>
                     </p>
                 </div>
@@ -195,16 +195,16 @@ const handleDownloadPDF = () => {
                 <div className="mt-6 flex justify-center gap-4">
                     <button
                         onClick={handleDownloadPDF}
-                        className="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition"
+                        className="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold px-4 py-2 rounded-lg hover:opacity-90 cursor-pointer transition"
                     >
                         Download PDF
                     </button>
                     <button
                         onClick={handleDownloadExcel}
-                        className={`font-semibold px-4 py-2 rounded-xl transition ${
+                        className={`font-semibold px-4 py-2 rounded-lg text-pink-600 transition cursor-pointer ${
                             isDarkMode 
-                                ? 'bg-pink-100 text-pink-700 hover:bg-pink-200' 
-                                : 'bg-pink-50 text-pink-700 hover:bg-pink-100'
+                                ? 'bg-pink-100  hover:bg-pink-200' 
+                                : 'bg-gray-200  hover:bg-pink-100'
                         }`}
                     >
                         Download Excel
@@ -212,10 +212,10 @@ const handleDownloadPDF = () => {
                 </div>
 
                 <div className={`mt-8 p-8 rounded-xl ${
-                    isDarkMode ? 'bg-gray-800/50' : 'bg-pink-50/50'
+                    isDarkMode ? 'bg-white/10' : 'bg-gray-200'
                 }`}>
                     <h3 className={`text-2xl font-bold text-center mb-2 ${
-                        isDarkMode ? 'text-white' : 'text-gray-900'
+                        isDarkMode ? 'text-white' : 'text-gray-700'
                     }`}>Expense Breakdown</h3>
                     <ResponsiveContainer width="100%" height={height ? 450 : 0}>
                         <PieChart margin={{ top: 30, bottom: 60 }}>

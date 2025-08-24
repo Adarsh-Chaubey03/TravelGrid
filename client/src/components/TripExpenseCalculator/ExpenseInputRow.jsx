@@ -12,10 +12,10 @@ const ExpenseInputRow = ({ label, value, onChange, isDarkMode }) => (
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={`Enter ${label} cost`}
-      className={`w-full px-4 py-3 border-b-2 rounded-xl transition-all outline-none focus:ring-2 focus:ring-pink-100 ${
+      className={`w-full px-4 py-3 border rounded-xl transition-all  outline-none focus:ring-2 focus:ring-pink-400 ${
         isDarkMode 
-          ? 'border-b-[#7e3b5c] bg-gray-700 text-white focus:border-b-white placeholder-gray-400' 
-          : 'border-b-pink-300 bg-white text-gray-900 focus:border-b-pink-500 placeholder-gray-500'
+          ? 'border-white/20 bg-white/10 text-gray-900 focus:border-pink-500  placeholder-gray-400' 
+          : 'border-black/10  bg-gray-200 text-gray-900 focus:border-pink-500  placeholder-gray-500'
       }`}
     />
   </div>

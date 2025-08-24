@@ -492,6 +492,7 @@ const MoodBoardSidebar = ({
                                         <img
                                             src={board.thumbnail || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&h=100&fit=crop'}
                                             alt={board.title}
+                                            loading="lazy"
 
                                             onError={(e) => {
                                                 e.target.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&h=100&fit=crop';

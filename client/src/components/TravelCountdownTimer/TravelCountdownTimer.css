@@ -14,7 +14,7 @@
     padding: 4rem 2rem;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255);
     backdrop-filter: blur(10px);
 }
 
@@ -52,12 +52,12 @@
 }
 
 .section-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 1.5rem;
     text-align: center;
-    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #bf166a, #860b4f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -71,7 +71,7 @@
 }
 
 .trip-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: rgb(255, 255, 255);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 1.5rem;
@@ -99,8 +99,6 @@
 }
 
 .trip-card.active {
-    border-color: #ec4899;
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
     transform: translateY(-2px);
     box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
 }
@@ -119,12 +117,12 @@
 .trip-info h4 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #000000;
     margin: 0 0 0.5rem 0;
 }
 
 .trip-info p {
-    color: #d1d5db;
+    color: #e75491;
     margin: 0 0 0.5rem 0;
     font-size: 0.9rem;
 }
@@ -149,7 +147,7 @@
 /* Main Countdown */
 .main-countdown {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255);
     border-radius: 20px;
     padding: 2rem;
     backdrop-filter: blur(10px);
@@ -175,7 +173,7 @@
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 1rem 0;
-    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    background: rgb(141, 15, 67);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -189,8 +187,8 @@
 
 .trip-duration,
 .trip-date {
-    background: rgba(236, 72, 153, 0.2);
-    color: #ec4899;
+    background: rgba(255, 105, 183, 0.229);
+    color: #84114a;
     padding: 0.5rem 1rem;
     border-radius: 25px;
     font-size: 0.9rem;
@@ -204,10 +202,10 @@
 
 .action-btn {
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255);
     border-radius: 12px;
     padding: 0.75rem;
-    color: #ffffff;
+    color: #bf1b4c;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;

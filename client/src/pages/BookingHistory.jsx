@@ -172,7 +172,10 @@ const TripsCard = ({ isDarkMode, title, tripsData }) => {
                     {tripsData.map((trip, index) => (
                         <li key={index} className={`border p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition ${isDarkMode ? 'border-pink-900 bg-gradient-to-r from-gray-800 to-gray-900' : 'border-pink-200 bg-gradient-to-r from-pink-50 to-white'}`}>
                             <div className="flex flex-col sm:flex-row gap-4 items-center mb-4">
-                                <img src={`/paris.jpeg`} alt="Trip" className='w-full sm:w-1/2 lg:w-48 h-48 sm:h-32 object-cover rounded-lg shadow' />
+                                <img src={`/paris.jpeg`} 
+                                alt="Trip"
+                                loading="lazy"
+                                className='w-full sm:w-1/2 lg:w-48 h-48 sm:h-32 object-cover rounded-lg shadow' />
                                 <div className='w-full'>
                                     <h3 className={`text-lg sm:text-xl font-semibold ${isDarkMode ? 'text-pink-300' : 'text-pink-800'}`}>{trip.destination}</h3>
                                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold mt-1 ${trip.status === "Confirmed"

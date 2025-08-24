@@ -1,7 +1,7 @@
 /* SocialSharing.css */
 .social-sharing {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(157, 23, 75);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -21,23 +21,23 @@
 .sharing-icon {
     width: 2rem;
     height: 2rem;
-    color: #10b981;
+    color: #170119;
 }
 
 .sharing-header h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #c32675;
     margin: 0;
     flex: 1;
 }
 
 .toggle-sharing-btn {
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255, 131, 193);
     border-radius: 12px;
     padding: 0.75rem;
-    color: #ffffff;
+    color: #6c0c37;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;

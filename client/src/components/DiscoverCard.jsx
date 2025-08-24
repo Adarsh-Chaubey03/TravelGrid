@@ -21,6 +21,7 @@ function DiscoverCard({ index, place, handleBookNowClick }) {
                     src={place.image}
                     alt={place.name}
                     className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
             </div>

@@ -59,6 +59,7 @@ const Navbar = () => {
         {label:"Map",path:"/itinerary-map"},
 
         { label: t('navigation.petTravelGuide'), path: "/pettravel" },
+        { label: "Travel Guides", path: "/travel-guides" },
         { label: "Enhanced Currency Converter", path: "/enhanced-currency" }
       ],
     },
@@ -114,47 +115,19 @@ const Navbar = () => {
   }, []);
 
   const linkBaseClasses =
-    "py-1.5 px-4 text-sm font-medium rounded-sm hover:text-pink-500 hover:shadow-sm transition-all duration-300";
+    "py-1.5 px-2 text-sm font-medium rounded-sm  hover:text-pink-500 hover:shadow-sm transition-all duration-300";
 
   return (
     <div>
 
-
-      {/* Sticky Translucent Navbar */}
-      <nav className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-black/90 border-b border-white/20 px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="w-full max-w-[300px] text-2xl font-bold text-pink-500 tracking-tight hover:text-pink-600 transition-colors duration-200"
-        >
-          TravelGrid
-        </Link>
-
-        {/* Desktop Nav Links - Centered */}
-        <div className="hidden md:flex gap-8 items-center text-pink-500 font-medium flex-1 justify-center">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={`px-4 py-2 rounded-lg hover:text-white hover:bg-pink-500 hover:shadow-lg transition-all duration-300 transform hover:scale-105 ${location.pathname === link.path
-                ? "bg-pink-500/20 text-white shadow-md"
-                : ""
-                }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      </nav>
-
       {/* Top Navbar */}
       <nav
-        className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 px-4 sm:px-6 ${isDarkMode
+        className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${isDarkMode
           ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
           : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
           } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
-        <div className="w-full max-w-full mx-auto flex justify-between items-center gap-4 px-2 py-6">
+        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-6">
           {/* Logo */}
           <NavLink
             to="/"
@@ -162,17 +135,21 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-1 text-2xl font-bold tracking-tight 
-                      bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent 
-                      transition-colors duration-200"
+
+            className="flex items-center gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 "
+
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
-              loading="lazy"
-              className="w-8 h-8 rounded-full border border-pink-300 shadow-md"
+
+              loading="lazy" 
+              className="w-8 h-8 mx-2 rounded-full border border-pink-300 shadow-md  flex-shrink-0 "
+
             />
-            TravelGrid
+            <span className="text-lg font-bold truncate max-w-[120px] sm:max-w-[160px] md:max-w-none">
+    TravelGrid
+  </span>
           </NavLink>
 
 
@@ -185,9 +162,11 @@ const Navbar = () => {
             {navLinks.map((link) =>
               link.subitems ? (
                 <div className="relative group" key={link.name}>
-                  <button aria-label="Search"
+                  <button aria-label={link.name}
 
-                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all duration-300 flex items-center gap-1 break-words ${activeParentTab === link.name
+
+                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all  duration-300 flex items-center gap-1 truncate max-w-[80px] ${activeParentTab === link.name
+
                       ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
                       : `hover:text-pink-500 hover:shadow-sm ${isDarkMode ? "text-gray-200" : "text-gray-900"
                       }`
@@ -224,8 +203,8 @@ const Navbar = () => {
                   to={link.path}
                   end
                   className={({ isActive }) =>
-                    `${linkBaseClasses} break-words ${isActive
-                      ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white hover:text-white"
+                    `${linkBaseClasses} ${isActive
+                      ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white hover:text-white "
                       : ""
                     }`
                   }
@@ -306,7 +285,9 @@ const Navbar = () => {
           <div className="md:hidden flex items-center gap-2">
             <LanguageSelector />
             <ThemeToggle />
-            <button
+
+            <button 
+
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
               className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1 rounded-md hover:bg-pink-500/20 cursor-pointer"
@@ -336,7 +317,9 @@ const Navbar = () => {
             className={`flex justify-end mb-6 border-b ${isDarkMode ? "border-gray-600" : "border-gray-300"
               }`}
           >
-            <button
+
+            <button 
+
               onClick={() => setIsSidebarOpen(false)}
               className="text-pink-500 hover:text-pink-400 p-1 rounded-md hover:bg-pink-500/10"
               aria-label="Close menu"
@@ -423,7 +406,7 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-gradient-to-b from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2 rounded font-medium text-center mt-2 hover:shadow-lg hover:scale-105 transition-all text-sm"
+                  className="bg-gradient-to-b from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2 px-3 rounded font-medium text-center mt-2 hover:shadow-lg hover:scale-105 transition-all text-sm"
                 >
                   {t('auth.signup')}
                 </NavLink>

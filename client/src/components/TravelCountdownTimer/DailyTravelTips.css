@@ -1,7 +1,7 @@
 /* DailyTravelTips.css */
 .daily-travel-tips {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(167, 24, 86);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -27,7 +27,7 @@
 .tips-header h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #a71b4e;
     margin: 0;
     flex: 1;
 }
@@ -52,7 +52,7 @@
 /* Current Tip */
 .current-tip {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255);
     border-radius: 16px;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -94,7 +94,7 @@
 }
 
 .tip-message {
-    color: #ffffff;
+    color: #000000c0;
     font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.6;
@@ -124,31 +124,31 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    color: #ad1c5f;
 }
 
 /* Priority Colors */
 .priority-critical {
-    background: rgba(239, 68, 68, 0.2);
+    background: rgba(239, 68, 68, 0.077);
     color: #fca5a5;
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .priority-high {
-    background: rgba(245, 158, 11, 0.2);
-    color: #fcd34d;
+    background: rgba(245, 159, 11, 0.103);
+    color: #fdc81a;
     border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .priority-medium {
-    background: rgba(59, 130, 246, 0.2);
-    color: #93c5fd;
+    background: rgba(59, 131, 246, 0.031);
+    color: #1b86ff;
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .priority-low {
-    background: rgba(34, 197, 94, 0.2);
-    color: #86efac;
+    background: rgba(34, 197, 94, 0.085);
+    color: #39ff82;
     border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
@@ -162,11 +162,11 @@
 
 .nav-btn {
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
-    color: #ffffff;
+    color: #000000;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -183,7 +183,7 @@
 }
 
 .tip-counter {
-    color: #9ca3af;
+    color: #335ca2;
     font-size: 0.9rem;
     font-weight: 500;
     background: rgba(255, 255, 255, 0.1);
@@ -319,7 +319,7 @@
 }
 
 .time-reminder span {
-    color: #ffffff;
+    color: #670847;
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5;

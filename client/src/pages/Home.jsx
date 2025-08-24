@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { useLanguage } from '../LanguageContext';  // ✅ language hook import
+import { useLanguage } from '../context/LanguageContext';  // ✅ language hook import
 
 import HeroSection from '../components/Home/HeroSection';
 import FeatureCards from '../components/Home/FeatureCards';

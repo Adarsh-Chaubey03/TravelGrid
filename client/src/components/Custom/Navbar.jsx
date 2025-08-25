@@ -343,16 +343,28 @@ const Navbar = () => {
                     </span>
                   </button>
                   {expanded === link.name && (
+feat/wishlist-tooltip-ux
+                    <div className="w-full flex flex-col px-4 py-2 bg-[#2c1a31] rounded-md mt-2 border border-pink-800 shadow-md">
+
+
+
                     <div
                       className={`w-full flex flex-col px-4 py-2 border-t ${isDarkMode ? "border-pink-800" : "border-pink-200"
                         }`}
                     >
+main
                       {link.subitems.map((item) => (
                         <NavLink
                           key={item.label}
                           to={item.path}
+ feat/wishlist-tooltip-ux
+                          className="w-full px-3 py-2 text-white font-medium rounded hover:bg-pink-600 transition-all duration-200"
+>
+
+                        
                           className="w-full py-2 px-2 rounded hover:bg-pink-500 transition-all duration-200 break-words text-sm"
                         >
+main
                           {item.label}
                         </NavLink>
                       ))}

@@ -477,12 +477,10 @@ const fetchForumTopics = async () => {
     }
 
     // 3. Sort the topics (example: by date)
-    const sortedTopics = [...filteredTopics].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
+    const sortedTopics = sortTopics2(filteredTopics);
 
     return sortedTopics;
-  }, [forumTopics, selectedCategory, searchQuery]);
+  }, [forumTopics, selectedCategory, searchQuery, sortBy]);
 
   //handleReply
   const handleReply = (id) => {

@@ -57,6 +57,7 @@ const Navbar = () => {
         { label: "Travel Countdown Timer", path: "/countdown-demo" },
         { label: "Music", path: "/music" },
         {label:"Map",path:"/itinerary-map"},
+        { label: "Budget Estimator", path: "/budget-estimator" },
 
         { label: t('navigation.petTravelGuide'), path: "/pettravel" },
         { label: "Travel Guides", path: "/travel-guides" },

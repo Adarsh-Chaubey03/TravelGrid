@@ -99,6 +99,7 @@ const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
 const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
 const Music = lazy(() => import('./pages/Music'));
 const VisaChecker = lazy(() => import('./pages/VisaChecker'));
+const BudgetEstimator = lazy(() => import('./pages/BudgetEstimator'));
 
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
@@ -152,6 +153,7 @@ const router = createBrowserRouter([
       { path: '/music', element: <Suspense fallback={<Spinner />}><Music /></Suspense> },
       {path:"/itinerary-map", element:<Suspense fallback={<Spinner />}><ItineraryMapPage/></Suspense>},
       { path: '/visa-checker', element: <Suspense fallback={<Spinner />}><VisaChecker /></Suspense> },
+      { path: '/budget-estimator', element: <Suspense fallback={<Spinner />}><BudgetEstimator /></Suspense> },
 
 
       {

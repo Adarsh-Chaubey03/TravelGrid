@@ -154,10 +154,10 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
             key={index}
             onClick={() => setCurrentIndex(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${currentIndex === index
-                ? "bg-pink-500 scale-110"
-                : isDarkMode
-                  ? "bg-gray-500"
-                  : "bg-gray-300"
+              ? "bg-pink-500 scale-110"
+              : isDarkMode
+                ? "bg-gray-500"
+                : "bg-gray-300"
               }`}
           />
         ))}

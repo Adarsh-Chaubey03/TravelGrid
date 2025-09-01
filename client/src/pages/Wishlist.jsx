@@ -40,8 +40,8 @@ const Wishlist = () => {
         <div className="max-w-7xl mx-auto">
           <div className={`text-center transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="flex justify-center mb-4">
-              <div className="bg-pink-100 dark:bg-pink-900/30 p-3 rounded-full">
-                <Heart className="h-8 w-8 text-pink-700 dark:text-pink-400 " fill="currentColor" />
+              <div className="bg-pink-100 dark:bg-pink-200 p-3 rounded-full">
+                <Heart className="h-8 w-8 text-pink-700 dark:text-pink-700 " fill="currentColor" />
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>

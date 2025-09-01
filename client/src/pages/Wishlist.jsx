@@ -41,7 +41,7 @@ const Wishlist = () => {
           <div className={`text-center transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="flex justify-center mb-4">
               <div className="bg-pink-100 dark:bg-pink-900/30 p-3 rounded-full">
-                <Heart className="h-8 w-8 text-pink-600 dark:text-pink-400" fill="currentColor" />
+                <Heart className="h-8 w-8 text-pink-700 dark:text-pink-400 " fill="currentColor" />
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
@@ -58,11 +58,11 @@ const Wishlist = () => {
       <div className="px-4 pb-16">
         <div className="max-w-7xl mx-auto">
           {wishlist.length === 0 ? (
-            <div className={`text-center py-16 rounded-xl bg-white dark:bg-gradient-to-br from-black to-[#ec4899] shadow-md transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className={`text-center py-16 rounded-xl  bg-white dark:bg-gradient-to-br from-black to-[#ec4899] shadow-md transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="flex justify-center mb-6">
-                <Heart className="h-16 w-16 text-white-300 dark:text-white" />
+                <Heart className="h-16 w-16 text-white-300  dark:text-white" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: 'var(--bg-tertiary)' }}>
+              <h3 className="text-xl md:text-2xl font-bold mb-3 text-white">
                 Your wishlist is empty
               </h3>
               <p className="text-md max-w-md mx-auto mb-6" style={{ color: 'var(--input-text)' }}>

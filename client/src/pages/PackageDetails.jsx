@@ -243,7 +243,7 @@ const PackageDetails = () => {
 
         {/* Description */}
         <div className="flex items-center justify-center">
-          <p className="leading-relaxed text-sm md:text-base text-center">
+          <p className="text-gray-700 leading-relaxed text-sm md:text-base text-center">
             {description}
           </p>
         </div>
@@ -255,7 +255,7 @@ const PackageDetails = () => {
             {highlights.map((point, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm"
+                className="text-gray-700 flex items-center gap-3 backdrop-blur-md bg-white/5 p-3 rounded-xl text-sm"
               >
                 <FaCheck className="text-pink-400" />
                 {point}
@@ -287,7 +287,7 @@ const PackageDetails = () => {
             </h2>
             <ul className="space-y-2 text-sm">
               {inclusions.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
+                <li key={i} className="text-gray-700 flex items-start gap-2">
                   <FaCheckCircle className="text-green-500 mt-1" />
                   <span className>{item}</span>
                 </li>
@@ -300,7 +300,7 @@ const PackageDetails = () => {
             </h2>
             <ul className="space-y-2 text-sm">
               {exclusions.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
+                <li key={i} className="text-gray-700 flex items-start gap-2">
                   <FaTimesCircle className="text-red-500 mt-1" />
                   <span className>{item}</span>
                 </li>
@@ -336,7 +336,7 @@ const PackageDetails = () => {
                   </div>
                 </div>
 
-                <blockquote className="mt-3 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
+                <blockquote className="text-gray-700 mt-3 text-sm italic border-l-3 border-pink-600/0 group-hover:border-pink-600 pl-4">
                   {review.comment}
                 </blockquote>
                 <div className="flex items-center mt-3 text-yellow-400 text-sm">
@@ -350,7 +350,7 @@ const PackageDetails = () => {
         </div>
 
         {/* FAQs */}
-        <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 p-6 rounded-2xl shadow-lg">
+        <div className="backdrop-blur-sm bg-white/5 border border-pink-400/20 p-6 rounded-2xl shadow-lg ">
           <h2 className="text-xl font-semibold mb-4">FAQs</h2>
           <div className="divide-y divide-pink-400/20">
             {faqs.map((faq, i) => (

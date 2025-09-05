@@ -43,7 +43,7 @@ const ItineraryMapPage = () => {
 
   return (
     <div
-      className={`min-h-screen pt-24 px-6 flex flex-col items-center justify-start relative ${
+      className={`min-h-screen pt-20 px-6 flex flex-col items-center justify-start relative ${
         isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" : "bg-gradient-to-br from-pink-50 via-rose-100 to-pink-200"
       }`}
     >

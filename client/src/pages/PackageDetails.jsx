@@ -193,7 +193,7 @@ const PackageDetails = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative max-w-6xl mx-auto px-4 md:px-12 pt-16 md:pt-24 space-y-12">
+      <div className="relative max-w-6xl mx-auto px-4 md:px-12 pt-16 md:pt-20 space-y-12">
         {/* Floating Bar */}
         <div className="w-[95%] max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 backdrop-blur-sm bg-white/5 border border-white/10 p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl z-20 relative sm:relative sm:shadow-lg">
           <div className="flex items-center gap-3">

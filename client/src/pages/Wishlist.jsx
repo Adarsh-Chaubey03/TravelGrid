@@ -36,7 +36,7 @@ const Wishlist = () => {
       <Navbar lightBackground />
 
       {/* Hero Section */}
-      <div className="pt-24 pb-10 px-4">
+      <div className="pt-20 pb-10 px-4">
         <div className="max-w-7xl mx-auto">
           <div className={`text-center transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="flex justify-center mb-4">

@@ -154,7 +154,7 @@ const AITravelPlannerDemo = () => {
       {/* Header / Navbar */}
 
       {/* Push content down (so it's not hidden behind navbar) */}
-      <div className="pt-24">
+      <div className="pt-20">
         
         
 

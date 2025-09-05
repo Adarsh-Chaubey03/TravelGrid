@@ -205,7 +205,7 @@ export default function VisaChecker() {
   };
 
   return (
-    <div className={`min-h-screen pt-24 px-4 py-8`}>
+    <div className={`min-h-screen pt-20 px-4 py-8`}>
   <div className="max-w-5xl mx-auto space-y-8">
 
     {/* Heading */}

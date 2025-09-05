@@ -208,7 +208,7 @@ const TravelPlanGenerator = () => {
   return (
     <div className={`flex flex-col min-h-screen w-full overflow-x-hidden`}>
       <Navbar />
-      <main className="flex flex-col flex-1 w-full items-center pt-24">
+      <main className="flex flex-col flex-1 w-full items-center pt-20">
         <section className="w-full py-12 text-center px-4">
           <h1 className={`text-4xl md:text-5xl font-extrabold mb-4 mt-6 ${isDarkMode ? 'text-white' : 'text-gray-900'
             }`}>

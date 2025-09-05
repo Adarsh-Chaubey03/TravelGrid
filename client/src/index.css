@@ -107,8 +107,8 @@ body {
 
 /* Utility class for content below fixed navbar */
 .content-below-navbar {
-  padding-top: 5rem;
-  /* h-20 = 5rem = 80px */
+  padding-top: 4rem;
+  /* h-16 = 4rem = 64px */
   margin-top: 1rem;
 }
 
@@ -120,7 +120,7 @@ body {
 /* Ensure main content areas have proper spacing */
 main,
 .main-content {
-  padding-top: 5rem;
+  padding-top: 4rem;
   /* Account for fixed navbar */
 }
 

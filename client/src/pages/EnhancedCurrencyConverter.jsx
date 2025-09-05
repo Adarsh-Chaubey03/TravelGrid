@@ -272,7 +272,7 @@ const EnhancedCurrencyConverter = () => {
     }, {});
 
     return (
-        <div className={`min-h-screen p-4 pt-24 font-inter transition-all duration-300`}>
+        <div className={`min-h-screen p-4 pt-20 font-inter transition-all duration-300`}>
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-8">

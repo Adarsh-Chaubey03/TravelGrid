@@ -154,7 +154,7 @@ const TravelPackages = () => {
     <div className="flex flex-col min-h-screen w-full mt-14 overflow-x-hidden transition-colors duration-300">
       <Navbar />
 
-      <main className="flex flex-col flex-1 w-full items-center pt-24">
+      <main className="flex flex-col flex-1 w-full items-center pt-20">
         {/* HERO */}
         <section className="w-full py-20 text-center px-4">
           <h1

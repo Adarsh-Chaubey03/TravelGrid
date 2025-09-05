@@ -117,19 +117,19 @@ const Navbar = () => {
   }, []);
 
   const linkBaseClasses =
-    "py-1.5 px-2 text-sm font-medium rounded-sm  hover:text-pink-500 hover:shadow-sm transition-all duration-300";
+    "py-1 px-2 text-xs font-medium rounded-sm  hover:text-pink-500 hover:shadow-sm transition-all duration-300";
 
   return (
     <div>
       {/* Top Navbar */}
       <nav
-        className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${
+        className={`box-border w-full fixed top-0 left-0 z-50 h-16 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${
           isDarkMode
-            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
-            : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
+            ? `border-slate-700 text-white ${isScrolled ? "bg-slate-900/80" : "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900"}`
+            : `border-gray-200 text-gray-900 ${isScrolled ? "bg-white/80" : "bg-gradient-to-r from-white via-gray-50 to-white"}`
         } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
-        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-6">
+        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-3">
           {/* Logo */}
           <NavLink
             to="/"
@@ -137,15 +137,15 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 "
+            className="flex items-center gap-2 text-xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 "
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
               loading="lazy"
-              className="w-8 h-8 mx-2 rounded-full border border-pink-300 shadow-md  flex-shrink-0 "
+              className="w-6 h-6 mx-1 rounded-full border border-pink-300 shadow-md  flex-shrink-0 "
             />
-            <span className="text-lg font-bold truncate max-w-[120px] sm:max-w-[160px] md:max-w-none">
+            <span className="text-base font-bold truncate max-w-[120px] sm:max-w-[160px] md:max-w-none">
               TravelGrid
             </span>
           </NavLink>
@@ -161,7 +161,7 @@ const Navbar = () => {
                 <div className="relative group" key={link.name}>
                   <button
                     aria-label={link.name}
-                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all  duration-300 flex items-center gap-1 truncate max-w-fit ${
+                    className={`py-1 px-2 text-xs font-medium rounded-sm transition-all  duration-300 flex items-center gap-1 truncate max-w-fit ${
                       activeParentTab === link.name
                         ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
                         : `hover:text-pink-500 hover:shadow-sm ${
@@ -184,7 +184,7 @@ const Navbar = () => {
                         key={item.label}
                         to={item.path}
                         className={({ isActive }) =>
-                          `py-2 px-2 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${
+                          `py-1.5 px-2 text-xs hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${
                             isActive
                               ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
                               : ""
@@ -228,7 +228,7 @@ const Navbar = () => {
                 {user && !user.isEmailVerified && (
                   <NavLink
                     to={`/verify-email?email=${encodeURIComponent(user.email)}`}
-                    className="flex items-center gap-2 bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 px-3 py-2 rounded-md text-sm font-medium hover:bg-yellow-600/30 transition-all break-words"
+                    className="flex items-center gap-2 bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 px-2 py-1.5 rounded-md text-xs font-medium hover:bg-yellow-600/30 transition-all break-words"
                     title="Click to verify your email"
                   >
                     <AlertTriangle size={16} />
@@ -245,14 +245,14 @@ const Navbar = () => {
                       src={user.picture}
                       alt="User Avatar"
                       loading="lazy"
-                      className="w-6 h-6 rounded-full object-cover"
+                      className="w-5 h-5 rounded-full object-cover"
                     />
                   ) : user?.name ? (
-                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-pink-600 text-white text-xs font-bold">
+                    <div className="w-5 h-5 flex items-center justify-center rounded-full bg-pink-600 text-white text-xs font-bold">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                   ) : (
-                    <User size={18} />
+                    <User size={16} />
                   )}
                   {t("navigation.dashboard")}
                 </NavLink>
@@ -261,20 +261,20 @@ const Navbar = () => {
                   onClick={handleLogout}
                   className="hover:text-pink-500 flex items-center gap-1 transition-colors"
                 >
-                  <LogOut size={18} /> {t("auth.logout")}
+                  <LogOut size={16} /> {t("auth.logout")}
                 </button>
               </>
             ) : (
               <>
                 <NavLink
                   to="/login"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-2 py-1.5 rounded-md font-semibold hover:scale-105 transition-all text-xs whitespace-nowrap"
                 >
                   {t("auth.login")}
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-2 py-1.5 rounded-md font-semibold hover:scale-105 transition-all text-xs whitespace-nowrap"
                 >
                   {t("auth.signup")}
                 </NavLink>
@@ -292,7 +292,7 @@ const Navbar = () => {
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
               className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1 rounded-md hover:bg-pink-500/20 cursor-pointer"
             >
-              {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+              {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -399,7 +399,7 @@ const Navbar = () => {
                   onClick={handleLogout}
                   className="flex gap-2 items-center text-red-400 py-2 px-3 hover:bg-red-500/10"
                 >
-                  <LogOut size={18} /> {t("auth.logout")}
+                  <LogOut size={16} /> {t("auth.logout")}
                 </button>
               </>
             ) : (

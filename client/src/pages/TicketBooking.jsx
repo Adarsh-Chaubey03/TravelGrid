@@ -184,7 +184,7 @@ function TicketBooking() {
   return (
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <Navbar />
-      <main className="relative flex flex-col flex-1 items-center w-full pt-24 pb-10 px-4">
+      <main className="relative flex flex-col flex-1 items-center w-full pt-20 pb-10 px-4">
         {/* Background city image */}
         <img
           src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1600&q=80"

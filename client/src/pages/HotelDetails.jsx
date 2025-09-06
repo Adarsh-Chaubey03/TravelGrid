@@ -139,11 +139,10 @@ const [qrDataUrl, setQrDataUrl] = useState('');
 
               <button
                 onClick={() => {
-                  // Temporarily bypass authentication for testing
-                  // if (!user) {
-                  //   toast.error('Please login to book a hotel');
-                  //   return;
-                  // }
+                  if (!user) {
+                  toast.error('Please login to book a hotel');
+                  return;
+                  }
                   navigate('/hotel-booking', { state: { hotel } });
                 }}
                 className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"

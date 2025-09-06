@@ -1,5 +1,5 @@
-const express = require("express");
-const { addComment, getAllComments } = require("../controller/reviewsController.js");
+import express from "express";
+import { addComment, getAllComments } from "../controller/reviewsController.js";
 
 const router = express.Router();
 
@@ -7,4 +7,4 @@ const router = express.Router();
 router.post("/add", addComment);
 router.get("/", getAllComments);
 
-module.exports = router;
+export default router;

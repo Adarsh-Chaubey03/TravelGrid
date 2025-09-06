@@ -1,7 +1,7 @@
-const Booking = require("../models/booking");
-const User = require("../models/user");
+import Booking from "../models/booking.js";
+import User from "../models/user.js";
 
-exports.addBooking = async(req,res) => {
+const addBooking = async(req,res) => {
     try {
 
         const {userId} = req.user;
@@ -71,7 +71,7 @@ exports.addBooking = async(req,res) => {
     }
 }
 
-exports.getAllBooking = async(req,res) => {
+const getAllBooking = async(req,res) => {
     try {
         
         // check of if user is present for protected route
@@ -118,7 +118,7 @@ exports.getAllBooking = async(req,res) => {
     }
 }
 
-exports.getBooking = async(req,res) => {
+const getBooking = async(req,res) => {
     try {
         const {bookingId} = req.params
         const {userId} = req.user
@@ -173,7 +173,7 @@ exports.getBooking = async(req,res) => {
 }
 
 /* LEFT AND REMAINIG TO CHECK */
-exports.editBooking = async(req,res) => {
+const editBooking = async(req,res) => {
     try {
     
         const {bookingId} = req.params
@@ -257,7 +257,7 @@ exports.editBooking = async(req,res) => {
     
 }
 
-exports.deleteBooking = async(req, res) => {
+const deleteBooking = async(req, res) => {
     try {
         // get the userid
         const userId = req.user
@@ -320,4 +320,12 @@ exports.deleteBooking = async(req, res) => {
                     success : false
                 })
     }
+}
+
+export default {
+    addBooking,
+    getAllBooking,
+    getBooking,
+    editBooking,
+    deleteBooking
 }

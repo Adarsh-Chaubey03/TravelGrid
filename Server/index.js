@@ -1,17 +1,19 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser'); // <-- NEW
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 
-const connectDB = require('./config/db');
+import connectDB from './config/db.js';
 
-const authRoutes = require('./routes/authRoutes');
-const bookingRouter = require('./routes/bookingRoutes');
-const userRoutes = require('./routes/userRoutes');
-const postRoutes = require('./routes/postRoutes')
-const saveRoutes = require('./routes/saveRoutes');
-const tripRoutes =  require( './routes/trips.js');
-const reviewsRoutes = require('./routes/reviewRoutes.js');
+import authRoutes from './routes/authRoutes.js';
+import bookingRouter from './routes/bookingRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import postRoutes from './routes/postRoutes.js';
+import saveRoutes from './routes/saveRoutes.js';
+import tripRoutes from './routes/trips.js';
+import reviewsRoutes from './routes/reviewRoutes.js';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,7 +49,7 @@ app.use((req, res, next) => {
 
 
 app.get('/',(req,res)=>{
-  res.send("Hello world")
+  res.send("TravelGrid Server is Running")
 })
 
 // Routes

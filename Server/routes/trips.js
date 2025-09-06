@@ -1,6 +1,6 @@
-const express = require('express');
-const { createTrip, getAllTrips, deleteTrip } = require('../controller/tripsController');
-const { verifyJWT } = require('../middleware/auth');
+import express from 'express';
+import { createTrip, getAllTrips, deleteTrip } from '../controller/tripsController.js';
+import { verifyJWT } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -8,5 +8,4 @@ router.post('/trips', verifyJWT, createTrip);
 router.get('/trips', verifyJWT, getAllTrips);
 router.delete('/trips/:id', verifyJWT, deleteTrip);
 
-module.exports = router;
-
+export default router;

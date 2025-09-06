@@ -1,4 +1,4 @@
-const User = require('../models/user');
+import User from '../models/user.js';
 
 const savePlace = async (req, res) => {
     const userId = req.user.id;
@@ -53,4 +53,4 @@ const deleteSavedPlace = async (req, res) => {
 };
 
 
-module.exports = { savePlace, getSavedPlaces, deleteSavedPlace };
+export { savePlace, getSavedPlaces, deleteSavedPlace };

@@ -1,7 +1,7 @@
-const {Post} = require('../models/posts');
+import {Post} from '../models/posts.js';
 //Create a post
 
-exports.createPost = async(req,res)=>{
+const createPost = async(req,res)=>{
     try{
         const {title,info,tag,tagColor,senderName,postType} = req.body;
 
@@ -24,7 +24,7 @@ exports.createPost = async(req,res)=>{
 }
 //get All posts
 
-exports.getAllPosts = async (req,res) => {
+const getAllPosts = async (req,res) => {
     try{
         const posts = await Post.find().sort({createdAt:-1});
         res.status(200).json(posts)
@@ -40,7 +40,7 @@ exports.getAllPosts = async (req,res) => {
 
 //Add reply to a post
 
-exports.addReply = async (req,res) => {
+const addReply = async (req,res) => {
     const {postId} = req.params;
     const {senderName,message} = req.body;
 
@@ -67,7 +67,7 @@ exports.addReply = async (req,res) => {
 }
 
 //Get replies By Id
-exports.getRepliesByPostId = async (req,res) => {
+const getRepliesByPostId = async (req,res) => {
     try {
         const {postId} = req.params;
         const post = await Post.findById(postId);
@@ -78,8 +78,8 @@ exports.getRepliesByPostId = async (req,res) => {
         res.status(200).json({replies:post.replies});
         
     } catch (err) {
-          console.log(e);
-        res.status(500).json({error:e.message});
+          console.log(err);
+        res.status(500).json({error:err.message});
 
         
     }
@@ -87,7 +87,7 @@ exports.getRepliesByPostId = async (req,res) => {
 
 //get Post By Type
 
-exports.getPostByType = async (req,res) => {
+const getPostByType = async (req,res) => {
     try{
         const {type} = req.query;
         const query = type?{postType:type}:{}; 
@@ -103,7 +103,7 @@ exports.getPostByType = async (req,res) => {
 }
 //Get Post By Id
 
-exports.getPostById = async (req,res) => {
+const getPostById = async (req,res) => {
     try{
         const {postId} = req.params;
         const post = await Post.findById(postId);
@@ -118,4 +118,13 @@ exports.getPostById = async (req,res) => {
          res.status(500).json({ message: 'Server error', error: err.message });
     }
     
+}
+
+export {
+    createPost,
+    getAllPosts,
+    addReply,
+    getRepliesByPostId,
+    getPostById,
+    getPostByType
 }

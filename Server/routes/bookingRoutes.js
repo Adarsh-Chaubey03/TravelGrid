@@ -1,7 +1,7 @@
-const express = require('express')
-const { verifyJWT } = require('../middleware/auth.js')
+import express from 'express'
+import { verifyJWT } from '../middleware/auth.js'
 
-const bookingController = require('../controller/bookingController.js')
+import bookingController from '../controller/bookingController.js'
 
 const bookingRouter = express.Router()
 
@@ -12,4 +12,4 @@ bookingRouter.get('/getBooking/:id', verifyJWT, bookingController.getBooking)
 bookingRouter.delete('/deleteBooking/:id',verifyJWT, bookingController.deleteBooking)
 bookingRouter.patch('/editBooking/:id',verifyJWT, bookingController.editBooking)
 
-module.exports = bookingRouter
+export default bookingRouter

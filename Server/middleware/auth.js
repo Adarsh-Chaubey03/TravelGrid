@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+import jwt from 'jsonwebtoken';
+import User from '../models/user.js';
 const JWT_SECRET = process.env.JWT_SECRET;
 
-exports.verifyJWT = async (req, res, next) => {
+const verifyJWT = async (req, res, next) => {
   try {
     // Get token from cookies or Authorization header
     const token =
@@ -41,3 +41,5 @@ exports.verifyJWT = async (req, res, next) => {
     return res.status(401).json({ message, success: false });
   }
 };
+
+export { verifyJWT };

@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const {createPost,getAllPosts,addReply,getRepliesByPostId,getPostById,getPostByType} = require('../controller/postController');
-const { verifyJWT } = require('../middleware/auth');
+import {createPost,getAllPosts,addReply,getRepliesByPostId,getPostById,getPostByType} from '../controller/postController.js';
+import { verifyJWT } from '../middleware/auth.js';
 
 router.post('/createPost',verifyJWT,createPost);
 router.get('/allPosts',getAllPosts);
@@ -10,4 +10,4 @@ router.get('/getRepliesById/:postId',getRepliesByPostId);
 router.get('/getPostByid/:postId',getPostById);
 router.get('/getPostByType/type',getPostByType);
 
-module.exports = router;
+export default router;

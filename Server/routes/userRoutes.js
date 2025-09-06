@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const multer = require("multer");
-const User = require("../models/user"); // ensure correct path
+import multer from "multer";
+import User from "../models/user.js"; // ensure correct path
 
 // Multer for file upload
 const storage = multer.memoryStorage();
@@ -51,4 +51,4 @@ router.put("/:id", upload.single("picture"), async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

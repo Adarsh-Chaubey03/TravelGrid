@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { savePlace, getSavedPlaces, deleteSavedPlace } = require('../controller/saveController');
-const { verifyJWT } = require('../middleware/auth');
+import { savePlace, getSavedPlaces, deleteSavedPlace } from '../controller/saveController.js';
+import { verifyJWT } from '../middleware/auth.js';
 
 router.post('/save-place', verifyJWT, savePlace);
 router.get('/my-saved-places', verifyJWT, getSavedPlaces);
 router.delete('/delete/:placeId', verifyJWT, deleteSavedPlace);
 
-module.exports = router;
+export default router;

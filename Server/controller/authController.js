@@ -1,8 +1,8 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const validator = require('validator');
-const User = require('../models/user');
-const mongoose = require('mongoose');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import validator from 'validator';
+import User from '../models/user.js';
+import mongoose from 'mongoose';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 if (!JWT_SECRET) {
@@ -25,7 +25,7 @@ const setTokenCookie = (res, userId) => {
 };
 
 // Google Auth
-exports.googleAuth = async (req, res) => {
+const googleAuth = async (req, res) => {
   const { token } = req.body;
 
   try {
@@ -74,7 +74,7 @@ exports.googleAuth = async (req, res) => {
 };
 
 // Register User
-exports.registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -119,7 +119,7 @@ exports.registerUser = async (req, res) => {
 };
 
 // Login User
-exports.loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -166,7 +166,7 @@ exports.loginUser = async (req, res) => {
 };
 
 // Logout User
-exports.logoutUser = async (req, res) => {
+const logoutUser = async (req, res) => {
   try {
     return res
       .clearCookie("token", {
@@ -189,7 +189,7 @@ exports.logoutUser = async (req, res) => {
 
 // @route   GET /api/auth/me
 // @access  Private
-exports.getCurrentUser = async (req, res) => {
+const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user).select("-password"); // exclude password
     if (!user) {
@@ -204,4 +204,12 @@ exports.getCurrentUser = async (req, res) => {
     console.error("Error fetching user:", error);
     res.status(500).json({ success: false, error: "Server error" });
   }
+};
+
+export {
+  googleAuth,
+  registerUser,
+  loginUser,
+  logoutUser,
+  getCurrentUser
 };

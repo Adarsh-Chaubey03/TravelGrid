@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
+import { handleError } from './utils/errorHandler.js';
+import securityMiddleware from './middleware/securityMiddleware.js';
 
 import connectDB from './config/db.js';
 
@@ -22,6 +25,12 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
+// Security middleware
+app.use(helmet()); // Basic security headers
+app.use(securityMiddleware.sanitizeInputs);
+app.use(securityMiddleware.xssProtection);
+app.use(securityMiddleware.securityHeaders);
+
 const allowedOrigins = [
   "http://localhost:5173", // Vite dev
   "http://localhost:3000", // CRA dev
@@ -36,16 +45,17 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true // <- allow credentials (cookies)
+  credentials: true,
+  exposedHeaders: ['CSRF-Token']
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '10kb' })); // Body size limit
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
-  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-  next();
-});
+
+// Rate limiting
+app.use('/api', securityMiddleware.rateLimiter.api);
+app.use('/api/auth', securityMiddleware.rateLimiter.auth);
 
 
 app.get('/',(req,res)=>{
@@ -78,15 +88,18 @@ app.use('/api', tripRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
 // 404 Not Found middleware
-app.use((req,res,next)=>{
-  res.status(404).json({message:'Resource not found'});
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    error: {
+      type: 'NotFoundError',
+      message: 'Resource not found'
+    }
+  });
 });
-// Error handling middleware global
-app.use((err,req,res,next)=>{
-  console.error(err.stack);
-  res.status(500).json({message:"Internal Server Error"});
 
-});
+// Global error handling middleware
+app.use(handleError);
 
 // server
 app.listen(PORT, () => {

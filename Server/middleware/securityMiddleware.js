@@ -1,8 +1,8 @@
-const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
-const rateLimit = require('express-rate-limit');
-const csrf = require('csurf');
-const { AppError, ERROR_TYPES } = require('../utils/errorHandler');
+import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
+import rateLimit from 'express-rate-limit';
+import csrf from 'csurf';
+import { AppError, ERROR_TYPES } from '../utils/errorHandler.js';
 
 // Comprehensive input validation and sanitization middleware
 const securityMiddleware = {
@@ -82,4 +82,4 @@ const securityMiddleware = {
     }
 };
 
-module.exports = securityMiddleware;
+export default securityMiddleware;

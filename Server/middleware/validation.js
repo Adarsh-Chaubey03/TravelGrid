@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { AppError, ERROR_TYPES } = require('../utils/errorHandler');
+import Joi from 'joi';
+import { AppError, ERROR_TYPES } from '../utils/errorHandler.js';
 
 const validate = (schema) => {
   return (req, res, next) => {
@@ -76,7 +76,4 @@ const schemas = {
   }
 };
 
-module.exports = {
-  validate,
-  schemas
-};
+export { validate, schemas };

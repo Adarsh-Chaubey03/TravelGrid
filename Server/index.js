@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import { handleError } from './utils/errorHandler.js';
 import securityMiddleware from './middleware/securityMiddleware.js';
+import { validate, schemas } from './middleware/validation.js';
 
 import connectDB from './config/db.js';
 

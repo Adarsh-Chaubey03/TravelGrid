@@ -75,8 +75,5 @@ const handleError = (err, req, res, next) => {
   });
 };
 
-module.exports = {
-  AppError,
-  ERROR_TYPES,
-  handleError
-};
+// Export as ES modules
+export { AppError, ERROR_TYPES, handleError };

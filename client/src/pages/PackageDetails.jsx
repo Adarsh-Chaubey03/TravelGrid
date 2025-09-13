@@ -57,7 +57,7 @@ const Accordion = ({ title, content, variant = "default" }) => {
         </div>
       ) : (
         isOpen && (
-          <div className="pb-4 text-[#cfcfcf] text-sm leading-relaxed">
+          <div className="pb-4 text-white font-medium leading-relaxed hover:text-pink-400">
             {content}
           </div>
         )

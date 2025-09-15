@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Currency Travel Wallet</title>
     <style>
         /* Reset and base styles */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -21,8 +23,8 @@
             justify-content: center;
             padding: 20px;
         }
-
         /* Main container */
+        
         .wallet-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -33,30 +35,30 @@
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         /* Header */
+        
         .wallet-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 80px;
         }
-
+        
         .wallet-title {
-            font-size: 28px;
+            font-size: 60px;
             font-weight: 700;
             color: #2d3748;
             margin-bottom: 8px;
         }
-
+        
         .wallet-subtitle {
             color: #718096;
             font-size: 16px;
         }
-
         /* Form elements */
+        
         .form-group {
             margin-bottom: 24px;
         }
-
+        
         .form-label {
             display: block;
             margin-bottom: 8px;
@@ -64,7 +66,7 @@
             color: #4a5568;
             font-size: 14px;
         }
-
+        
         .form-select,
         .form-input {
             width: 100%;
@@ -75,14 +77,14 @@
             transition: all 0.3s ease;
             background: white;
         }
-
+        
         .form-select:focus,
         .form-input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-
+        
         .form-select {
             cursor: pointer;
             appearance: none;
@@ -92,8 +94,8 @@
             background-size: 16px;
             padding-right: 40px;
         }
-
         /* Currency display */
+        
         .currency-display {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -102,41 +104,39 @@
             text-align: center;
             margin-top: 20px;
         }
-
+        
         .converted-amount {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
         }
-
+        
         .conversion-rate {
             font-size: 14px;
             opacity: 0.9;
         }
-
         /* Responsive design */
+        
         @media (max-width: 600px) {
             .wallet-container {
                 padding: 30px 20px;
                 margin: 10px;
             }
-            
             .wallet-title {
                 font-size: 24px;
             }
-            
             .converted-amount {
                 font-size: 28px;
             }
         }
-
         /* Loading state */
+        
         .loading {
             opacity: 0.6;
             pointer-events: none;
         }
-
         /* Error state */
+        
         .error {
             background: #fed7d7;
             color: #c53030;
@@ -148,6 +148,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="wallet-container">
         <div class="wallet-header">
@@ -172,15 +173,7 @@
 
             <div class="form-group">
                 <label for="amount" class="form-label">Amount</label>
-                <input 
-                    type="number" 
-                    id="amount" 
-                    class="form-input" 
-                    placeholder="Enter amount"
-                    min="0"
-                    step="0.01"
-                    required
-                >
+                <input type="number" id="amount" class="form-input" placeholder="Enter amount" min="0" step="0.01" required>
             </div>
         </form>
 
@@ -234,34 +227,118 @@
 
         // Currency information for display
         const CURRENCY_INFO = {
-            USD: { name: 'US Dollar', symbol: '$' },
-            EUR: { name: 'Euro', symbol: '€' },
-            GBP: { name: 'British Pound', symbol: '£' },
-            JPY: { name: 'Japanese Yen', symbol: '¥' },
-            CAD: { name: 'Canadian Dollar', symbol: 'C$' },
-            AUD: { name: 'Australian Dollar', symbol: 'A$' },
-            CHF: { name: 'Swiss Franc', symbol: 'CHF' },
-            CNY: { name: 'Chinese Yuan', symbol: '¥' },
-            INR: { name: 'Indian Rupee', symbol: '₹' },
-            BRL: { name: 'Brazilian Real', symbol: 'R$' },
-            MXN: { name: 'Mexican Peso', symbol: '$' },
-            SGD: { name: 'Singapore Dollar', symbol: 'S$' },
-            HKD: { name: 'Hong Kong Dollar', symbol: 'HK$' },
-            KRW: { name: 'South Korean Won', symbol: '₩' },
-            SEK: { name: 'Swedish Krona', symbol: 'kr' },
-            NOK: { name: 'Norwegian Krone', symbol: 'kr' },
-            DKK: { name: 'Danish Krone', symbol: 'kr' },
-            PLN: { name: 'Polish Złoty', symbol: 'zł' },
-            CZK: { name: 'Czech Koruna', symbol: 'Kč' },
-            HUF: { name: 'Hungarian Forint', symbol: 'Ft' },
-            RUB: { name: 'Russian Ruble', symbol: '₽' },
-            TRY: { name: 'Turkish Lira', symbol: '₺' },
-            ZAR: { name: 'South African Rand', symbol: 'R' },
-            THB: { name: 'Thai Baht', symbol: '฿' },
-            MYR: { name: 'Malaysian Ringgit', symbol: 'RM' },
-            IDR: { name: 'Indonesian Rupiah', symbol: 'Rp' },
-            PHP: { name: 'Philippine Peso', symbol: '₱' },
-            VND: { name: 'Vietnamese Dong', symbol: '₫' }
+            USD: {
+                name: 'US Dollar',
+                symbol: '$'
+            },
+            EUR: {
+                name: 'Euro',
+                symbol: '€'
+            },
+            GBP: {
+                name: 'British Pound',
+                symbol: '£'
+            },
+            JPY: {
+                name: 'Japanese Yen',
+                symbol: '¥'
+            },
+            CAD: {
+                name: 'Canadian Dollar',
+                symbol: 'C$'
+            },
+            AUD: {
+                name: 'Australian Dollar',
+                symbol: 'A$'
+            },
+            CHF: {
+                name: 'Swiss Franc',
+                symbol: 'CHF'
+            },
+            CNY: {
+                name: 'Chinese Yuan',
+                symbol: '¥'
+            },
+            INR: {
+                name: 'Indian Rupee',
+                symbol: '₹'
+            },
+            BRL: {
+                name: 'Brazilian Real',
+                symbol: 'R$'
+            },
+            MXN: {
+                name: 'Mexican Peso',
+                symbol: '$'
+            },
+            SGD: {
+                name: 'Singapore Dollar',
+                symbol: 'S$'
+            },
+            HKD: {
+                name: 'Hong Kong Dollar',
+                symbol: 'HK$'
+            },
+            KRW: {
+                name: 'South Korean Won',
+                symbol: '₩'
+            },
+            SEK: {
+                name: 'Swedish Krona',
+                symbol: 'kr'
+            },
+            NOK: {
+                name: 'Norwegian Krone',
+                symbol: 'kr'
+            },
+            DKK: {
+                name: 'Danish Krone',
+                symbol: 'kr'
+            },
+            PLN: {
+                name: 'Polish Złoty',
+                symbol: 'zł'
+            },
+            CZK: {
+                name: 'Czech Koruna',
+                symbol: 'Kč'
+            },
+            HUF: {
+                name: 'Hungarian Forint',
+                symbol: 'Ft'
+            },
+            RUB: {
+                name: 'Russian Ruble',
+                symbol: '₽'
+            },
+            TRY: {
+                name: 'Turkish Lira',
+                symbol: '₺'
+            },
+            ZAR: {
+                name: 'South African Rand',
+                symbol: 'R'
+            },
+            THB: {
+                name: 'Thai Baht',
+                symbol: '฿'
+            },
+            MYR: {
+                name: 'Malaysian Ringgit',
+                symbol: 'RM'
+            },
+            IDR: {
+                name: 'Indonesian Rupiah',
+                symbol: 'Rp'
+            },
+            PHP: {
+                name: 'Philippine Peso',
+                symbol: '₱'
+            },
+            VND: {
+                name: 'Vietnamese Dong',
+                symbol: '₫'
+            }
         };
 
         // DOM elements
@@ -287,12 +364,12 @@
          */
         function populateCurrencyDropdowns() {
             const currencies = Object.keys(EXCHANGE_RATES).sort();
-            
+
             currencies.forEach(currency => {
                 const option = document.createElement('option');
                 option.value = currency;
                 option.textContent = `${currency} - ${CURRENCY_INFO[currency].name}`;
-                
+
                 homeCurrencySelect.appendChild(option.cloneNode(true));
                 targetCurrencySelect.appendChild(option);
             });
@@ -333,7 +410,7 @@
             try {
                 const convertedAmount = convertCurrency(amount, homeCurrency, targetCurrency);
                 const rate = getExchangeRate(homeCurrency, targetCurrency);
-                
+
                 displayResult(convertedAmount, homeCurrency, targetCurrency, rate);
                 hideError();
             } catch (error) {
@@ -357,7 +434,7 @@
             // Convert to USD first (base currency), then to target currency
             const usdAmount = amount / EXCHANGE_RATES[fromCurrency];
             const convertedAmount = usdAmount * EXCHANGE_RATES[toCurrency];
-            
+
             return Math.round(convertedAmount * 100) / 100; // Round to 2 decimal places
         }
 
@@ -371,7 +448,7 @@
             if (fromCurrency === toCurrency) {
                 return 1;
             }
-            
+
             return EXCHANGE_RATES[toCurrency] / EXCHANGE_RATES[fromCurrency];
         }
 
@@ -385,13 +462,13 @@
         function displayResult(convertedAmount, fromCurrency, toCurrency, rate) {
             const fromInfo = CURRENCY_INFO[fromCurrency];
             const toInfo = CURRENCY_INFO[toCurrency];
-            
+
             // Format the converted amount with appropriate decimal places
             const formattedAmount = formatCurrency(convertedAmount, toCurrency);
-            
+
             convertedAmountDiv.textContent = formattedAmount;
             conversionRateDiv.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
-            
+
             resultDiv.style.display = 'block';
         }
 
@@ -404,11 +481,11 @@
         function formatCurrency(amount, currency) {
             // Some currencies don't use decimal places
             const noDecimalCurrencies = ['JPY', 'KRW', 'IDR', 'VND', 'HUF'];
-            
+
             if (noDecimalCurrencies.includes(currency)) {
                 return Math.round(amount).toLocaleString();
             }
-            
+
             return amount.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -442,4 +519,5 @@
         document.addEventListener('DOMContentLoaded', initializeConverter);
     </script>
 </body>
+
 </html>

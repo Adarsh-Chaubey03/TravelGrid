@@ -19,6 +19,7 @@ import {
   Globe,
   Calendar
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const AIRecommendationEngine = ({
   destination,
@@ -46,7 +47,7 @@ const AIRecommendationEngine = ({
   const [isLoading, setIsLoading] = useState(false);
   const [aiInsights, setAiInsights] = useState([]);
   const [personalizationScore, setPersonalizationScore] = useState(0);
-
+  const {isDarkMode}=useTheme();
   // Generate AI recommendations based on user preferences
   const generateRecommendations = useCallback(async () => {
     setIsLoading(true);
@@ -453,20 +454,20 @@ const AIRecommendationEngine = ({
   return (
     <div className="space-y-6">
       {/* AI Personalization Header */}
-      <div className="bg-gradient-to-r from-pink-900/50 to-blue-900/50 backdrop-blur-sm rounded-xl p-6 border border-white">
+      <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10 ":"bg-white/90"}`}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-xl font-semibold flex items-center text-black">
-              <Zap className="w-5 h-5 mr-2" />
+            <h3 className="text-xl font-semibold flex items-center text-pink-400 justify-start gap-2">
+              <Zap className="w-5 h-5" />
               AI-Powered Recommendations
             </h3>
-            <p className="text-sm text-purple-200 mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               Personalized suggestions based on your preferences and AI analysis
             </p>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-pink-800">{personalizationScore}%</div>
-            <div className="text-sm text-white">AI Match Score</div>
+            <div className="text-2xl font-bold text-pink-400">{personalizationScore}%</div>
+            <div className="text-sm text-gray-900">AI Match Score</div>
           </div>
         </div>
 
@@ -474,14 +475,14 @@ const AIRecommendationEngine = ({
         {aiInsights.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {aiInsights.map((insight) => (
-              <div key={insight.id} className="p-3 bg-pink-800/20 border border-white rounded-lg">
+              <div key={insight.id} className={`p-3 rounded-lg  border border-pink-500/30 ${isDarkMode ? " bg-white/10":" bg-gradient-to-r from-pink-100 via-gray-200 to-blue-100 border-pink-500"}`}>
                 <div className="flex items-center space-x-2 mb-2">
                   <span className="text-lg">{insight.icon}</span>
-                  <span className="text-xs font-medium text-purple-300 uppercase">
+                  <span className="text-xs font-medium text-gray-900 uppercase">
                     {insight.type}
                   </span>
                 </div>
-                <p className="text-sm text-purple-200">{insight.message}</p>
+                <p className="text-xs text-gray-700">{insight.message}</p>
               </div>
             ))}
           </div>
@@ -489,10 +490,10 @@ const AIRecommendationEngine = ({
       </div>
 
       {/* Filters */}
-      <div className="bg-pink-500/20 backdrop-blur-sm rounded-xl p-6 border border-pink-700">
+      <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/10":" bg-white/90"}`}>
         <div className="flex items-center justify-between mb-4">
-          <h4 className="text-lg font-semibold flex items-center">
-            <Filter className="w-5 h-5 mr-2 text-black" />
+          <h4 className="text-lg font-semibold flex items-center text-pink-400">
+            <Filter className="w-5 h-5 mr-2" />
             Smart Filters
           </h4>
           <button
@@ -502,7 +503,7 @@ const AIRecommendationEngine = ({
               distance: 'all',
               duration: 'all'
             })}
-            className="text-sm text-pink-700 hover:text-blue-400 transition-colors"
+            className="text-sm font-medium text-pink-400 hover:text-pink-400 transition-colors cursor-pointer"
           >
             Reset Filters
           </button>
@@ -510,11 +511,11 @@ const AIRecommendationEngine = ({
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-sm font-medium text-pink-700 mb-2">Price Range</label>
+            <label className="block text-sm font-medium text-gray-700  mb-2">Price Range</label>
             <select
               value={filters.priceRange}
               onChange={(e) => handleFilterChange('priceRange', e.target.value)}
-              className="w-full px-3 py-2 text-pink-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-pink-400 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
             >
               <option value="all">All Prices</option>
               <option value="$">Budget ($)</option>
@@ -524,11 +525,11 @@ const AIRecommendationEngine = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-pink-700 mb-2">Min Rating</label>
+            <label className="block text-sm font-medium text-gray-700  mb-2">Min Rating</label>
             <select
               value={filters.rating}
               onChange={(e) => handleFilterChange('rating', e.target.value)}
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-gray-700 rounded-lg text-sm  transition-all focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
             >
               <option value="all">All Ratings</option>
               <option value="4.0">4.0+ Stars</option>
@@ -538,11 +539,11 @@ const AIRecommendationEngine = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-pink-700 mb-2">Distance</label>
+            <label className="block text-sm font-medium text-gray-700  mb-2">Distance</label>
             <select
               value={filters.distance}
               onChange={(e) => handleFilterChange('distance', e.target.value)}
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
             >
               <option value="all">Any Distance</option>
               <option value="near">Near (0-1 km)</option>
@@ -552,11 +553,11 @@ const AIRecommendationEngine = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-pink-700 mb-2">Duration</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
             <select
               value={filters.duration}
               onChange={(e) => handleFilterChange('duration', e.target.value)}
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 rounded-lg text-sm transition-all focus:outline-none focus:ring-2 focus:ring-pink-400 cursor-pointer"
             >
               <option value="all">Any Duration</option>
               <option value="short">Short (1-2 hours)</option>
@@ -574,14 +575,14 @@ const AIRecommendationEngine = ({
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center space-x-2 ${activeCategory === category
-                  ? 'bg-pink-600 text-white'
-                  : 'bg-pink-400 text-gray-300 hover:bg-black'
+              className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 text-sm font-medium cursor-pointer ${activeCategory === category
+                  ? 'bg-pink-500 text-white'
+                  : 'bg-pink-50/30 text-gray-900 hover:bg-pink-100'
                 }`}
             >
               <span>{getCategoryIcon(category)}</span>
               <span>{getCategoryTitle(category)}</span>
-              <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+              <span className="text-xs bg-white/30 px-2 py-1 rounded-full">
                 {filteredRecommendations[category]?.length || 0}
               </span>
             </button>
@@ -592,7 +593,7 @@ const AIRecommendationEngine = ({
         {isLoading && (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-800">AI is analyzing your preferences...</p>
+            <p className="text-gray-900">AI is analyzing your preferences...</p>
           </div>
         )}
 
@@ -602,7 +603,7 @@ const AIRecommendationEngine = ({
             {filteredRecommendations[activeCategory].map((item) => (
               <div
                 key={item.id}
-                className="border border-pink-600 rounded-lg p-4 hover:border-black transition-all cursor-pointer"
+                className={`backdrop-blur-md shadow-md rounded-lg p-4 hover:border-pink-500 transition-all cursor-pointer ${isDarkMode ? "bg-white/10 ":"bg-white/30"}`}
                 onClick={() => handleRecommendationSelect(item, activeCategory)}
               >
                 <div className="flex items-start space-x-4">
@@ -610,22 +611,22 @@ const AIRecommendationEngine = ({
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <h5 className="font-semibold text-lg text-pink-800">{item.name}</h5>
+                      <h5 className="font-semibold text-lg text-pink-400">{item.name}</h5>
                       <div className="flex items-center space-x-2">
-                        <span className="flex items-center text-yellow-600">
-                          <Star className="w-4 h-4 mr-1" />
+                        <span className="flex items-center gap-1 justify-center text-yellow-400">
+                          <Star className="w-4 h-4" />
                           {item.rating}
                         </span>
-                        <span className="text-sm text-gray-800">{item.price}</span>
+                        <span className="text-sm text-gray-900">{item.price}</span>
                       </div>
                     </div>
 
                     <p className="text-gray-700 text-sm mb-3">{item.description}</p>
 
-                    <div className="flex items-center space-x-4 text-sm text-gray-800 mb-3">
+                    <div className="flex items-center space-x-4 text-sm text-gray-900 mb-3">
                       {item.duration && (
                         <span className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1" />
+                          <Clock className="w-4 h-4 mr-2" />
                           {item.duration}
                         </span>
                       )}
@@ -648,7 +649,7 @@ const AIRecommendationEngine = ({
                         {item.tags?.map((tag, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 bg-white text-pink-600 text-xs rounded-full"
+                            className={`px-4 py-1.5 ${isDarkMode ? "bg-white/20 text-pink-50":"bg-white/90 text-pink-500"} text-xs rounded-full`}
                           >
                             {tag}
                           </span>
@@ -660,7 +661,7 @@ const AIRecommendationEngine = ({
                           <div className="text-sm text-blue-400 font-medium">
                             AI Score: {item.aiScore}%
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-gray-700">
                             {item.personalization}
                           </div>
                         </div>
@@ -676,8 +677,8 @@ const AIRecommendationEngine = ({
         {/* Empty State */}
         {!isLoading && filteredRecommendations[activeCategory]?.length === 0 && (
           <div className="text-center py-12">
-            <Target className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-            <h4 className="text-lg font-semibold text-gray-400 mb-2">
+            <Target className="w-16 h-16 text-gray-900 mx-auto mb-4" />
+            <h4 className="text-lg font-semibold text-gray-700 mb-2">
               No recommendations found
             </h4>
             <p className="text-gray-500">

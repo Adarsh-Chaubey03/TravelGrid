@@ -458,12 +458,13 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   };
 
   useEffect(() => {
-    setTimeout(() => {
+   const timer = setTimeout(() => {
       // Convert locationId to number and find the location
       const numericLocationId = parseInt(locationId);
       setLocation(locationData[numericLocationId] || locationData[1]);
       setLoading(false);
     }, 800);
+    return () => clearTimeout(timer)
   }, [locationId]); // Add locationId as dependency
 
   const tabs = [

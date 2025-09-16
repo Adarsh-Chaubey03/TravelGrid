@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExpenseInputRow = ({ label, value, onChange, isDarkMode }) => (
+const ExpenseInputRow = React.memo(({ label, value, onChange, isDarkMode }) => (
   <div className="mb-4">
     <label className={`block text-sm font-semibold mb-2 capitalize ${
       isDarkMode ? 'text-white' : 'text-gray-700'
@@ -19,6 +19,6 @@ const ExpenseInputRow = ({ label, value, onChange, isDarkMode }) => (
       }`}
     />
   </div>
-);
+))
 
 export default ExpenseInputRow;

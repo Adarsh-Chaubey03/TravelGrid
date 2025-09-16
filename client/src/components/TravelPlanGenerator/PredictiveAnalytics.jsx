@@ -22,6 +22,7 @@ import {
   Wind,
   Eye
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const PredictiveAnalytics = ({
   destination,
@@ -40,7 +41,7 @@ const PredictiveAnalytics = ({
   const [selectedTimeframe, setSelectedTimeframe] = useState('week');
   const [selectedMetric, setSelectedMetric] = useState('crowds');
   const [aiInsights, setAiInsights] = useState([]);
-
+  const {isDarkMode}=useTheme();
   // Generate predictive analytics
   const generateAnalytics = useCallback(async () => {
     setIsLoading(true);
@@ -411,20 +412,20 @@ const PredictiveAnalytics = ({
   return (
     <div className="space-y-6">
       {/* AI Insights Header */}
-      <div className="bg-gradient-to-r from-pink-900/50 to-blue-900/50 backdrop-blur-sm rounded-xl p-6 border border-green-700">
+      <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10 ":"bg-white/90"} backdrop-blur-sm rounded-xl p-6 border border-green-700`}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-xl font-semibold flex items-center text-pink-800">
+            <h3 className="text-xl font-bold flex items-center text-pink-400">
               <Zap className="w-5 h-5 mr-2" />
               AI Predictive Analytics
             </h3>
-            <p className="text-sm text-white mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               Advanced predictions for crowds, prices, weather, and travel optimization
             </p>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-pink-700">95%</div>
-            <div className="text-sm text-white">Prediction Accuracy</div>
+            <div className="text-2xl font-bold text-pink-400">95%</div>
+            <div className="text-sm text-gray-900">Prediction Accuracy</div>
           </div>
         </div>
 
@@ -432,16 +433,16 @@ const PredictiveAnalytics = ({
         {aiInsights.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {aiInsights.map((insight) => (
-              <div key={insight.id} className="p-3 bg-pink-800/10 border border-white rounded-lg">
+              <div key={insight.id} className={`p-3 rounded-lg  border border-pink-500/30 ${isDarkMode ? " bg-white/10":" bg-gradient-to-r from-pink-100 via-gray-200 to-blue-100 border-pink-500"}`}>
                 <div className="flex items-center space-x-2 mb-2">
                   <span className="text-lg">{insight.icon}</span>
-                  <span className={`text-xs font-medium text-green-300 uppercase ${insight.priority === 'high' ? 'text-red-300' :
+                  <span className={`text-xs font-medium text-green-500 uppercase ${insight.priority === 'high' ? 'text-red-500' :
                       insight.priority === 'medium' ? 'text-yellow-500' : 'text-green-500'
                     }`}>
                     {insight.priority} priority
                   </span>
                 </div>
-                <p className="text-sm text-white">{insight.message}</p>
+                <p className="text-xs text-gray-900">{insight.message}</p>
               </div>
             ))}
           </div>
@@ -449,15 +450,15 @@ const PredictiveAnalytics = ({
       </div>
 
       {/* Controls */}
-      <div className="backdrop-blur-sm rounded-xl p-6 border border-pink-700">
+      <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/10":" bg-white/90"}`}>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <div>
-              <label className="block text-sm font-medium text-pink-700 mb-2">Timeframe</label>
+              <label className="block text-sm font-medium text-pink-400 mb-2">Timeframe</label>
               <select
                 value={selectedTimeframe}
                 onChange={(e) => setSelectedTimeframe(e.target.value)}
-                className="px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-green-500"
+                className="px-3 py-2 bg-gray-200 border border-gray-600 rounded-lg text-sm transition-all focus:ring-1 focus:ring-green-500 focus:outline-none"
               >
                 {timeframes.map((tf) => (
                   <option key={tf.value} value={tf.value}>{tf.label}</option>
@@ -466,11 +467,11 @@ const PredictiveAnalytics = ({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-pink-700 mb-2">Metric</label>
+              <label className="block text-sm font-medium text-pink-400 mb-2">Metric</label>
               <select
                 value={selectedMetric}
                 onChange={(e) => setSelectedMetric(e.target.value)}
-                className="px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-green-500"
+                className="px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm transition-all focus:ring-1 focus:ring-green-500 focus:outline-none"
               >
                 {metrics.map((metric) => (
                   <option key={metric.value} value={metric.value}>{metric.label}</option>
@@ -482,7 +483,7 @@ const PredictiveAnalytics = ({
           <button
             onClick={generateAnalytics}
             disabled={isLoading}
-            className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:opacity-50 rounded-lg transition-colors flex items-center"
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:opacity-50 rounded-lg transition-colors flex items-center text-white font-medium cursor-pointer"
           >
             {isLoading ? (
               <>
@@ -501,9 +502,9 @@ const PredictiveAnalytics = ({
 
       {/* Loading State */}
       {isLoading && (
-        <div className="text-center py-12 backdrop-blur-sm rounded-xl border border-gray-700">
+        <div className="text-center py-12 backdrop-blur-sm rounded-xl border border-pink-500/30">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-          <p className="text-gray-800">AI is analyzing patterns and generating predictions...</p>
+          <p className="text-gray-900">AI is analyzing patterns and generating predictions...</p>
         </div>
       )}
 
@@ -512,34 +513,34 @@ const PredictiveAnalytics = ({
         <div className="space-y-6">
           {/* Crowd Predictions */}
           {selectedMetric === 'crowds' && (
-            <div className="backdrop-blur-sm rounded-xl p-6 border border-pink-700">
-              <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-800">
-                <Users className="w-5 h-5 mr-2 text-pink-900" />
+            <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-white/90"}`}>
+              <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-400">
+                <Users className="w-5 h-5 mr-2" />
                 Crowd Predictions (Next {timeframes.find(tf => tf.value === selectedTimeframe)?.days} Days)
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {analytics.crowdPredictions.slice(0, timeframes.find(tf => tf.value === selectedTimeframe)?.days).map((prediction, index) => (
-                  <div key={index} className="border border-pink-600 rounded-lg p-4">
+                  <div key={index} className={`rounded-lg backdrop-blur-md p-4 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-gradient-to-br from-pink-100 to-blue-100 "}`}>
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <div className="font-medium text-black">{prediction.dayName}</div>
-                        <div className="text-sm text-gray-700">{prediction.date}</div>
+                        <div className="font-medium text-blue-400">{prediction.dayName}</div>
+                        <div className="text-sm text-gray-900">{prediction.date}</div>
                       </div>
                       <div className="text-right">
-                        <div className={`text-lg font-bold ${prediction.crowdScore > 80 ? 'text-red-400' :
+                        <div className={`text-lg font-medium ${prediction.crowdScore > 80 ? 'text-red-400' :
                             prediction.crowdScore > 60 ? 'text-yellow-400' :
                               'text-green-400'
                           }`}>
                           {prediction.crowdScore}%
                         </div>
-                        <div className="text-xs text-gray-700">Crowd Level</div>
+                        <div className="text-xs text-gray-900">Crowd Level</div>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-700">Level:</span>
+                        <span className="text-gray-900">Level:</span>
                         <span className={`font-medium ${prediction.crowdLevel === 'Very High' ? 'text-red-400' :
                             prediction.crowdLevel === 'High' ? 'text-yellow-400' :
                               'text-green-400'
@@ -548,19 +549,19 @@ const PredictiveAnalytics = ({
                         </span>
                       </div>
 
-                      <div className="text-xs text-gray-700">
-                        <div className="font-medium mb-1">Recommendation:</div>
+                      <div className="text-xs text-gray-900">
+                        <div className="font-medium mb-1 text-gray-700">Recommendation:</div>
                         {prediction.recommendation}
                       </div>
 
-                      <div className="text-xs text-gray-700">
-                        <div className="font-medium mb-1">Best Time:</div>
+                      <div className="text-xs text-gray-900">
+                        <div className="font-medium mb-1 text-gray-700">Best Time:</div>
                         {prediction.bestTime}
                       </div>
 
                       {prediction.alternativeDate && (
-                        <div className="text-xs text-blue-400">
-                          <div className="font-medium mb-1">Alternative:</div>
+                        <div className="text-xs text-pink-500">
+                          <div className="mb-1">Alternative:</div>
                           Consider {new Date(prediction.alternativeDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                         </div>
                       )}
@@ -573,51 +574,51 @@ const PredictiveAnalytics = ({
 
           {/* Price Forecasts */}
           {selectedMetric === 'prices' && (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <h4 className="text-lg font-semibold mb-4 flex items-center">
+            <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-white/90 "}`}>
+              <h4 className="text-md font-medium mb-4 flex items-center">
                 <DollarSign className="w-5 h-5 mr-2 text-green-400" />
                 Price Forecasts (Next {timeframes.find(tf => tf.value === selectedTimeframe)?.days} Days)
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {analytics.priceForecasts.slice(0, timeframes.find(tf => tf.value === selectedTimeframe)?.days).map((forecast, index) => (
-                  <div key={index} className="border border-gray-600 rounded-lg p-4">
+                  <div key={index} className={`rounded-lg backdrop-blur-md p-4 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-gradient-to-br from-pink-100 to-blue-100 "}`}>
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <div className="font-medium text-white">{forecast.dayName}</div>
-                        <div className="text-sm text-gray-400">{forecast.date}</div>
+                        <div className="font-medium text-blue-400">{forecast.dayName}</div>
+                        <div className="text-sm text-gray-900">{forecast.date}</div>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center space-x-1">
                           {getTrendIcon(forecast.priceTrend)}
-                          <span className={`text-lg font-bold ${forecast.priceChange > 0 ? 'text-red-400' :
+                          <span className={`text-lg font-medium ${forecast.priceChange > 0 ? 'text-red-400' :
                               forecast.priceChange < 0 ? 'text-green-400' :
                                 'text-yellow-400'
                             }`}>
                             {forecast.priceChange > 0 ? '+' : ''}{forecast.priceChange}%
                           </span>
                         </div>
-                        <div className="text-xs text-gray-500">Price Change</div>
+                        <div className="text-xs text-gray-900">Price Change</div>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Trend:</span>
-                        <span className="font-medium text-white">{forecast.priceTrend}</span>
+                        <span className="text-gray-900">Trend:</span>
+                        <span className="font-medium text-gray-900">{forecast.priceTrend}</span>
                       </div>
 
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Confidence:</span>
-                        <span className="font-medium text-blue-400">{forecast.confidence}%</span>
+                        <span className="text-gray-900">Confidence:</span>
+                        <span className=" text-pink-400">{forecast.confidence}%</span>
                       </div>
 
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-gray-900">
                         <div className="font-medium mb-1">Recommendation:</div>
                         {forecast.recommendation}
                       </div>
 
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-gray-900">
                         <div className="font-medium mb-1">Best Booking Time:</div>
                         {forecast.bestBookingTime}
                       </div>
@@ -630,26 +631,26 @@ const PredictiveAnalytics = ({
 
           {/* Weather Analysis */}
           {selectedMetric === 'weather' && (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <h4 className="text-lg font-semibold mb-4 flex items-center">
+            <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-white/90 "}`}>
+              <h4 className="text-md font-medium mb-4 flex items-center">
                 <Cloud className="w-5 h-5 mr-2 text-blue-400" />
                 Weather Analysis (Next {timeframes.find(tf => tf.value === selectedTimeframe)?.days} Days)
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {analytics.weatherAnalysis.slice(0, timeframes.find(tf => tf.value === selectedTimeframe)?.days).map((weather, index) => (
-                  <div key={index} className="border border-gray-600 rounded-lg p-4">
+                  <div key={index} className={`rounded-lg backdrop-blur-md p-4 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-gradient-to-br from-pink-100 to-blue-100 "}`}>
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <div className="font-medium text-white">{weather.dayName}</div>
-                        <div className="text-sm text-gray-400">{weather.date}</div>
+                        <div className="font-medium text-blue-400">{weather.dayName}</div>
+                        <div className="text-sm text-gray-900">{weather.date}</div>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center space-x-2">
                           {getWeatherIcon(weather.weather)}
                           <div>
-                            <div className="text-lg font-bold text-white">{weather.temperature}°C</div>
-                            <div className="text-xs text-gray-500">Temperature</div>
+                            <div className="text-lg font-bold text-gray-900">{weather.temperature}°C</div>
+                            <div className="text-xs text-gray-700">Temperature</div>
                           </div>
                         </div>
                       </div>
@@ -657,12 +658,12 @@ const PredictiveAnalytics = ({
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Weather:</span>
-                        <span className="font-medium text-white">{weather.weather}</span>
+                        <span className="text-gray-900">Weather:</span>
+                        <span className="font-medium text-gray-700">{weather.weather}</span>
                       </div>
 
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Impact:</span>
+                        <span className="text-gray-900">Impact:</span>
                         <span className={`font-medium ${weather.impact === 'Positive' ? 'text-green-400' :
                             weather.impact === 'Negative' ? 'text-red-400' :
                               'text-yellow-400'
@@ -671,17 +672,17 @@ const PredictiveAnalytics = ({
                         </span>
                       </div>
 
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-gray-900">
                         <div className="font-medium mb-1">Activities:</div>
                         {weather.activities.join(', ')}
                       </div>
 
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-gray-900">
                         <div className="font-medium mb-1">Backup Plan:</div>
                         {weather.backupPlan}
                       </div>
 
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-gray-900">
                         <div className="font-medium mb-1">Risk Level:</div>
                         <span className={getRiskLevelColor(weather.riskLevel)}>{weather.riskLevel}</span>
                       </div>
@@ -694,34 +695,34 @@ const PredictiveAnalytics = ({
 
           {/* Risk Assessment */}
           {selectedMetric === 'risks' && (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <h4 className="text-lg font-semibold mb-4 flex items-center">
+            <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-white/90 "}`}>
+              <h4 className="text-md font-medium mb-4 flex items-center">
                 <AlertTriangle className="w-5 h-5 mr-2 text-red-400" />
                 Risk Assessment & Mitigation
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {analytics.riskAssessment.map((risk) => (
-                  <div key={risk.id} className="border border-gray-600 rounded-lg p-4">
+                  <div key={risk.id} className={`rounded-lg backdrop-blur-md p-4 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-gradient-to-br from-pink-100 to-blue-100 "}`}>
                     <div className="flex items-center justify-between mb-3">
-                      <h5 className="font-semibold text-white">{risk.risk}</h5>
+                      <h5 className="font-medium text-gray-900">{risk.risk}</h5>
                       <div className="text-right">
-                        <div className={`text-lg font-bold ${risk.riskScore > 70 ? 'text-red-400' :
+                        <div className={`text-md font-medium ${risk.riskScore > 70 ? 'text-red-400' :
                             risk.riskScore > 50 ? 'text-yellow-400' :
                               'text-green-400'
                           }`}>
                           {risk.riskScore}%
                         </div>
-                        <div className="text-xs text-gray-500">Risk Score</div>
+                        <div className="text-xs text-gray-900">Risk Score</div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <div className="text-sm text-gray-300">{risk.description}</div>
+                      <div className="text-sm text-gray-700">{risk.description}</div>
 
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-gray-400">Probability:</span>
+                          <span className="text-gray-900">Probability:</span>
                           <span className={`ml-2 font-medium ${risk.probability === 'High' ? 'text-red-400' :
                               risk.probability === 'Medium' ? 'text-yellow-400' :
                                 'text-green-400'
@@ -730,7 +731,7 @@ const PredictiveAnalytics = ({
                           </span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Impact:</span>
+                          <span className="text-gray-900">Impact:</span>
                           <span className={`ml-2 font-medium ${risk.impact === 'High' ? 'text-red-400' :
                               risk.impact === 'Medium' ? 'text-yellow-400' :
                                 'text-green-400'
@@ -741,8 +742,8 @@ const PredictiveAnalytics = ({
                       </div>
 
                       <div className="text-xs">
-                        <div className="text-gray-400 font-medium mb-1">Mitigation Strategy:</div>
-                        <div className="text-gray-300">{risk.mitigation}</div>
+                        <div className="text-gray-900 font-medium mb-1">Mitigation Strategy:</div>
+                        <div className="text-gray-900">{risk.mitigation}</div>
                       </div>
                     </div>
                   </div>
@@ -753,7 +754,7 @@ const PredictiveAnalytics = ({
 
           {/* Optimization Tips */}
           {selectedMetric === 'tips' && (
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
+            <div className={`rounded-xl backdrop-blur-md p-6 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-white/90 "}`}>
               <h4 className="text-lg font-semibold mb-4 flex items-center">
                 <CheckCircle className="w-5 h-5 mr-2 text-green-400" />
                 AI Optimization Tips
@@ -761,24 +762,24 @@ const PredictiveAnalytics = ({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {analytics.optimizationTips.map((tip) => (
-                  <div key={tip.id} className="border border-gray-700 rounded-lg p-4">
+                  <div key={tip.id} className={`rounded-lg backdrop-blur-md p-4 border border-pink-500/30 ${isDarkMode ? " bg-white/5":" bg-gradient-to-br from-pink-100 to-blue-100 "}`}>
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="font-semibold text-white">{tip.tip}</h5>
+                      <h5 className="font-medium text-pink-400">{tip.tip}</h5>
                       <div className="text-right">
-                        <div className={`text-lg font-bold ${tip.impact === 'High' ? 'text-green-400' :
+                        <div className={`text-md font-medium ${tip.impact === 'High' ? 'text-green-400' :
                             tip.impact === 'Medium' ? 'text-yellow-400' :
                               'text-blue-400'
                           }`}>
                           {tip.impact}
                         </div>
-                        <div className="text-xs text-gray-500">Impact</div>
+                        <div className="text-xs text-gray-900">Impact</div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-gray-400">Effort:</span>
+                          <span className="text-gray-900">Effort:</span>
                           <span className={`ml-2 font-medium ${tip.effort === 'Low' ? 'text-green-400' :
                               tip.effort === 'Medium' ? 'text-yellow-400' :
                                 'text-red-400'
@@ -787,19 +788,19 @@ const PredictiveAnalytics = ({
                           </span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Category:</span>
+                          <span className="text-gray-900">Category:</span>
                           <span className="ml-2 font-medium text-blue-400">{tip.category}</span>
                         </div>
                       </div>
 
                       <div className="text-xs">
-                        <div className="text-gray-400 font-medium mb-1">Potential Savings:</div>
+                        <div className="text-gray-900 font-medium mb-1">Potential Savings:</div>
                         <div className="text-green-400">{tip.savings}</div>
                       </div>
 
                       <div className="text-xs">
-                        <div className="text-gray-400 font-medium mb-1">Implementation:</div>
-                        <div className="text-gray-300">{tip.implementation}</div>
+                        <div className="text-gray-900 font-medium mb-1">Implementation:</div>
+                        <div className="text-gray-900">{tip.implementation}</div>
                       </div>
                     </div>
                   </div>

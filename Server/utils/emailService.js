@@ -15,57 +15,72 @@ const createTransporter = () => {
   return nodemailer.createTransport(config);
 };
 
-// Send email function
-export const sendEmail = async (to, subject, html, text = null) => {
-  try {
-    // Validate environment variables
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      throw new Error('Email configuration not found. Please set EMAIL_USER and EMAIL_PASS in environment variables.');
+
+
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      // Validate environment variables
+      if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        throw new Error('Email configuration not found. Please set EMAIL_USER and EMAIL_PASS in environment variables.');
+      }
+
+      const transporter = createTransporter();
+
+      // Verify SMTP connection configuration
+      await transporter.verify();
+      console.log('Email server is ready to send messages');
+
+      const mailOptions = {
+        from: process.env.EMAIL_FROM || `"TravelGrid" <${process.env.EMAIL_USER}>`,
+        to: to,
+        subject: subject,
+        html: html,
+        text: text || html.replace(/<[^>]*>?/gm, ''), // Strip HTML tags for text version
+      };
+
+      // Send email
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully:', {
+        messageId: info.messageId,
+        to: to,
+        subject: subject
+      });
+
+      return {
+        success: true,
+        messageId: info.messageId,
+        response: info.response
+      };
+
+    } catch (error) {
+      console.error(`Email sending error (attempt ${attempt}/${retries}):`, {
+        error: error.message,
+        code: error.code,
+        to: to,
+        subject: subject
+      });
+
+      lastError = error;
+
+      // If it's the last attempt, don't retry
+      if (attempt === retries) {
+        break;
+      }
+
+      // Wait before retrying (exponential backoff)
+      const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000); // Max 5 seconds
+      console.log(`Retrying email send in ${delay}ms...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
+  }
 
-    const transporter = createTransporter();
-
-    // Verify SMTP connection configuration
-    await transporter.verify();
-    console.log('Email server is ready to send messages');
-
-    const mailOptions = {
-      from: process.env.EMAIL_FROM || `"TravelGrid" <${process.env.EMAIL_USER}>`,
-      to: to,
-      subject: subject,
-      html: html,
-      text: text || html.replace(/<[^>]*>?/gm, ''), // Strip HTML tags for text version
-    };
-
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', {
-      messageId: info.messageId,
-      to: to,
-      subject: subject
-    });
-
-    return {
-      success: true,
-      messageId: info.messageId,
-      response: info.response
-    };
-
-  } catch (error) {
-    console.error('Email sending error:', {
-      error: error.message,
-      to: to,
-      subject: subject
-    });
-
-    // Handle specific error cases
-    if (error.code === 'EAUTH') {
-      throw new Error('Email authentication failed. Please check your email credentials.');
-    } else if (error.code === 'ECONNECTION') {
-      throw new Error('Failed to connect to email server. Please check your network connection.');
-    } else {
-      throw new Error(`Email sending failed: ${error.message}`);
-    }
+  // Handle specific error cases
+  if (lastError.code === 'EAUTH') {
+    throw new Error('Email authentication failed. Please check your email credentials.');
+  } else if (lastError.code === 'ECONNECTION') {
+    throw new Error('Failed to connect to email server. Please check your network connection.');
+  } else {
+    throw new Error(`Email sending failed after ${retries} attempts: ${lastError.message}`);
   }
 };
 

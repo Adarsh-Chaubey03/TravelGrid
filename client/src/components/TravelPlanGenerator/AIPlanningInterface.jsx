@@ -16,6 +16,7 @@ import {
     Target,
     Brain
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const AIPlanningInterface = ({
     onCommandProcessed,
@@ -30,7 +31,7 @@ const AIPlanningInterface = ({
     const [aiResponses, setAiResponses] = useState([]);
     const [voiceEnabled, setVoiceEnabled] = useState(true);
     const [processingQueue, setProcessingQueue] = useState([]);
-
+    const {isDarkMode}=useTheme();
     // Start voice recognition
     const startVoiceRecognition = useCallback(() => {
         if (!voiceEnabled) return;
@@ -263,14 +264,14 @@ const AIPlanningInterface = ({
     return (
         <div className="space-y-6">
             {/* Voice Interface Header */}
-            <div className="bg-gradient-to-r from-pink-900/50 to-blue-900/50 backdrop-blur-sm rounded-xl p-6 border border-white">
+            <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":" bg-white/90"}`}>
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h3 className="text-xl font-semibold flex items-center text-pink-800">
+                        <h3 className="text-xl font-semibold flex items-center text-pink-400">
                             <Brain className="w-5 h-5 mr-2" />
                             AI Planning Interface
                         </h3>
-                        <p className="text-sm text-white mt-1">
+                        <p className="text-sm text-gray-900 mt-1">
                             Use voice commands or natural language to interact with your AI travel planner
                         </p>
                     </div>
@@ -278,7 +279,7 @@ const AIPlanningInterface = ({
                         <div className="text-2xl font-bold text-purple-400">
                             {voiceCommands.length + textCommands.length}
                         </div>
-                        <div className="text-sm text-white">Commands Processed</div>
+                        <div className="text-sm text-gray-900">Commands Processed</div>
                     </div>
                 </div>
 
@@ -287,10 +288,10 @@ const AIPlanningInterface = ({
                     <button
                         onClick={startVoiceRecognition}
                         disabled={!voiceEnabled || isListening}
-                        className={`p-4 rounded-full transition-all ${isListening
+                        className={`p-3 rounded-full transition-all ${isListening
                                 ? 'bg-red-600 text-white animate-pulse'
                                 : voiceEnabled
-                                    ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                                    ? 'bg-purple-600 hover:bg-purple-700 text-white cursor-pointer'
                                     : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                             }`}
                     >
@@ -300,7 +301,7 @@ const AIPlanningInterface = ({
                     {isListening && (
                         <button
                             onClick={stopVoiceRecognition}
-                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors cursor-pointer"
                         >
                             Stop Listening
                         </button>
@@ -308,18 +309,18 @@ const AIPlanningInterface = ({
 
                     <button
                         onClick={() => setVoiceEnabled(!voiceEnabled)}
-                        className={`p-2 rounded-lg transition-colors ${voiceEnabled
+                        className={`p-3 rounded-full transition-colors cursor-pointer ${voiceEnabled
                                 ? 'bg-green-600 hover:bg-green-700 text-white'
                                 : 'bg-gray-600 hover:bg-gray-700 text-gray-300'
                             }`}
                     >
-                        <Volume2 className="w-5 h-5" />
+                        <Volume2 className="w-6 h-6" />
                     </button>
                 </div>
 
                 {isListening && (
                     <div className="text-center mt-4">
-                        <div className="animate-pulse text-purple-300">
+                        <div className="animate-pulse text-purple-400">
                             Listening... Speak your command now
                         </div>
                     </div>
@@ -327,9 +328,9 @@ const AIPlanningInterface = ({
             </div>
 
             {/* Text Command Interface */}
-            <div className="backdrop-blur-sm rounded-xl p-6 border border-pink-700">
-                <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-800">
-                    <MessageSquare className="w-5 h-5 mr-2 text-pink-800" />
+            <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
+                <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-400">
+                    <MessageSquare className="w-5 h-5 mr-2 text-pink-400" />
                     Text Commands
                 </h4>
 
@@ -339,13 +340,13 @@ const AIPlanningInterface = ({
                         value={currentCommand}
                         onChange={(e) => setCurrentCommand(e.target.value)}
                         placeholder="Type your command here (e.g., 'Add museum visit to day 2')"
-                        className="flex-1 px-4 py-2 bg-pink-600 border border-pink-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className={`flex-1 px-4 py-2 text-sm ${isDarkMode ? "bg-white/10 placeholder:text-gray-400":"bg-black/10 placeholder:text-gray-500"} rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none`}
                         onKeyPress={(e) => e.key === 'Enter' && processTextCommand()}
                     />
                     <button
                         onClick={processTextCommand}
                         disabled={!currentCommand.trim() || isProcessing}
-                        className="px-4 py-2 bg-blue-300 hover:bg-blue-700 disabled:opacity-50 rounded-lg transition-colors flex items-center"
+                        className="px-4 py-2 text-white bg-blue-400 hover:bg-blue-600 disabled:opacity-50 rounded-lg transition-colors flex items-center"
                     >
                         <Send className="w-4 h-4 mr-2" />
                         Send
@@ -354,7 +355,7 @@ const AIPlanningInterface = ({
 
                 {/* Quick Commands */}
                 <div className="mt-4">
-                    <div className="text-sm text-gray-600 mb-2">Quick Commands:</div>
+                    <div className="text-sm text-gray-900 mb-2">Quick Commands:</div>
                     <div className="flex flex-wrap gap-2">
                         {[
                             "Add museum visit",
@@ -367,7 +368,7 @@ const AIPlanningInterface = ({
                             <button
                                 key={index}
                                 onClick={() => setCurrentCommand(cmd)}
-                                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 text-sm rounded-lg transition-colors"
+                                className={`text-sm px-3 py-1.5  ${isDarkMode ? "bg-white/20 text-pink-50":"bg-black/10 text-gray-700"}  text-sm rounded-full  transition-colors cursor-pointer`}
                             >
                                 {cmd}
                             </button>
@@ -378,7 +379,7 @@ const AIPlanningInterface = ({
 
             {/* Processing Queue */}
             {processingQueue.length > 0 && (
-                <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
+                <div className={`${isDarkMode ? "bg-white/10":"bg-white/90"}  rounded-xl p-6 border border-pink-500/30`}>
                     <h4 className="text-lg font-semibold mb-4 flex items-center">
                         <Zap className="w-5 h-5 mr-2 text-yellow-400" />
                         Processing Commands
@@ -386,15 +387,15 @@ const AIPlanningInterface = ({
 
                     <div className="space-y-3">
                         {processingQueue.map((command) => (
-                            <div key={command.id} className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                            <div key={command.id} className={`flex items-center justify-between p-3 ${isDarkMode ? "bg-white/10":"bg-white/90"} rounded-lg`}>
                                 <div className="flex items-center space-x-3">
                                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-yellow-400"></div>
-                                    <span className="text-gray-300">{command.command}</span>
-                                    <span className="text-xs text-gray-500">
+                                    <span className="text-gray-900">{command.command}</span>
+                                    <span className="text-xs text-gray-900">
                                         {command.type === 'voice' ? '🎤' : '⌨️'}
                                     </span>
                                 </div>
-                                <span className="text-xs text-gray-400">Processing...</span>
+                                <span className="text-xs text-gray-700">Processing...</span>
                             </div>
                         ))}
                     </div>
@@ -403,7 +404,7 @@ const AIPlanningInterface = ({
 
             {/* AI Responses */}
             {aiResponses.length > 0 && (
-                <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
+                <div className={`${isDarkMode ? "bg-white/10":"bg-white/90"} border border-pink-500/30 rounded-xl p-6`}>
                     <h4 className="text-lg font-semibold mb-4 flex items-center">
                         <Bot className="w-5 h-5 mr-2 text-green-400" />
                         AI Responses
@@ -411,20 +412,20 @@ const AIPlanningInterface = ({
 
                     <div className="space-y-4">
                         {aiResponses.map((response) => (
-                            <div key={response.id} className="border border-gray-600 rounded-lg p-4">
+                            <div key={response.id} className="border border-pink-500/30 rounded-lg p-4">
                                 <div className="flex items-start space-x-3 mb-3">
                                     <span className="text-2xl">{getResponseTypeIcon(response.type)}</span>
                                     <div className="flex-1">
                                         <div className="flex items-center justify-between mb-2">
-                                            <h5 className="font-medium text-white capitalize">{response.type}</h5>
+                                            <h5 className="font-medium text-gray-900 capitalize">{response.type}</h5>
                                             <div className="flex items-center space-x-2">
-                                                <span className="text-sm text-gray-400">{response.confidence}%</span>
-                                                <span className="text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
+                                                <span className="text-sm text-gray-900">{response.confidence}%</span>
+                                                <span className="text-xs text-gray-900 bg-pink-500/30 px-2 py-1 rounded">
                                                     {response.category.replace('_', ' ')}
                                                 </span>
                                             </div>
                                         </div>
-                                        <p className="text-gray-300 text-sm">{response.message}</p>
+                                        <p className="text-gray-700 text-sm">{response.message}</p>
                                     </div>
                                 </div>
 
@@ -435,7 +436,7 @@ const AIPlanningInterface = ({
                                             <button
                                                 key={index}
                                                 onClick={() => handleActionClick(action.action, response)}
-                                                className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
+                                                className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors cursor-pointer"
                                             >
                                                 {action.label}
                                             </button>
@@ -449,22 +450,22 @@ const AIPlanningInterface = ({
             )}
 
             {/* Command History */}
-            <div className="bg-white backdrop-blur-sm rounded-xl p-6 border border-pink-700">
-                <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-800">
-                    <Clock className="w-5 h-5 mr-2 text-pink-800" />
+            <div className={`${isDarkMode ? "bg-white/10":"bg-white/90"} rounded-xl p-6 border border-pink-500/30`}>
+                <h4 className="text-lg font-semibold mb-4 flex items-center text-pink-400">
+                    <Clock className="w-5 h-5 mr-2 text-pink-400" />
                     Command History
                 </h4>
 
                 <div className="space-y-3">
                     {/* Voice Commands */}
                     {voiceCommands.slice(0, 5).map((command) => (
-                        <div key={command.id} className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <div key={command.id} className={`flex items-center justify-between p-3 border border-pink-500/30 ${ isDarkMode ? "bg-white/10":"bg-pink-200" } rounded-lg`}>
                             <div className="flex items-center space-x-3">
                                 <span className="text-lg">🎤</span>
-                                <span className="text-gray-300">{command.command}</span>
+                                <span className="text-gray-700">{command.command}</span>
                                 {getStatusIcon(command.status)}
                             </div>
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-700">
                                 {new Date(command.timestamp).toLocaleTimeString()}
                             </span>
                         </div>
@@ -472,20 +473,20 @@ const AIPlanningInterface = ({
 
                     {/* Text Commands */}
                     {textCommands.slice(0, 5).map((command) => (
-                        <div key={command.id} className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <div key={command.id} className={`flex items-center justify-between p-3 ${isDarkMode ? "bg-white/10":"bg-white/90"} rounded-lg`}>
                             <div className="flex items-center space-x-3">
                                 <span className="text-lg">⌨️</span>
-                                <span className="text-gray-300">{command.command}</span>
+                                <span className="text-gray-900">{command.command}</span>
                                 {getStatusIcon(command.status)}
                             </div>
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-900">
                                 {new Date(command.timestamp).toLocaleTimeString()}
                             </span>
                         </div>
                     ))}
 
                     {voiceCommands.length === 0 && textCommands.length === 0 && (
-                        <div className="text-center py-8 text-gray-800">
+                        <div className="text-center py-8 text-gray-900">
                             <Bot className="w-16 h-16 mx-auto mb-4 opacity-50" />
                             <p>No commands yet. Start by using voice or text commands!</p>
                         </div>

@@ -1,11 +1,3 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import validator from 'validator'
-import  {User} from '../models/user.js'
-import mongoose from 'mongoose';
-import { asyncHandler } from '../utils/asyncHandler.js'
-import { sendEmail } from '../utils/emailService.js';
-
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 if (!JWT_SECRET) {
   console.error('JWT_SECRET not set in environment variables');
@@ -132,47 +124,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   });
 
   try {
-    const subject = 'Welcome to TravelGrid - Verify Your Email';
-   const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; background-color: #f7f7f7; margin: 0; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-            .header { background: linear-gradient(135deg, #ec4899, #f97316); color: white; padding: 30px; text-align: center; }
-            .content { padding: 30px; }
-            .code { font-size: 32px; font-weight: bold; color: #ec4899; text-align: center; letter-spacing: 5px; margin: 20px 0; padding: 15px; border: 2px dashed #ec4899; border-radius: 10px; background-color: #fdf2f8; }
-            .button { display: inline-block; background: linear-gradient(135deg, #ec4899, #f97316); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 20px 0; }
-            .footer { background-color: #f9f9f9; padding: 20px; text-align: center; color: #666; font-size: 14px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🌍 Welcome to TravelGrid!</h1>
-              <h2>Verify Your Email Address</h2>
-            </div>
-            <div class="content">
-              <h3>Hello ${name}!</h3>
-              <p>Thank you for joining TravelGrid! To complete your registration and start exploring amazing destinations, please verify your email address.</p>
-              <p>Your verification code is:</p>
-              <div class="code">${verificationCode}</div>
-              <p>This code will expire in <strong>5 minutes</strong>.</p>
-              <p>Enter this code on the verification page to activate your account.</p>
-              <div style="text-align: center;">
-                <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify-email?email=${encodeURIComponent(normalizedEmail)}" class="button">Verify Email</a>
-              </div>
-            </div>
-            <div class="footer">
-              <p>© 2025 TravelGrid. All rights reserved.</p>
-              <p>If you didn't create this account, please ignore this email.</p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `;
-    await sendEmail(normalizedEmail, subject, html);
+    await sendVerificationEmail(normalizedEmail, name, verificationCode);
   } catch (emailError) {
     console.error('Failed to send verification email:', emailError);
   }

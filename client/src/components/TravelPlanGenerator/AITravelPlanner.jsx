@@ -25,6 +25,7 @@ import AIRecommendationEngine from "./AIRecommendationEngine";
 import PredictiveAnalytics from "./PredictiveAnalytics";
 import SmartBudgetOptimizer from "./SmartBudgetOptimizer";
 import AIPlanningInterface from "./AIPlanningInterface";
+import { useTheme } from "@/context/ThemeContext";
 
 const AITravelPlannerComponent = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -38,6 +39,7 @@ const AITravelPlannerComponent = () => {
     accommodation: "hotel",
     transportation: "mixed",
   });
+  const {isDarkMode}=useTheme();
 
   const [aiPlan, setAiPlan] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -396,7 +398,7 @@ const AITravelPlannerComponent = () => {
               AI Travel Planner
             </h1>
           </div>
-          <p className="text-base text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base text-gray-700 max-w-3xl mx-auto">
             Experience the future of travel planning with our advanced
             AI-powered system. Get personalized recommendations, intelligent
             itineraries, and predictive insights.
@@ -409,9 +411,9 @@ const AITravelPlannerComponent = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Panel */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white shadow-lg rounded-xl p-6 border border-pink-500">
-              <h3 className="text-2xl font-semibold mb-4 flex items-center text-black">
-                <Settings className="w-5 h-5 mr-2 text-pink-500" />
+            <div className={` shadow-xl rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
+              <h3 className="flex gap-2 text-2xl font-semibold mb-4 items-center text-gray-900 justify-start">
+                <Settings className="w-7 h-7 text-pink-400 font-bold" />
                 Travel Preferences
               </h3>
 
@@ -431,7 +433,7 @@ const AITravelPlannerComponent = () => {
                       })
                     }
                     placeholder="Where do you want to go?"
-                    className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-pink-400"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
                   />
                 </div>
 
@@ -451,7 +453,7 @@ const AITravelPlannerComponent = () => {
                     }
                     min="1"
                     max="30"
-                    className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-pink-400"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
                   />
                 </div>
 
@@ -470,7 +472,7 @@ const AITravelPlannerComponent = () => {
                       })
                     }
                     min="100"
-                    className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-pink-400"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
                   />
                 </div>
 
@@ -502,10 +504,10 @@ const AITravelPlannerComponent = () => {
                             interests: newInterests,
                           });
                         }}
-                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer ${
                           userPreferences.interests.includes(interest)
                             ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            : isDarkMode ? "bg-white/10 text-gray-900 hover:bg-white/20" :"bg-black/10 text-gray-900 hover:bg-black/20"
                         }`}
                       >
                         {interest.charAt(0).toUpperCase() + interest.slice(1)}
@@ -516,9 +518,9 @@ const AITravelPlannerComponent = () => {
 
                 <button
                   onClick={() => console.log("Generate AI Plan")}
-                  className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center shadow-md"
+                  className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 justify-center shadow-md cursor-pointer"
                 >
-                  <Brain className="w-5 h-5 mr-2" />
+                  <Brain className="w-7 h-7" />
                   Generate AI Travel Plan
                 </button>
               </div>
@@ -526,9 +528,9 @@ const AITravelPlannerComponent = () => {
 
             {/* AI Insights */}
             {aiInsights.length > 0 && (
-              <div className="bg-white shadow-lg rounded-xl p-6 border border-blue-100">
-                <h3 className="text-xl font-semibold mb-4 flex items-center text-pink-600">
-                  <Lightbulb className="w-5 h-5 mr-2 text-yellow-400" />
+              <div className={`shadow-lg rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
+                <h3 className="text-xl font-semibold mb-4 flex items-center text-pink-500 justify-start gap-2">
+                  <Lightbulb className="w-5 h-5 text-yellow-500" />
                   AI Insights
                 </h3>
                 <div className="space-y-3">
@@ -549,12 +551,12 @@ const AITravelPlannerComponent = () => {
           <div className="lg:col-span-2 space-y-6">
             {/* Default Empty State */}
             {!aiPlan && !isGenerating && (
-              <div className="bg-white rounded-xl p-12 border border-pink-500 shadow-md text-center">
-                <Brain className="w-16 h-16 text-blue-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+              <div className={`rounded-xl p-12 border border-pink-500/30  shadow-md text-center ${isDarkMode ? "bg-white/10":"bg-white/90 "}`}>
+                <Brain className="w-16 h-16 text-pink-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                   Ready to Plan Your Adventure?
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-700">
                   Fill in your travel preferences and let our AI create a
                   personalized travel plan for you.
                 </p>
@@ -567,10 +569,10 @@ const AITravelPlannerComponent = () => {
         <div className="mt-12 text-center">
           <button
             onClick={() => setCollaborationMode(!collaborationMode)}
-            className={`px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
+            className={`px-6 py-3 rounded-lg font-medium transition-all shadow-lg cursor-pointer ${
               collaborationMode
-                ? "bg-gradient-to-r from-pink-400 to-blue-400 text-white"
-                : "bg-gray-200 hover:bg-pink-200 text-gray-600"
+                ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                : "bg-gray-200  hover:bg-pink-200 text-black"
             }`}
           >
             <Users className="w-5 h-5 inline mr-2" />

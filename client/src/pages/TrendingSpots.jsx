@@ -268,10 +268,12 @@ const TrendingSpots = () => {
   ];
 
   useEffect(() => {
-    setTimeout(() => {
+   const timer = setTimeout(() => {
       setSpots(mockTrendingSpots);
       setLoading(false);
     }, 1000);
+    // cleanup
+    return  () => clearTimeout(timer)
   }, []);
 
   const handleLoadMoreSpots = () => {

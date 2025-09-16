@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 // Enhanced currency data with more currencies and hardcoded exchange rates (base: USD)
@@ -80,7 +80,7 @@ const CurrencyConverter = () => {
   const [isOffline, setIsOffline] = useState(false);
 
   // Convert amount from one currency to another
-  const convertCurrency = (amount, fromCurrency, toCurrency) => {
+  const convertCurrency = useCallback((amount, fromCurrency, toCurrency) => {
     if (fromCurrency === toCurrency) {
       return amount;
     }
@@ -90,16 +90,16 @@ const CurrencyConverter = () => {
     const convertedAmount = usdAmount * EXCHANGE_RATES[toCurrency];
 
     return Math.round(convertedAmount * 100) / 100; // Round to 2 decimal places
-  };
+  },[]);
 
   // Get exchange rate between two currencies
-  const getExchangeRate = (fromCurrency, toCurrency) => {
+  const getExchangeRate = useCallback((fromCurrency, toCurrency) => {
     if (fromCurrency === toCurrency) {
       return 1;
     }
 
     return EXCHANGE_RATES[toCurrency] / EXCHANGE_RATES[fromCurrency];
-  };
+  },[]);
 
   // Format currency amount based on currency type
   const formatCurrency = (amount, currency) => {
@@ -148,7 +148,11 @@ const CurrencyConverter = () => {
   }, [amount, fromCurrency, toCurrency]);
 
   // Get sorted currencies for dropdowns
-  const sortedCurrencies = Object.keys(EXCHANGE_RATES).sort();
+ const sortedCurrencies = useMemo(
+  () => Object.keys(EXCHANGE_RATES).sort(),
+  []
+);
+
 
   return (
     <div className="h-auto mt-12 flex items-center justify-center bg-gray-100 p-14 font-inter">

@@ -164,18 +164,18 @@ const AITravelPlannerDemo = () => {
           {" "}
           {/* no common bg */}
           <div className="container mx-auto px-4">
-            <div className="flex justify-center space-x-3 flex-wrap">
+            <div className="flex justify-center items-center gap-4 space-x-3 flex-wrap">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 px-5 py-2 rounded-full text-sm font-medium transition-all shadow-sm
+                  className={`flex items-center space-x-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-md cursor-pointer
             ${
               activeTab === tab.id
                 ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow-lg"
                 : isDarkMode
-                ? "text-gray-300 hover:text-white hover:bg-gray-800/70"
-                : "text-gray-700 hover:text-gray-900 hover:bg-pink-100/60"
+                ? "text-white bg-white/15 hover:bg-white/20"
+                : "text-gray-900 bg-white/25 hover:bg-white/40"
             }`}
                 >
                   <tab.icon className="w-4 h-4" />

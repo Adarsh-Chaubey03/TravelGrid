@@ -18,6 +18,7 @@ import {
   Target,
   TrendingUp
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const AIIteraryBuilder = ({ 
   itinerary, 
@@ -29,7 +30,7 @@ const AIIteraryBuilder = ({
   const [editingDay, setEditingDay] = useState(null);
   const [aiSuggestions, setAiSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
+  const {isDarkMode}=useTheme();
   // Generate AI suggestions for itinerary improvement
   const generateAISuggestions = useCallback(async () => {
     setShowSuggestions(true);
@@ -186,15 +187,15 @@ const AIIteraryBuilder = ({
   return (
     <div className="space-y-6">
       {/* AI Suggestions Panel */}
-      <div className="backdrop-blur-sm rounded-xl p-6 border border-pink-700">
+      <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-2xl font-semibold flex items-center">
-            <Lightbulb className="w-5 h-5 mr-2" />
+          <h3 className="text-2xl font-semibold flex items-center justify-start gap-3">
+            <Lightbulb className="w-5 h-5" />
             AI Itinerary Suggestions
           </h3>
           <button
             onClick={generateAISuggestions}
-            className="px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg transition-colors flex items-center"
+            className="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors flex items-center cursor-pointer font-semibold"
           >
             <Zap className="w-4 h-4 mr-2" />
             Get AI Suggestions
@@ -204,25 +205,25 @@ const AIIteraryBuilder = ({
         {showSuggestions && aiSuggestions.length > 0 && (
           <div className="space-y-3">
             {aiSuggestions.map((suggestion) => (
-              <div key={suggestion.id} className="flex items-center justify-between p-3 bg-blue-800/30 border border-blue-600 rounded-lg">
+              <div key={suggestion.id} className="flex items-center justify-between p-3 bg-blue-500/10 border border-blue-600 rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      suggestion.impact === 'high' ? 'bg-red-500/20 text-red-300' :
-                      suggestion.impact === 'medium' ? 'bg-yellow-500/20 text-yellow-300' :
-                      'bg-green-500/20 text-green-300'
+                      suggestion.impact === 'high' ? 'bg-red-500/20 text-red-500' :
+                      suggestion.impact === 'medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                      'bg-green-500/10 text-green-500'
                     }`}>
                       {suggestion.impact} impact
                     </span>
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300">
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-500">
                       {suggestion.category.replace('_', ' ')}
                     </span>
                   </div>
-                  <p className="text-blue-200 text-sm">{suggestion.message}</p>
+                  <p className="text-gray-700 text-sm">{suggestion.message}</p>
                 </div>
                 <button
                   onClick={() => applySuggestion(suggestion)}
-                  className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors"
+                  className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors text-white cursor-pointer"
                 >
                   Apply
                 </button>
@@ -233,13 +234,13 @@ const AIIteraryBuilder = ({
       </div>
 
       {/* Itinerary Builder */}
-      <div className=" backdrop-blur-sm rounded-xl p-6 border border-pink-700">
+      <div className={`backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold flex items-center">
-            <Route className="w-5 h-5 mr-2 text-purple-800" />
+            <Route className="w-5 h-5 mr-2 text-purple-500" />
             Interactive Itinerary Builder
           </h3>
-          <div className="flex items-center space-x-2 text-sm text-gray-800">
+          <div className="flex items-center space-x-2 text-sm text-gray-900">
             <Target className="w-4 h-4" />
             <span>Drag & Drop to Reorder</span>
           </div>
@@ -251,14 +252,14 @@ const AIIteraryBuilder = ({
               const dayStats = calculateDayStats(day);
               
               return (
-                <div key={dayIndex} className="bg-white border border-pink-500 rounded-lg p-4">
+                <div key={dayIndex} className="border rounded-lg p-4 border-purple-500/30">
                   {/* Day Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-4">
-                      <h4 className="text-lg font-semibold text-purple-800">
+                      <h4 className="text-lg font-semibold text-purple-400">
                         Day {day.day}
                       </h4>
-                      <div className="flex items-center space-x-2 text-sm text-gray-800">
+                      <div className="flex items-center space-x-2 text-sm text-gray-900">
                         <Calendar className="w-4 h-4" />
                         <span>{day.timing}</span>
                       </div>
@@ -266,16 +267,16 @@ const AIIteraryBuilder = ({
                     
                     <div className="flex items-center space-x-4">
                       <div className="text-center">
-                        <div className="text-sm text-gray-800">Activities</div>
+                        <div className="text-sm text-gray-900">Activities</div>
                         <div className="text-lg font-bold text-blue-400">{dayStats.totalActivities}</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-sm text-gray-800">Duration</div>
+                        <div className="text-sm text-gray-900">Duration</div>
                         <div className="text-lg font-bold text-green-400">{dayStats.estimatedDuration}h</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-sm text-gray-800">Energy</div>
-                        <div className={`text-lg font-bold ${
+                        <div className="text-sm text-gray-900">Energy</div>
+                        <div className={`text-md font-semibold ${
                           dayStats.energyLevel === 'High' ? 'text-red-400' :
                           dayStats.energyLevel === 'Medium' ? 'text-yellow-400' :
                           'text-green-400'
@@ -293,7 +294,7 @@ const AIIteraryBuilder = ({
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                         className={`min-h-[100px] p-3 rounded-lg transition-colors ${
-                          snapshot.isDraggingOver ? 'bg-purple-500/20 border-2 border-dashed border-purple-500' : 'bg-white'
+                          snapshot.isDraggingOver ? 'bg-purple-500/5 border-2 border-dashed border-purple-400' : ''
                         }`}
                       >
                         {day.activities.map((activity, activityIndex) => (
@@ -309,8 +310,8 @@ const AIIteraryBuilder = ({
                                 {...provided.dragHandleProps}
                                 className={`p-3 mb-3 rounded-lg border transition-all ${
                                   snapshot.isDragging
-                                    ? 'bg-black border-pink-500 shadow-lg'
-                                    : 'bg-gradient-to-r from-pink-200 to-blue-200 border-pink-600 hover:border-black'
+                                    ? ' border-pink-500 shadow-lg'
+                                    : isDarkMode ? "bg-gradient-to-r from-white/10 border-white/20 placeholder:text-gray-400":"bg-gradient-to-r from-pink-100 via-gray-200 to-blue-100 border-pink-500/20 placeholder: text-gray-600"
                                 }`}
                               >
                                 <div className="flex items-center justify-between">
@@ -324,27 +325,27 @@ const AIIteraryBuilder = ({
                                           type="text"
                                           value={activity.name}
                                           onChange={(e) => updateActivity(dayIndex, activityIndex, { name: e.target.value })}
-                                          className="w-full px-2 py-1 bg-gray-600 border border-gray-500 rounded text-sm"
+                                          className={`w-full px-2 py-1 rounded text-sm border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"} focus:outline-none focus:ring-1 focus:ring-pink-400`}
                                         />
                                         <input
                                           type="text"
                                           value={activity.duration}
                                           onChange={(e) => updateActivity(dayIndex, activityIndex, { duration: e.target.value })}
                                           placeholder="Duration (e.g., 2 hours)"
-                                          className="w-full px-2 py-1 bg-gray-600 border border-gray-500 rounded text-sm"
+                                          className={`w-full px-2 py-1 rounded text-sm border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"} focus:outline-none focus:ring-1 focus:ring-pink-400`}
                                         />
                                         <input
                                           type="text"
                                           value={activity.location}
                                           onChange={(e) => updateActivity(dayIndex, activityIndex, { location: e.target.value })}
                                           placeholder="Location"
-                                          className="w-full px-2 py-1 bg-gray-600 border border-gray-500 rounded text-sm"
+                                          className={`w-full px-2 py-1 rounded text-sm border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"} focus:outline-none focus:ring-1 focus:ring-pink-400`}
                                         />
                                       </div>
                                     ) : (
                                       <div className="flex-1">
-                                        <div className="font-medium text-pink-800">{activity.name}</div>
-                                        <div className="flex items-center space-x-4 text-sm text-gray-800 mt-1">
+                                        <div className="font-medium text-pink-400">{activity.name}</div>
+                                        <div className="flex items-center space-x-4 text-sm text-gray-900 mt-1">
                                           <span className="flex items-center">
                                             <Clock className="w-3 h-3 mr-1" />
                                             {activity.duration}
@@ -368,13 +369,13 @@ const AIIteraryBuilder = ({
                                           setEditingDay({ dayIndex, activityIndex });
                                         }
                                       }}
-                                      className="p-1 text-gray-800 hover:text-blue-400 transition-colors"
+                                      className="p-1 text-gray-900 hover:text-blue-400 transition-colors duration-300 cursor-pointer"
                                     >
                                       <Edit3 className="w-4 h-4" />
                                     </button>
                                     <button
                                       onClick={() => removeActivity(dayIndex, activityIndex)}
-                                      className="p-1 text-gray-800 hover:text-red-400 transition-colors"
+                                      className="p-1 text-gray-900 hover:text-red-400 transition-colors duration-300 cursor-pointer"
                                     >
                                       <Trash2 className="w-4 h-4" />
                                     </button>
@@ -389,9 +390,9 @@ const AIIteraryBuilder = ({
                         {/* Add Activity Button */}
                         <button
                           onClick={() => addActivity(dayIndex)}
-                          className="w-full p-3 border-2 border-dashed border-pink-500 hover:border-black-500 rounded-lg text-gray-800 hover:text-pink-600 transition-colors flex items-center justify-center"
+                          className="w-full p-3 border-2 border-dashed border-pink-400 hover:border-black-500 rounded-lg text-gray-900 hover:text-pink-600 transition-colors flex items-center justify-center gap-3 cursor-pointer"
                         >
-                          <Plus className="w-4 h-4 mr-2" />
+                          <Plus className="w-4 h-4" />
                           Add Activity
                         </button>
                       </div>
@@ -405,28 +406,28 @@ const AIIteraryBuilder = ({
       </div>
 
       {/* Itinerary Statistics */}
-      <div className=" backdrop-blur-sm rounded-xl p-6 border border-pink-700">
+      <div className="backdrop-blur-sm rounded-xl p-6 border border-pink-700">
         <h3 className="text-xl font-semibold mb-4 flex items-center">
           <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
           Itinerary Statistics
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-white rounded-lg">
+          <div className={`text-center p-4  ${isDarkMode ? "bg-white/20":"bg-white/90"} hover:shadow-md backdrop-blur-md rounded-lg`}>
             <div className="text-2xl font-bold text-blue-400">
               {itinerary.reduce((total, day) => total + day.activities.length, 0)}
             </div>
-            <div className="text-sm text-gray-800">Total Activities</div>
+            <div className="text-sm text-gray-900">Total Activities</div>
           </div>
           
-          <div className="text-center p-4 bg-white rounded-lg">
+          <div className={`text-center p-4  ${isDarkMode ? "bg-white/20":"bg-white/90"} hover:shadow-md backdrop-blur-md rounded-lg`}>
             <div className="text-2xl font-bold text-green-400">
               {itinerary.length}
             </div>
-            <div className="text-sm text-gray-800">Days Planned</div>
+            <div className="text-sm text-gray-900">Days Planned</div>
           </div>
           
-          <div className="text-center p-4 bg-white rounded-lg">
+          <div className={`text-center p-4  ${isDarkMode ? "bg-white/20":"bg-white/90"} hover:shadow-md backdrop-blur-md rounded-lg`}>
             <div className="text-2xl font-bold text-purple-400">
               {itinerary.reduce((total, day) => {
                 const dayDuration = day.activities.reduce((sum, activity) => {
@@ -436,14 +437,14 @@ const AIIteraryBuilder = ({
                 return total + dayDuration;
               }, 0)}h
             </div>
-            <div className="text-sm text-gray-800">Total Duration</div>
+            <div className="text-sm text-gray-900">Total Duration</div>
           </div>
           
-          <div className="text-center p-4 bg-white rounded-lg">
+          <div className={`text-center p-4  ${isDarkMode ? "bg-white/20":"bg-white/90"} hover:shadow-md backdrop-blur-md rounded-lg`}>
             <div className="text-2xl font-bold text-yellow-400">
               {Math.round(itinerary.reduce((total, day) => total + day.activities.length, 0) / itinerary.length * 10) / 10}
             </div>
-            <div className="text-sm text-gray-800">Avg Activities/Day</div>
+            <div className="text-sm text-gray-900">Avg Activities/Day</div>
           </div>
         </div>
       </div>

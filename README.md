@@ -89,14 +89,15 @@ Before getting started, make sure you have the following installed on your syste
 
    The client will run on `http://localhost:5173`.
 
-### Troubleshooting
+### 🛠️ Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| `npm ERR! enoent` | Verify you are in the correct folder (`client` or `server`) before running `npm install`. |
-| Port already in use | Stop other applications using the port or modify the port in `vite.config.js` or the backend server configuration. |
-| Dependency errors | Run `npm install --legacy-peer-deps` for the frontend. |
-| Server not starting | Ensure the `.env` file contains the correct MongoDB URI and port settings. |
+| Issue                         | Solution                                                                                          |
+|-------------------------------|-------------------------------------------------------------------------------------------------|
+| ❌ `npm ERR! enoent`           | Make sure you're in the correct folder (`client` or `server`) before running `npm install`.     |
+| ⚠️ Port already in use         | Close other applications using the port or change the port number in `vite.config.js` or backend server config. |
+| 📦 Dependency errors           | Run `npm install --legacy-peer-deps` in the frontend directory to resolve peer dependency conflicts. |
+| 🚫 Server not starting         | Verify your `.env` file has the correct MongoDB URI and port configurations.                     |
+
 
 ## Contributing to TravelGrid
 

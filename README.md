@@ -178,11 +178,11 @@ Submit feedback, feature suggestions, or collaboration ideas by opening an issue
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/LICENSE) file for details.
 
-## Project Admin
+## 👤 Project Admin
 
-| Name | Profile |
-|------|---------|
-| Adarsh Chaubey | [GitHub](https://github.com/Adarsh-Chaubey03) \| [LinkedIn](https://www.linkedin.com/in/adarsh-chaubey/) |
+| Name           | Profile                                                                                   |
+|----------------|-------------------------------------------------------------------------------------------|
+| Adarsh Chaubey | [🔗 GitHub](https://github.com/Adarsh-Chaubey03) \| [🔗 LinkedIn](https://www.linkedin.com/in/adarsh-chaubey/) |
 
 ## Support
 

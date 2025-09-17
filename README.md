@@ -99,17 +99,32 @@ Before getting started, make sure you have the following installed on your syste
 | 🚫 Server not starting         | Verify your `.env` file has the correct MongoDB URI and port configurations.                     |
 
 
-## Contributing to TravelGrid
+## 🤝 Contributing to TravelGrid
 
-We welcome contributions to enhance TravelGrid. Follow these guidelines:
+We warmly welcome contributions to make **TravelGrid** even better! To maintain quality and collaboration, please follow these guidelines:
 
-1. **Pick an Issue**: Select an unassigned issue from the repository or create a new one. Wait for admin approval before starting.
-2. **Responsive Design**: Use Tailwind CSS to ensure responsive designs.
-3. **Code Quality**: Write clean, modular code in the `src/components/` directory. Adhere to ESLint and Prettier standards.
-4. **Pull Requests**: Address a specific issue, test thoroughly, and provide a clear PR description. Buggy PRs will not be merged.
-5. **Communication**: Contact the project admin via:
-   - **GitHub**: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)
+1. **🔍 Pick an Issue**  
+   Choose an unassigned issue from the repository or propose a new one. Please wait for admin approval before you start working.
+
+2. **📱 Responsive Design**  
+   Use **Tailwind CSS** to ensure all components are fully responsive across devices.
+
+3. **🧹 Code Quality**  
+   Write clean, modular, and reusable code inside the `src/components/` directory. Make sure your code adheres to our **ESLint** and **Prettier** formatting standards.
+
+4. **📤 Pull Requests (PRs)**  
+   - Work on a specific issue.  
+   - Test your changes thoroughly.  
+   - Provide a clear, descriptive PR message explaining your changes.  
+   - PRs with bugs or incomplete features will not be merged.
+
+5. **💬 Communication**  
+   Have questions or need help? Reach out to the project admin:  
+   - **GitHub**: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)  
    - **LinkedIn**: [Adarsh Chaubey](https://www.linkedin.com/in/adarsh-chaubey/)
+
+Thank you for contributing and helping build an amazing travel platform! 🚀
+
 
 6. **Task Assignment**: Task assignments and PR reviews are conducted daily from 6:00 PM to 7:00 PM IST.
 

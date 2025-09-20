@@ -299,6 +299,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      {/* The space has been removed and the footer extra space has been eliminated. */}
 
       {/* Toast Notification */}
       {toast.show && (

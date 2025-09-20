@@ -265,17 +265,18 @@ const HeroSection = ({ onSearch }) => {
                 <div className="flex flex-wrap gap-2">
                   {[t('home.restaurants'), t('home.events'), t('home.shopping')].map((filter) => (
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      key={filter}
-                      onClick={() => {
-                        setCategory(filter);
-                        handleSearch();
-                      }}
-                      className="px-3 py-2 bg-white/20 hover:bg-white/30 text-black/80 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer backdrop-blur-sm break-words"
-                    >
-                      {filter}
-                    </motion.button>
+  whileHover={{ scale: 1.07 }}
+  whileTap={{ scale: 0.95 }}
+  key={filter}
+  onClick={() => {
+    setCategory(filter);
+    handleSearch();
+  }}
+  className="px-3 py-2 bg-white/20 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:text-white text-black/90 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer backdrop-blur-sm break-words shadow-sm hover:shadow-md"
+>
+  {filter}
+</motion.button>
+
                   ))}
 
                   {category !== t('home.allCategories') && (

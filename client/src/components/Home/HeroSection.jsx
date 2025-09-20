@@ -236,13 +236,26 @@ const HeroSection = ({ onSearch }) => {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSearch}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-xl"
-                >
-                  {t('common.search')}
-                </motion.button>
+  whileHover={{ scale: 1.07 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={handleSearch}
+  className="w-full font-semibold py-3 px-6 rounded-xl text-white transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 focus:ring-opacity-60"
+  style={{
+    background: 'linear-gradient(270deg, #ec4899, #8b5cf6, #ec4899)',
+    backgroundSize: '600% 600%',
+    animation: 'gradientShift 8s ease infinite',
+  }}
+>
+  {t('common.search')}
+  <style jsx>{`
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `}</style>
+</motion.button>
+
               </div>
 
               {/* Category Filters */}

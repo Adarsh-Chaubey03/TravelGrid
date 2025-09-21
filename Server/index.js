@@ -1,64 +1,58 @@
-const express = require('express');
-const bookingRoutes = require("./routes/booking.js");
-const cors = require('cors');
-require('dotenv').config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import path from "path";
+import userRoute from "./routes/user.route.js";
+import { OAuth2Client } from "google-auth-library";
 
-const connectDB = require('./config/db');
-const authRoutes = require('./routes/authRoutes');
+const client = new OAuth2Client("200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com");
 
-const bookingRouter = require('./routes/bookingRoutes');
 
-const postRoutes = require('./routes/postRoutes')
-const saveRoutes = require('./routes/saveRoutes');
+dotenv.config({ path: path.resolve("./.env") });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const URI = process.env.MongoDBURI;
 
-// DB Connection
-connectDB();
+if (!URI) {
+  console.error("MongoDB URI missing");
+  process.exit(1);
+}
 
-// Middleware
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? 'https://travel-grid.vercel.app'
-    : '*',
-  credentials: true
-}));
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => { console.error(err); process.exit(1); });
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5173"], // allow both React dev ports
+    credentials: true,
+  })
+);
+
 
 
 app.use(express.json());
 
-app.get('/',(req,res)=>{
-  res.send("Hello world")
-})
+app.use("/user", userRoute);
 
-// Routes
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ message: 'API is running smoothly!' });
-});
-// Authentication Routes
-app.use('/api/auth', authRoutes);
 
-app.use('/api/bookings', bookingRouter)
+app.post("/user/google-login", async (req, res) => {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.token,
+      audience: "200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com",
+    });
+    const payload = ticket.getPayload(); // { email, name, picture, ... }
 
-//Posts Route
-app.use('/api/post',postRoutes);
-
-//save Route
-app.use('/api/save', saveRoutes);
-
-// 404 Not Found middleware
-app.use((req,res,next)=>{
-  res.status(404).json({message:'Resource not found'});
-});
-// Error handling middleware global
-app.use((err,req,res,next)=>{
-  console.error(err.stack);
-  res.status(500).json({message:"Internal Server Error"});
-
+    // Check if user exists or create a new one
+    const user = await User.findOrCreateFromGoogle(payload);
+    res.json({ user });
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Google token" });
+  }
 });
 
-// server
-app.listen(PORT, () => {
-  console.log(` Server running on http://localhost:${PORT}`);
-});
+app.get("/", (_req, res) => res.send("API running"));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

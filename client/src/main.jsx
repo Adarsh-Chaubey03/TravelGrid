@@ -48,7 +48,7 @@ import Summarizer from './components/Summarizer';
 import Recommendation from './components/recommendation';
 import Wishlist from './pages/Wishlist';
 import { WishlistProvider } from "./context/WishlistContext";
-
+import AuthProvider2 from "./context/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
@@ -138,6 +138,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider2>
     <ErrorBoundary>
       <GoogleOAuthProvider clientId="1047267709802-k05pdjqojcal19h24fd75opev1evaf6j.apps.googleusercontent.com">
         <AuthProvider>
@@ -159,5 +160,6 @@ createRoot(document.getElementById('root')).render(
         </AuthProvider>
       </GoogleOAuthProvider>
     </ErrorBoundary>
+    </AuthProvider2>
   </StrictMode>
 );

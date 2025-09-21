@@ -6,10 +6,9 @@ import path from "path";
 import userRoute from "./routes/user.route.js";
 import { OAuth2Client } from "google-auth-library";
 
-const client = new OAuth2Client("200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com");
-
-
 dotenv.config({ path: path.resolve("./.env") });
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,23 +25,19 @@ mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"], // allow both React dev ports
+    origin: ["http://localhost:3000", "http://localhost:5173"],
     credentials: true,
   })
 );
 
-
-
 app.use(express.json());
-
 app.use("/user", userRoute);
-
 
 app.post("/user/google-login", async (req, res) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: req.body.token,
-      audience: "200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com",
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload(); // { email, name, picture, ... }
 

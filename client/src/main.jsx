@@ -1,9 +1,8 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
-import ItineraryMapPage from "./pages/ItineraryMapPage";
 import './index.css';
-import './i18n'; // Import i18n configuration
+import './i18n'; // i18n configuration
 import App from './App.jsx';
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorHandle/ErrorBoundary';
@@ -14,54 +13,14 @@ import { WishlistProvider } from './context/WishlistContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import AuthLayout from './components/AuthLayout';
-<<<<<<< HEAD
-import TrendingSpots from './pages/TrendingSpots.jsx';
-import PackingChecklistPage from './pages/PackingChecklist.jsx';
-import Summarizer from './components/Summarizer';
-import Recommendation from './components/recommendation';
-import Wishlist from './pages/Wishlist';
-import { WishlistProvider } from "./context/WishlistContext";
-import AuthProvider2 from "./context/AuthProvider.jsx";
-=======
-//import TrendingSpots from './pages/TrendingSpots.jsx';
-//import PackingChecklistPage from './pages/PackingChecklist.jsx';
-//import Summarizer from './components/Summarizer';
-//import Recommendation from './components/recommendation';
-//import Wishlist from './pages/Wishlist';
-//import { WishlistProvider } from "./context/WishlistContext";
-import LocationDetail from './pages/LocationDetail';
-
-//import TrendingSpots from './pages/TrendingSpots.jsx';
-//import PackingChecklistPage from './pages/PackingChecklist.jsx';
-//import Summarizer from './components/Summarizer';
-//import Recommendation from './components/recommendation';
-//import Wishlist from './pages/Wishlist';
-
-
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import { Provider } from 'react-redux';
 import appStore from './app/store.js';
-import { UpdatePassword } from './pages/UpdatePassword';
 
-import LeaderBoard from './components/Leaderboard/LeaderBoard';
-
-
-//import TrendingSpots from './pages/TrendingSpots.jsx';
-//import PackingChecklistPage from './pages/PackingChecklist.jsx';
-//import Summarizer from './components/Summarizer';
-//import Recommendation from './components/recommendation';
-//import Wishlist from './pages/Wishlist';
-//import { WishlistProvider } from "./context/WishlistContext";
-
-
-//import ProtectedRoute from './components/Auth/ProtectedRoute';
-
-
-// Lazy imports for pages
+// Lazy-loaded pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
-import DiscoverSection from "./components/Home/DiscoverSection";
 const Trips = lazy(() => import('./pages/Trips'));
 const Review = lazy(() => import('./pages/Review'));
 const Contributors = lazy(() => import('./pages/Contributors'));
@@ -86,8 +45,6 @@ const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const Summarizer = lazy(() => import('./components/Summarizer'));
 const Recommendation = lazy(() => import('./components/recommendation'));
-// const Leaderboard = lazy(() => import('./components/Leaderboard/LeaderBoard'));
-
 const Wishlist = lazy(() => import('./pages/Wishlist'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const TripsPlanned = lazy(() => import('./pages/TripsPlanned'));
@@ -107,9 +64,12 @@ const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
 const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
 const Music = lazy(() => import('./pages/Music'));
 const VisaChecker = lazy(() => import('./pages/VisaChecker'));
+const ItineraryMapPage = lazy(() => import('./pages/ItineraryMapPage'));
+const LocationDetail = lazy(() => import('./pages/LocationDetail'));
+const UpdatePassword = lazy(() => import('./pages/UpdatePassword'));
+const LeaderBoard = lazy(() => import('./components/Leaderboard/LeaderBoard'));
 
->>>>>>> 6b99236f1c880cfa051e2080ce57c618aab78f7f
-
+// Router configuration
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
   { path: '/signup', element: <AuthLayout><Signup /></AuthLayout> },
@@ -154,50 +114,25 @@ const router = createBrowserRouter([
       { path: '/ai-travel-planner', element: <Suspense fallback={<Spinner />}><AITravelPlannerDemo /></Suspense> },
       { path: '/music-player-demo', element: <Suspense fallback={<Spinner />}><MusicPlayerDemo /></Suspense> },
       { path: '/music', element: <Suspense fallback={<Spinner />}><Music /></Suspense> },
-      {path:"/itinerary-map", element:<Suspense fallback={<Spinner />}><ItineraryMapPage/></Suspense>},
+      { path: '/itinerary-map', element: <Suspense fallback={<Spinner />}><ItineraryMapPage /></Suspense> },
       { path: '/visa-checker', element: <Suspense fallback={<Spinner />}><VisaChecker /></Suspense> },
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
-
-
-
-      {
-        path: '/dashboard',
-        element: <ProtectedRoute><Dashboard /></ProtectedRoute>
-      },
-      {
-        path: '/dashboard/trips',
-        element: <ProtectedRoute><TripsPlanned /></ProtectedRoute>
-      },
-      {
-        path: '/dashboard/saved',
-        element: <ProtectedRoute><SavedPlaces /></ProtectedRoute>
-      },
-      {
-        path: '/dashboard/countries',
-        element: <ProtectedRoute><CountriesVisited /></ProtectedRoute>
-      },
-      /*{ path: '/network-error', element: <NetworkError /> },
-      { path: '/server-error', element: <ServerError /> },
-      { path: '*', element: <NotFound /> },
-      { path: '/package/:id', element: <PackageDetails /> },*/
-      { path: '/location/:locationId', element: <LocationDetail /> },
-      
-
-
-
+      { path: '/dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute> },
+      { path: '/dashboard/trips', element: <ProtectedRoute><TripsPlanned /></ProtectedRoute> },
+      { path: '/dashboard/saved', element: <ProtectedRoute><SavedPlaces /></ProtectedRoute> },
+      { path: '/dashboard/countries', element: <ProtectedRoute><CountriesVisited /></ProtectedRoute> },
+      { path: '/location/:locationId', element: <Suspense fallback={<Spinner />}><LocationDetail /></Suspense> },
       { path: '/package/:id', element: <Suspense fallback={<Spinner />}><PackageDetails /></Suspense> },
       { path: '/network-error', element: <Suspense fallback={<Spinner />}><NetworkError /></Suspense> },
       { path: '/server-error', element: <Suspense fallback={<Spinner />}><ServerError /></Suspense> },
       { path: '*', element: <Suspense fallback={<Spinner />}><NotFound /></Suspense> },
-
     ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider2>
     <ErrorBoundary>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <LanguageProvider>
@@ -225,6 +160,5 @@ createRoot(document.getElementById('root')).render(
         </LanguageProvider>
       </GoogleOAuthProvider>
     </ErrorBoundary>
-    </AuthProvider2>
   </StrictMode>
 );

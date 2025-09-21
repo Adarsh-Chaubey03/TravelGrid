@@ -35,11 +35,13 @@
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "jwt-decode": "^4.0.0",
-<<<<<<< HEAD
-=======
+
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
->>>>>>> 6b99236f1c880cfa051e2080ce57c618aab78f7f
+
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
+
     "lucide-react": "^0.525.0",
     "motion": "^12.23.12",
     "qrcode": "^1.5.4",

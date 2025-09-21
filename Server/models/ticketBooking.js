@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ticketBookingSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -12,4 +12,4 @@ const ticketBookingSchema = new mongoose.Schema({
   tripMode: { type: String, enum: ['oneWay', 'roundTrip'], required: true },
 }, { timestamps: true });
 
-module.exports = mongoose.model('TicketBooking', ticketBookingSchema); 
+export default TicketBooking = mongoose.model('TicketBooking', ticketBookingSchema); 

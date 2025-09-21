@@ -11,6 +11,7 @@ const TravelCard = ({ pkg }) => {
         src={pkg.image}
         alt={pkg.name}
         className="rounded-md w-full h-48 object-cover"
+        loading="lazy"
       />
       <h2 className="text-lg font-semibold mt-2">{pkg.name}</h2>
       <p className="text-sm text-gray-600">{pkg.description}</p>

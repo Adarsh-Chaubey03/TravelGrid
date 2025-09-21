@@ -1,15 +1,14 @@
-const express = require('express')
-const { verifyJWT } = require('../middleware/auth.js')
-
-const bookingController = require('../controller/bookingController.js')
-
+import express from 'express'
+import {verifyJWT} from '../middleware/auth.js'
+import { addBooking, deleteBooking, editBooking, getAllBooking, getBooking, rebookBooking } from '../controller/bookingController.js'
 const bookingRouter = express.Router()
 
 // PROTECTED ROUTES
-bookingRouter.post('/addBooking', verifyJWT, bookingController.addBooking)
-bookingRouter.get('/getAllBookings',verifyJWT, bookingController.getAllBooking)
-bookingRouter.get('/getBooking/:id', verifyJWT, bookingController.getBooking)
-bookingRouter.delete('/deleteBooking/:id',verifyJWT, bookingController.deleteBooking)
-bookingRouter.patch('/editBooking/:id',verifyJWT, bookingController.editBooking)
+bookingRouter.post('/addBooking', verifyJWT, addBooking)
+bookingRouter.get('/getAllBookings', verifyJWT, getAllBooking)
+bookingRouter.get('/getBooking/:id', verifyJWT, getBooking)
+bookingRouter.delete('/deleteBooking/:id', verifyJWT, deleteBooking)
+bookingRouter.patch('/editBooking/:id', verifyJWT, editBooking)
+bookingRouter.post('/rebook/:id', verifyJWT, rebookBooking)
 
-module.exports = bookingRouter
+export default bookingRouter

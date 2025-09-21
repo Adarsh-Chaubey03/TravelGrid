@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Currency Travel Wallet</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Main container */
+        .wallet-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Header */
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .wallet-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .wallet-subtitle {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .form-select,
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-select:focus,
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* Currency display */
+        .currency-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .converted-amount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .conversion-rate {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .wallet-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .wallet-title {
+                font-size: 24px;
+            }
+            
+            .converted-amount {
+                font-size: 28px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Error state */
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wallet-container">
+        <div class="wallet-header">
+            <h1 class="wallet-title">Travel Wallet</h1>
+            <p class="wallet-subtitle">Convert currencies instantly</p>
+        </div>
+
+        <form id="currencyForm">
+            <div class="form-group">
+                <label for="homeCurrency" class="form-label">From Currency</label>
+                <select id="homeCurrency" class="form-select" required>
+                    <option value="">Select currency</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="targetCurrency" class="form-label">To Currency</label>
+                <select id="targetCurrency" class="form-select" required>
+                    <option value="">Select currency</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount" class="form-label">Amount</label>
+                <input 
+                    type="number" 
+                    id="amount" 
+                    class="form-input" 
+                    placeholder="Enter amount"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+            </div>
+        </form>
+
+        <div id="result" class="currency-display" style="display: none;">
+            <div class="converted-amount" id="convertedAmount">0.00</div>
+            <div class="conversion-rate" id="conversionRate">1 USD = 1 USD</div>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        /**
+         * Multi-Currency Travel Wallet
+         * A self-contained currency converter with hardcoded exchange rates
+         * Works offline and provides instant currency conversion
+         */
+
+        // Hardcoded exchange rates (base: USD)
+        // Rates are approximate and should be updated periodically
+        const EXCHANGE_RATES = {
+            USD: 1.00,
+            EUR: 0.85,
+            GBP: 0.73,
+            JPY: 110.50,
+            CAD: 1.25,
+            AUD: 1.35,
+            CHF: 0.92,
+            CNY: 6.45,
+            INR: 74.50,
+            BRL: 5.20,
+            MXN: 20.50,
+            SGD: 1.35,
+            HKD: 7.78,
+            KRW: 1180.00,
+            SEK: 8.65,
+            NOK: 8.85,
+            DKK: 6.30,
+            PLN: 3.85,
+            CZK: 21.50,
+            HUF: 300.00,
+            RUB: 75.00,
+            TRY: 8.50,
+            ZAR: 14.50,
+            THB: 33.50,
+            MYR: 4.15,
+            IDR: 14200.00,
+            PHP: 50.50,
+            VND: 23000.00
+        };
+
+        // Currency information for display
+        const CURRENCY_INFO = {
+            USD: { name: 'US Dollar', symbol: '$' },
+            EUR: { name: 'Euro', symbol: '€' },
+            GBP: { name: 'British Pound', symbol: '£' },
+            JPY: { name: 'Japanese Yen', symbol: '¥' },
+            CAD: { name: 'Canadian Dollar', symbol: 'C$' },
+            AUD: { name: 'Australian Dollar', symbol: 'A$' },
+            CHF: { name: 'Swiss Franc', symbol: 'CHF' },
+            CNY: { name: 'Chinese Yuan', symbol: '¥' },
+            INR: { name: 'Indian Rupee', symbol: '₹' },
+            BRL: { name: 'Brazilian Real', symbol: 'R$' },
+            MXN: { name: 'Mexican Peso', symbol: '$' },
+            SGD: { name: 'Singapore Dollar', symbol: 'S$' },
+            HKD: { name: 'Hong Kong Dollar', symbol: 'HK$' },
+            KRW: { name: 'South Korean Won', symbol: '₩' },
+            SEK: { name: 'Swedish Krona', symbol: 'kr' },
+            NOK: { name: 'Norwegian Krone', symbol: 'kr' },
+            DKK: { name: 'Danish Krone', symbol: 'kr' },
+            PLN: { name: 'Polish Złoty', symbol: 'zł' },
+            CZK: { name: 'Czech Koruna', symbol: 'Kč' },
+            HUF: { name: 'Hungarian Forint', symbol: 'Ft' },
+            RUB: { name: 'Russian Ruble', symbol: '₽' },
+            TRY: { name: 'Turkish Lira', symbol: '₺' },
+            ZAR: { name: 'South African Rand', symbol: 'R' },
+            THB: { name: 'Thai Baht', symbol: '฿' },
+            MYR: { name: 'Malaysian Ringgit', symbol: 'RM' },
+            IDR: { name: 'Indonesian Rupiah', symbol: 'Rp' },
+            PHP: { name: 'Philippine Peso', symbol: '₱' },
+            VND: { name: 'Vietnamese Dong', symbol: '₫' }
+        };
+
+        // DOM elements
+        const homeCurrencySelect = document.getElementById('homeCurrency');
+        const targetCurrencySelect = document.getElementById('targetCurrency');
+        const amountInput = document.getElementById('amount');
+        const resultDiv = document.getElementById('result');
+        const convertedAmountDiv = document.getElementById('convertedAmount');
+        const conversionRateDiv = document.getElementById('conversionRate');
+        const errorDiv = document.getElementById('error');
+
+        /**
+         * Initialize the currency converter
+         */
+        function initializeConverter() {
+            populateCurrencyDropdowns();
+            setupEventListeners();
+            setDefaultCurrencies();
+        }
+
+        /**
+         * Populate currency dropdowns with available currencies
+         */
+        function populateCurrencyDropdowns() {
+            const currencies = Object.keys(EXCHANGE_RATES).sort();
+            
+            currencies.forEach(currency => {
+                const option = document.createElement('option');
+                option.value = currency;
+                option.textContent = `${currency} - ${CURRENCY_INFO[currency].name}`;
+                
+                homeCurrencySelect.appendChild(option.cloneNode(true));
+                targetCurrencySelect.appendChild(option);
+            });
+        }
+
+        /**
+         * Set default currency selections
+         */
+        function setDefaultCurrencies() {
+            homeCurrencySelect.value = 'USD';
+            targetCurrencySelect.value = 'EUR';
+        }
+
+        /**
+         * Set up event listeners for real-time conversion
+         */
+        function setupEventListeners() {
+            [homeCurrencySelect, targetCurrencySelect, amountInput].forEach(element => {
+                element.addEventListener('change', performConversion);
+                element.addEventListener('input', performConversion);
+            });
+        }
+
+        /**
+         * Perform currency conversion and update display
+         */
+        function performConversion() {
+            const homeCurrency = homeCurrencySelect.value;
+            const targetCurrency = targetCurrencySelect.value;
+            const amount = parseFloat(amountInput.value);
+
+            // Validate inputs
+            if (!homeCurrency || !targetCurrency || isNaN(amount) || amount < 0) {
+                hideResult();
+                return;
+            }
+
+            try {
+                const convertedAmount = convertCurrency(amount, homeCurrency, targetCurrency);
+                const rate = getExchangeRate(homeCurrency, targetCurrency);
+                
+                displayResult(convertedAmount, homeCurrency, targetCurrency, rate);
+                hideError();
+            } catch (error) {
+                showError('Conversion failed. Please check your inputs.');
+                hideResult();
+            }
+        }
+
+        /**
+         * Convert amount from one currency to another
+         * @param {number} amount - Amount to convert
+         * @param {string} fromCurrency - Source currency code
+         * @param {string} toCurrency - Target currency code
+         * @returns {number} Converted amount
+         */
+        function convertCurrency(amount, fromCurrency, toCurrency) {
+            if (fromCurrency === toCurrency) {
+                return amount;
+            }
+
+            // Convert to USD first (base currency), then to target currency
+            const usdAmount = amount / EXCHANGE_RATES[fromCurrency];
+            const convertedAmount = usdAmount * EXCHANGE_RATES[toCurrency];
+            
+            return Math.round(convertedAmount * 100) / 100; // Round to 2 decimal places
+        }
+
+        /**
+         * Get exchange rate between two currencies
+         * @param {string} fromCurrency - Source currency code
+         * @param {string} toCurrency - Target currency code
+         * @returns {number} Exchange rate
+         */
+        function getExchangeRate(fromCurrency, toCurrency) {
+            if (fromCurrency === toCurrency) {
+                return 1;
+            }
+            
+            return EXCHANGE_RATES[toCurrency] / EXCHANGE_RATES[fromCurrency];
+        }
+
+        /**
+         * Display conversion result
+         * @param {number} convertedAmount - Converted amount
+         * @param {string} fromCurrency - Source currency code
+         * @param {string} toCurrency - Target currency code
+         * @param {number} rate - Exchange rate
+         */
+        function displayResult(convertedAmount, fromCurrency, toCurrency, rate) {
+            const fromInfo = CURRENCY_INFO[fromCurrency];
+            const toInfo = CURRENCY_INFO[toCurrency];
+            
+            // Format the converted amount with appropriate decimal places
+            const formattedAmount = formatCurrency(convertedAmount, toCurrency);
+            
+            convertedAmountDiv.textContent = formattedAmount;
+            conversionRateDiv.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+            
+            resultDiv.style.display = 'block';
+        }
+
+        /**
+         * Format currency amount based on currency type
+         * @param {number} amount - Amount to format
+         * @param {string} currency - Currency code
+         * @returns {string} Formatted amount
+         */
+        function formatCurrency(amount, currency) {
+            // Some currencies don't use decimal places
+            const noDecimalCurrencies = ['JPY', 'KRW', 'IDR', 'VND', 'HUF'];
+            
+            if (noDecimalCurrencies.includes(currency)) {
+                return Math.round(amount).toLocaleString();
+            }
+            
+            return amount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        /**
+         * Hide the result display
+         */
+        function hideResult() {
+            resultDiv.style.display = 'none';
+        }
+
+        /**
+         * Show error message
+         * @param {string} message - Error message to display
+         */
+        function showError(message) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        /**
+         * Hide error message
+         */
+        function hideError() {
+            errorDiv.style.display = 'none';
+        }
+
+        // Initialize the converter when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeConverter);
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapPin, ExternalLink } from "lucide-react";
+import ARExperience from "../ARExperience";
 
 const MapLocation = ({ location }) => {
   const openInMaps = () => {
@@ -7,7 +8,7 @@ const MapLocation = ({ location }) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.name)}`;
     window.open(url, '_blank');
   };
-
+  const [arMode, setArMode] = useState(false);
   return (
     <div className="bg-black/20 rounded-lg p-4 border border-pink-400/20">
       <div className="flex items-center justify-between mb-3">
@@ -28,7 +29,7 @@ const MapLocation = ({ location }) => {
         <div className="text-white text-sm">
           <span className="font-medium">{location.name}</span>
         </div>
-        
+        <button className="mt-2 px-4 py-2 rounded bg-purple-600 text-white text-xs font-semibold" onClick={() => setArMode(true)}>AR Mode</button>
         {/* Placeholder for map */}
         <div className="w-full h-32 bg-gradient-to-br from-pink-400/20 to-purple-400/20 rounded-lg flex items-center justify-center border border-pink-400/30">
           <div className="text-center text-pink-300 text-sm">
@@ -37,13 +38,15 @@ const MapLocation = ({ location }) => {
             <p className="text-xs opacity-75">Click to open in Google Maps</p>
           </div>
         </div>
-        
         <div className="text-xs text-pink-300 opacity-75">
           Coordinates: {location.coordinates}
         </div>
+        {arMode && (
+          <ARExperience location={location} onClose={() => setArMode(false)} />
+        )}
       </div>
     </div>
   );
 };
 
-export default MapLocation; 
+export default MapLocation;

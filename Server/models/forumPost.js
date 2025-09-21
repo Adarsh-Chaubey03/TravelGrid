@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const replySchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -13,4 +13,4 @@ const forumPostSchema = new mongoose.Schema({
   replies: [replySchema],
 }, { timestamps: true });
 
-module.exports = mongoose.model('ForumPost', forumPostSchema); 
+export default ForumPost = mongoose.model('ForumPost', forumPostSchema); 

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { Star, Send } from "lucide-react";
 import toast from "react-hot-toast";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const Feedback = () => {
   // Add CSS to force dropdown to open downward
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
+
   React.useEffect(() => {
     const style = document.createElement("style");
     style.textContent = `
@@ -28,17 +35,34 @@ const Feedback = () => {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [isHotelDropdownOpen, setIsHotelDropdownOpen] = useState(false);
   const [isPackageDropdownOpen, setIsPackageDropdownOpen] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleRatingClick = (rating) => {
+    //ensure user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginPrompt(true);
+      toast.error("Please login to rate your experience");
+      return;
+    }
     setFormData({ ...formData, rating });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //ensure user is authenticated
+    if (!isAuthenticated) {
+      setShowLoginPrompt(true);
+      toast.error("Please login to submit feedback. Reloading...");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      return;
+    }
 
     if (!formData.message || formData.rating === 0) {
       toast.error("Please provide your feedback and rating");
@@ -147,97 +171,115 @@ const Feedback = () => {
     },
   ];
 
+  const feedbackCards = [
+    { 
+      icon: '🎯', 
+      title: 'Improve Our Services', 
+      info: 'Help us enhance your travel experience', 
+      sub: 'Your insights drive our improvements', 
+      bg: 'bg-gradient-to-br from-pink-500/20 to-purple-600/20 hover:from-pink-500/30 hover:to-purple-600/30', 
+      color: 'text-pink-300', 
+      iconBg: 'from-pink-500 to-purple-600' 
+    },
+    { 
+      icon: '💡', 
+      title: 'Share Ideas', 
+      info: 'Suggest new features and destinations', 
+      sub: 'We love hearing your creative ideas',
+      bg: 'bg-gradient-to-br from-purple-500/20 to-blue-600/20 hover:from-purple-500/30 hover:to-blue-600/30', 
+      color: 'text-purple-300', 
+      iconBg: 'from-purple-500 to-blue-600' 
+    },
+    { 
+      icon: '⭐', 
+      title: 'Rate Your Experience', 
+      info: 'Let us know how we\'re doing', 
+      sub: 'Your ratings help other travelers', 
+      bg: 'bg-gradient-to-br from-yellow-500/20 to-orange-600/20 hover:from-yellow-500/30 hover:to-orange-600/30', 
+      iconBg: 'from-yellow-500 to-orange-600', 
+      color: 'text-yellow-300' 
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen`}>
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-pink-600 via-pink-700 to-pink-800 text-white py-24 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+      <div className={`py-32 px-4 relative overflow-hidden`}>
+        <div className={`absolute inset-0 ${
+          isDarkMode ? 'bg-black bg-opacity-10' : 'bg-white bg-opacity-20'
+        }`}></div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-5xl font-bold mb-6 leading-tight mt-6">
-            Share Your <span className="text-yellow-400">Feedback</span>
+          <h1 className="text-6xl font-bold mb-8 leading-tight">
+            Share Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Feedback</span>
           </h1>
-          <p className="text-xl opacity-95 max-w-2xl mx-auto">
+          <p className={`text-2xl opacity-95 max-w-3xl mx-auto ${
+            isDarkMode ? 'text-gray-200' : 'text-gray-700'
+          }`}>
             Help us improve your travel experience! Your feedback is invaluable
-            to us.
+            to us and helps us create better adventures for everyone.
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 -mt-12 relative z-20 pb-20">
+      <div className="max-w-6xl mx-auto px-4 -mt-16 relative z-20 pb-20">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Feedback Info */}
-          <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl shadow-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <div className={`backdrop-blur-md rounded-2xl shadow-2xl p-8 border ${
+            isDarkMode 
+              ? 'bg-white/10 border-white/20'
+              : 'bg-white/90 border-pink-200'
+          }`}>
+            <h3 className={`text-3xl font-bold mb-8 text-center ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
               Why Your Feedback Matters
             </h3>
             <div className="space-y-6">
-              <div className="flex items-center p-4 bg-green-50 hover:bg-green-100 rounded-xl transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white text-xl mr-4">
-                  🎯
+              {feedbackCards.map((card, index) => (
+                <div key={index} className={`flex items-center p-6 rounded-xl transition-all duration-300 ${
+                  isDarkMode 
+                    ? `${card.bg} border border-white/10 hover:border-white/20`
+                    : 'bg-white border border-gray-200 hover:border-pink-300'
+                }`}>
+                  <div className={`w-14 h-14 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-2xl mr-6 shadow-lg`}>
+                    {card.icon}
+                  </div>
+                  <div>
+                    <h4 className={`font-semibold text-lg mb-2 ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>{card.title}</h4>
+                    <p className={`${card.color} font-medium mb-1`}>{card.info}</p>
+                    <p className={`text-sm ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                    }`}>{card.sub}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Improve Our Services
-                  </h4>
-                  <p className="text-green-600 font-medium">
-                    Help us enhance your travel experience
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Your insights drive our improvements
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center p-4 bg-rose-100 hover:bg-rose-200 rounded-xl transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-xl flex items-center justify-center text-white text-xl mr-4">
-                  💡
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Share Ideas</h4>
-                  <p className="text-rose-600 font-medium">
-                    Suggest new features and destinations
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    We love hearing your creative ideas
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center p-4 bg-pink-100 hover:bg-pink-200 rounded-xl transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xl mr-4">
-                  ⭐
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Rate Your Experience
-                  </h4>
-                  <p className="text-pink-600 font-medium">
-                    Let us know how we're doing
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Your ratings help other travelers
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
           {/* Feedback Form */}
-          <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl shadow-2xl p-8 border border-pink-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <div className={`backdrop-blur-md rounded-2xl shadow-2xl p-8 border ${
+            isDarkMode 
+              ? 'bg-white/10 border-white/20'
+              : 'bg-white/90 border-pink-200'
+          }`}>
+            <h2 className={`text-3xl font-bold mb-8 text-center ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
               Tell Us What You Think
             </h2>
 
             {isSubmitted ? (
               <div className="text-center py-12">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">
+                <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-4xl mx-auto mb-6 shadow-lg">
                   ✓
                 </div>
-                <h3 className="text-2xl font-bold text-green-600 mb-4">
+                <h3 className="text-2xl font-bold text-green-400 mb-4">
                   Feedback Submitted!
                 </h3>
-                <p className="text-gray-600">
+                <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
                   Thank you for helping us improve. We'll review your feedback
                   carefully.
                 </p>
@@ -247,7 +289,9 @@ const Feedback = () => {
                 {/* Package/Destination and Hotel */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className={`block text-sm font-semibold mb-2 ${
+                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                    }`}>
                       Package
                     </label>
                     <div className="relative">
@@ -257,7 +301,7 @@ const Feedback = () => {
                           setIsPackageDropdownOpen(!isPackageDropdownOpen);
                           setIsHotelDropdownOpen(false);
                         }}
-                        className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white text-left flex items-center justify-between"
+                        className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between text-black"
                       >
                         <span className="truncate">
                           {formData.package
@@ -286,9 +330,9 @@ const Feedback = () => {
                       </button>
 
                       {isPackageDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 bg-white border-2 border-pink-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
+                        <div className="absolute top-full left-0 mt-1 bg-white/95 backdrop-blur-md border-2 border-white/30 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
                           <div
-                            className="px-4 py-2 cursor-pointer hover:bg-pink-50"
+                            className="px-4 py-2 cursor-pointer hover:bg-pink-50 text-black"
                             onClick={() => {
                               setFormData({ ...formData, package: "" });
                               setIsPackageDropdownOpen(false);
@@ -299,7 +343,7 @@ const Feedback = () => {
                           {travelPackages.map((pkg) => (
                             <div
                               key={pkg.value}
-                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap"
+                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap text-black"
                               onClick={() => {
                                 setFormData({
                                   ...formData,
@@ -316,7 +360,9 @@ const Feedback = () => {
                     </div>
                   </div>
                   <div className="relative">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className={`block text-sm font-semibold mb-2 ${
+                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                    }`}>
                       Hotel (if booked)
                     </label>
                     <div className="relative">
@@ -326,7 +372,7 @@ const Feedback = () => {
                           setIsHotelDropdownOpen(!isHotelDropdownOpen);
                           setIsPackageDropdownOpen(false);
                         }}
-                        className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none bg-white text-left flex items-center justify-between"
+                        className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between text-black"
                       >
                         <span className="truncate">
                           {formData.hotel
@@ -356,9 +402,9 @@ const Feedback = () => {
                       </button>
 
                       {isHotelDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 bg-white border-2 border-pink-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
+                        <div className="absolute top-full left-0 mt-1 bg-white/95 backdrop-blur-md border-2 border-white/30 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
                           <div
-                            className="px-4 py-2 cursor-pointer hover:bg-pink-50"
+                            className="px-4 py-2 cursor-pointer hover:bg-pink-50 text-black"
                             onClick={() => {
                               setFormData({ ...formData, hotel: "" });
                               setIsHotelDropdownOpen(false);
@@ -369,7 +415,7 @@ const Feedback = () => {
                           {hotels.map((hotel) => (
                             <div
                               key={hotel.value}
-                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap"
+                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap text-black"
                               onClick={() => {
                                 setFormData({
                                   ...formData,
@@ -389,15 +435,17 @@ const Feedback = () => {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Your Feedback *
-                  </label>
+                                      <label className={`block text-sm font-semibold mb-2 ${
+                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                    }`}>
+                      Your Feedback *
+                    </label>
                   <textarea
                     name="message"
-                    rows="3"
+                    rows="4"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none resize-none bg-white"
+                    className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none resize-none text-black"
                     placeholder="Tell us about your experience, suggestions, or any issues you encountered..."
                     required
                   />
@@ -416,17 +464,17 @@ const Feedback = () => {
                         className="p-2 hover:scale-110 transition-transform"
                       >
                         <Star
-                          size={32}
+                          size={36}
                           className={`${
                             star <= (hoveredRating || formData.rating)
                               ? "fill-yellow-400 text-yellow-400"
-                              : "text-gray-300"
+                              : "text-gray-400"
                           }`}
                         />
                       </button>
                     ))}
                   </div>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <p className="text-sm text-gray-300 mt-3">
                     {formData.rating === 0 && "Rate your experience"}
                     {formData.rating === 1 && "Poor"}
                     {formData.rating === 2 && "Fair"}
@@ -439,7 +487,7 @@ const Feedback = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-4 px-6 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition-all transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/25 flex items-center justify-center gap-2"
                 >
                   <Send size={20} />
                   Submit Feedback

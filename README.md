@@ -1,168 +1,190 @@
-**Note**: This repository is dedicated to contributors of **GirlScript Summer of Code 2025 (GSSoC'25)**.
+# 🌍 TravelGrid
 
-<pre>All the tasks assignment and PR review will be done from 6pm to 8pm.</pre>
-# TravelGrid [Live Demo](https://travel-grid.vercel.app/)
+[🚀 Live Demo](https://travel-grid.vercel.app/) | [📂 GitHub Repository](https://github.com/Adarsh-Chaubey03/TravelGrid)
 
-Welcome to **TravelGrid**, your all-in-one travel platform designed to streamline your travel planning experience! With TravelGrid, you can effortlessly book tickets, rent vehicles, reserve hotels, explore curated travel guides, and select customizable travel packages—all in one place. Whether you're a solo traveler or planning a group adventure, TravelGrid simplifies every step of your journey.
-
-This project is proudly part of **GirlScript Summer of Code 2025 (GSSoC)**, and we invite enthusiastic contributors to collaborate in building a seamless, user-friendly travel solution.
+**TravelGrid** is a comprehensive, user-friendly travel platform that empowers users to effortlessly plan and book their entire trip in one place. From booking ✈️ flights and renting 🚗 vehicles to reserving 🏨 hotels and exploring detailed 📚 travel guides, TravelGrid offers customizable travel packages tailored to individual preferences—making travel planning seamless and enjoyable.
 
 ---
 
-## 📖 Table of Contents
+## 📖 Project Overview
 
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Contributing to TravelGrid](#contributing-to-travelgrid)
-  - [Contribution Guidelines](#contribution-guidelines)
-  - [Task Assignment Process](#task-assignment-process)
-- [Project Structure](#project-structure)
-- [Code of Conduct](#code-of-conduct)
+TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India’s premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
+
+By contributing to TravelGrid, developers can:
+
+- 🚀 Enhance their development skills with hands-on experience
+- 🤝 Collaborate with a vibrant, supportive community
+- 🌟 Make meaningful impacts on a project designed to simplify and elevate the travel experience for users worldwide
 
 ---
 
-## 🌍 About the Project
+### Project Insights
 
-**TravelGrid** is a comprehensive platform that simplifies travel planning. From booking flights, trains, or buses to renting vehicles, reserving hotels, or exploring expertly curated travel guides, TravelGrid offers a seamless and intuitive experience. Our mission is to make travel planning accessible, affordable, and enjoyable for everyone.
+| Stars | Forks | Issues | Open PRs | Closed PRs | Languages | Contributors |
+|-------|-------|--------|----------|------------|-----------|--------------|
+| ![Stars](https://img.shields.io/github/stars/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Forks](https://img.shields.io/github/forks/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Issues](https://img.shields.io/github/issues/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Open PRs](https://img.shields.io/github/issues-pr/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/Adarsh-Chaubey03/TravelGrid?style=flat&color=critical&logo=github) | ![Languages](https://img.shields.io/github/languages/count/Adarsh-Chaubey03/TravelGrid?style=flat&color=green&logo=github) | ![Contributors](https://img.shields.io/github/contributors/Adarsh-Chaubey03/TravelGrid?style=flat&color=blue&logo=github) |
 
-As a **GSSoC 2025** project, TravelGrid provides contributors with an opportunity to collaborate on a real-world application, honing their skills and building a meaningful product.
+## Getting Started
 
----
+Follow these steps to set up **TravelGrid** locally and contribute to the project.
 
-## ✨ Features
+### 🛠️ Prerequisites
 
-- **Travel Booking**: Easily book flights, trains, buses, and more.
-- **Vehicle Rentals**: Rent or hire vehicles tailored to your travel needs.
-- **Hotel Reservations**: Browse and book hotels based on your preferences.
-- **Travel Guides**: Discover curated guides to plan your ideal trip.
-- **Travel Packages**: Choose pre-designed packages or customize your own.
-- **Travel Packing Checklist**: Comprehensive packing tool with 60+ default items, progress tracking, and export options (PDF, Excel, Text).
-- **Trip Expense Calculator**: Calculate and track travel expenses with detailed breakdowns.
-- **Travel Plan Generator**: AI-powered travel itinerary planning.
-- **Responsive Design**: Enjoy a consistent experience across desktops, tablets, and mobile devices.
-- **Interactive UI**: A modern, user-friendly interface built with React, Tailwind CSS, and ShadCN.
-
----
-
-## 🛠 Tech Stack
-
-- **Frontend**:
-  - React.js
-  - Tailwind CSS
-  - ShadCN (UI Component Library)
-- **Backend** :
-# Clone the repository
-git clone https://github.com/Adarsh-Chaubey03/TravelGrid.git
-cd TravelGrid/server
-
-# Install backend dependencies
-npm install
-
-# Create .env file
-touch .env
-
-- **Tools & Platforms**:
-  - Git & GitHub for version control
-  - Vite (Build tool for faster development)
-  - ESLint & Prettier for code quality
-
----
-
-## 🚀 Getting Started
-
-Follow these steps to set up **TravelGrid** locally and begin contributing.
-
-### Prerequisites
-
-Ensure you have the following installed:
+Before getting started, make sure you have the following installed on your system:
 
 - **Node.js** (v16 or higher)
 - **npm** or **yarn**
 - **Git**
-- A code editor (e.g., **VS Code**)
+- Code editor (VS Code recommended)
 
 ### Installation
 
-1. **Fork the Repository**: Click the "Fork" button at the top-right of the TravelGrid repository.
-
-2. **Clone the Repository**:
+1. **Clone the Repository**
 
    ```bash
    git clone https://github.com/Adarsh-Chaubey03/TravelGrid.git
    cd TravelGrid
    ```
 
-3. **Install Dependencies**:
+2. **Install Frontend Dependencies**
 
    ```bash
+   cd client
    npm install
-   # or
-   yarn install
    ```
 
-4. **Start the Development Server**:
+   > **Note**: If you encounter npm WARN deprecated or peer dependency errors, run:
+   > ```bash
+   > npm install --legacy-peer-deps
+   > ```
+
+3. **Install Backend Dependencies**
 
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   cd ../server
+   npm install
    ```
 
-5. Visit `http://localhost:5173` in your browser to view the application.
+   > **Note**: Ensure you are in the `server` folder. If you encounter an `ENOENT: no such file or directory` error, verify the folder structure.
 
----
+### Running the Application
+
+1. **Start the Backend Server**
+
+   ```bash
+   cd server
+   npm start
+   ```
+
+   The server will run on `http://localhost:5000`.
+
+2. **Start the Frontend**
+
+   In a new terminal:
+
+   ```bash
+   cd client
+   npm run dev
+   ```
+
+   The client will run on `http://localhost:5173`.
+
+### 🛠️ Troubleshooting
+
+| Issue                         | Solution                                                                                          |
+|-------------------------------|-------------------------------------------------------------------------------------------------|
+| ❌ `npm ERR! enoent`           | Make sure you're in the correct folder (`client` or `server`) before running `npm install`.     |
+| ⚠️ Port already in use         | Close other applications using the port or change the port number in `vite.config.js` or backend server config. |
+| 📦 Dependency errors           | Run `npm install --legacy-peer-deps` in the frontend directory to resolve peer dependency conflicts. |
+| 🚫 Server not starting         | Verify your `.env` file has the correct MongoDB URI and port configurations.                     |
+
 
 ## 🤝 Contributing to TravelGrid
 
-We welcome **GSSoC 2025** contributors! Follow these guidelines for a smooth collaboration.
+We warmly welcome contributions to make **TravelGrid** even better! To maintain quality and collaboration, please follow these guidelines:
 
-- **Issues**: Pick an unassigned issue from the [Issues section](https://github.com/Adarsh-Chaubey03/TravelGrid/issues) or create a new one with a clear description. Wait for admin approval before starting.
-- **Responsive Design**: Ensure all code is responsive across screen sizes using **Tailwind CSS**.
-- **Code Quality**: Write clean, modular code in `src/components/`. Use **ESLint** and **Prettier**.
-- **Pull Requests**: Address a specific issue, test thoroughly, and include a clear description. Buggy PRs will not be merged.
-- **Task & PR Review**: Assignments and reviews happen daily from **6:00 PM to 7:00 PM**.
-- **Communication**: Avoid unnecessary comments or complaints. For support, contact:
-  - **GitHub**: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)
-  - **LinkedIn**: [Adarsh Chaubey](https://www.linkedin.com/in/adarsh-chaubey/)
-- **Support Us**: Star the repo at [TravelGrid](https://github.com/Adarsh-Chaubey03/TravelGrid).
+1. **🔍 Pick an Issue**  
+   Choose an unassigned issue from the repository or propose a new one. Please wait for admin approval before you start working.
 
----
+2. **📱 Responsive Design**  
+   Use **Tailwind CSS** to ensure all components are fully responsive across devices.
 
-## 📂 Project Structure
+3. **🧹 Code Quality**  
+   Write clean, modular, and reusable code inside the `src/components/` directory. Make sure your code adheres to our **ESLint** and **Prettier** formatting standards.
 
-```plaintext
-TravelGrid/client/
-├── public/                # Static assets
-├── src/
-│   ├── assets/            # Images, fonts, etc.
-│   ├── components/        # Reusable React components
-│   ├── pages/             # Page components
-│   ├── styles/            # Tailwind CSS and custom styles
-│   ├── App.jsx            # Main app component
-│   ├── main.jsx           # Entry point
-├── .gitignore             # Git ignore file
-├── package.json           # Project dependencies and scripts
-├── README.md              # Project documentation
-├── vite.config.js         # Vite configuration
-├── server/              # Backend
+4. **📤 Pull Requests (PRs)**  
+   - Work on a specific issue.  
+   - Test your changes thoroughly.  
+   - Provide a clear, descriptive PR message explaining your changes.  
+   - PRs with bugs or incomplete features will not be merged.
+
+5. **💬 Communication**  
+   Have questions or need help? Reach out to the project admin:  
+   - **GitHub**: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)  
+   - **LinkedIn**: [Adarsh Chaubey](https://www.linkedin.com/in/adarsh-chaubey/)
+
+Thank you for contributing and helping build an amazing travel platform! 🚀
+
+
+6. **Task Assignment**: Task assignments and PR reviews are conducted daily from 6:00 PM to 7:00 PM IST.
+
+## Project Structure
+
+```bash
+TravelGrid/
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   ├── .gitignore
+│   ├── package.json
+│   ├── README.md
+│   ├── vite.config.js
+├── server/
 │   ├── config/
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/
 │   ├── index.js
-│   ├── .env             # Not committed
-│   └── README.md
+│   ├── .env
+│   ├── README.md
+├── .gitignore
+├── LICENSE
+├── README.md
 ```
 
 ## Code of Conduct
 
-Please refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid?tab=coc-ov-file) for details on contributing guidelines and community standards.
+Refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CODE_OF_CONDUCT.md) for contributing guidelines and community standards.
 
-## 📄 License
+## Contribution Guidelines
 
-This project is licensed under the [MIT License](LICENSE).
+Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CONTRIBUTE.md) file (coming soon).
+
+## Contributors
+
+View the full list of contributors on the [GitHub Contributors Graph](https://github.com/Adarsh-Chaubey03/TravelGrid/graphs/contributors).
+
+## Suggestions & Feedback
+
+Submit feedback, feature suggestions, or collaboration ideas by opening an issue or discussion on the [GitHub repository](https://github.com/Adarsh-Chaubey03/TravelGrid/issues).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/LICENSE) file for details.
+
+## 👤 Project Admin
+
+| Name           | Profile                                                                                   |
+|----------------|-------------------------------------------------------------------------------------------|
+| Adarsh Chaubey | [🔗 GitHub](https://github.com/Adarsh-Chaubey03) \| [🔗 LinkedIn](https://www.linkedin.com/in/adarsh-chaubey/) |
+
+## Support
+
+If you find this project valuable, please star the repository on [GitHub](https://github.com/Adarsh-Chaubey03/TravelGrid) to support its development.
 

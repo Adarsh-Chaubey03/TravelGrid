@@ -43,7 +43,7 @@ export default function FAQ() {
   };
 
   return (
-    <div className="min-h-[70vh] bg-gradient-to-br from-pink-50 to-white flex flex-col items-center py-12 px-4 md:px-0">
+    <div className="min-h-[70vh] flex flex-col items-center py-12 px-4 md:px-0">
       <div className="w-full max-w-2xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-extrabold text-pink-500 mb-6 text-center drop-shadow-sm">Frequently Asked Questions</h1>
         <p className="text-gray-600 text-lg mb-10 text-center">Find answers to common questions about booking, payments, cancellations, and more on TravelGrid.</p>

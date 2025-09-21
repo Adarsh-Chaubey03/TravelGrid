@@ -1,7 +1,7 @@
-const express= require('express');
-const Booking =require("../models/bookings.js");
-const mongoose = require('mongoose');
-const verifyJWT = require('../middleware/auth.js')
+import express from 'express'
+import {Booking} from '../models/booking'
+import mongoose from 'mongoose';
+import {verifyJWT} from '../middleware/auth'
 
 const router = express.Router();
 
@@ -44,4 +44,4 @@ router.get("/:userId", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router

@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, TrendingUp, Star, Users, Calendar, Heart, Share2, Eye } from 'lucide-react';
 import Navbar from '../components/Custom/Navbar';
+import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom';
+import { Heart as HeartFilled } from 'lucide-react';
+import { FaSquareWhatsapp, FaSquareXTwitter, FaFacebook } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material'
+import { useWishlist } from '@/context/WishlistContext';
+import toast from 'react-hot-toast';
 
 const TrendingSpots = () => {
   const [spots, setSpots] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(9);
+  const [favoriteSpots, setFavoriteSpots] = useState([]);
+  const [open, setOpen] = useState(false);
+  const { wishlist, addToWishlist } = useWishlist();
+  
+  const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
-  // Mock data for trending spots
+  
+
   const mockTrendingSpots = [
     {
       id: 1,
@@ -88,7 +104,7 @@ const TrendingSpots = () => {
       id: 6,
       name: "Reykjavik, Iceland",
       country: "Iceland",
-      image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.unsplash.com/photo-1606130503037-6a8ef67c9d2d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       rating: 4.8,
       trending_score: 83,
       visitors_count: "1.2M",
@@ -163,7 +179,7 @@ const TrendingSpots = () => {
       id: 11,
       name: "Paris, France",
       country: "France",
-      image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.unsplash.com/photo-1712647016816-7072674bd83f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       rating: 4.7,
       trending_score: 84,
       visitors_count: "38M",
@@ -188,231 +204,458 @@ const TrendingSpots = () => {
       highlights: ["Broadway shows", "Central Park", "Museums"],
       recent_reviews: 5800,
       growth_percentage: 8
+    },
+    {
+      id: 13,
+      name: "Queenstown, New Zealand",
+      country: "New Zealand",
+      image: "https://images.unsplash.com/photo-1729297916353-05bc7dc01cb5?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      rating: 4.8,
+      trending_score: 90,
+      visitors_count: "3M",
+      category: "adventure",
+      price_range: "$$$",
+      best_time: "Dec-Feb",
+      highlights: ["Bungee jumping", "Skiing", "Skydiving"],
+      recent_reviews: 1200,
+      growth_percentage: 12
+    },
+    {
+      id: 14,
+      name: "Interlaken, Switzerland",
+      country: "Switzerland",
+      image: "https://images.unsplash.com/photo-1689074521618-6c2b3dc31470?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      rating: 4.7,
+      trending_score: 87,
+      visitors_count: "2M",
+      category: "adventure",
+      price_range: "$$$",
+      best_time: "Jun-Sep",
+      highlights: ["Paragliding", "Hiking", "Canyoning"],
+      recent_reviews: 980,
+      growth_percentage: 10
+    },
+    {
+      id: 15,
+      name: "Banff National Park, Canada",
+      country: "Canada",
+      image: "https://images.unsplash.com/photo-1703359330110-fab35ef1c326?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      rating: 4.9,
+      trending_score: 93,
+      visitors_count: "4.1M",
+      category: "adventure",
+      price_range: "$$",
+      best_time: "Jun-Aug",
+      highlights: ["Kayaking", "Rock climbing", "Mountain biking"],
+      recent_reviews: 2100,
+      growth_percentage: 14
+    },
+    {
+      id: 16,
+      name: "Moab, Utah, USA",
+      country: "United States",
+      image: "https://images.unsplash.com/photo-1610332218333-28cf27f6f771?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      rating: 4.6,
+      trending_score: 85,
+      visitors_count: "1.6M",
+      category: "adventure",
+      price_range: "$$",
+      best_time: "Mar-May, Sep-Oct",
+      highlights: ["Off-road driving", "Rock climbing", "Hiking in Arches NP"],
+      recent_reviews: 760,
+      growth_percentage: 9
     }
   ];
 
   useEffect(() => {
-    setTimeout(() => {
+   const timer = setTimeout(() => {
       setSpots(mockTrendingSpots);
       setLoading(false);
     }, 1000);
+    // cleanup
+    return  () => clearTimeout(timer)
   }, []);
 
-  const filteredSpots = filter === 'all' 
-    ? spots 
+  const handleLoadMoreSpots = () => {
+    setVisibleCount((prev) => prev + 9);
+  };
+
+  const toggleFavorite = (spotId) => {
+    setFavoriteSpots((prev) =>
+      prev.includes(spotId)
+        ? prev.filter((id) => id !== spotId)
+        : [...prev, spotId]
+    );
+  };
+  const AddToWishListHandler = (spot) => {
+  const inWishlist = wishlist?.some((p) => p.id === spot.id);
+
+  if (!inWishlist) {
+    addToWishlist(spot);   // ✅ save the whole spot object
+    toast.success("Added to wishlist!");
+  } else {
+    toast("Already in your wishlist");
+  }
+};
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const filteredSpots = filter === 'all'
+    ? spots
     : spots.filter(spot => spot.category === filter);
 
   const categories = [
     { key: 'all', label: 'All Spots', icon: TrendingUp },
-    { key: 'beach', label: 'Beach', icon: '🏖️' },
-    { key: 'cultural', label: 'Cultural', icon: '🏛️' },
-    { key: 'nature', label: 'Nature', icon: '🏔️' },
-    { key: 'city', label: 'City', icon: '🏙️' }
+    { key: 'beach', label: 'Beach', icon: MapPin },
+    { key: 'cultural', label: 'Cultural', icon: Star },
+    { key: 'nature', label: 'Nature', icon: Calendar },
+    { key: 'city', label: 'City', icon: Users },
+    { key: 'adventure', label: 'Adventure', icon: Heart }
   ];
+
+  // option for social media sharing
+
+  const shareUrl = window.location.href; // generate url of current page
+  const options = [
+    {
+      icon: <FaSquareWhatsapp
+        color="green"
+        size={50}
+        cursor={'pointer'}
+        onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)}
+      />,
+      text: "WhatsApp"
+    },
+    {
+      icon: <FaFacebook
+        color="blue"
+        size={50}
+        cursor={'pointer'}
+        onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareUrl
+        )}`, "_blank")}
+      />,
+      text: "Facebook"
+    },
+    {
+      icon: <FaSquareXTwitter
+        size={50}
+        cursor={'pointer'}
+        color="black"
+        onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shareUrl
+        )}`)}
+      />,
+      text: "Twitter"
+    },
+    {
+      icon: <SiGmail
+        size={50}
+        cursor={'pointer'}
+        color="red"
+        onClick={() => window.open(`mailto:?subject=${encodeURIComponent(
+          "Check out this Trending Spot!"
+        )}&body=${encodeURIComponent(
+          `I found this spot, thought you might like it: ${shareUrl}`
+        )}`)}
+      />,
+      text: "Mail"
+    }
+  ]
+
+  const handleExploreLocation = (locationId) => {
+    navigate(`/location/${locationId}`);
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'}`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-pink-200">Loading trending spots...</p>
+          <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Discovering trending destinations...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
-      <Navbar lightBackground />
+    <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? ' from-black/70 via-gray-900/60 to-transparent' : 'from-pink-100/60 via-white/40 to-transparent'}`}>
+      <Navbar />
 
       {/* Hero Section */}
-      <div className="text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 mt-6">
-              Trending Spots
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-pink-200">
-              Discover the hottest destinations everyone's talking about
-            </p>
-            <div className="flex items-center justify-center space-x-2 text-pink-200">
-              <TrendingUp className="h-5 w-5" />
-              <span>Updated daily based on bookings and reviews</span>
-            </div>
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&auto=format&fit=crop&w=3000&q=80"
+            alt="World travel destinations"
+            loading="lazy"
+            className={`w-full h-full object-cover ${isDarkMode?"opacity-30":"opacity-60"}`}
+          />
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-tr from-black via-blue-500/20 to-blue-400/20' : 'bg-gradient-to-b from-white/70 via-pink-100/50 to-transparent'}`} />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <h1 className="text-4xl mt-8 md:text-5xl font-bold mb-4">
+            Discover <span className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Trending Destinations</span>
+          </h1>
+          <p className={`text-lg md:text-xl mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+            Explore the world's most popular destinations, updated daily based on traveler insights.
+          </p>
+          <div className={`inline-flex items-center px-4 py-2 rounded-full  border ${isDarkMode?'bg-pink-500/20 border-pink-500/20 text-pink-400':'bg-pink-500 border-none text-white'}`}>
+            <TrendingUp className="h-5 w-5 mr-2" />
+            <span className="font-medium">Real-Time Trends</span>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Filter Tabs */}
-      <div className="bg-pink-900 shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-4 py-4 overflow-x-auto">
+      <section className="sticky top-0 z-10 bg-gray-900 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category.key}
                 onClick={() => setFilter(category.key)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                   filter === category.key
-                    ? 'bg-pink-600 text-white'
-                    : 'text-pink-200 hover:text-white hover:bg-pink-800'
-                }`}
+                    ? 'bg-pink-500 text-white'
+                    : isDarkMode
+                    ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
               >
-                {typeof category.icon === 'string' ? (
-                  <span className="text-lg">{category.icon}</span>
-                ) : (
-                  <category.icon className="h-4 w-4" />
-                )}
-                <span className="font-medium">{category.label}</span>
+                <category.icon className="h-4 w-4" />
+                <span>{category.label}</span>
               </button>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Trending Stats Banner */}
-      <div className="border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">{filteredSpots.length}+</div>
-              <div className="text-pink-200">Trending Destinations</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">23%</div>
-              <div className="text-pink-200">Average Growth</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">—</div>
-              <div className="text-pink-200">Monthly Searches</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">4.7★</div>
-              <div className="text-pink-200">Average Rating</div>
-            </div>
+      {/* Stats Banner */}
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: MapPin, label: 'Destinations', value: `${filteredSpots.length}+`, color: 'text-blue-400' },
+              { icon: TrendingUp, label: 'Avg Growth', value: '23%', color: 'text-green-400' },
+              { icon: Users, label: 'Travelers', value: '150M+', color: 'text-purple-400' },
+              { icon: Star, label: 'Avg Rating', value: '4.7★', color: 'text-yellow-400' }
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-lg border ${isDarkMode ? 'bg-blue-400/10 border-white/20' : 'bg-white/90 border-gray-300'} text-center hover:shadow-lg transition-all duration-200`}
+              >
+                <stat.icon className={`h-8 w-8 mx-auto mb-2 ${stat.color}`} />
+                <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Spots Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredSpots.map((spot, index) => (
-            <div
-              key={spot.id}
-              className="bg-white/95 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
-            >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={spot.image}
-                  alt={spot.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <div className="bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
-                    <TrendingUp className="h-3 w-3" />
-                    <span>#{index + 1}</span>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full transition-all">
-                    <Heart className="h-4 w-4 text-gray-600" />
-                  </button>
-                  <button className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full transition-all">
-                    <Share2 className="h-4 w-4 text-gray-600" />
-                  </button>
-                </div>
-                <div className="absolute bottom-4 right-4">
-                  <div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">
-                    +{spot.growth_percentage}%
-                  </div>
-                </div>
-              </div>
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredSpots.slice(0, visibleCount).map((spot, index) => (
+              <div
+                key={spot.id}
+                className={`backdrop-blur-md rounded-2xl border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 overflow-hidden h-full ${
+                  isDarkMode 
+                    ? 'bg-white/10 border-white/20 hover:border-pink-500/20' 
+                    : 'bg-white/90 border-black/20 hover:border-pink-500/20'
+                }`}
+              >
+                {/* Image Container */}
+                <div className="relative h-48 md:h-64 overflow-hidden">
+                  <img
+                    src={spot.image}
+                    alt={spot.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">
-                      {spot.name}
-                    </h3>
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <MapPin className="h-4 w-4 mr-1" />
+                  {/* Trending Badge */}
+                  <div className="absolute top-3 left-3">
+                    <div className="px-2 py-1 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white text-sm font-semibold flex items-center space-x-1">
+                      <TrendingUp className="h-3 w-3" />
+                      <span>#{index + 1}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="absolute top-3 right-3 flex space-x-2">
+                    <button
+                      onClick={() => {toggleFavorite(spot.id); AddToWishListHandler(spot)}}
+                      className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'
+                        }`}
+                    >
+                      {favoriteSpots.includes(spot.id) ? (
+                        <HeartFilled className="h-4 w-4 text-red-500" />
+                      ) : (
+                        <Heart className="h-4 w-4" />
+                      )}
+                    </button>
+                    <button className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'
+                      }`}
+                      onClick={handleOpen}
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      slotProps={{
+                        backdrop: {
+                          style: { backgroundColor: "transparent" }, // no black overlay
+                        },
+                      }}
+
+                    >
+                      <DialogTitle align="center">Share this Spot</DialogTitle>
+                      <DialogContent>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1vmax" }}>
+                          {
+                            options.map((item, index) => {
+                              return (
+                                <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
+                                  <IconButton>{item.icon}</IconButton>
+                                  {item.text}
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+
+                  {/* Growth Badge */}
+                  <div className="absolute bottom-3 right-3">
+                    <div className="px-2 py-1 rounded-full bg-green-500 text-white text-xs font-semibold">
+                      +{spot.growth_percentage}%
+                    </div>
+                  </div>
+
+                  {/* Location Info Overlay */}
+                  <div className="absolute bottom-3 left-3">
+                    <h3 className="text-lg font-bold text-white">{spot.name}</h3>
+                    <div className="flex items-center text-sm text-gray-200">
+                      <MapPin className="h-3 w-3 mr-1" />
                       {spot.country}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="flex items-center space-x-1 mb-1">
+                </div>
+
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
                       <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className="text-sm font-semibold">{spot.rating}</span>
+                      <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {spot.rating}
+                      </span>
+                      <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        ({spot.recent_reviews} reviews)
+                      </span>
                     </div>
-                    <div className="text-xs text-gray-500">{spot.price_range}</div>
+                    <div
+                      className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                        spot.price_range === '$' ? 'bg-green-100 text-green-800' :
+                        spot.price_range === '$$' ? 'bg-yellow-200 text-yellow-800' :
+                        'bg-red-200 text-red-800'
+                      }`}
+                    >
+                      {spot.price_range}
+                    </div>
                   </div>
-                </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-pink-600" />
-                    <span className="text-gray-600">{spot.visitors_count} visitors</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4 text-pink-600" />
-                    <span className="text-gray-600">{spot.best_time}</span>
-                  </div>
-                </div>
-
-                {/* Highlights */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
-                    {spot.highlights.slice(0, 2).map((highlight, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-medium"
-                      >
-                        {highlight}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Users className="h-4 w-4 text-pink-500" />
+                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                        {spot.visitors_count}
                       </span>
-                    ))}
-                    {spot.highlights.length > 2 && (
-                      <span className="bg-pink-200 text-pink-800 px-3 py-1 rounded-full text-xs">
-                        +{spot.highlights.length - 2} more
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4 text-pink-500" />
+                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                        {spot.best_time}
                       </span>
-                    )}
+                    </div>
                   </div>
-                </div>
 
-                {/* Bottom Stats */}
-                <div className="flex items-center justify-between pt-4 border-t border-pink-200">
-                  <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Eye className="h-4 w-4" />
-                    <span>{spot.recent_reviews} recent reviews</span>
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2">
+                      {spot.highlights.slice(0, 2).map((highlight, idx) => (
+                        <span
+                          key={idx}
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${isDarkMode
+                            ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+                            : 'bg-pink-100 text-pink-700'
+                            }`}
+                        >
+                          {highlight}
+                        </span>
+                      ))}
+                      {spot.highlights.length > 2 && (
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          isDarkMode 
+                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' 
+                            : 'bg-blue-100 text-blue-700'
+                        }`}>
+                          +{spot.highlights.length - 2} more
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="text-sm font-semibold text-pink-600">
-                    Trending Score: {spot.trending_score}
-                  </div>
-                </div>
 
-                {/* CTA Button */}
-                <button className="w-full mt-4 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all transform hover:scale-105">
-                  Explore {spot.name}
-                </button>
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center space-x-2">
+                      <Eye className="h-4 w-4 text-pink-500" />
+                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                        {spot.recent_reviews} reviews
+                      </span>
+                    </div>
+                    <div className="text-sm font-medium text-pink-500">
+                      Score: {spot.trending_score}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleExploreLocation(spot.id)}
+                    className="w-full mt-4 bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
+                  >
+                    Explore {spot.name}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
           {filteredSpots.length === 0 && (
-            <p className="col-span-full text-center text-pink-200 text-lg font-medium">
-              No spots match the selected category.
-            </p>
+            <div className="text-center py-12">
+              <p className={`text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                No destinations match the selected category.
+              </p>
+            </div>
+          )}
+
+          {visibleCount < filteredSpots.length && (
+            <div className="text-center mt-8">
+              <button
+                onClick={handleLoadMoreSpots}
+                className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer"
+              >
+                Load More Trending Spots
+              </button>
+            </div>
           )}
         </div>
-
-        {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105">
-            Load More Trending Spots
-          </button>
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

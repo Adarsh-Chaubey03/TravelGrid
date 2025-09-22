@@ -6,6 +6,7 @@ import { MapProvider } from "./context/MapContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { useTheme } from "./context/ThemeContext";
+import { useSEO, usePageSEO } from "./hooks/useSEO";
 
 import Navbar from "./components/Custom/Navbar";
 import Footer from "./components/Custom/Footer";
@@ -21,6 +22,12 @@ function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const { isDarkMode } = useTheme();
+  
+  // Get page-specific SEO configuration
+  const pageSEOConfig = usePageSEO();
+  
+  // Apply SEO configuration
+  useSEO(pageSEOConfig);
 
   useEffect(() => {
     setLoading(true);

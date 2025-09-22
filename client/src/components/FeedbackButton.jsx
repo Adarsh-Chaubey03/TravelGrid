@@ -18,8 +18,8 @@ const FeedbackButton = () => {
           {isHovered ? <span className="text-white font-medium whitespace-nowrap">Share Feedback</span> : <MessageSquare size={24} className="text-white" />}
         </div>
 
-        {/* Pulse Animation */}
-        <div className="absolute inset-0 bg-pink-400 rounded-full animate-ping opacity-20"></div>
+        {/* Subtle glow effect */}
+        <div className="absolute inset-0 bg-pink-400 rounded-full opacity-10"></div>
       </Link>
     </div>
   );

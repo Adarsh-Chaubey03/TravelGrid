@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { MessageCircle, X, Send, Bot, User, Loader2, MapPin, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { smoothScrollTo } from "../utils/smoothScroll";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -18,7 +19,13 @@ const Chatbot = () => {
   const { isDarkMode } = useTheme();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      smoothScrollTo(messagesEndRef.current, {
+        duration: 300,
+        easing: 'easeOutCubic',
+        offset: 0
+      });
+    }
   };
 
   useEffect(() => {
@@ -108,7 +115,7 @@ const Chatbot = () => {
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
             <Sparkles className="w-2 h-2 text-white" />
           </div>
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 opacity-75 animate-ping"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 opacity-20"></div>
         </button>
       )}
 
@@ -143,7 +150,7 @@ const Chatbot = () => {
                 <div>
                   <span className="font-bold text-lg">Travel Assistant</span>
                   <div className="text-xs text-pink-100 flex items-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                     Online & ready to help
                   </div>
                 </div>
@@ -175,8 +182,11 @@ const Chatbot = () => {
                 key={index}
                 className={`flex items-start space-x-3 ${
                   msg.from === "user" ? "flex-row-reverse space-x-reverse" : ""
-                } animate-in slide-in-from-bottom-3 fade-in duration-500`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                }`}
+                style={{ 
+                  animationDelay: `${index * 50}ms`,
+                  willChange: 'transform, opacity'
+                }}
               >
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
                   msg.from === "user" 

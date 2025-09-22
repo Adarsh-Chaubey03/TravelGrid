@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { smoothScrollToTop } from "../utils/smoothScroll";
 
 const GoToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
   const { pathname } = useLocation();
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    smoothScrollToTop({
+      duration: 600,
+      easing: 'easeOutCubic',
+      onStart: () => {
+        // Add visual feedback
+        document.body.classList.add('scrolling-to-top');
+      },
+      onComplete: () => {
+        document.body.classList.remove('scrolling-to-top');
+      }
     });
   };
 
@@ -21,15 +29,23 @@ const GoToTopButton = () => {
   }, [pathname]);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (window.pageYOffset > 300) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (window.pageYOffset > 300) {
+            setShowButton(true);
+          } else {
+            setShowButton(false);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { useTheme } from "./context/ThemeContext";
 import { useSEO, usePageSEO } from "./hooks/useSEO";
+import { initSmoothScrolling } from "./utils/smoothScroll";
 
 import Navbar from "./components/Custom/Navbar";
 import Footer from "./components/Custom/Footer";
@@ -17,6 +18,7 @@ import FeedbackButton from "./components/FeedbackButton";
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
+import ScrollProgress from "./components/ScrollProgress";
 
 function App() {
   const location = useLocation();
@@ -31,9 +33,15 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 300);
+    const timer = setTimeout(() => setLoading(false), 100);
     return () => clearTimeout(timer);
   }, [location]);
+
+  // Initialize smooth scrolling
+  useEffect(() => {
+    const cleanup = initSmoothScrolling();
+    return cleanup;
+  }, []);
 
   return (
     <AuthProvider>
@@ -41,10 +49,11 @@ function App() {
         <AppProvider>
           <DashboardDataProvider>
             <MapProvider>
-              <div className={`flex flex-col min-h-screen transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
+              <div className={`flex flex-col min-h-screen transition-all duration-300 ultra-smooth-scroll ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
                 }`}>
 
                 <FluidCursor />
+                <ScrollProgress />
                 {/* Show spinner when route changes */}
                 {loading && <Spinner />}
 

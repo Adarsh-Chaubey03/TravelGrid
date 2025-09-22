@@ -16,7 +16,7 @@ const createTransporter = () => {
 };
 
 // Function to send email with retry logic and error handling
-const sendEmail = async (to, subject, html, text, retries = 3) => {
+export const sendEmail = async (to, subject, html, text, retries = 3) => {
   let lastError = null;
 
   for (let attempt = 1; attempt <= retries; attempt++) {

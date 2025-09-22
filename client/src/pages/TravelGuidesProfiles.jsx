@@ -109,6 +109,9 @@ const guides = [
   },
 ];
 
+const allGuides = [...guides, ...guides1];
+
+
 const TravelGuidesCarousel = () => {
   const { isDarkMode } = useTheme();
   const location = useLocation();
@@ -145,16 +148,18 @@ const TravelGuidesCarousel = () => {
       return;
     }
 
+    
+
     setIsSearching(true);
-    const filteredGuides = guides.filter(
-      (guide) =>
-        guide.name.toLowerCase().includes(query.toLowerCase()) ||
-        guide.expertise.toLowerCase().includes(query.toLowerCase()) ||
-        guide.bio.toLowerCase().includes(query.toLowerCase()) ||
-        guide.details.location.toLowerCase().includes(query.toLowerCase()) ||
-        guide.details.languages.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(filteredGuides);
+    const filteredGuides = allGuides.filter(
+  (guide) =>
+    guide.name.toLowerCase().includes(query.toLowerCase()) ||
+    guide.expertise.toLowerCase().includes(query.toLowerCase()) ||
+    guide.bio.toLowerCase().includes(query.toLowerCase()) ||
+    guide.details.location.toLowerCase().includes(query.toLowerCase()) ||
+    guide.details.languages.toLowerCase().includes(query.toLowerCase())
+);
+setSearchResults(filteredGuides);
   };
 
   const clearSearch = () => {

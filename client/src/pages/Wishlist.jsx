@@ -1,3 +1,12 @@
+
+import { useState, useEffect } from 'react';
+import { useWishlist } from '../context/WishlistContext';
+import WishlistCard from '../components/WishlistCard';
+import { Heart, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Custom/Navbar';
+import { useTheme } from '../context/ThemeContext';
+
 import { useState, useEffect } from "react";
 import { useWishlist } from "../context/WishlistContext";
 import WishlistCard from "../components/WishlistCard";
@@ -6,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Custom/Navbar";
 import { useTheme } from "../context/ThemeContext";
 import travelIllustration from "../assets/Trip-pana.svg";
+
 
 const ITEMS_PER_PAGE = 6;
 
@@ -29,7 +39,11 @@ const Wishlist = () => {
   const paginated = wishlist.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
   const handleNavigateToTrending = () => {
+
+    navigate('/trending-spots');
+
     navigate("/trending-spots");
+
   };
 
   return (
@@ -39,6 +53,19 @@ const Wishlist = () => {
       {/* Hero Section */}
       <div className="pt-24 pb-10 px-4">
         <div className="max-w-7xl mx-auto">
+
+          <div className={`text-center transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className="flex justify-center mb-4">
+              <div className="bg-pink-100 dark:bg-pink-900/30 p-3 rounded-full">
+                <Heart className="h-8 w-8 text-pink-600 dark:text-pink-400" fill="currentColor" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+              Your <span className="text-pink-600 dark:text-pink">Wishlist</span>
+            </h1>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-primary)' }}>
+              All your favorite destinations saved in one place for your future adventures.
+
           <div
             className={`text-center transition-all duration-700 transform ${
               animate ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -65,6 +92,7 @@ const Wishlist = () => {
             >
               All your favorite destinations saved in one place for your future
               adventures.
+
             </p>
           </div>
         </div>
@@ -74,6 +102,21 @@ const Wishlist = () => {
       <div className="px-4 pb-16">
         <div className="max-w-7xl mx-auto">
           {wishlist.length === 0 ? (
+
+            <div className={`text-center py-16 rounded-xl bg-white dark:bg-gradient-to-br from-black to-[#ec4899] shadow-md transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <div className="flex justify-center mb-6">
+                <Heart className="h-16 w-16 text-white-300 dark:text-white" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: 'var(--bg-tertiary)' }}>
+                Your wishlist is empty
+              </h3>
+              <p className="text-md max-w-md mx-auto mb-6" style={{ color: 'var(--input-text)' }}>
+                Start saving your dream destinations to plan your next adventure!
+              </p>
+              <button 
+                onClick={handleNavigateToTrending}
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-black to-[#4e1431] hover:bg-pink-700 text-white rounded-full font-medium transition-colors duration-200"
+
             <div
               className={`text-center py-16 rounded-xl bg-white dark:bg-gradient-to-br from-black to-[#ec4899] shadow-md transition-all duration-700 transform ${
                 animate
@@ -105,6 +148,7 @@ const Wishlist = () => {
                 onClick={handleNavigateToTrending}
                 aria-label="Explore trending spots"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-white rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105"
+
               >
                 <TrendingUp className="h-5 w-5 mr-2" />
                 Explore Trending Spots
@@ -112,6 +156,14 @@ const Wishlist = () => {
             </div>
           ) : (
             <>
+
+              <div className={`mb-8 transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    Saved Destinations ({wishlist.length})
+                  </h2>
+                  <button aria-label="Search"
+
               <div
                 className={`mb-8 transition-all duration-700 transform ${
                   animate
@@ -128,6 +180,7 @@ const Wishlist = () => {
                   </h2>
                   <button
                     aria-label="Search"
+
                     onClick={handleNavigateToTrending}
                     className="text-sm flex items-center text-pink-600 dark:text-pink-400 hover:underline"
                   >
@@ -138,6 +191,11 @@ const Wishlist = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginated.map((item, index) => (
+
+                    <div 
+                      key={item.id} 
+                      className={`transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+
                     <div
                       key={item.id}
                       className={`transition-all duration-700 transform ${
@@ -145,6 +203,7 @@ const Wishlist = () => {
                           ? "translate-y-0 opacity-100"
                           : "translate-y-10 opacity-0"
                       }`}
+
                       style={{ transitionDelay: `${index * 100}ms` }}
                     >
                       <WishlistCard item={item} />
@@ -155,8 +214,12 @@ const Wishlist = () => {
                 {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex justify-center items-center gap-4 mt-10">
+
+                    <button aria-label="Search"
+
                     <button
                       aria-label="Search"
+
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page - 1)}
                       disabled={page === 1}
@@ -164,6 +227,12 @@ const Wishlist = () => {
                       <ChevronLeft className="h-5 w-5 mr-1" />
                       <span>Previous</span>
                     </button>
+
+                    <span className="text-sm font-medium px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md" style={{ color: 'var(--text-primary)' }}>
+                      Page {page} of {totalPages}
+                    </span>
+                    <button aria-label="Search"
+
                     <span
                       className="text-sm font-medium px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md"
                       style={{ color: "var(--text-primary)" }}
@@ -172,6 +241,7 @@ const Wishlist = () => {
                     </span>
                     <button
                       aria-label="Search"
+
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page + 1)}
                       disabled={page === totalPages}

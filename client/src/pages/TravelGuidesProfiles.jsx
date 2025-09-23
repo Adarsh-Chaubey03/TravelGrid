@@ -64,6 +64,50 @@ const guides1 = [
       experience: "Cultural guide for 8+ years",
       contact: "mei.eastasia@example.com",
     },
+
+  },
+];
+//seperated pet guides and non pet guides with addition of one more pet guide
+const guides = [
+  {
+    name: "Snowy Kat",
+    expertise: "🐾 Mountain Treks & Pet Adventures",
+    bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes. Specialist in safe trekking experiences for dogs and cats.",
+    image: "https://randomuser.me/api/portraits/men/17.jpg",
+    details: {
+      location: "Manali, India",
+      languages: "English, Hindi, Himachali",
+      certifications: "Certified Pet Adventure Guide (CPAG)",
+      experience: "Led 80+ pet-friendly trekking expeditions",
+      contact: "rohit.petguide@example.com",
+    },
+  },
+  {
+    name: "Ayushi Uniyal",
+    expertise: "🏖️ Coastal Getaways",
+    bio: "Loves helping travelers explore India's beautiful coastline. Expert in coastal accommodations and beach activities.",
+    image: "https://randomuser.me/api/portraits/women/17.jpg",
+    details: {
+      location: "Goa, India",
+      languages: "English, Hindi, Konkani",
+      certifications: "Certified Coastal Travel Specialist (CCTS)",
+      experience: "Helped 100+ families enjoy coastal destinations",
+      contact: "ayushi.coastal@example.com",
+    },
+  },
+  {
+    name: "Weddy Brown",
+    expertise: "🏙️ Urban Travel & City Exploration",
+    bio: "Amsterdam-based guide specializing in urban exploration. Knows every hidden park, café, and unique stay in the city.",
+    image: "https://randomuser.me/api/portraits/men/74.jpg",
+    details: {
+      location: "Amsterdam, Netherlands",
+      languages: "Dutch, English, German",
+      certifications: "Urban Travel Specialist Certified",
+      experience: "Guided 150+ comprehensive city tours",
+      contact: "weddy.urban@example.com",
+    },
+
   },
 ];
 //seperated pet guides and non pet guides with addition of one more pet guide
@@ -151,6 +195,17 @@ const TravelGuidesCarousel = () => {
     
 
     setIsSearching(true);
+
+    const filteredGuides = guides.filter(
+      (guide) =>
+        guide.name.toLowerCase().includes(query.toLowerCase()) ||
+        guide.expertise.toLowerCase().includes(query.toLowerCase()) ||
+        guide.bio.toLowerCase().includes(query.toLowerCase()) ||
+        guide.details.location.toLowerCase().includes(query.toLowerCase()) ||
+        guide.details.languages.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filteredGuides);
+
     const filteredGuides = allGuides.filter(
   (guide) =>
     guide.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -160,6 +215,7 @@ const TravelGuidesCarousel = () => {
     guide.details.languages.toLowerCase().includes(query.toLowerCase())
 );
 setSearchResults(filteredGuides);
+
   };
 
   const clearSearch = () => {

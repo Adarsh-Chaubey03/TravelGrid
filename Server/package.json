@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -16,6 +17,17 @@
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.2.0",
+    "google-auth-library": "^10.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.18.1",
+
     "dotenv": "^17.2.1",
     "env": "^0.0.2",
     "express": "^4.21.2",
@@ -26,6 +38,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.18.0",
     "mongoose": "^8.17.1",
+
     "morgan": "^1.10.0",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.5",

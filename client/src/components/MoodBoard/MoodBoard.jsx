@@ -341,11 +341,12 @@ const MoodBoard = () => {
           </p>
           <div className="mb-ctas">
             <button
-              className="mb-btn-primary"
-              onClick={() => navigate('/login?redirect=/moodboard')}
-            >
-              Sign in to Start
-            </button>
+  className="mb-btn-primary !text-black"
+  onClick={() => navigate('/login?redirect=/moodboard')}
+>
+  Sign in to Start
+</button>
+
             <button
               className="mb-btn-secondary"
               onClick={() => navigate('/discover')}

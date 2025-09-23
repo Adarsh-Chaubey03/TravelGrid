@@ -28,7 +28,7 @@
 }
 
 .card:hover {
-  box-shadow: 0 0 20px rgba(211, 72, 141, 0.634);
+  box-shadow: 0 0 20px rgba(201, 96, 148, 0.634);
 }
 
 .card.left {
@@ -55,7 +55,7 @@
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto 16px;
-  border: 4px solid #ec4899;
+  /* border: 4px solid #ec4899; */
 }
 
 .card-image img {

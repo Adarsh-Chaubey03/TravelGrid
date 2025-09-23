@@ -58,9 +58,9 @@ function DiscoverCard({ index, place, handleBookNowClick }) {
                         ${
                             isDarkMode
                                 ? // Dark mode button (your existing gradient)
-                                  "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-600 hover:to-purple-700 text-white"
+                                  "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-600 hover:to-purple-700 text-black"
                                 : // Light mode button (new fresh gradient)
-                                  "bg-gradient-to-r from-pink-400 to-purple-600 hover:from-pink-500 hover:to-purple-600 text-white"
+                                  "bg-gradient-to-r from-pink-400 to-purple-600 hover:from-pink-500 hover:to-purple-600 text-black"
                         }`}
                 >
                     Book Now

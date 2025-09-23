@@ -125,10 +125,10 @@ const FeaturedPackages = () => {
                         ? removeFromWishlist(pkg.id)
                         : addToWishlist(pkg)
                     }
-                    className="absolute top-3 right-3 text-white hover:scale-110 transition-transform duration-300 z-10"
+                    className="absolute top-3 right-3 text-black hover:scale-110 transition-transform duration-300 z-10"
                   >
                     <FaHeart
-                      className={`text-xl ${isWishlisted(pkg.id) ? "text-pink-500" : "text-white/60"
+                      className={`text-xl ${isWishlisted(pkg.id) ? "text-black-500" : "text-white/60"
                         } transition-colors duration-300`}
                     />
                   </button>
@@ -157,7 +157,7 @@ const FeaturedPackages = () => {
                     {pkg.name}
                   </h3>
                   <p
-                    className={`mb-4 transition-colors duration-300 ${isDarkMode ? "text-gray-300 group-hover:text-white" : "text-gray-600"
+                    className={`mb-4 transition-colors duration-300 ${isDarkMode ? "text-gray-300 group-hover:text-black" : "text-gray-600"
                       }`}
                   >
                     {pkg.location}
@@ -165,7 +165,7 @@ const FeaturedPackages = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-cyan-200 to-purple-300 hover:from-blue-300 hover:to-purple-300 text-black font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                     onClick={() => navigate(`/package/${i + 9}`)}
                   >
                     Book Now
@@ -181,7 +181,7 @@ const FeaturedPackages = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/packages")}
-            className="px-6 py-3 bg-pink-500 text-white rounded-xl shadow-md hover:bg-pink-600 hover:scale-105 transition-all duration-500 ease-in-out"
+            className="px-6 py-3 bg-pink-300 text-black rounded-xl shadow-md hover:bg-white-100 hover:scale-85 transition-all duration-500 ease-in-out"
           >
             View All Packages →
           </motion.button>

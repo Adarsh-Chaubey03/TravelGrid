@@ -57,10 +57,17 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                       }`}
                     >
                       <img
+
+                        src={guide.image}
+                        alt={guide.name}
+                        className="w-24 h-24 rounded-full object-cover border-4 border-pink-400 mb-4"
+                      />
+
   src={guide.image || "/assets/default-profile.jpg"}
   alt={guide.name || "Profile picture of guide"}
   className="w-24 h-24 rounded-full object-cover border-4 border-pink-400 mb-4"
 />
+
                       <h3 className={`text-[18px] font-semibold mb-2 transition-all duration-300 ${
                         isDarkMode ? 'text-white' : 'text-gray-900'
                       }`}>
@@ -101,6 +108,10 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                 } ${position === "center" ? "scale-100" : "scale-90 opacity-80"} card`}
             >
               <div className="card-image">
+
+                <img src={guide.image} alt={guide.name} loading="lazy" />
+              </div>
+
   <img
     src={guide.cardImage || "/assets/default-card.jpg"}
     alt={guide.name || "Card image"}
@@ -108,6 +119,7 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
     className="w-full h-48 object-cover rounded-lg"
   />
 </div>
+
               <div className="card-info">
                 <h3
                   className={`${isDarkMode ? "text-white" : "!text-gray-900"}`}

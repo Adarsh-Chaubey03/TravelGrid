@@ -301,17 +301,23 @@ const TrendingSpots = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const filteredSpots = filter === 'all'
-    ? spots
-    : spots.filter(spot => spot.category === filter);
+  // const filteredSpots = filter === 'all'
+  //   ? spots
+  //   : spots.filter(spot => spot.category === filter);
+
+  const [selectedFilter, setSelectedFilter] = useState("All Spots");
+
+const filteredSpots = selectedFilter === "All Spots"
+  ? spots
+  : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
 
   const categories = [
-    { key: 'all', label: 'All Spots', icon: TrendingUp },
-    { key: 'beach', label: 'Beach', icon: MapPin },
-    { key: 'cultural', label: 'Cultural', icon: Star },
-    { key: 'nature', label: 'Nature', icon: Calendar },
-    { key: 'city', label: 'City', icon: Users },
-    { key: 'adventure', label: 'Adventure', icon: Heart }
+    { key: 'All Spots', label: 'All Spots', icon: TrendingUp },
+    { key: 'Beach', label: 'Beach', icon: MapPin },
+    { key: 'Cultural', label: 'Cultural', icon: Star },
+    { key: 'Nature', label: 'Nature', icon: Calendar },
+    { key: 'City', label: 'City', icon: Users },
+    { key: 'Adventure', label: 'Adventure', icon: Heart }
   ];
 
   // option for social media sharing
@@ -379,7 +385,48 @@ const TrendingSpots = () => {
     );
   }
 
+  const statsData = {
+  "All Spots": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "23%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "150M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.7★", color: "text-yellow-400" }
+  ],
+  "Beach": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "12%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "50M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.5★", color: "text-yellow-400" }
+  ],
+  "Cultural": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "18%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "70M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.6★", color: "text-yellow-400" }
+  ],
+  "Nature": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "20%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "90M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.8★", color: "text-yellow-400" }
+  ],
+  "City": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "15%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "110M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.4★", color: "text-yellow-400" }
+  ],
+  "Adventure": [
+    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
+    { icon: TrendingUp, label: "Avg Growth", value: "10%", color: "text-green-400" },
+    { icon: Users, label: "Travelers", value: "40M+", color: "text-purple-400" },
+    { icon: Star, label: "Avg Rating", value: "4.3★", color: "text-yellow-400" }
+  ],
+  // add Nature, City, Adventure, etc.
+};
+
   return (
+    
     <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? ' from-black/70 via-gray-900/60 to-transparent' : 'from-pink-100/60 via-white/40 to-transparent'}`}>
       <Navbar />
 
@@ -415,9 +462,9 @@ const TrendingSpots = () => {
             {categories.map((category) => (
               <button
                 key={category.key}
-                onClick={() => setFilter(category.key)}
+                onClick={() => setSelectedFilter(category.key)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  filter === category.key
+                  selectedFilter === category.key
                     ? 'bg-pink-500 text-white'
                     : isDarkMode
                     ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
@@ -433,15 +480,11 @@ const TrendingSpots = () => {
       </section>
 
       {/* Stats Banner */}
+      
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: MapPin, label: 'Destinations', value: `${filteredSpots.length}+`, color: 'text-blue-400' },
-              { icon: TrendingUp, label: 'Avg Growth', value: '23%', color: 'text-green-400' },
-              { icon: Users, label: 'Travelers', value: '150M+', color: 'text-purple-400' },
-              { icon: Star, label: 'Avg Rating', value: '4.7★', color: 'text-yellow-400' }
-            ].map((stat, index) => (
+            {statsData[selectedFilter].map((stat, index) => (
               <div
                 key={index}
                 className={`p-6 rounded-lg border ${isDarkMode ? 'bg-blue-400/10 border-white/20' : 'bg-white/90 border-gray-300'} text-center hover:shadow-lg transition-all duration-200`}

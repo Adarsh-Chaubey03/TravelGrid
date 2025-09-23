@@ -12,9 +12,11 @@ import { useTheme } from "@/context/ThemeContext";
 
 const Signup = () => {
   const { t } = useTranslation();
+
   const { signup, isLoading } = useAuth();
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +27,11 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
+
+
+  const { signup, isLoading } = useAuth();
+  const {isDarkMode}=useTheme();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -89,11 +96,18 @@ const Signup = () => {
   return (
     <div>
       <Navbar />
+
       <div
         className={`pt-24 min-h-screen flex items-center justify-center p-4 ${
           isDarkMode ? "bg-gradient-to-br from-black to-pink-900 text-white" : "bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300"
         }`}
       >
+
+      <div className={`pt-24 min-h-screen flex items-center justify-center p-4 ${isDarkMode
+      ? 'bg-gradient-to-br from-black to-pink-900 text-white'
+      : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
+      }`}>
+
         <div className="max-w-md w-full">
           {/* Header */}
           <div className="text-center mb-8 mt-4">
@@ -102,6 +116,7 @@ const Signup = () => {
           </div>
 
           {/* Signup Form */}
+
           <div
             className={`bg-gray-100 backdrop-blur-md rounded-2xl p-8 mb-8 border ${
               isDarkMode ? "border-white/20" : "border-black/20"
@@ -115,6 +130,19 @@ const Signup = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
+
+          <div className={`bg-gray-100 backdrop-blur-md rounded-2xl p-8 mb-8 border ${
+              isDarkMode ? "border-white/20" : " border-black/20"
+            }`}>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                  <span className="text-red-400 text-sm">{error}</span>
+                </div>
+              )}
+
+
               {/* Name */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">{t("signup.name")}</label>
@@ -125,10 +153,17 @@ const Signup = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+
                     placeholder={t("signup.namePlaceholder")}
                     className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
                       isDarkMode ? "border-white/20" : "border-black/20"
                     } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+
+                    className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.namePlaceholder")}
+
                   />
                 </div>
               </div>
@@ -143,10 +178,17 @@ const Signup = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+
                     placeholder={t("signup.emailPlaceholder")}
                     className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
                       isDarkMode ? "border-white/20" : "border-black/20"
                     } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+
+                    className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.emailPlaceholder")}
+
                   />
                 </div>
               </div>
@@ -162,10 +204,17 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleChange}
                     onCopy={(e) => e.preventDefault()}
+
                     placeholder={t("signup.passwordPlaceholder")}
                     className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
                       isDarkMode ? "border-white/20" : "border-black/20"
                     } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+
+                    className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.passwordPlaceholder")}
+
                   />
                   <button
                     type="button"
@@ -180,6 +229,7 @@ const Signup = () => {
                 {formData.password && (
                   <div className="mt-2">
                     <div className="flex gap-1">
+
                       <div
                         className={`h-1 flex-1 rounded ${
                           passwordStrength === "weak"
@@ -213,6 +263,13 @@ const Signup = () => {
                           : "text-green-400"
                       }`}
                     >
+
+                      <div className={`h-1 flex-1 rounded ${passwordStrength === "weak" ? "bg-red-500" : passwordStrength === "medium" ? "bg-yellow-500" : "bg-green-500"}`} />
+                      <div className={`h-1 flex-1 rounded ${passwordStrength === "medium" ? "bg-yellow-500" : passwordStrength === "strong" ? "bg-green-500" : "bg-gray-600"}`} />
+                      <div className={`h-1 flex-1 rounded ${passwordStrength === "strong" ? "bg-green-500" : "bg-gray-600"}`} />
+                    </div>
+                    <p className={`text-xs mt-1 ${passwordStrength === "weak" ? "text-red-500" : passwordStrength === "medium" ? "text-yellow-500" : "text-green-400"}`}>
+
                       {passwordStrength === "weak" && t("signup.weakPassword")}
                       {passwordStrength === "medium" && t("signup.mediumPassword")}
                       {passwordStrength === "strong" && t("signup.strongPassword")}
@@ -232,10 +289,17 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     onPaste={(e) => e.preventDefault()}
+
                     placeholder={t("signup.confirmPasswordPlaceholder")}
                     className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
                       isDarkMode ? "border-white/20" : "border-black/20"
                     } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+
+                    className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.confirmPasswordPlaceholder")}
+
                   />
                   <button
                     type="button"
@@ -285,12 +349,20 @@ const Signup = () => {
               {/* Divider */}
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
+
                   <div
                     className={`w-full border-t ${isDarkMode ? "border-white/20" : "border-black/20"}`}
                   ></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-black/60 text-white">{t("signup.orContinue")}</span>
+
+                  <div className={`w-full border-t ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    }`}></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-black/60 text-white ">{t("signup.orContinue")}</span>
+
                 </div>
               </div>
 

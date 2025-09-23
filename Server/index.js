@@ -6,9 +6,8 @@ import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import path from 'path';
 
-// Routes
+// Routes & middleware
 import { connectDB } from './config/db.js';
 import { securityMiddleware } from './middleware/securityMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
@@ -26,49 +25,57 @@ import currencyRoutes from './routes/currencyRoutes.js';
 import musicRoutes from './routes/musicRoutes.js';
 import resetPassword from './routes/resetPassword.js';
 
-dotenv.config({ path: path.resolve('./.env') });
+dotenv.config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const URI = process.env.MongoDBURI;
 
-// Connect to MongoDB
+// ---------- Database ----------
 if (!URI) {
-  console.error("MongoDB URI missing");
+  console.error('MongoDB URI missing');
   process.exit(1);
 }
+mongoose
+  .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => { console.error(err); process.exit(1); });
-
-// Allowed CORS origins
+// ---------- Allowed Origins ----------
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:3000",
-  "https://travel-grid.vercel.app"
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+  'https://travel-grid.vercel.app',
 ];
 
-// Middleware
+// ---------- Middleware ----------
 if (process.env.NODE_ENV !== 'test') app.use(morgan('combined'));
 app.use(helmet());
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-    else callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(securityMiddleware.sanitizeInputs);
 app.use(securityMiddleware.xssProtection);
 app.use(securityMiddleware.securityHeaders);
 
-// Rate limiting
+// ---------- Rate Limiting ----------
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 300,
   standardHeaders: true,
   legacyHeaders: false,
@@ -83,10 +90,12 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth', authLimiter);
 
-// Health check
-app.get('/api/health', (_req, res) => res.status(200).json({ message: 'API is running smoothly!' }));
+// ---------- Health Check ----------
+app.get('/api/health', (_req, res) =>
+  res.status(200).json({ message: 'API is running smoothly!' })
+);
 
-// Routes
+// ---------- Routes ----------
 app.use('/api/auth', authRoutes);
 app.use('/api/email', emailVerificationRoutes);
 app.use('/api/bookings', bookingRouter);
@@ -102,10 +111,10 @@ app.use('/api/currency', currencyRoutes);
 app.use('/api/music', musicRoutes);
 app.use('/api/forgot-password', resetPassword);
 
-// 404 Not Found
+// ---------- 404 ----------
 app.use((_req, res) => res.status(404).json({ message: 'Resource not found' }));
 
-// Global error handler
+// ---------- Global Error Handler ----------
 app.use((err, _req, res, _next) => {
   if (process.env.NODE_ENV !== 'production') console.error(err);
   const status = err.status || 500;
@@ -113,5 +122,7 @@ app.use((err, _req, res, _next) => {
   res.status(status).json({ message });
 });
 
-// Start server
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// ---------- Start Server ----------
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);

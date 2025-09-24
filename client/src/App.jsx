@@ -17,9 +17,6 @@ import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
 
-import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
-
-
 function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -37,23 +34,10 @@ function App() {
         <AppProvider>
           <DashboardDataProvider>
             <MapProvider>
-
-              <div
-                className={`flex flex-col min-h-screen transition-all duration-300 ${
-                  isDarkMode
-                    ? "bg-gradient-to-br from-black to-pink-900 text-white"
-                    : "bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black"
-                }`}
-              >
-                {/* Cursor */}
-                <FluidCursor />
-
-
               <div className={`flex flex-col min-h-screen transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
                 }`}>
 
                 <FluidCursor />
-
                 {/* Show spinner when route changes */}
                 {loading && <Spinner />}
 
@@ -63,15 +47,6 @@ function App() {
 
                 {/* Email Verification Banner */}
                 <EmailVerificationBanner />
-
-                {/* Breadcrumb */}
-                <Breadcrumbs />
-
-
-
-                {/* Email Verification Banner */}
-                <EmailVerificationBanner />
-
                 {/* Main Content */}
                 <div className="flex-grow">
                   <ErrorBoundary>

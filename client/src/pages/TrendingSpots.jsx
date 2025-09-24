@@ -301,18 +301,6 @@ const TrendingSpots = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const filteredSpots = filter === 'all'
-    ? spots
-    : spots.filter(spot => spot.category === filter);
-
-  const categories = [
-    { key: 'all', label: 'All Spots', icon: TrendingUp },
-    { key: 'beach', label: 'Beach', icon: MapPin },
-    { key: 'cultural', label: 'Cultural', icon: Star },
-    { key: 'nature', label: 'Nature', icon: Calendar },
-    { key: 'city', label: 'City', icon: Users },
-    { key: 'adventure', label: 'Adventure', icon: Heart }
-
   // const filteredSpots = filter === 'all'
   //   ? spots
   //   : spots.filter(spot => spot.category === filter);
@@ -330,7 +318,6 @@ const filteredSpots = selectedFilter === "All Spots"
     { key: 'Nature', label: 'Nature', icon: Calendar },
     { key: 'City', label: 'City', icon: Users },
     { key: 'Adventure', label: 'Adventure', icon: Heart }
-
   ];
 
   // option for social media sharing
@@ -439,7 +426,7 @@ const filteredSpots = selectedFilter === "All Spots"
 };
 
   return (
-
+    
     <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? ' from-black/70 via-gray-900/60 to-transparent' : 'from-pink-100/60 via-white/40 to-transparent'}`}>
       <Navbar />
 
@@ -475,15 +462,9 @@ const filteredSpots = selectedFilter === "All Spots"
             {categories.map((category) => (
               <button
                 key={category.key}
-
-                onClick={() => setFilter(category.key)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  filter === category.key
-
                 onClick={() => setSelectedFilter(category.key)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                   selectedFilter === category.key
-
                     ? 'bg-pink-500 text-white'
                     : isDarkMode
                     ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
@@ -499,23 +480,11 @@ const filteredSpots = selectedFilter === "All Spots"
       </section>
 
       {/* Stats Banner */}
-
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: MapPin, label: 'Destinations', value: `${filteredSpots.length}+`, color: 'text-blue-400' },
-              { icon: TrendingUp, label: 'Avg Growth', value: '23%', color: 'text-green-400' },
-              { icon: Users, label: 'Travelers', value: '150M+', color: 'text-purple-400' },
-              { icon: Star, label: 'Avg Rating', value: '4.7★', color: 'text-yellow-400' }
-            ].map((stat, index) => (
-
       
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {statsData[selectedFilter].map((stat, index) => (
-
               <div
                 key={index}
                 className={`p-6 rounded-lg border ${isDarkMode ? 'bg-blue-400/10 border-white/20' : 'bg-white/90 border-gray-300'} text-center hover:shadow-lg transition-all duration-200`}

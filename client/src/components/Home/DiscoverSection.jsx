@@ -190,7 +190,7 @@ const filteredDestinations = destinations
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDiscoverMore}
-            className="px-8 py-3 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-600 hover:to-purple-700 text-white font-medium rounded-full shadow-lg transition-all duration-300 cursor-pointer"
+            className="px-8 py-3 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-600 hover:to-purple-700 text-black font-medium rounded-full shadow-lg transition-all duration-300 cursor-pointer"
           >
             Discover More Destinations
           </motion.button>

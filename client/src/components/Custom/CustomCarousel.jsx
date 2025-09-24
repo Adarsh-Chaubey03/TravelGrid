@@ -114,7 +114,7 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                 >
                   {guide.name}
                 </h3>
-                <p className="expertise text-pink-500">{guide.expertise}</p>
+                <p className="expertise text-pink-400">{guide.expertise}</p>
                 <p
                   className="bio ${
                         isDarkMode ? '!text-gray-300' : '!text-gray-600'
@@ -123,12 +123,18 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                   {guide.bio}
                 </p>
                 <button aria-label="Search"
-                  className={`view-btn ${isHome
-                    ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
-                    : "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
-                    }`}
-                  onClick={() => viewprofilehandle(guide)}
-                >
+                  // className={`view-btn ${isHome
+                  //   ? "bg-gradient-to-r from-pink-300 to-purple-400 hover:from-pink-300 hover:to-purple-400"
+                  //   : "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
+                  //   }`}
+                  // onClick={() => viewprofilehandle(guide)}
+                  className={`view-btn !text-black ${isHome
+    ? "bg-gradient-to-r from-pink-300 to-purple-400 hover:from-pink-300 hover:to-purple-400"
+    : "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
+    }`}
+  onClick={() => viewprofilehandle(guide)}
+>
+                
                   View Profile
                 </button>
               </div>

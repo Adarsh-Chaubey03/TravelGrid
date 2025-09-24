@@ -107,7 +107,7 @@ const ForumSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/forum')}
-            className="py-3 px-8 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-full shadow-lg transition-all duration-300 cursor-pointer"
+            className="py-3 px-8 bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-400 hover:to-purple-400 text-black font-semibold rounded-full shadow-lg transition-all duration-300 cursor-pointer"
           >
             Visit Forum
           </motion.button>

@@ -8,7 +8,23 @@ const ThemeToggle = () => {
   return (
     <button 
       onClick={toggleTheme}
-      className="relative p-2 rounded-lg bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-transparent"
+      // className="relative p-2 rounded-lg 
+      //        bg-gradient-to-r from-gray-100 to-gray-300 
+      //        hover:from-gray-200 hover:to-gray-400 
+      //        dark:from-indigo-500 dark:to-blue-600 
+      //        dark:hover:from-indigo-400 dark:hover:to-blue-500 
+      //        text-black dark:text-white font-medium
+      //        transition-all duration-300 ease-in-out 
+      //        transform hover:scale-105 hover:shadow-lg 
+      //        focus:outline-none"
+      className="relative p-2 rounded-lg 
+             bg-gradient-to-r from-indigo-500 to-blue-600 
+             hover:from-indigo-400 hover:to-blue-500 
+             text-black dark:text-white font-medium
+             transition-all duration-300 ease-in-out 
+             transform hover:scale-105 hover:shadow-lg 
+             focus:outline-none"
+
       aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
       title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
     >
@@ -37,8 +53,8 @@ const ThemeToggle = () => {
       {/* Animated background ring */}
       <div className={`absolute inset-0 rounded-lg transition-all duration-300 ${
         isDarkMode 
-          ? 'bg-gradient-to-r from-yellow-400 to-orange-500' 
-          : 'bg-gradient-to-r from-blue-500 to-purple-600'
+          ? 'bg-gradient-to-r from-yellow-400 to-orange-300' 
+          : 'bg-gradient-to-r from-blue-500 to-purple-300'
       } opacity-0 hover:opacity-20`} />
     </button>
   );

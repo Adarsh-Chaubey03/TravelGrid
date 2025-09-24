@@ -15,7 +15,9 @@ const createTransporter = () => {
   return nodemailer.createTransport(config);
 };
 
-
+// Function to send email with retry logic and error handling
+export const sendEmail = async (to, subject, html, text, retries = 3) => {
+  let lastError = null;
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -75,11 +77,11 @@ const createTransporter = () => {
   }
 
   // Handle specific error cases
-  if (lastError.code === 'EAUTH') {
+  if (lastError && lastError.code === 'EAUTH') {
     throw new Error('Email authentication failed. Please check your email credentials.');
-  } else if (lastError.code === 'ECONNECTION') {
+  } else if (lastError && lastError.code === 'ECONNECTION') {
     throw new Error('Failed to connect to email server. Please check your network connection.');
-  } else {
+  } else if (lastError) {
     throw new Error(`Email sending failed after ${retries} attempts: ${lastError.message}`);
   }
 };

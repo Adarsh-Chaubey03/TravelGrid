@@ -16,7 +16,6 @@ import FeedbackButton from "./components/FeedbackButton";
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
-import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 
 function App() {
   const location = useLocation();
@@ -48,8 +47,6 @@ function App() {
 
                 {/* Email Verification Banner */}
                 <EmailVerificationBanner />
-                 {/* Breadcrumb */}
-                <Breadcrumbs />
                 {/* Main Content */}
                 <div className="flex-grow">
                   <ErrorBoundary>

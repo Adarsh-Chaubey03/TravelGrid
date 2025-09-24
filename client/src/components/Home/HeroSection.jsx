@@ -236,13 +236,28 @@ const HeroSection = ({ onSearch }) => {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSearch}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-black font-semibold py-3 px-6 rounded-xl transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-xl"
-                >
-                  {t('common.search')}
-                </motion.button>
+
+  whileHover={{ scale: 1.07 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={handleSearch}
+  className="w-full font-semibold py-3 px-6 rounded-xl text-white transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 focus:ring-opacity-60"
+  style={{
+    background: 'linear-gradient(270deg, #ec4899, #8b5cf6, #ec4899)',
+    backgroundSize: '600% 600%',
+    animation: 'gradientShift 8s ease infinite',
+  }}
+>
+  {t('common.search')}
+  <style jsx>{`
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `}</style>
+</motion.button>
+
+
               </div>
 
               {/* Category Filters */}
@@ -252,17 +267,18 @@ const HeroSection = ({ onSearch }) => {
                 <div className="flex flex-wrap gap-2">
                   {[t('home.restaurants'), t('home.events'), t('home.shopping')].map((filter) => (
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      key={filter}
-                      onClick={() => {
-                        setCategory(filter);
-                        handleSearch();
-                      }}
-                      className="px-3 py-2 bg-white/20 hover:bg-white/30 text-black/80 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer backdrop-blur-sm break-words"
-                    >
-                      {filter}
-                    </motion.button>
+  whileHover={{ scale: 1.07 }}
+  whileTap={{ scale: 0.95 }}
+  key={filter}
+  onClick={() => {
+    setCategory(filter);
+    handleSearch();
+  }}
+  className="px-3 py-2 bg-white/20 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:text-white text-black/90 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer backdrop-blur-sm break-words shadow-sm hover:shadow-md"
+>
+  {filter}
+</motion.button>
+
                   ))}
 
                   {category !== t('home.allCategories') && (
@@ -280,6 +296,7 @@ const HeroSection = ({ onSearch }) => {
 
               {/* Quick Tools */}
               <div className={`pt-4 border-t ${isDarkMode ? 'border-white/20' : 'border-white/20'}`}>
+
                 <p className="text-sm font-medium text-white/80 mb-3">Quick Tools:</p>
                 <div className="flex flex-wrap gap-2">
                   <motion.button
@@ -290,6 +307,8 @@ const HeroSection = ({ onSearch }) => {
                   >
                     💰 Currency Converter
                   </motion.button>
+
+
                 </div>
               </div>
             </div>

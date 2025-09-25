@@ -1,128 +1,73 @@
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import path from "path";
+import { OAuth2Client } from "google-auth-library";
 
-// Routes & middleware
-import { connectDB } from './config/db.js';
-import { securityMiddleware } from './middleware/securityMiddleware.js';
-import authRoutes from './routes/authRoutes.js';
-import emailVerificationRoutes from './routes/emailVerificationRoutes.js';
-import bookingRouter from './routes/bookingRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import postRoutes from './routes/postRoutes.js';
-import saveRoutes from './routes/saveRoutes.js';
-import tripRoutes from './routes/trips.js';
-import reviewsRoutes from './routes/reviewRoutes.js';
-import languageRoutes from './routes/languageRoutes.js';
-import moodBoardRoutes from './routes/moodBoardRoutes.js';
-import searchRoutes from './routes/search.js';
-import currencyRoutes from './routes/currencyRoutes.js';
-import musicRoutes from './routes/musicRoutes.js';
-import resetPassword from './routes/resetPassword.js';
+import userRoute from "./routes/user.route.js";
+// import User from "./models/User.js"; // <-- ensure you import your User model if you use it
 
-dotenv.config({ path: './.env' });
+const client = new OAuth2Client(
+  "200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com"
+);
+
+dotenv.config({ path: path.resolve("./.env") });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const URI = process.env.MongoDBURI;
 
-// ---------- Database ----------
 if (!URI) {
-  console.error('MongoDB URI missing');
+  console.error("MongoDB URI missing");
   process.exit(1);
 }
+
+// MongoDB connection
 mongoose
   .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch(err => {
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
 
-// ---------- Allowed Origins ----------
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://localhost:3000',
-  'https://travel-grid.vercel.app',
-];
-
-// ---------- Middleware ----------
-if (process.env.NODE_ENV !== 'test') app.use(morgan('combined'));
-app.use(helmet());
+// Middlewares
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: ["http://localhost:3000", "http://localhost:5173"], // allow both React dev ports
     credentials: true,
   })
 );
 app.use(express.json());
-app.use(cookieParser());
-app.use(securityMiddleware.sanitizeInputs);
-app.use(securityMiddleware.xssProtection);
-app.use(securityMiddleware.securityHeaders);
 
-// ---------- Rate Limiting ----------
-const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 300,
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-app.use('/api', generalLimiter);
+// Routes
+app.use("/user", userRoute);
 
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50,
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-app.use('/api/auth', authLimiter);
+// Google Login
+app.post("/user/google-login", async (req, res) => {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.token,
+      audience:
+        "200124904066-qoobaps3o4n4fcmj5l48bulorgo7lvaq.apps.googleusercontent.com",
+    });
 
-// ---------- Health Check ----------
-app.get('/api/health', (_req, res) =>
-  res.status(200).json({ message: 'API is running smoothly!' })
-);
+    const payload = ticket.getPayload(); // { email, name, picture, ... }
 
-// ---------- Routes ----------
-app.use('/api/auth', authRoutes);
-app.use('/api/email', emailVerificationRoutes);
-app.use('/api/bookings', bookingRouter);
-app.use('/api/post', postRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/save', saveRoutes);
-app.use('/api', tripRoutes);
-app.use('/api/reviews', reviewsRoutes);
-app.use('/api/language', languageRoutes);
-app.use('/api/moodboards', moodBoardRoutes);
-app.use('/api/search', searchRoutes);
-app.use('/api/currency', currencyRoutes);
-app.use('/api/music', musicRoutes);
-app.use('/api/forgot-password', resetPassword);
+    // TODO: Check if user exists or create a new one
+    // const user = await User.findOrCreateFromGoogle(payload);
 
-// ---------- 404 ----------
-app.use((_req, res) => res.status(404).json({ message: 'Resource not found' }));
-
-// ---------- Global Error Handler ----------
-app.use((err, _req, res, _next) => {
-  if (process.env.NODE_ENV !== 'production') console.error(err);
-  const status = err.status || 500;
-  const message = status === 500 ? 'Internal Server Error' : err.message;
-  res.status(status).json({ message });
+    res.json({ user: payload }); // replace with actual user object
+  } catch (err) {
+    res.status(401).json({ message: "Invalid Google token" });
+  }
 });
 
-// ---------- Start Server ----------
+// Root
+app.get("/", (_req, res) => res.send("API running"));
+
+// Start server
 app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
 );

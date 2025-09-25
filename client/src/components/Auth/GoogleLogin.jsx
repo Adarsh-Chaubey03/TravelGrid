@@ -1,45 +1,79 @@
-import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { useAuth } from '../../context/AuthContext';
-import { toast } from 'react-hot-toast';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-const GoogleLoginButton = ({ onSuccess, onError, buttonText = "Continue with Google", className = "" }) => {
-  const { googleLogin } = useAuth();
+// 1️⃣ Create context
+const AuthContext = createContext();
 
-  // FIX: Context ka googleLogin use karo
-  const handleSuccess = async (credentialResponse) => {
+// 2️⃣ AuthProvider component
+export default function AuthProvider({ children }) {
+  // Load user from localStorage (if any)
+  const initialAuthUser = localStorage.getItem("Users");
+  const [user, setUser] = useState(
+    initialAuthUser ? JSON.parse(initialAuthUser) : null
+  );
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(initialAuthUser));
+
+  // Example: login function
+  const login = async (email, password) => {
+    // Replace this with your real API call
+    const mockUser = { email, name: "Yogeshwari", isEmailVerified: false, picture: "" };
+    setUser(mockUser);
+    setIsAuthenticated(true);
+    localStorage.setItem("Users", JSON.stringify(mockUser));
+    return { success: true };
+  };
+
+  // Example: logout function
+  const logout = async () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem("Users");
+  };
+
+  // Example: Google login
+  const googleLogin = async (credential) => {
     try {
-      const result = await googleLogin(credentialResponse.credential);
-
-      if (result.success) {
-        if (onSuccess) onSuccess(); // redirect ya extra action
-      } else {
-        toast.error(result.error || "Google login failed");
-        if (onError) onError(result.error);
-      }
+      // Replace with actual Google login logic
+      const mockUser = { email: "googleuser@gmail.com", name: "Google User", isEmailVerified: true };
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      localStorage.setItem("Users", JSON.stringify(mockUser));
+      return { success: true };
     } catch (error) {
-      console.error("Google login error:", error);
-      if (onError) onError("Failed to login with Google");
+      return { success: false, error: "Google login failed" };
     }
   };
 
-  const handleError = () => {
-    toast.error('Google login was cancelled or failed');
-    if (onError) onError('Google login was cancelled or failed');
+  // Example: send verification email
+  const sendVerificationEmail = async (email) => {
+    console.log("Sending verification email to:", email);
+    return true;
   };
 
-  return (
-    <div className={className}>
-      <GoogleLogin
-        onSuccess={handleSuccess}
-        onError={handleError}
-        size="large"
-        text={buttonText}
-        shape="rectangular"
-        locale="en"
-      />
-    </div>
-  );
-};
+  // Automatically sync with localStorage if user changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("Users", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("Users");
+    }
+  }, [user]);
 
-export default GoogleLoginButton;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        isAuthenticated,
+        login,
+        logout,
+        googleLogin,
+        sendVerificationEmail,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+// 3️⃣ Custom hook for easier usage
+export const useAuth = () => useContext(AuthContext);

@@ -35,18 +35,8 @@
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "jwt-decode": "^4.0.0",
-
-
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
-
-    "leaflet": "^1.9.4",
-    "leaflet-routing-machine": "^3.2.12",
-
-
-    "leaflet": "^1.9.4",
-    "leaflet-routing-machine": "^3.2.12",
-
     "lucide-react": "^0.525.0",
     "motion": "^12.23.12",
     "qrcode": "^1.5.4",
@@ -54,7 +44,6 @@
     "react": "^19.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.5.2",
     "react-i18next": "^15.7.2",
     "react-icons": "^5.5.0",

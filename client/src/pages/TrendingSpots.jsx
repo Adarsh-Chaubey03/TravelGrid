@@ -54,9 +54,21 @@ const TrendingSpots = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   const filteredSpots = selectedFilter === "All Spots"
     ? spots
     : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
+
+  // const filteredSpots = filter === 'all'
+  //   ? spots
+  //   : spots.filter(spot => spot.category === filter);
+
+  const [selectedFilter, setSelectedFilter] = useState("All Spots");
+
+const filteredSpots = selectedFilter === "All Spots"
+  ? spots
+  : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
+
 
   const categories = [
     { key: 'All Spots', label: 'All Spots', icon: TrendingUp },
@@ -77,6 +89,10 @@ const TrendingSpots = () => {
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
+
+    
+    <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? ' from-black/70 via-gray-900/60 to-transparent' : 'from-pink-100/60 via-white/40 to-transparent'}`}>
+
       <Navbar />
 
       {/* Filter Tabs */}
@@ -102,6 +118,27 @@ const TrendingSpots = () => {
           </div>
         </div>
       </section>
+
+
+      {/* Stats Banner */}
+      
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {statsData[selectedFilter].map((stat, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-lg border ${isDarkMode ? 'bg-blue-400/10 border-white/20' : 'bg-white/90 border-gray-300'} text-center hover:shadow-lg transition-all duration-200`}
+              >
+                <stat.icon className={`h-8 w-8 mx-auto mb-2 ${stat.color}`} />
+                <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Spots Grid */}
       <section className="py-8">

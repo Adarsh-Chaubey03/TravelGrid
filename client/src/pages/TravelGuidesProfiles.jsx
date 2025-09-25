@@ -68,7 +68,11 @@ const guides1 = [
   },
 ];
 
+
 // Pet guides
+
+//seperated pet guides and non pet guides with addition of one more pet guide
+
 const guides = [
   {
     name: "Snowy Kat",
@@ -150,6 +154,7 @@ const TravelGuidesCarousel = () => {
 
     setIsSearching(true);
 
+
     const filteredGuides = allGuides.filter(
       (guide) =>
         guide.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -160,6 +165,17 @@ const TravelGuidesCarousel = () => {
     );
 
     setSearchResults(filteredGuides);
+
+    const filteredGuides = allGuides.filter(
+  (guide) =>
+    guide.name.toLowerCase().includes(query.toLowerCase()) ||
+    guide.expertise.toLowerCase().includes(query.toLowerCase()) ||
+    guide.bio.toLowerCase().includes(query.toLowerCase()) ||
+    guide.details.location.toLowerCase().includes(query.toLowerCase()) ||
+    guide.details.languages.toLowerCase().includes(query.toLowerCase())
+);
+setSearchResults(filteredGuides);
+
   };
 
   const clearSearch = () => {
@@ -279,11 +295,166 @@ const TravelGuidesCarousel = () => {
           {searchResults.length > 0 ? (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "30px", padding: "20px 0" }}>
               {searchResults.map((guide, index) => (
+
                 <div key={index} className="search-result-card" onClick={() => viewProfile(guide)}>
                   {/* Card content simplified for brevity */}
                   <h4>{guide.name}</h4>
                   <p>{guide.details.location}</p>
                   <p>{guide.expertise}</p>
+
+                <div
+                  key={index}
+                  className="search-result-card"
+                  style={{
+                    background: isDarkMode
+                      ?'bg-gradient-to-br from-black to-pink-700 text-white'
+        : 'bg-gradient-to-br from-rose-100 to-gray-200 text-gray-900',
+                    borderRadius: "25px",
+                    padding: "30px",
+                    color: isDarkMode ? "white" : "#1f2937",
+                    boxShadow: isDarkMode
+                      ? "0 10px 30px rgba(102, 126, 234, 0.3)"
+                      : "0 10px 30px rgba(102, 126, 234, 0.1)",
+                    transition: "all 0.3s ease",
+                    cursor: "pointer",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-8px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 20px 40px rgba(102, 126, 234, 0.4)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 10px 30px rgba(102, 126, 234, 0.3)";
+                  }}
+                  onClick={() => viewProfile(guide)}
+                >
+                  {/* Background decoration */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "-20px",
+                      right: "-20px",
+                      width: "100px",
+                      height: "100px",
+                      background: "rgba(255, 255, 255, 0.1)",
+                      borderRadius: "50%",
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <img
+                      src={guide.image}
+                      alt={guide.name}
+                      loading="lazy"
+                      style={{
+                        width: "70px",
+                        height: "70px",
+                        borderRadius: "50%",
+                        marginRight: "20px",
+                        border: "4px solid rgba(255, 255, 255, 0.3)",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <div>
+                      <h4
+                        style={{
+                          margin: "0 0 8px 0",
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {guide.name}
+                      </h4>
+                      <p
+                        style={{
+                          margin: "0",
+                          opacity: "0.9",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        📍 {guide.details.location}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ marginBottom: "15px" }}>
+                    <p
+                      style={{
+                        margin: "8px 0",
+                        fontSize: "15px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      🎯 <strong>Expertise:</strong> {guide.expertise}
+                    </p>
+                    <p
+                      style={{
+                        margin: "8px 0",
+                        fontSize: "14px",
+                        lineHeight: "1.5",
+                        opacity: "0.95",
+                      }}
+                    >
+                      📝 {guide.bio}
+                    </p>
+                    <p style={{ margin: "8px 0", fontSize: "14px" }}>
+                      🗣️ <strong>Languages:</strong> {guide.details.languages}
+                    </p>
+                    <p style={{ margin: "8px 0", fontSize: "14px" }}>
+                      ⭐ <strong>Experience:</strong> {guide.details.experience}
+                    </p>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        viewProfile(guide);
+                      }}
+                      style={{
+                        background: "rgba(255, 255, 255, 0.2)",
+                        border: "2px solid rgba(255, 255, 255, 0.3)",
+                        color: "white",
+                        padding: "10px 20px",
+                        borderRadius: "25px",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        fontWeight: "600",
+                        transition: "all 0.2s ease",
+                        backdropFilter: "blur(10px)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = "rgba(255, 255, 255, 0.3)";
+                        e.target.style.transform = "scale(1.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = "rgba(255, 255, 255, 0.2)";
+                        e.target.style.transform = "scale(1)";
+                      }}
+                    >
+                      View Full Profile →
+                    </button>
+                  </div>
+
                 </div>
               ))}
             </div>

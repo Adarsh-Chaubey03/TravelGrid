@@ -33,8 +33,58 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
         <ChevronLeft className={`w-6 h-6 ${isDarkMode ? "text-white" : "text-gray-700"}`} />
       </button>
 
+
       {/* Carousel cards */}
       <div className="carousel-track flex justify-center items-center gap-4">
+
+      {/* <motion.div
+                      key={guide.name}
+                      initial={{ opacity: 0, scale: 0.85, y: 40 }}
+                      animate={{ opacity: 1, scale: isCenter ? 1 : 0.9, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, y: 40 }}
+                      transition={{ duration: 0.4 }}
+                      whileHover={{
+                        y: -10,
+                        boxShadow: "0 20px 40px -10px rgba(236, 72, 153, 0.3)",
+                      }}
+                      className={`flex-shrink-0 w-[280px] md:w-[300px] h-[400px] backdrop-blur-md rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 ease-in-out cursor-pointer ${
+                        isDarkMode 
+                          ? 'bg-white/10 border border-white/20 hover:border-white/40' 
+                          : 'bg-white/80 border border-gray-200 hover:border-pink-300'
+                      } ${
+                        isCenter ? "z-10 scale-100" : "opacity-80"
+                      }`}
+                    >
+                      <img
+  src={guide.image || "/assets/default-profile.jpg"}
+  alt={guide.name || "Profile picture of guide"}
+  className="w-24 h-24 rounded-full object-cover border-4 border-pink-400 mb-4"
+/>
+                      <h3 className={`text-[18px] font-semibold mb-2 transition-all duration-300 ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                      }`}>
+                        {guide.name}
+                      </h3>
+                      <p className="text-pink-300 text-[15px] font-medium mb-3">
+                        {guide.expertise}
+                      </p>
+                      <p className={`text-[15px] leading-snug px-2 mb-4 transition-all duration-300 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
+                        {guide.bio}
+                      </p>
+
+                      <button
+                        onClick={() => handleguide(guide.name)}
+                        className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      >
+                        View Profile
+                      </button>
+                    </motion.div> */}
+
+      {/* Cards */}
+      <div className="carousel-track flex justify-center items-center">
+
         {guides.map((guide, index) => {
           let position = "hidden";
           if (index === currentIndex) position = "center";
@@ -50,6 +100,7 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
                   : "bg-white/30 border border-gray-300 hover:border-pink-300"
               } ${position === "center" ? "scale-100" : "scale-90 opacity-80"}`}
             >
+
               <img
                 src={guide.cardImage || guide.image || "/assets/default-card.jpg"}
                 alt={guide.name || "Guide card"}
@@ -73,6 +124,46 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
               >
                 View Profile
               </button>
+
+              <div className="card-image">
+  <img
+    src={guide.cardImage || "/assets/default-card.jpg"}
+    alt={guide.name || "Card image"}
+    loading="lazy"
+    className="w-full h-48 object-cover rounded-lg"
+  />
+</div>
+              <div className="card-info">
+                <h3
+                  className={`${isDarkMode ? "text-white" : "!text-gray-900"}`}
+                >
+                  {guide.name}
+                </h3>
+                <p className="expertise text-pink-400">{guide.expertise}</p>
+                <p
+                  className="bio ${
+                        isDarkMode ? '!text-gray-300' : '!text-gray-600'
+                      }"
+                >
+                  {guide.bio}
+                </p>
+                <button aria-label="Search"
+                  // className={`view-btn ${isHome
+                  //   ? "bg-gradient-to-r from-pink-300 to-purple-400 hover:from-pink-300 hover:to-purple-400"
+                  //   : "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
+                  //   }`}
+                  // onClick={() => viewprofilehandle(guide)}
+                  className={`view-btn !text-black ${isHome
+    ? "bg-gradient-to-r from-pink-300 to-purple-400 hover:from-pink-300 hover:to-purple-400"
+    : "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
+    }`}
+  onClick={() => viewprofilehandle(guide)}
+>
+                
+                  View Profile
+                </button>
+              </div>
+
             </div>
           );
         })}

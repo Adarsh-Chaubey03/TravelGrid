@@ -17,6 +17,9 @@ import Navbar from "@/components/Custom/Navbar";
 import Footer from "@/components/Custom/Footer";
 
 const Signup = () => {
+
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,7 +30,12 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
 
+
   const location = useLocation();
+
+  const { signup, isLoading } = useAuth();
+  const {isDarkMode}=useTheme();
+
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
@@ -105,7 +113,14 @@ const Signup = () => {
   return (
     <div>
       <Navbar />
+
       <div className="pt-24 min-h-screen bg-gradient-to-br from-black to-pink-900 flex items-center justify-center p-4">
+
+      <div className={`pt-24 min-h-screen flex items-center justify-center p-4 ${isDarkMode
+      ? 'bg-gradient-to-br from-black to-pink-900 text-white'
+      : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'
+      }`}>
+
         <div className="max-w-md w-full">
           {/* Header */}
           <div className="text-center mb-8">
@@ -113,9 +128,17 @@ const Signup = () => {
             <p className="text-gray-300">Join TravelGrid and start your adventure</p>
           </div>
 
+
           {/* Form */}
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
             <form className="space-y-6" onSubmit={handleSubmit}>
+
+          {/* Signup Form */}
+          <div className={`bg-gray-100 backdrop-blur-md rounded-2xl p-8 mb-8 border ${
+              isDarkMode ? "border-white/20" : " border-black/20"
+            }`}>
+            <form onSubmit={handleSubmit} className="space-y-6">
+
               {error && (
                 <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3">
                   <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
@@ -133,8 +156,15 @@ const Signup = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+
                     placeholder="Enter your full name"
                     className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+
+                    className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.namePlaceholder")}
+
                   />
                 </div>
               </div>
@@ -145,12 +175,19 @@ const Signup = () => {
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
-                    type="email"
+                    type="text"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+
                     placeholder="Enter your email"
                     className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+
+                    className={`w-full pl-10 pr-4 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.emailPlaceholder")}
+
                   />
                 </div>
               </div>
@@ -165,8 +202,16 @@ const Signup = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+
                     className="w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                     placeholder="Create a password"
+
+                    onCopy={(e) => e.preventDefault()}
+                    className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.passwordPlaceholder")}
+
                   />
                   <button
                     type="button"
@@ -183,6 +228,13 @@ const Signup = () => {
                       <div className={`h-1 flex-1 rounded ${passwordStrength === "medium" ? "bg-yellow-500" : passwordStrength === "strong" ? "bg-green-500" : "bg-gray-600"}`} />
                       <div className={`h-1 flex-1 rounded ${passwordStrength === "strong" ? "bg-green-500" : "bg-gray-600"}`} />
                     </div>
+
+                    <p className={`text-xs mt-1 ${passwordStrength === "weak" ? "text-red-500" : passwordStrength === "medium" ? "text-yellow-500" : "text-green-400"}`}>
+                      {passwordStrength === "weak" && t("signup.weakPassword")}
+                      {passwordStrength === "medium" && t("signup.mediumPassword")}
+                      {passwordStrength === "strong" && t("signup.strongPassword")}
+                    </p>
+
                   </div>
                 )}
               </div>
@@ -197,8 +249,16 @@ const Signup = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+
                     className="w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                     placeholder="Confirm your password"
+
+                    onPaste={(e) => e.preventDefault()}
+                    className={`w-full pl-10 pr-12 py-3 bg-gray-50 border ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    } rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent`}
+                    placeholder={t("signup.confirmPasswordPlaceholder")}
+
                   />
                   <button
                     type="button"
@@ -235,12 +295,21 @@ const Signup = () => {
               </button>
 
               {/* Divider */}
-              <div className="relative my-4">
+              <div className="relative">
                 <div className="absolute inset-0 flex items-center">
+
                   <div className="w-full border-t border-white/20"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-black/50 text-gray-300">Or continue with</span>
+
+                  <div className={`w-full border-t ${
+                      isDarkMode ? "border-white/20 " : "border-black/20"
+                    }`}></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-black/60 text-white ">{t("signup.orContinue")}</span>
+
                 </div>
               </div>
 
@@ -248,6 +317,7 @@ const Signup = () => {
               <GoogleLoginButton onSuccess={() => navigate("/", { replace: true })} buttonText="Continue with Google" className="w-full" />
             </form>
 
+            {/* Footer */}
             <div className="mt-6 text-center">
               <p className="text-gray-300">
                 Already have an account?{" "}

@@ -49,8 +49,17 @@ const Wishlist = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
               Your <span className="text-pink-600 dark:text-pink">Wishlist</span>
             </h1>
+
             <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-primary)' }}>
               All your favorite destinations saved in one place for your future adventures.
+
+            <p
+              className="text-lg max-w-2xl mx-auto"
+              style={{ color: "var(--text-primary)" }}
+            >
+              All your favorite destinations saved in one place for your future
+              adventures.
+
             </p>
           </div>
         </div>
@@ -97,6 +106,24 @@ const Wishlist = () => {
                     Saved Destinations ({wishlist.length})
                   </h2>
                   <button
+
+              <div
+                className={`mb-8 transition-all duration-700 transform ${
+                  animate
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-10 opacity-0"
+                }`}
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <h2
+                    className="text-xl font-semibold"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    Saved Destinations ({wishlist.length})
+                  </h2>
+                  <button
+                    aria-label="Search"
+
                     onClick={handleNavigateToTrending}
                     className="text-sm flex items-center text-pink-600 dark:text-pink-400 hover:underline"
                   >
@@ -109,7 +136,15 @@ const Wishlist = () => {
                   {paginated.map((item, index) => (
                     <div
                       key={item.id}
+
                       className={`transition-all duration-700 transform`}
+
+                      className={`transition-all duration-700 transform ${
+                        animate
+                          ? "translate-y-0 opacity-100"
+                          : "translate-y-10 opacity-0"
+                      }`}
+
                       style={{ transitionDelay: `${index * 100}ms` }}
                     >
                       <WishlistCard item={item} />
@@ -121,6 +156,9 @@ const Wishlist = () => {
                 {totalPages > 1 && (
                   <div className="flex justify-center items-center gap-4 mt-10">
                     <button
+
+                      aria-label="Search"
+
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page - 1)}
                       disabled={page === 1}
@@ -136,7 +174,12 @@ const Wishlist = () => {
                       Page {page} of {totalPages}
                     </span>
 
+
                     <button
+
+                    <button
+                      aria-label="Search"
+
                       className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-shadow flex items-center"
                       onClick={() => setPage(page + 1)}
                       disabled={page === totalPages}

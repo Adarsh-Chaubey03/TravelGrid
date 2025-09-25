@@ -8,11 +8,15 @@ import FeaturedPackages from '../components/Home/FeaturedPackages'
 import TravelGuides from '../components/Home/TravelGuides'
 import Testimonials from '../components/Home/Testimonials'
 import MoodBoard from '../components/MoodBoard/MoodBoard'
+import { useSEO } from '../hooks/useSEO'
 
 
 function Home() {
     const [searchFilter, setSearchFilter] = useState(null);
     const { isDarkMode } = useTheme();
+    
+    // SEO optimization for home page
+    useSEO();
 
     return (
         <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>

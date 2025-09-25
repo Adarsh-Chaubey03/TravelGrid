@@ -49,10 +49,10 @@ const Footer = () => {
 
   return (
     <>
-      <footer className={`relative text-white transition-all duration-300 ${
+      <footer className={`relative text-black transition-all duration-300 ${
      isDarkMode 
           ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900' 
-          : 'bg-gradient-to-br from-gray-900  to-pink-900'
+          : 'bg-gradient-to-br from-gray-900  to-pink-200'
       }`}>
         {/* Background pattern */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />
@@ -171,7 +171,10 @@ const Footer = () => {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-300 text-sm">+1 (555) 123-4567</p>
+                    <a href="tel:+15551234567" className="text-gray-300 text-sm">
+  +1 (555) 123-4567
+</a>
+
                       <p className="text-gray-300 text-sm">Mon-Fri 9AM-6PM</p>
                     </div>
                   </div>
@@ -239,13 +242,13 @@ const Footer = () => {
                   </div>
                   <button aria-label="Search"
                     type="submit"
-                    className="w-full bg-gradient-to-r from-pink-500 to-purple-700 hover:from-pink-600 hover:to-pink-700 text-white py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-white-600 hover:to-white-700 text-black py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
                   >
                     <span>Subscribe</span>
                     {/* Send icon */}
                   </button>
                 </form>
-                <div className="text-xs text-gray-400">
+                <div className="text-xs !text-white-400">
                   🔒 We respect your privacy. Unsubscribe at any time.
                 </div>
               </div>
@@ -339,7 +342,7 @@ const Footer = () => {
             </div>
             <button aria-label="Search"
               onClick={hideToast}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-black-600 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="..." />

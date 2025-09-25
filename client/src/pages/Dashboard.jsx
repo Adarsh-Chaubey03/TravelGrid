@@ -19,7 +19,8 @@ const Dashboard = () => {
     const [bookedHotels, setBookedHotels] = useState([]);
     const [showHotels, setShowHotels] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
+
+
     const [editData, setEditData] = useState({
         name: user?.name || '',
         email: user?.email || ''

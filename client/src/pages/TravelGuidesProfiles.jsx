@@ -319,8 +319,8 @@ setSearchResults(filteredGuides);
                   className="search-result-card"
                   style={{
                     background: isDarkMode
-                      ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                      : "linear-gradient(135deg, #f8fafc 0%, #fce0ffff 100%)",
+                      ?'bg-gradient-to-br from-black to-pink-700 text-white'
+        : 'bg-gradient-to-br from-rose-100 to-gray-200 text-gray-900',
                     borderRadius: "25px",
                     padding: "30px",
                     color: isDarkMode ? "white" : "#1f2937",

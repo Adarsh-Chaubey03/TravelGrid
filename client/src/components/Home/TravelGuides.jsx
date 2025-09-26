@@ -10,43 +10,43 @@ const guides = [
     name: "Aarav Mehta",
     expertise: "Himalayan Treks",
     bio: "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas.",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/51.jpg",
   },
   {
     name: "Sofia Rossi",
     expertise: "Italian Cities & Culture",
     bio: "Passionate about art, food, and history. Fluent in English and Italian. Rome-based.",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/65.jpg",
   },
   {
     name: "James Carter",
     expertise: "African Safaris",
     bio: "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks.",
-    image: "https://randomuser.me/api/portraits/men/34.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/34.jpg",
   },
   {
     name: "Snowy Kat",
     expertise: "🐾 Mountain Treks & Pet Adventures",
     bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes.",
-    image: "https://randomuser.me/api/portraits/men/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/17.jpg",
   },
   {
     name: "Mei Lin",
     expertise: "East Asia Tours",
     bio: "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine.",
-    image: "https://randomuser.me/api/portraits/women/43.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/43.jpg",
   },
   {
     name: "Ayushi Uniyal",
     expertise: "🏖️ Coastal Getaways",
     bio: "Loves helping travelers explore India's beautiful coastline and beach destinations.",
-    image: "https://randomuser.me/api/portraits/women/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/17.jpg",
   },
   {
     name: "Weddy Brown",
     expertise: "🐾 Urban Travel with Pets",
     bio: "Amsterdam-based guide specializing in navigating cities with pets.",
-    image: "https://randomuser.me/api/portraits/men/74.jpg"
+    cardImage: "https://randomuser.me/api/portraits/men/74.jpg"
   }
 ];
 

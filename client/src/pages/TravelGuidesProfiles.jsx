@@ -18,7 +18,7 @@ const guides1 = [
     name: "Aarav Mehta",
     expertise: "Himalayan Treks",
     bio: "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas.",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/51.jpg",
     details: {
       location: "Manali, Himachal Pradesh",
       languages: "English, Hindi",
@@ -31,7 +31,7 @@ const guides1 = [
     name: "Sofia Rossi",
     expertise: "Italian Cities & Culture",
     bio: "Passionate about art, food, and history. Fluent in English and Italian. Rome-based.",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/65.jpg",
     details: {
       location: "Rome, Italy",
       languages: "Italian, English",
@@ -44,7 +44,7 @@ const guides1 = [
     name: "James Carter",
     expertise: "African Safaris",
     bio: "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks.",
-    image: "https://randomuser.me/api/portraits/men/34.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/34.jpg",
     details: {
       location: "Nairobi, Kenya",
       languages: "English, Swahili",
@@ -57,7 +57,7 @@ const guides1 = [
     name: "Mei Lin",
     expertise: "East Asia Tours",
     bio: "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine.",
-    image: "https://randomuser.me/api/portraits/women/43.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/43.jpg",
     details: {
       location: "Tokyo, Japan",
       languages: "Japanese, Chinese, Korean, English",
@@ -78,7 +78,7 @@ const guides = [
     name: "Snowy Kat",
     expertise: "🐾 Mountain Treks & Pet Adventures",
     bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes. Specialist in safe trekking experiences for dogs and cats.",
-    image: "https://randomuser.me/api/portraits/men/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/17.jpg",
     details: {
       location: "Manali, India",
       languages: "English, Hindi, Himachali",
@@ -91,7 +91,7 @@ const guides = [
     name: "Ayushi Uniyal",
     expertise: "🏖️ Coastal Getaways",
     bio: "Loves helping travelers explore India's beautiful coastline. Expert in coastal accommodations and beach activities.",
-    image: "https://randomuser.me/api/portraits/women/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/17.jpg",
     details: {
       location: "Goa, India",
       languages: "English, Hindi, Konkani",
@@ -104,7 +104,7 @@ const guides = [
     name: "Weddy Brown",
     expertise: "🏙️ Urban Travel & City Exploration",
     bio: "Amsterdam-based guide specializing in urban exploration. Knows every hidden park, café, and unique stay in the city.",
-    image: "https://randomuser.me/api/portraits/men/74.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/74.jpg",
     details: {
       location: "Amsterdam, Netherlands",
       languages: "Dutch, English, German",
@@ -354,7 +354,7 @@ setSearchResults(filteredGuides);
                     }}
                   >
                     <img
-                      src={guide.image}
+                      src={guide.cardImage}
                       alt={guide.name}
                       loading="lazy"
                       style={{
@@ -479,9 +479,172 @@ setSearchResults(filteredGuides);
       {/* Selected Guide Profile */}
       {selectedGuide && (
         <div className="profile-section" ref={profileRef}>
+
           <h2>{selectedGuide.name}'s Profile</h2>
           <p>{selectedGuide.bio}</p>
           <p>Contact: {selectedGuide.details.contact}</p>
+
+          {/* Heading */}
+          <div className="profile-heading">
+            <div className="line" />
+            <h2 style={{ color: isDarkMode ? "#ffffff" : "#1f2937" }}>
+              {selectedGuide.name}'s Profile
+            </h2>
+            <div className="line" />
+          </div>
+
+          {/* Profile Card */}
+          <div className="flex items-center justify-center p-6 font-sans">
+            <div
+              className={`w-full max-w-lg p-8 rounded-3xl border transition-all duration-300
+          ${
+            isDarkMode
+              ? "bg-white/5 backdrop-blur-md border-white/30 hover:shadow-pink-500/30"
+              : "bg-white shadow-lg border-white/30 hover:shadow-pink-500/30"
+          }`}
+            >
+              {/* Profile Content */}
+              <div className="flex flex-col items-center text-center space-y-4">
+                {/* Profile cardImage */}
+                <div className="relative p-1 rounded-full bg-gradient-to-br from-pink-500 to-purple-500">
+                  <img
+                    src={selectedGuide.cardImage}
+                    alt="Profile"
+                    loading="lazy"
+                    className={`w-28 h-28 rounded-full object-cover border-4 ${
+                      isDarkMode ? "border-gray-800" : "border-white"
+                    }`}
+                  />
+                </div>
+
+                {/* Name & Bio */}
+                <div className="space-y-1">
+                  <h2
+                    className={`text-3xl font-bold ${
+                      isDarkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {selectedGuide.name}
+                  </h2>
+                  <p
+                    className={`text-md ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    {selectedGuide.bio}
+                  </p>
+                </div>
+
+                {/* Contact */}
+                <div className="flex justify-center space-x-4">
+                  <Mail size={24} />
+                  <p className={isDarkMode ? "text-white" : "text-gray-900"}>
+                    {selectedGuide.details.contact}
+                  </p>
+                </div>
+              </div>
+
+              <hr
+                className={`my-6 ${
+                  isDarkMode ? "border-gray-600" : "border-gray-200"
+                }`}
+              />
+
+              {/* Details Section */}
+              <div className="space-y-6">
+                {/* Location */}
+                <div
+                  className={`flex items-center space-x-4 ${
+                    isDarkMode ? "text-gray-200" : "text-gray-700"
+                  }`}
+                >
+                  <MapPin size={20} className="text-pink-500 flex-shrink-0" />
+                  <p className="text-lg">{selectedGuide.details.location}</p>
+                </div>
+
+                {/* Expertise */}
+                <div className="space-y-2">
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    <Trophy size={20} className="text-pink-500" />
+                    <span>Expertise</span>
+                  </h3>
+                  <div className="flex flex-wrap gap-2 text-sm">
+                    <span className="bg-pink-500 text-white px-4 py-2 rounded-full font-medium shadow-md transition-transform hover:scale-105">
+                      {selectedGuide.expertise}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Experience */}
+                <div className="space-y-2">
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    <Briefcase size={20} className="text-pink-500" />
+                    <span>Experience</span>
+                  </h3>
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    <li className="text-left pr-4">
+                      - {selectedGuide.details.experience}
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Certifications */}
+                <div className="space-y-2">
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    <GraduationCap size={20} className="text-pink-500" />
+                    <span>Certifications</span>
+                  </h3>
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    <li className="text-left pr-4">
+                      - {selectedGuide.details.certifications}
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Languages */}
+                <div className="space-y-2">
+                  <h3
+                    className={`flex items-center space-x-2 text-xl font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    <LanguagesIcon size={20} className="text-pink-500" />
+                    <span>Languages</span>
+                  </h3>
+                  <ul
+                    className={`list-inside space-y-1 ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    <li className="text-left pr-4">
+                      - {selectedGuide.details.languages}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       )}
     </section>

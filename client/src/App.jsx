@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
 import { DashboardDataProvider } from "./context/DashboardDataContext";
 import { MapProvider } from "./context/MapContext";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext"; // ✅ use AuthContext here
 import { WishlistProvider } from "./context/WishlistContext";
 import { useTheme } from "./context/ThemeContext";
 
@@ -16,6 +16,9 @@ import FeedbackButton from "./components/FeedbackButton";
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
+
+import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
+
 
 function App() {
   const location = useLocation();
@@ -34,27 +37,37 @@ function App() {
         <AppProvider>
           <DashboardDataProvider>
             <MapProvider>
+
+              <div
+                className={`flex flex-col min-h-screen transition-all duration-300 ${
+                  isDarkMode
+                    ? "bg-gradient-to-br from-black to-pink-900 text-white"
+                    : "bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black"
+                }`}
+              >
+                <FluidCursor />
+
               <div className={`flex flex-col min-h-screen transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
                 }`}>
 
                 <FluidCursor />
                 {/* Show spinner when route changes */}
+
                 {loading && <Spinner />}
-
-                {/* Navbar */}
                 <Navbar />
-
-
-                {/* Email Verification Banner */}
                 <EmailVerificationBanner />
+
+                <Breadcrumbs />
+
+
                 {/* Main Content */}
+
                 <div className="flex-grow">
                   <ErrorBoundary>
                     <Outlet />
                   </ErrorBoundary>
                 </div>
 
-                {/* Buttons and Footer */}
                 <GoToTopButton />
                 <Chatbot />
                 <FeedbackButton />

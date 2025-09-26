@@ -1,7 +1,7 @@
 import {
   Briefcase,
   GraduationCap,
-  LanguagesIcon,
+  Languages,
   Mail,
   MapPin,
   Trophy,
@@ -12,6 +12,7 @@ import CustomCarousel from "../components/Custom/CustomCarousel";
 import { useTheme } from "../context/ThemeContext";
 import "./styles/TravelGuidesCarousel.css";
 
+// Non-pet guides
 const guides1 = [
   {
     name: "Aarav Mehta",
@@ -66,7 +67,12 @@ const guides1 = [
     },
   },
 ];
+
+
+// Pet guides
+
 //seperated pet guides and non pet guides with addition of one more pet guide
+
 const guides = [
   {
     name: "Snowy Kat",
@@ -109,28 +115,27 @@ const guides = [
   },
 ];
 
+// Combine all guides for search
 const allGuides = [...guides, ...guides1];
-
 
 const TravelGuidesCarousel = () => {
   const { isDarkMode } = useTheme();
   const location = useLocation();
-  useEffect(() => {
-    if (location.state) {
-      const guidetoview = guides.find(
-        (guide) => guide.name == location.state.selectedGuideId
-      );
-      setSelectedGuide(guidetoview);
-    }
-  }, []);
-
-  const [selectedGuide, setSelectedGuide] = useState(null);
   const profileRef = useRef(null);
 
-  // Search functionality
+  const [selectedGuide, setSelectedGuide] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    if (location.state) {
+      const guidetoview = allGuides.find(
+        (guide) => guide.name === location.state.selectedGuideId
+      );
+      setSelectedGuide(guidetoview);
+    }
+  }, [location.state]);
 
   const viewProfile = (guide) => {
     setSelectedGuide(guide);
@@ -139,7 +144,6 @@ const TravelGuidesCarousel = () => {
     }, 100);
   };
 
-  // Search functionality
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (query.trim() === "") {
@@ -148,9 +152,20 @@ const TravelGuidesCarousel = () => {
       return;
     }
 
-    
-
     setIsSearching(true);
+
+
+    const filteredGuides = allGuides.filter(
+      (guide) =>
+        guide.name.toLowerCase().includes(query.toLowerCase()) ||
+        guide.expertise.toLowerCase().includes(query.toLowerCase()) ||
+        guide.bio.toLowerCase().includes(query.toLowerCase()) ||
+        guide.details.location.toLowerCase().includes(query.toLowerCase()) ||
+        guide.details.languages.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setSearchResults(filteredGuides);
+
     const filteredGuides = allGuides.filter(
   (guide) =>
     guide.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -160,6 +175,7 @@ const TravelGuidesCarousel = () => {
     guide.details.languages.toLowerCase().includes(query.toLowerCase())
 );
 setSearchResults(filteredGuides);
+
   };
 
   const clearSearch = () => {
@@ -178,11 +194,10 @@ setSearchResults(filteredGuides);
           : "linear-gradient(to bottom right, #ffffffff, #c0349d57)",
       }}
     >
+      {/* Heading & Description */}
       <h1
         className="main-heading unique-heading-1"
-        style={{
-          color: isDarkMode ? "#ffffff" : "#1f2937",
-        }}
+        style={{ color: isDarkMode ? "#ffffff" : "#1f2937" }}
       >
         Travel <span className="main-span">Guides</span>
       </h1>
@@ -218,7 +233,7 @@ setSearchResults(filteredGuides);
         </p>
       </div>
 
-      {/* Search Bar Section */}
+      {/* Search Bar */}
       <div
         className="search-section"
         style={{
@@ -246,74 +261,47 @@ setSearchResults(filteredGuides);
             }}
           />
           {searchQuery && (
-            <button
-              onClick={clearSearch}
-              style={{
-                position: "absolute",
-                right: "20px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "linear-gradient(135deg, #59168b 0%, #9810fa 100%)",
-                border: "none",
-                borderRadius: "50%",
-                width: "35px",
-                height: "35px",
-                color: "white",
-                cursor: "pointer",
-                fontSize: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-50%) scale(1.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(-50%) scale(1)";
-              }}
-            >
-              ✕
-            </button>
+            <button onClick={clearSearch} style={{
+              position: "absolute",
+              right: "20px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "linear-gradient(135deg, #59168b 0%, #9810fa 100%)",
+              border: "none",
+              borderRadius: "50%",
+              width: "35px",
+              height: "35px",
+              color: "white",
+              cursor: "pointer",
+              fontSize: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>✕</button>
           )}
         </div>
-
-        {/* Search Stats */}
         {isSearching && (
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "15px",
-              color: "#667eea",
-              fontSize: "14px",
-              fontWeight: "500",
-            }}
-          >
+          <div style={{ textAlign: "center", marginTop: "15px", color: "#667eea", fontSize: "14px", fontWeight: "500" }}>
             {searchResults.length > 0
-              ? `Found ${searchResults.length} guide${
-                  searchResults.length !== 1 ? "s" : ""
-                } matching "${searchQuery}"`
+              ? `Found ${searchResults.length} guide${searchResults.length !== 1 ? "s" : ""} matching "${searchQuery}"`
               : `No guides found for "${searchQuery}"`}
           </div>
         )}
       </div>
 
-      {/* Guides Display - Search Results or Carousel */}
+      {/* Guides Display */}
       {isSearching && searchQuery ? (
-        // Search Results View
-        <div
-          style={{ padding: "0 20px", maxWidth: "1400px", margin: "0 auto" }}
-        >
+        <div style={{ padding: "0 20px", maxWidth: "1400px", margin: "0 auto" }}>
           {searchResults.length > 0 ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-                gap: "30px",
-                padding: "20px 0",
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "30px", padding: "20px 0" }}>
               {searchResults.map((guide, index) => (
+
+                <div key={index} className="search-result-card" onClick={() => viewProfile(guide)}>
+                  {/* Card content simplified for brevity */}
+                  <h4>{guide.name}</h4>
+                  <p>{guide.details.location}</p>
+                  <p>{guide.expertise}</p>
+
                 <div
                   key={index}
                   className="search-result-card"
@@ -466,102 +454,36 @@ setSearchResults(filteredGuides);
                       View Full Profile →
                     </button>
                   </div>
+
                 </div>
               ))}
             </div>
           ) : (
-            <div
-              style={{
-                textAlign: "center",
-                padding: "80px 20px",
-                color: "#667eea",
-              }}
-            >
+            <div style={{ textAlign: "center", padding: "80px 20px", color: "#667eea" }}>
               <div style={{ fontSize: "64px", marginBottom: "20px" }}>🔍</div>
-              <h3
-                style={{
-                  fontSize: "28px",
-                  marginBottom: "15px",
-                  color: isDarkMode ? "#f3f4f6" : "#1f2937",
-                }}
-              >
-                No guides found
-              </h3>
-              <p
-                style={{
-                  fontSize: "16px",
-                  color: isDarkMode ? "#9ca3af" : "#6b7280",
-                  maxWidth: "500px",
-                  margin: "0 auto",
-                }}
-              >
-                Try searching with different keywords like location, expertise,
-                or language. Our guides specialize in various destinations and
-                activities worldwide.
-              </p>
-              <button
-                onClick={clearSearch}
-                style={{
-                  marginTop: "25px",
-                  background:
-                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                  color: "white",
-                  border: "none",
-                  padding: "12px 24px",
-                  borderRadius: "25px",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = "scale(1.05)";
-                  e.target.style.boxShadow =
-                    "0 8px 25px rgba(102, 126, 234, 0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = "scale(1)";
-                  e.target.style.boxShadow = "none";
-                }}
-              >
-                Clear Search & Browse All Guides
-              </button>
+              <h3>No guides found</h3>
             </div>
           )}
         </div>
       ) : (
-        // Default Carousel View
-        // seperated pet and non pet guides
         <>
           <CustomCarousel guides={guides1} viewprofilehandle={viewProfile} />
-          <hr
-            style={{
-              border: "none",
-              height: "2px", // base thickness
-              background:
-                "linear-gradient(to right, transparent, #a52167ff, transparent)", // light gray fade
-              margin: "30px 0",
-            }}
-          />
-          <p
-            style={{
-              fontSize: "40px",
-              fontWeight: "700",
-              lineHeight: "1.6",
-              marginTop: "14px",
-              marginBottom: "50px",
-              color: isDarkMode ? "#fcfcfc" : "#1f2937",
-
-            }}
-          >
+          <hr style={{ margin: "30px 0" }} />
+          <p style={{ fontSize: "40px", fontWeight: "700", marginTop: "14px", marginBottom: "50px", color: isDarkMode ? "#fcfcfc" : "#1f2937" }}>
             🐶 Pet Guides 🐱
-          </p>{" "}
+          </p>
           <CustomCarousel guides={guides} viewprofilehandle={viewProfile} />
         </>
       )}
 
+      {/* Selected Guide Profile */}
       {selectedGuide && (
         <div className="profile-section" ref={profileRef}>
+
+          <h2>{selectedGuide.name}'s Profile</h2>
+          <p>{selectedGuide.bio}</p>
+          <p>Contact: {selectedGuide.details.contact}</p>
+
           {/* Heading */}
           <div className="profile-heading">
             <div className="line" />
@@ -722,6 +644,7 @@ setSearchResults(filteredGuides);
               </div>
             </div>
           </div>
+
         </div>
       )}
     </section>

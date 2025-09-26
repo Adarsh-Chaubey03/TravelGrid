@@ -16,60 +16,38 @@ import mlTranslations from './locales/ml.json';
 import deTranslations from './locales/de.json';
 
 const resources = {
-  en: {
-    translation: enTranslations
-  },
-  hi: {
-    translation: hiTranslations
-  },
-  es: {
-    translation: esTranslations
-  },
-  bn: {
-    translation: bnTranslations
-  },
-  ta: {
-    translation: taTranslations
-  },
-  te: {
-    translation: teTranslations
-  },
-  mr: {
-    translation: mrTranslations
-  },
-  gu: {
-    translation: guTranslations
-  },
-  kn: {
-    translation: knTranslations
-  },
-  ml: {
-    translation: mlTranslations
-  },
-  de: {
-    translation: deTranslations
-  }
+  en: { translation: enTranslations },
+  hi: { translation: hiTranslations },
+  es: { translation: esTranslations },
+  bn: { translation: bnTranslations },
+  ta: { translation: taTranslations },
+  te: { translation: teTranslations },
+  mr: { translation: mrTranslations },
+  gu: { translation: guTranslations },
+  kn: { translation: knTranslations },
+  ml: { translation: mlTranslations },
+  de: { translation: deTranslations },
 };
 
 i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
+  .use(LanguageDetector)           // Detect user language automatically
+  .use(initReactI18next)           // Pass i18n instance to react-i18next
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'en',            // Default language
     debug: false,
-    
+
     detection: {
-      order: ['querystring','localStorage', 'navigator', 'htmlTag'],
+      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
     },
-    
+
     interpolation: {
-      escapeValue: false,
+      escapeValue: false,          // React already escapes
     },
-    
+
     react: {
-      useSuspense: false,
+      useSuspense: false,          // Avoid suspense fallback errors
     },
   });
 

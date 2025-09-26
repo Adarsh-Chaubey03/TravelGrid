@@ -333,7 +333,7 @@ const MoodBoard = () => {
   if (!isAuthenticated) {
     return (
       <section className="mb-empty-wrap">
-        <div className={`mb-empty-card ${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
+        <div className="mb-empty-card">
           <Palette className="mb-icon" />
           <h2 className="mb-title">Create Your Travel Mood Board</h2>
           <p className="mb-subtitle">
@@ -341,7 +341,7 @@ const MoodBoard = () => {
           </p>
           <div className="mb-ctas">
             <button
-  className="mb-btn-primary"
+  className="mb-btn-primary !text-black"
   onClick={() => navigate('/login?redirect=/moodboard')}
 >
   Sign in to Start

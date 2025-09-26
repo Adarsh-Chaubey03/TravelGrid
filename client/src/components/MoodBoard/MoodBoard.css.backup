@@ -409,19 +409,22 @@
   text-align: center;
   border-radius: 20px;
   padding: 2.5rem 1.5rem;
+
+
   margin: 0 auto;
   transition: all 0.3s ease;
 }
 
-/* Dark theme styling */
+/* Dark theme (current styling) */
+.mb-empty-card.dark-theme {
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.15);
 .mb-empty-card.dark-theme {
   color: #fff;
   background: radial-gradient(120% 120% at 0% 0%, #2a0f24 0%, #3b0f30 60%, #1a0f18 100%);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.15);
 }
 
-/* Light theme styling */
+/* Light theme (new styling) */
 .mb-empty-card.light-theme {
   color: #1f2937;
   background: linear-gradient(135deg, #fef7ff 0%, #f3e8ff 25%, #e0e7ff 75%, #ddd6fe 100%);

@@ -359,8 +359,8 @@ const TravelPlanGenerator = () => {
                     onChange={handleDateChange}
                     min={getTodayDate()}
                     className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-pink-400 ${isDarkMode
-                        ? 'bg-black/30 border-pink-400/30 text-white'
-                        : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400'
+                        ? 'bg-black/30 border-pink-400/30 text-white [color-scheme:dark]'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-pink-400 [color-scheme:light]'
                       }`}
                   />
                   {dateError && (

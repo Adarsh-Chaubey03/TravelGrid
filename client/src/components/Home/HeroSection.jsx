@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -299,16 +299,17 @@ const HeroSection = ({ onSearch }) => {
 
                 <p className="text-sm font-medium text-white/80 mb-3">Quick Tools:</p>
                 <div className="flex flex-wrap gap-2">
-                  <motion.button
+                  <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => window.location.href = '/currency-converter'}
-                    className="px-3 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-black text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer shadow-lg"
                   >
-                    💰 Currency Converter
-                  </motion.button>
-
-
+                    <Link
+                      to="/currency-converter"
+                      className="px-3 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-black text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer shadow-lg"
+                    >
+                      💰 Currency Converter
+                    </Link>
+                  </motion.div>
                 </div>
               </div>
             </div>

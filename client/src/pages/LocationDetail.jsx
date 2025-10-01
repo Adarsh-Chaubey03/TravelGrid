@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   const { locationId } = useParams(); // Get locationId from URL parameters
   const [location, setLocation] = useState(null);
-  const [selectedTab, setSelectedTab] = useState('overview');
+  const [selectedTab, setSelectedTab] = useState('default');
   const [loading, setLoading] = useState(true);
   const navigate=useNavigate()
   const [expandDesc,setExpandDesc]=useState(false)
@@ -468,9 +468,7 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   }, [locationId]); // Add locationId as dependency
 
   const tabs = [
-    { key: 'overview', label: 'Overview', icon: Info },
     {key:"photos",     label:"Photos",    icon:Images}
-
   ];
 
   if (loading) {
@@ -490,8 +488,21 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
 
   const renderTabContent = () => {
     switch (selectedTab) {
-      // overview section
-      case 'overview':
+      case "photos":
+         return (
+         <div className="space-y-8">
+          <h2 className='text-xl text-gray-700 border-b-2 border-gray-400 px-2 py-3 rounded-sm font-medium'>Photos</h2>
+          <div className="grid grid-cols-1 items-center place-items-center sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {location.photos.map((image) => (
+              <div className='aspect-square overflow-hidden shadow-md rounded-xl group' key={image.id}>
+              <img src={image.src} alt={`Photo ${image.id}`}  className='shadow-md w-full h-full object-cover rounded-xl group-hover:scale-105 transform transition-transform duration-500'/>
+              </div>
+            ))}
+          </div>
+         </div>
+         )
+      default:
+        // overview section - this will be the default content
         return (
           <div className="space-y-8">
             {/* Description section */}
@@ -532,19 +543,6 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
             </div>
           </div>
         );
-        case "photos":
-         return (
-         <div className="space-y-8">
-          <h2 className='text-xl text-gray-700 border-b-2 border-gray-400 px-2 py-3 rounded-sm font-medium'>Photos</h2>
-          <div className="grid grid-cols-1 items-center place-items-center sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {location.photos.map((image) => (
-              <div className='aspect-square overflow-hidden shadow-md rounded-xl group' key={image.id}>
-              <img src={image.src} alt={`Photo ${image.id}`}  className='shadow-md w-full h-full object-cover rounded-xl group-hover:scale-105 transform transition-transform duration-500'/>
-              </div>
-            ))}
-          </div>
-         </div>
-         )
     }
   };
 
@@ -638,9 +636,9 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
             {tabs.map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => setSelectedTab(tab.key)}
+                onClick={() => setSelectedTab(selectedTab === 'photos' ? 'default' : 'photos')}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
-                  selectedTab === tab.key
+                  selectedTab === 'photos'
                     ? 'bg-pink-500 text-white shadow-lg'
                     : 'text-gray-900 hover:text-gray-900 hover:bg-white/10'
                 } cursor-pointer`}

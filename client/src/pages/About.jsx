@@ -204,13 +204,13 @@ function About() {
   ];
 
   return (
-    <div className={`flex flex-col min-h-screen w-full overflow-x-hidden transition-all duration-300`}>
+    <div className={`w-full overflow-hidden transition-all duration-300`}>
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8"
+        className="flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8"
       >
         <div className="text-center max-w-4xl mx-auto">
           <motion.h1
@@ -245,7 +245,7 @@ function About() {
       <section
         id="mission"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.mission ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.mission ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -303,7 +303,7 @@ function About() {
       <section
         id="vision"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.vision ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.vision ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -360,7 +360,7 @@ function About() {
       <section
         id="story"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.story ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.story ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -423,7 +423,7 @@ function About() {
       <section
         id="team"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -474,7 +474,7 @@ function About() {
       <section
         id="achievements"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.achievements ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.achievements ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -521,7 +521,7 @@ function About() {
       <section
         id="contact"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-4xl mx-auto">
@@ -606,7 +606,7 @@ function About() {
       <section
         id="features"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.features ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -665,7 +665,7 @@ function About() {
       <section
         id="gssoc"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 ${isDarkMode ? "text-pink-300" : "text-black"} bg-opacity-50 transition-all duration-1000 ${isVisible.gssoc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 ${isDarkMode ? "text-pink-300" : "text-black"} bg-opacity-50 transition-all duration-1000 ${isVisible.gssoc ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-4xl mx-auto text-center">
@@ -716,7 +716,7 @@ function About() {
       <section
         id="tech"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.tech ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.tech ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-4xl mx-auto">
@@ -791,7 +791,7 @@ function About() {
       <section
         id="cta"
         data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${isVisible.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="max-w-4xl mx-auto text-center">

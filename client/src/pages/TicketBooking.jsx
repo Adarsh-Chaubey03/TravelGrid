@@ -330,8 +330,8 @@ function TicketBooking() {
                   onChange={handleChange}
                   className={`w-full col-span-1 pl-10 pr-3 py-3 rounded-xl text-gray-900 cursor-pointer ${
                     isDarkMode
-                      ? "bg-white/20 placeholder-gray-300"
-                      : "bg-white/90 placeholder-gray-400"
+                      ? "bg-white/20 placeholder-gray-300 [color-scheme:dark]"
+                      : "bg-white/90 placeholder-gray-400 [color-scheme:light]"
                   } focus:outline-none focus:ring-3 focus:ring-pink-400`}
                 />
               </div>
@@ -367,8 +367,8 @@ function TicketBooking() {
                       onChange={handleChange}
                       className={`w-full pl-10 pr-3 py-3 rounded-xl text-gray-900 cursor-pointer ${
                         isDarkMode
-                          ? "bg-white/20 placeholder-gray-300"
-                          : "bg-white/90 placeholder-gray-400"
+                          ? "bg-white/20 placeholder-gray-300 [color-scheme:dark]"
+                          : "bg-white/90 placeholder-gray-400 [color-scheme:light]"
                       } focus:outline-none focus:ring-3 focus:ring-pink-400`}
                     />
                   </>

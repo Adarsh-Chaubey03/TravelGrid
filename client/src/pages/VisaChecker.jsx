@@ -285,8 +285,8 @@ ${isDarkMode  ? 'bg-white/10 shadow-lg backdrop-blur-md hover:shadow-xl hover:bg
               type="date"
               value={dates.from}
               onChange={(e) => setDates((d) => ({ ...d, from: e.target.value }))}
-              className={`w-full py-1.5 px-2 rounded-md text-gray-900 border  ${isDarkMode ? "bg-zinc-800 border-white/20"
-      : "bg-slate-100 border-black/20"} focus:outline-none  focus:ring-2 focus:ring-pink-400 transition duration-300 cursor-pointer`}
+              className={`w-full py-1.5 px-2 rounded-md text-gray-900 border  ${isDarkMode ? "bg-zinc-800 border-white/20 [color-scheme:dark]"
+      : "bg-slate-100 border-black/20 [color-scheme:light]"} focus:outline-none  focus:ring-2 focus:ring-pink-400 transition duration-300 cursor-pointer`}
             />
           </div>
           <div>
@@ -297,8 +297,8 @@ ${isDarkMode  ? 'bg-white/10 shadow-lg backdrop-blur-md hover:shadow-xl hover:bg
               type="date"
               value={dates.to}
               onChange={(e) => setDates((d) => ({ ...d, to: e.target.value }))}
-              className={`w-full py-1.5 px-2 rounded-md text-gray-900 border  ${isDarkMode ? "bg-zinc-800 border-white/20"
-      : "bg-slate-100 border-black/20"} focus:outline-none  focus:ring-2 focus:ring-pink-400 transition duration-300 cursor-pointer`}
+              className={`w-full py-1.5 px-2 rounded-md text-gray-900 border  ${isDarkMode ? "bg-zinc-800 border-white/20 [color-scheme:dark]"
+      : "bg-slate-100 border-black/20 [color-scheme:light]"} focus:outline-none  focus:ring-2 focus:ring-pink-400 transition duration-300 cursor-pointer`}
             />
           </div>
         </div>

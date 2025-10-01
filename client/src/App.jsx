@@ -12,7 +12,7 @@ import Footer from "./components/Custom/Footer";
 import Spinner from "./components/Spinner";
 import ErrorBoundary from "./components/ErrorHandle/ErrorBoundary";
 import GoToTopButton from "./components/GoToTopButton";
-import FeedbackButton from "./components/FeedbackButton";
+
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
@@ -56,7 +56,7 @@ function App() {
                 {/* Buttons and Footer */}
                 <GoToTopButton />
                 <Chatbot />
-                <FeedbackButton />
+
                 <Footer />
               </div>
             </MapProvider>

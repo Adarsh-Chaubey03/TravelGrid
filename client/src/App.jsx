@@ -57,6 +57,7 @@ function App() {
                 <GoToTopButton />
                 <Chatbot />
                 <FeedbackButton />
+
                 <Footer />
               </div>
             </MapProvider>

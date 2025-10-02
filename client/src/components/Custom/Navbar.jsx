@@ -42,6 +42,7 @@ const Navbar = () => {
       name: t("navigation.support"),
       subitems: [
         { label: t("navigation.travelPlans"), path: "/travel-plan-generator" },
+        { label: t("navigation.CustomItenary"), path: "/CustomItenary" },
         { label: t("navigation.guide"), path: "/guides" },
         { label: t("navigation.contact"), path: "/contact" },
         { label: t("navigation.reviewSummarizer"), path: "/Summarizer" },

@@ -1,3 +1,10 @@
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import validator from 'validator';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { User } from '../models/user.js';
+import { sendVerificationEmail } from '../utils/emailService.js';
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 if (!JWT_SECRET) {
   console.error('JWT_SECRET not set in environment variables');

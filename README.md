@@ -222,6 +222,12 @@ Submit feedback, feature suggestions, or collaboration ideas by opening an issue
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/LICENSE) file for details.
 
+## ✨ Contributors
+
+#### Thanks to all the wonderful contributors 💖
+[![Contributors](https://contrib.rocks/image?repo=Adarsh-Chaubey03/TravelGrid)](https://github.com/Adarsh-Chaubey03/TravelGrid/graphs/contributors)
+
+
 ## 👤 Project Admin
 
 | Name           | Profile                                                                                   |

@@ -248,46 +248,48 @@ const Footer = () => {
                     {/* Send icon */}
                   </button>
                 </form>
-                <div className="text-xs !text-white-400">
+                <div className={`text-xs ${isDarkMode ? 'text-white' :''  } text-center`}>
                   🔒 We respect your privacy. Unsubscribe at any time.
                 </div>
               </div>
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-700 mt-12 py-6">
+            <div className={`border-t border-gray-700 mt-12 py-6 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
               <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-sm">
                      © {new Date().getFullYear()} TravelGrid. All rights reserved.
                   </p>
+
                   {/* Links stacked on mobile, inline on desktop */}
                   <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
-                    <Link to="/privacy" className="text-gray-400 hover:text-pink-300 transition-colors">
+                    <Link to="/privacy" className="hover:text-pink-300 transition-colors">
                       Privacy Policy
                     </Link>
                     <Link
                       to="/terms"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Terms of Service
                     </Link>
                     <Link
                       to="/contact"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Contact
                     </Link>
                     <Link
                       to="/feedback"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Feedback
                     </Link>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center justify-center space-x-2 text-gray-400 text-sm mt-4 text-center">
+
+              <div className="flex flex-wrap items-center justify-center space-x-2 text-sm mt-4 text-center">
                 <span>Made with</span>
                 <svg
                   className="w-4 h-4 text-red-500"
@@ -299,6 +301,7 @@ const Footer = () => {
                 <span>by TravelGrid Team</span>
               </div>
             </div>
+
           </div>
         </div>
       </footer>

@@ -76,6 +76,7 @@ const TravelForum = lazy(() => import('./pages/TravelForum'));
 const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const Summarizer = lazy(() => import('./components/Summarizer'));
+const CustomItenary = lazy(()=> import('./components/CustomItenary'));
 const Recommendation = lazy(() => import('./components/recommendation'));
 // const Leaderboard = lazy(() => import('./components/Leaderboard/LeaderBoard'));
 
@@ -131,6 +132,7 @@ const router = createBrowserRouter([
       { path: '/feedback', element: <Suspense fallback={<Spinner />}><Feedback /></Suspense> },
       { path: '/recommendation', element: <Suspense fallback={<Spinner />}><Recommendation /></Suspense> },
       { path: '/Summarizer', element: <Suspense fallback={<Spinner />}><Summarizer /></Suspense> },
+      { path: '/CustomItenary', element: <Suspense fallback={<Spinner />}><CustomItenary /></Suspense> },
       { path: '/privacy', element: <Suspense fallback={<Spinner />}><PrivacyPolicy /></Suspense> },
       { path: '/terms', element: <Suspense fallback={<Spinner />}><TermsAndConditions /></Suspense> },
       { path: '/trip-calculator', element: <Suspense fallback={<Spinner />}><TripCalculatorPage /></Suspense> },

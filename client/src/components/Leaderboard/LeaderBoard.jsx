@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  FaTrophy,
-  FaMedal,
-  FaStar,
   FaCode,
-  FaUsers,
-  FaGithub,
 } from "react-icons/fa";
 
 const GITHUB_REPO = "Adarsh-Chaubey03/TravelGrid";
+// NOTE: Ensure VITE_GITHUB_TOKEN is properly set in your environment variables for higher rate limits.
 const TOKEN = import.meta.env.VITE_GITHUB_TOKEN || "";
 
 // Points configuration for different PR levels
@@ -19,7 +15,7 @@ const POINTS = {
   level3: 10, // Hard/Feature
 };
 
-// Badge component for PR counts
+// Badge component for PR counts (UI component)
 const Badge = ({ count, label, color }) => (
   <div
     className={`flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${color} bg-opacity-20`}
@@ -31,7 +27,7 @@ const Badge = ({ count, label, color }) => (
   </div>
 );
 
-// Skeleton Loader Component
+// Skeleton Loader Component (UI component)
 const SkeletonLoader = () => (
   <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
     {/* Desktop Table Header - Hidden on mobile */}
@@ -107,6 +103,7 @@ export default function LeaderBoard() {
     totalContributors: 0,
     totalPoints: 0,
   });
+  const [apiError, setApiError] = useState(null); // New state to hold API error message
 
   useEffect(() => {
     const fetchContributorsWithPoints = async () => {
@@ -116,25 +113,56 @@ export default function LeaderBoard() {
         let hasMore = true;
 
         while (hasMore) {
-          const res = await fetch(
-            `https://api.github.com/repos/${GITHUB_REPO}/pulls?state=closed&per_page=100&page=${page}`,
-            { headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {} }
-          );
+          // Safety measure to prevent runaway requests, even if API says there's more
+          if (page > 100) { 
+            console.warn("Safety break: Exceeded maximum pagination pages (100).");
+            hasMore = false;
+            break;
+          }
+
+          const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/pulls?state=closed&per_page=100&page=${page}`;
+          const headers = TOKEN ? { Authorization: `token ${TOKEN}` } : {};
+
+          const res = await fetch(apiUrl, { headers });
+
+          // --- IMPLEMENTING PR CHANGES: HTTP Status Check & Loop Break ---
+          if (!res.ok) {
+            const errorStatus = res.status;
+            let errorMessage = `GitHub API Error: Status ${errorStatus}. Could not fetch pull requests.`;
+
+            if (errorStatus === 401 || errorStatus === 403) {
+              errorMessage = "API Fetch failed. Check your GitHub Token or API Rate Limit.";
+            }
+            
+            console.error(errorMessage, await res.text());
+            setApiError(errorMessage);
+            
+            // Break the loop on any API error status (4xx or 5xx)
+            hasMore = false;
+            break; 
+          }
+          // -----------------------------------------------------------------
 
           const prs = await res.json();
+          
+          // Break the loop if the response is an empty array (end of pagination)
           if (prs.length === 0) {
             hasMore = false;
             break;
           }
 
           prs.forEach((pr) => {
+            // Only count merged PRs
             if (!pr.merged_at) return;
 
             const labels = pr.labels.map((l) => l.name.toLowerCase());
-            if (!labels.includes("gssoc25")) return;
+            // Only count PRs with the relevant GSSoC label
+            if (!labels.includes("gssoc25")) return; 
 
             const author = pr.user.login;
             let points = 0;
+            
+            // Calculate points based on labels
             labels.forEach((label) => {
               const normalized = label.replace(/\s+/g, "").toLowerCase();
               if (POINTS[normalized]) {
@@ -142,6 +170,7 @@ export default function LeaderBoard() {
               }
             });
 
+            // Initialize or update contributor entry
             if (!contributorsMap[author]) {
               contributorsMap[author] = {
                 username: author,
@@ -159,18 +188,26 @@ export default function LeaderBoard() {
           page++;
         }
 
-        setContributors(
-          Object.values(contributorsMap).sort((a, b) => b.points - a.points)
-        );
+        // Finalize state update if no API error occurred during fetching
+        if (!apiError) {
+            const finalContributors = Object.values(contributorsMap).sort(
+            (a, b) => b.points - a.points
+            );
+            setContributors(finalContributors);
+        }
+
       } catch (error) {
-        console.error("Error fetching contributors:", error);
+        // Handles network errors (e.g., connection lost)
+        console.error("Network or parsing error fetching contributors:", error);
+        setApiError("A network error occurred. Please check your internet connection.");
       } finally {
+        // Ensure loading state is turned off
         setLoading(false);
       }
     };
 
     fetchContributorsWithPoints();
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   // Calculate stats when contributors data is loaded
   useEffect(() => {
@@ -181,12 +218,11 @@ export default function LeaderBoard() {
         0
       );
 
+      // (Original code included flooring logic, which is kept here)
       const flooredTotalPRs = Math.floor(totalPRs / 10) * 10;
       const flooredTotalPoints = Math.floor(totalPoints / 10) * 10;
       const flooredContributorsCount =
         Math.floor(contributors.length / 10) * 10;
-
-      // console.log(flooredContributorsCount,flooredTotalPoints,flooredTotalPRs)
 
       setStats({
         flooredTotalPRs,
@@ -214,10 +250,31 @@ export default function LeaderBoard() {
           </p>
         </motion.div>
 
+        {/* Error Message Display */}
+        {apiError && !loading && (
+            <motion.div 
+                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-8"
+                role="alert"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+                <strong className="font-bold">Error Loading Data:</strong>
+                <span className="block sm:inline ml-2">{apiError}</span>
+                <p className="text-sm mt-1">Please try again later. If using a personal token, ensure it is valid and your rate limit hasn't been exceeded.</p>
+            </motion.div>
+        )}
         
-
         {loading ? (
           <SkeletonLoader />
+        ) : contributors.length === 0 && !apiError ? (
+            // Display if loading is false, no error, but no contributors found
+            <div className="text-center py-20 bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <FaCode className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white">No Contributions Found</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    The repository may not have any merged PRs labeled 'gssoc25' yet.
+                </p>
+            </div>
         ) : (
           <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mx-2 sm:mx-0">
             {/* Desktop Table Header - Hidden on mobile */}
@@ -374,12 +431,8 @@ export default function LeaderBoard() {
                 </motion.div>
               ))}
             </div>
-
-            
           </div>
         )}
-
-        
       </div>
     </div>
   );

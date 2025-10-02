@@ -62,6 +62,7 @@ const HotelBookingForm = lazy(() => import('./pages/HotelBookingForm'));
 const TicketBooking = lazy(() => import('./pages/TicketBooking'));
 const TravelGuidesCarousel = lazy(() => import('./pages/TravelGuidesProfiles'));
 const TravelPackages = lazy(() => import('./pages/TravelPackages'));
+const Rentals = lazy(() => import('./pages/Rentals'));
 const DiscovermoreDestination = lazy(() => import('./pages/DiscovermoreDestination'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -126,6 +127,7 @@ const router = createBrowserRouter([
       { path: '/ticket', element: <Suspense fallback={<Spinner />}><TicketBooking /></Suspense> },
       { path: '/guides', element: <Suspense fallback={<Spinner />}><TravelGuidesCarousel /></Suspense> },
       { path: '/packages', element: <Suspense fallback={<Spinner />}><TravelPackages /></Suspense> },
+      { path: '/rentals', element: <Suspense fallback={<Spinner />}><Rentals /></Suspense> },
       { path: '/destinations', element: <Suspense fallback={<Spinner />}><DiscovermoreDestination /></Suspense> },
       { path: '/faq', element: <Suspense fallback={<Spinner />}><FAQ /></Suspense> },
       { path: '/contact', element: <Suspense fallback={<Spinner />}><Contact /></Suspense> },

@@ -49,7 +49,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className={`relative text-black transition-all duration-300 ${
+      <footer className={`relative transition-all duration-300 ${
      isDarkMode 
           ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900' 
           : 'bg-gradient-to-br from-gray-900  to-pink-200'
@@ -242,7 +242,7 @@ const Footer = () => {
                   </div>
                   <button aria-label="Search"
                     type="submit"
-                    className="w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-white-600 hover:to-white-700 text-black py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
+                    className={`w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-pink-400 hover:to-purple-600 ${isDarkMode ? 'text-white' : 'text-black'} py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300`}
                   >
                     <span>Subscribe</span>
                     {/* Send icon */}
@@ -342,7 +342,7 @@ const Footer = () => {
             </div>
             <button aria-label="Search"
               onClick={hideToast}
-              className="text-gray-400 hover:text-black-600 transition-colors"
+              className="text-gray-400 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="..." />

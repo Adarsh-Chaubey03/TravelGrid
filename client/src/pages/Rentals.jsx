@@ -44,7 +44,7 @@ const Rentals = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative w-full min-h-[360px] md:min-h-[420px] flex items-center justify-center overflow-hidden -mt-20">
+      <section className="relative w-full min-h-[420px] md:min-h-[520px] flex items-center justify-center overflow-hidden pt-10 md:pt-16">
         <img
           src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1920&auto=format&fit=crop"
           alt="Rentals background"
@@ -55,7 +55,7 @@ const Rentals = () => {
 
         <div className="relative z-10 w-full px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-3 mt-16 md:mt-24">Rent Bikes & Cars</h1>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-3">Rent Bikes & Cars</h1>
             <p className={`max-w-2xl mx-auto ${isDarkMode ? 'text-pink-100' : 'text-white'} mb-6`}>Explore freely with flexible rentals that match your itinerary.</p>
 
             {/* Quick search */}
@@ -73,29 +73,29 @@ const Rentals = () => {
       </section>
 
       {/* Filters */}
-      <div className={`w-[92%] md:w-[85%] lg:w-[80%] mx-auto -mt-10 mb-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-4 p-4 rounded-2xl backdrop-blur-md bg-white/10 border border-white/30 ${isDarkMode ? 'text-white' : 'text-white'}`}>
+      <div className={`w-[92%] md:w-[85%] lg:w-[80%] mx-auto -mt-6 md:-mt-8 mb-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-4 p-4 rounded-2xl backdrop-blur-xl border ${isDarkMode ? 'bg-white/10 border-white/30 text-white' : 'bg-white/80 border-gray-200 text-gray-900 shadow-xl'}`}>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Location</label>
           <div className="relative">
-            <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/80" />
-            <input value={q} onChange={(e)=>setQ(e.target.value)} placeholder="Search by city" className="w-full bg-transparent border border-white/40 text-white placeholder-white rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400" />
+            <MapPin size={16} className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-white/80' : 'text-gray-500'}`} />
+            <input value={q} onChange={(e)=>setQ(e.target.value)} placeholder="Search by city" className={`w-full rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white placeholder-white' : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'}`} />
           </div>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">City</label>
-          <select value={city} onChange={(e)=>setCity(e.target.value)} className="bg-transparent border border-white/40 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+          <select value={city} onChange={(e)=>setCity(e.target.value)} className={`rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white' : 'bg-white border border-gray-300 text-gray-900'}`}>
             {cities.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Type</label>
-          <select value={type} onChange={(e)=>setType(e.target.value)} className="bg-transparent border border-white/40 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+          <select value={type} onChange={(e)=>setType(e.target.value)} className={`rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white' : 'bg-white border border-gray-300 text-gray-900'}`}>
             {['All','Bike','Car'].map(t => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Sort by price</label>
-          <select value={sort} onChange={(e)=>setSort(e.target.value)} className="bg-transparent border border-white/40 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+          <select value={sort} onChange={(e)=>setSort(e.target.value)} className={`rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white' : 'bg-white border border-gray-300 text-gray-900'}`}>
             <option value="relevance">Relevance</option>
             <option value="lh">Low to High</option>
             <option value="hl">High to Low</option>
@@ -103,11 +103,11 @@ const Rentals = () => {
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Min Price (₹)</label>
-          <input value={minPrice} onChange={(e)=>setMinPrice(e.target.value)} type="number" min="0" className="bg-transparent border border-white/40 text-white placeholder-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          <input value={minPrice} onChange={(e)=>setMinPrice(e.target.value)} type="number" min="0" className={`rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white placeholder-white' : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'}`} />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Max Price (₹)</label>
-          <input value={maxPrice} onChange={(e)=>setMaxPrice(e.target.value)} type="number" min="0" className="bg-transparent border border-white/40 text-white placeholder-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400" />
+          <input value={maxPrice} onChange={(e)=>setMaxPrice(e.target.value)} type="number" min="0" className={`rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 ${isDarkMode ? 'bg-transparent border border-white/40 text-white placeholder-white' : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'}`} />
         </div>
       </div>
 

@@ -63,12 +63,13 @@ const Signup = () => {
       return false;
     }
     
-    // 🔒 Strong password regex
+        // 🔒 Strong password regex
     const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
     if (!strongRegex.test(formData.password)) {
       setError("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
       return false;
     }
+    
     if (passwordStrength === "weak") {
       setError(t("signup.errors.weakPassword"));
       return false;

@@ -55,7 +55,10 @@ const Rentals = () => {
 
         <div className="relative z-10 w-full px-4">
           <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-3">Rent Bikes & Cars</h1>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-3">
+  <span className="text-gray-300 darkt:text-white">Rent Bikes & </span>
+  <span className="text-pink-600">Cars</span>
+</h1>
 
 
             <p className={`max-w-2xl mx-auto ${isDarkMode ? 'text-pink-100' : 'text-white'} mb-6`}>Explore freely with flexible rentals that match your itinerary.</p>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { FaTwitter, FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 // Footer component
 const Footer = () => {
@@ -76,11 +77,53 @@ const Footer = () => {
   <p className="text-gray-300 text-sm leading-relaxed">
     Discover amazing destinations and create unforgettable memories with our curated travel experiences around the world. Your journey starts here.
   </p>
-  {/* Social Media Links */}
-  <div className="flex space-x-4">
-    {/* Icons like Twitter, Pinterest, YouTube, Contributors */}
-  </div>
-</div>
+   {/* Social Media Links */}
+                <div className="flex space-x-4">
+                  <a
+                    href="https://twitter.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                    className="text-gray-300 hover:text-blue-400 transition-colors text-2xl"
+                  >
+                    <FaTwitter />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/adarsh-chaubey/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="text-gray-300 hover:text-blue-700 transition-colors text-2xl"
+                  >
+                    <FaLinkedin />
+                  </a>
+                  <a
+                    href="https://github.com/Adarsh-Chaubey03"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="text-gray-300 hover:text-gray-800 transition-colors text-2xl"
+                  >
+                    <FaGithub />
+                  </a>
+                  <a
+                    href="https://instagram.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="text-gray-300 hover:text-pink-500 transition-colors text-2xl"
+                  >
+                    <FaInstagram />
+                  </a>
+                  <a
+                       href="0310adarshchaubey@gmail.com"
+                       aria-label="Email"
+                       className="text-gray-300 hover:text-yellow-400 transition-colors text-2xl"
+                      >
+                    <FaEnvelope />
+                  </a>
+                </div>
+              </div>
 
 
               {/* Quick Links */}

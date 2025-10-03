@@ -24,6 +24,7 @@ import searchRoutes from  './routes/search.js';
 import currencyRoutes from  './routes/currencyRoutes.js';
 import musicRoutes from  './routes/musicRoutes.js';
 import resetPassword from  "./routes/resetPassword.js";
+import shareRoutes from './routes/shareRoutes.js';
 
 
 const app = express();
@@ -139,6 +140,9 @@ app.use('/api/currency', currencyRoutes);
 app.use('/api/music', musicRoutes);
 
 app.use('/api/forgot-password',resetPassword)
+
+// Share Routes
+app.use('/api/share', shareRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

@@ -7,6 +7,7 @@ import {
   Map,
   Package,
   BedDouble,
+  QrCode,
 } from "lucide-react";
 const TRIP_SUPPORT = [
   {
@@ -26,6 +27,12 @@ const TRIP_SUPPORT = [
     path: "/hotels",
     pathName: "Book a Hotel",
     icon: BedDouble,
+  },
+  {
+    title: "Share your trip with QR codes?",
+    path: "/qr-trip-sharing",
+    pathName: "QR Trip Sharing",
+    icon: QrCode,
   },
   {
     title: "Find the right guide for your trip?",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDashboardData } from '../context/DashboardDataContext';
+import QRGenerator from '../components/QRShare/QRGenerator';
 
 
 const TripsPlanned = () => {
@@ -10,7 +11,7 @@ const TripsPlanned = () => {
 
   const fetchTrips = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/trips', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/trips`, {
         credentials: 'include', // 🔐 Include cookie
       });
       const data = await res.json();
@@ -34,7 +35,7 @@ const TripsPlanned = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/trips/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/trips/${id}`, {
         method: 'DELETE',
         credentials: 'include', // 🔐 Include cookie
       });
@@ -89,6 +90,10 @@ const TripsPlanned = () => {
                       <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">
                         {trip.numberOfDays} Days
                       </span>
+                      <QRGenerator 
+                        tripId={trip._id} 
+                        tripTitle={`${trip.destination}, ${trip.country}`}
+                      />
                       <button
                         onClick={() => handleDelete(trip._id)}
                         className="text-sm text-red-500 hover:text-red-600 px-2 py-1"

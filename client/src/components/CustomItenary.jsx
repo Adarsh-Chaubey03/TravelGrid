@@ -49,38 +49,7 @@ getAvailableModels();
 // Utility function to generate a unique ID for itinerary items
 const generateItineraryId = () => `i-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-// --- MOCK THEME CONTEXT START ---
-// Since we cannot import useTheme, we implement it locally for a working toggle
-const useMockTheme = () => {
-    // Initialize state from localStorage or default to false (light mode)
-    const [isDarkMode, setIsDarkMode] = useState(() => {
-        try {
-            // Use window.localStorage in case of SSR environment simulation
-            const storedTheme = window.localStorage.getItem('theme');
-            return storedTheme === 'dark';
-        } catch (error) {
-            return false; // Default to light mode if localStorage fails
-        }
-    });
-
-    useEffect(() => {
-        // Apply classes to the document body to ensure global styling (e.g., scrollbar color)
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-            window.localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            window.localStorage.setItem('theme', 'light');
-        }
-    }, [isDarkMode]);
-
-    const toggleTheme = useCallback(() => {
-        setIsDarkMode(prev => !prev);
-    }, []);
-
-    return { isDarkMode, toggleTheme };
-};
-// --- MOCK THEME CONTEXT END ---
+// Using the real ThemeContext instead of mock implementation
 
 // --- BANNER COMPONENT (Replaces Header) ---
 const Banner = ({ isDarkMode, toggleTheme }) => (
@@ -89,7 +58,7 @@ const Banner = ({ isDarkMode, toggleTheme }) => (
         {/* Background Gradient matching the image style */}
         <div className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 ease-in-out ${
             isDarkMode 
-            ? 'from-pink-900/70 via-gray-900/80 to-blue-900/70' 
+            ? 'bg-gradient-to-br from-black to-pink-900'
             : 'from-pink-200/50 via-white/70 to-blue-200/50'
         }`}></div>
 
@@ -127,7 +96,7 @@ const Banner = ({ isDarkMode, toggleTheme }) => (
 
 // Main Application Component
 const App = () => {
-  const { isDarkMode, toggleTheme } = useMockTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   
   const [searchTerm, setSearchTerm] = useState('');
   const [daysItinerary, setDaysItinerary] = useState({
@@ -477,7 +446,7 @@ const App = () => {
 
 
   return (
-    <div className={`min-h-screen flex flex-col ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} font-sans`}>
+    <div className={`min-h-screen flex flex-col ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-gray-900'} font-sans`}>
         
         <Banner isDarkMode={isDarkMode} toggleTheme={toggleTheme} /> {/* Use the new Banner */}
 

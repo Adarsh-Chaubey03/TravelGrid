@@ -7,6 +7,44 @@ import { useWishlist } from '../context/WishlistContext';
 import toast from 'react-hot-toast';
 
 const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
+  const hotelsData = [
+    { id: 0, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn9VEpeeu6H4AcaaaXE051Mnv1byf9UDDLZg&s", name: "JW Marriott Hotel Mumbai", rating: 8.6, distance: 2.3, lat: 19.1019, lng: 72.8262 },
+    { id: 1, img: "https://www.theleela.com/prod/content/assets/aio-banner/dekstop/leela-hyderabad-hotel.webp?VersionId=pv2n4jR67S0ZF75HqAbWQqM9zvf_fEV0", name: "The Oberoi New Delhi", rating: 8.8, distance: 5.1, lat: 28.5963, lng: 77.2397 },
+    { id: 2, img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/385388071.jpg?k=de0b51f296a3d9431866b51b974921c9ebb50cacf08eb55c1eec1d468849ffe2&o=&hp=1", name: "Taj Palace Hotel Mumbai", rating: 8.4, distance: 3.4, lat: 18.9217, lng: 72.8332 },
+    { id: 3, img: "https://cdn.britannica.com/96/115096-050-5AFDAF5D/Bellagio-Hotel-Casino-Las-Vegas.jpg", name: "ITC Grand Chola Chennai", rating: 7.9, distance: 6.2, lat: 13.01085, lng: 80.22064 },
+    { id: 4, img: "https://www.theleela.com/prod/content/assets/aio-banner/dekstop/leela-palace-jaipur-5-star-hotel-d.jpg?VersionId=P7NPPYS1s4XETY6SWtZA3tnllR84Vpho", name: "Leela Palace Bengaluru", rating: 8.7, distance: 4.8, lat: 12.9596, lng: 77.6669 },
+    { id: 5, img: "https://static.toiimg.com/photo/53223360.cms", name: "Radisson Blu Jaipur", rating: 7.2, distance: 7.9, lat: 26.86216, lng: 75.78812 },
+    { id: 6, img: "https://digital.ihg.com/is/image/ihg/crowne-plaza-kochi-3941030496-4x3", name: "Hyatt Regency Pune", rating: 7.5, distance: 5.5, lat: 18.56, lng: 73.91 },
+    { id: 7, img: "https://r1imghtlak.mmtcdn.com/129941a88b7311e7a7ab0a4cef95d023.jpg", name: "Trident Nariman Point", rating: 8.3, distance: 3.1, lat: 18.93, lng: 72.82 },
+    { id: 8, img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/86/8a/0f/the-lalit-jaipur.jpg?w=1200&h=-1&s=1", name: "The Lalit New Delhi", rating: 7.6, distance: 8.2, lat: 28.6122, lng: 77.2295 },
+    { id: 9, img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/ee/2d/9d/jw-marriott-hotel-mumbai.jpg?w=900&h=500&s=1", name: "Novotel Hyderabad Convention Centre", rating: 6.9, distance: 9.0, lat: 17.472219, lng: 78.372603 }
+  ];
+  const restaurantsData = [
+    { id: 10, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8nW-B2-_X9ENM27v5kjQc9Tazog7AT47Ngg&s", name: "Spice Haven", rating: 8.2, distance: 2.1, lat: 26.8524, lng: 75.7610 },
+    { id: 11, img: "https://interiordesign.net/wp-content/uploads/2024/04/InteriorDesign_March2024_Brave-New-World-11-1024x768.jpg", name: "The Royal Curry House", rating: 7.4, distance: 4.8, lat: 28.5963, lng: 77.2404 },
+    { id: 12, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTed-OxFsYel1QzPBtGM1v6H-GRy-f-TIwjJw&s", name: "Urban Tadka Bistro", rating: 8.0, distance: 5.9, lat: 28.6122, lng: 77.2295 },
+    { id: 13, img: "https://t3.ftcdn.net/jpg/02/06/04/70/360_F_206047084_OxZGQ404N8rocQmItLIQRMRWlQwV3mSH.jpg", name: "The Bombay Plate", rating: 7.1, distance: 6.0, lat: 28.6122, lng: 77.2295 },
+    { id: 14, img: "https://assets.gqindia.com/photos/633eb9208370bdb93eda1e3c/16:9/w_1280,c_limit/One8-Commune_03.jpg", name: "Café Nirvana", rating: 8.6, distance: 1.9, lat: 28.6122, lng: 77.2295 },
+    { id: 15, img: "https://images.squarespace-cdn.com/content/v1/6672e6edcaff264369f010db/64ca4093-4a53-442f-b3e0-9cfbb29eed08/DearDaphni_GBonghi_Dec2024-49.jpg", name: "Masala Trails", rating: 7.3, distance: 3.6, lat: 28.6122, lng: 77.2295 },
+    { id: 16, img: "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2023-11/Koa.jpg", name: "The Spice Route", rating: 8.9, distance: 7.1, lat: 28.6122, lng: 77.2295 },
+    { id: 17, img: "https://imgmediagumlet.lbb.in/media/2025/03/67c59f4d2226626b47ecaf25_1741004621323.jpg", name: "Indigo Deli", rating: 7.8, distance: 8.4, lat: 28.6122, lng: 77.2295 },
+    { id: 18, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm1Ibe4h1KqqbzydsdzkLIbeakdoz2w-yN2w&s", name: "Coastal Catch", rating: 8.3, distance: 2.8, lat: 28.6122, lng: 77.2295 },
+    { id: 19, img: "https://dineout-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/DINEOUT_ALL_RESTAURANTS/IMAGES/RESTAURANT_IMAGE_SERVICE/2025/6/10/3bb66b9b-c0ad-4d10-8189-c929692da23d_image4f2623a98cbcb47ee962d5f49b82a9189.JPG", name: "Saffron Street", rating: 6.7, distance: 5.2, lat: 28.6122, lng: 77.2295 }
+  ];
+  const mallsData = [
+    { id: 20, img: "https://tripxl.com/blog/wp-content/uploads/2024/09/Shopping-Malls-In-Jodhpur-OG-Photo.jpg", name: "Grand Avenue Mall", rating: 8.0, distance: 3.7, lat: 26.263863, lng: 73.008957 },
+    { id: 21, img: "https://media.istockphoto.com/id/182408547/photo/elegant-shopping-mall.jpg?s=612x612&w=0&k=20&c=qpoZ75-JlU67tx710rgzp4Eb38kb5H-2M_bG9TTEZK0=", name: "Metro Square Mall", rating: 6.9, distance: 6.8, lat: 26.263863, lng: 73.008957 },
+    { id: 22, img: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/07/bb/b8/luxurious-inside.jpg?w=900&h=500&s=1", name: "Crystal Galleria", rating: 7.3, distance: 2.5, lat: 24.575188, lng: 73.683400 },
+    { id: 23, img: "https://images.unsplash.com/photo-1580793241553-e9f1cce181af?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvcHBpbmclMjBtYWxsfGVufDB8fDB8fHww", name: "Skyline Mall", rating: 8.4, distance: 4.9, lat: 26.263863, lng: 73.008957 },
+    { id: 24, img: "https://img.staticmb.com/mbcontent/images/crop/uploads/2024/10/Exterior-of-Phoenix-Mall-of-the-Millennium-lighted-up-at-night_0_1200.jpg.webp", name: "Urban Central", rating: 7.7, distance: 8.3, lat: 26.263863, lng: 73.008957 },
+    { id: 25, img: "https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2022/08/04161939/Luxury-shopping-in-India-1-1600x900.jpg", name: "CityScape Mall", rating: 7.1, distance: 9.1, lat: 26.263863, lng: 73.008957 },
+    { id: 26, img: "https://cdn.shopify.com/s/files/1/0562/4011/1678/files/KC8.jpg?v=1709537774", name: "Royal Plaza Mall", rating: 7.9, distance: 7.5, lat: 26.263863, lng: 73.008957 },
+    { id: 27, img: "https://www.providentecopoliten.net.in/images/provident/top-5-malls-in-bangalore.webp", name: "Sunrise Arcade", rating: 8.2, distance: 5.0, lat: 26.263863, lng: 73.008957 },
+    { id: 28, img: "https://assets-news.housing.com/news/wp-content/uploads/2022/12/25065016/malls-in-mysore-compressed.jpg", name: "Blue Horizon Mall", rating: 7.5, distance: 6.4, lat: 26.283730, lng: 73.038000 },
+    { id: 29, img: "https://www.treebo.com/blog/wp-content/uploads/2018/02/Shopping-Malls-in-Delhi.jpg", name: "Galaxy Galleria", rating: 8.1, distance: 3.9, lat: 26.263863, lng: 73.008957 }
+];
+
+
   const { locationId } = useParams(); // Get locationId from URL parameters
   const [location, setLocation] = useState(null);
   const [selectedTab, setSelectedTab] = useState('default');
@@ -14,6 +52,8 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   const navigate=useNavigate()
   const [expandDesc,setExpandDesc]=useState(false)
   const [arMode, setArMode] = useState(false);
+  const [pointOfInteractionList, setPointOfInteractionList] = useState(hotelsData);
+  const [mapSrc, setMapSrc] = useState("https://www.google.com/maps?q=19.075984,72.877656&hl=en&z=15&output=embed");
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   // Comprehensive location data with natural descriptions
@@ -457,6 +497,11 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
     }
   };
 
+  const changePoIData = (value) => {
+    const dataMap = [hotelsData, restaurantsData, mallsData];
+    setPointOfInteractionList(dataMap[value] || hotelsData);
+  };  
+
   useEffect(() => {
    const timer = setTimeout(() => {
       // Convert locationId to number and find the location
@@ -485,6 +530,12 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   if (!location) {
     return <div className="min-h-screen bg-gray-50 text-white flex items-center justify-center">Location not found</div>;
   }
+
+  const showInMap = (lat, lng) => {
+    const newSrc = `https://www.google.com/maps?q=${lat},${lng}&hl=en&z=15&output=embed`;
+    setMapSrc(newSrc);
+  };
+  
 
   const renderTabContent = () => {
     switch (selectedTab) {
@@ -541,6 +592,68 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
                 ))}
               </div>
             </div>
+            
+            {/* Nearby Point of Interactions Section */}
+            <div className="mt-6 p-4 grid gap-10 md:grid-cols-2">
+  {/* Left Column */}
+  <div className="flex flex-col">
+    {/* Dropdown */}
+    <select
+      defaultValue=""
+      onChange={(e) => changePoIData(e.target.value)}
+      className="w-full md:w-fit mb-4 p-2 border border-gray-300 rounded-lg"
+    >
+      <option disabled value="">
+        Point of Interaction
+      </option>
+      <option value={0}>Hotels</option>
+      <option value={1}>Restaurants</option>
+      <option value={2}>Malls</option>
+    </select>
+
+    {/* Scrollable List */}
+    <div className="h-80 overflow-y-auto">
+      {pointOfInteractionList.map((place) => (
+        <div
+          key={place.id}
+          className="mb-4 flex flex-col bg-gray-100 rounded-xl p-2 text-gray-700 border border-gray-400 shadow-sm hover:shadow-lg transition-all duration-300"
+        >
+          <span className="flex items-center gap-4 text-gray-700 mb-2">
+            <img src={place.img} className="w-24 h-16 md:w-30 md:h-20 object-cover rounded" />
+            <div className="flex flex-col">
+              <p>{place.name}</p>
+              <p>Distance from venue: {place.distance} Km</p>
+            </div>
+          </span>
+          <div className="flex justify-between items-center">
+            <span>Rating: {place.rating}/10</span>
+            <button
+              onClick={() => showInMap(place.lat, place.lng)}
+              className="rounded-lg cursor-pointer p-2 border border-pink-400"
+            >
+              Show in Map
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Right Column - Map */}
+  <div className="w-full mt-6 md:mt-0">
+    <iframe
+      className="rounded-xl w-full h-80 md:h-100"
+      src={mapSrc}
+      width="600"
+      height="450"
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+</div>
+
+
           </div>
         );
     }

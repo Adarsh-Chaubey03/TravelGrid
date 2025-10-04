@@ -4,5 +4,8 @@
     "leaflet-routing-machine": "^3.2.12",
     "react-countup": "^6.5.3",
     "world-countries": "^5.1.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
   }
 }

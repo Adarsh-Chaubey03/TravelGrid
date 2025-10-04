@@ -1,4 +1,207 @@
 {
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! It seems you've ventured into uncharted territory. The page you're looking for has either been moved or doesn't exist.",
+    "popularDestinations": "Popular Destinations",
+    "links": {
+      "home": "Home",
+      "discover": "Discover",
+      "guides": "Travel Guides",
+      "tickets": "Book Tickets",
+      "contact": "Contact Us"
+    },
+    "returnHome": "Return to Homepage"
+  },
+  "planner": {
+    "activities": {
+      "shopping": [
+        "Comprar en el Mercado Central de {destination}",
+        "Explorar el Distrito de Compras de {destination}",
+        "Visitar el Centro Comercial Moderno de {destination}",
+        "Recorrer las Tiendas Artesanales de {destination}",
+        "Comprar en el Mercado de Pulgas de {destination}",
+        "Explorar el Distrito de Boutiques de {destination}",
+        "Visitar la Tienda Libre de Impuestos de {destination}",
+        "Recorrer los Mercados Locales de {destination}",
+        "Comprar en el Outlet de Diseñadores de {destination}",
+        "Explorar las Tiendas de Artesanía de {destination}",
+        "Visitar el Mercado de Souvenirs de {destination}",
+        "Recorrer las Tiendas de Antigüedades de {destination}",
+        "Comprar en el Distrito de la Moda de {destination}",
+        "Explorar las Librerías de {destination}",
+        "Visitar el Mercado de Electrónica de {destination}"
+      ],
+      "culture": [
+        "Explorar el sitio histórico de {destination}",
+        "Visitar el centro cultural de {destination}",
+        "Experimentar el festival tradicional de {destination}",
+        "Recorrer el sitio patrimonial de {destination}",
+        "Explorar las ruinas antiguas de {destination}",
+        "Visitar el sitio religioso de {destination}",
+        "Experimentar el espectáculo cultural de {destination}",
+        "Recorrer el complejo palaciego de {destination}",
+        "Explorar la aldea tradicional de {destination}",
+        "Visitar el monumento de {destination}",
+        "Experimentar la ceremonia local de {destination}",
+        "Recorrer el distrito histórico de {destination}",
+        "Explorar el barrio cultural de {destination}",
+        "Visitar el teatro tradicional de {destination}",
+        "Experimentar la actuación folclórica de {destination}"
+      ],
+      "nature": [
+        "Visitar el Parque Nacional de {destination}",
+        "Explorar el Jardín Botánico de {destination}",
+        "Pasear por la Reserva Natural de {destination}",
+        "Hacer senderismo en la Ruta de la Montaña de {destination}",
+        "Visitar el Santuario de Vida Silvestre de {destination}",
+        "Explorar el Parque Forestal de {destination}",
+        "Pasear por la Ribera de {destination}",
+        "Hacer senderismo en la Ruta Escénica de {destination}",
+        "Visitar el Santuario de Aves de {destination}",
+        "Explorar el Centro de Naturaleza de {destination}",
+        "Pasear por el Parque de la Ciudad de {destination}",
+        "Hacer senderismo en la Ruta Costera de {destination}",
+        "Visitar el Jardín de Mariposas de {destination}",
+        "Explorar el Museo de la Naturaleza de {destination}",
+        "Pasear por el Bosque Urbano de {destination}"
+      ],
+      "adventure": [
+        "Aventura en el Centro de Actividades de {destination}",
+        "Probar la escalada en roca en {destination}",
+        "Experimentar la tirolesa en {destination}",
+        "Hacer rafting en aguas bravas en {destination}",
+        "Aventura en el Parque de Aventuras de {destination}",
+        "Probar el parapente en {destination}",
+        "Experimentar el puenting en {destination}",
+        "Hacer ciclismo de montaña en {destination}",
+        "Aventura en el Centro de Deportes Acuáticos de {destination}",
+        "Probar el buceo en {destination}",
+        "Experimentar el paracaidismo en {destination}",
+        "Hacer senderismo de aventura en {destination}",
+        "Aventura en el Centro de Deportes Extremos de {destination}",
+        "Probar el surf en {destination}",
+        "Experimentar la espeleología en {destination}"
+      ],
+      "beaches": [
+        "Relájate en la Playa Principal de {destination}",
+        "Disfruta de los deportes acuáticos en {destination}",
+        "Visita la Playa Escondida de {destination}",
+        "Nada en el Resort de Playa de {destination}",
+        "Relájate en la Playa Privada de {destination}",
+        "Disfruta de las actividades de playa en {destination}",
+        "Visita la Playa del Atardecer de {destination}",
+        "Nada en la Playa Cristalina de {destination}",
+        "Relájate en la Playa Apartada de {destination}",
+        "Disfruta del voleibol de playa en {destination}",
+        "Visita la Playa de Coral de {destination}",
+        "Nada en la Playa Tropical de {destination}",
+        "Relájate en el Club de Playa de {destination}",
+        "Disfruta del yoga en la playa de {destination}",
+        "Visita la Playa de la Isla de {destination}"
+      ],
+      "nightlife": [
+        "Experimenta el Distrito Nocturno de {destination}",
+        "Visita el Lugar de Música en Vivo de {destination}",
+        "Disfruta del Bar Hopping en {destination}",
+        "Experimenta la Discoteca de {destination}",
+        "Visita el Club de Jazz de {destination}",
+        "Disfruta del Bar en la Azotea de {destination}",
+        "Experimenta la Noche de Karaoke de {destination}",
+        "Visita el Club de Comedia de {destination}",
+        "Disfruta del Club de Baile de {destination}",
+        "Experimenta el Bar de Vinos de {destination}",
+        "Visita el Pub Crawl de {destination}",
+        "Disfruta de la Noche de Casino de {destination}",
+        "Experimenta el Espectáculo Cultural de {destination}",
+        "Visita el Distrito de Entretenimiento de {destination}",
+        "Disfruta del Mercado Nocturno de {destination}"
+      ],
+      "relaxation": [
+        "Relájate en el Spa de Lujo de {destination}",
+        "Visita el Centro de Bienestar de {destination}",
+        "Disfruta de la Terapia de Masajes en {destination}",
+        "Relájate en las Aguas Termales de {destination}",
+        "Visita el Centro de Meditación de {destination}",
+        "Disfruta de la Sesión de Yoga en {destination}",
+        "Relájate en los Baños Termales de {destination}",
+        "Visita el Centro de Sanación de {destination}",
+        "Disfruta de la Aromaterapia en {destination}",
+        "Relájate en el Retiro de Jardín de {destination}",
+        "Visita el Centro de Mindfulness de {destination}",
+        "Disfruta de la Sesión de Reiki en {destination}",
+        "Relájate en el Hammam de {destination}",
+        "Visita el Centro Holístico de {destination}",
+        "Disfruta de la Terapia de Sonido en {destination}"
+      ],
+      "photography": [
+        "Fotografía en el Mirador Escénico de {destination}",
+        "Captura las Vistas del Amanecer de {destination}",
+        "Fotografía en los Monumentos Históricos de {destination}",
+        "Captura la Vida Callejera de {destination}",
+        "Fotografía en la Arquitectura de {destination}",
+        "Captura las Vistas del Atardecer de {destination}",
+        "Fotografía en los Sitios Culturales de {destination}",
+        "Captura las Escenas de la Naturaleza de {destination}",
+        "Fotografía en el Paisaje Urbano de {destination}",
+        "Captura a la Gente Local de {destination}",
+        "Fotografía en el Paseo Marítimo de {destination}",
+        "Captura las Luces de la Ciudad de {destination}",
+        "Fotografía en los Mercados Tradicionales de {destination}",
+        "Captura la Vida Silvestre de {destination}",
+        "Fotografía en las Vistas Panorámicas de {destination}"
+      ]
+    }
+  },
+  "guides": {
+    "meetOur": "Nuestros",
+    "topTravelGuides": "Principales Guías de Viaje",
+    "connectWithGuides": "Conéctate con guías locales experimentados que harán que tu viaje sea verdaderamente inolvidable.",
+    "aaravMehta": {
+      "name": "Aarav Mehta",
+      "expertise": "Excursiones en el Himalaya",
+      "bio": "Guía de montaña certificado con más de 10 años de experiencia liderando excursiones en el Himalaya indio."
+    },
+    "sofiaRossi": {
+      "name": "Sofia Rossi",
+      "expertise": "Ciudades y Cultura Italiana",
+      "bio": "Apasionada por el arte, la comida y la historia. Habla inglés e italiano. Con base en Roma."
+    },
+    "jamesCarter": {
+      "name": "James Carter",
+      "expertise": "Safaris Africanos",
+      "bio": "Experto en vida silvestre y guía de safaris, especializado en parques nacionales de Kenia y Tanzania."
+    },
+    "snowyKat": {
+      "name": "Snowy Kat",
+      "expertise": "🐾 Excursiones de Montaña y Aventuras con Mascotas",
+      "bio": "Apasionado por guiar a padres de mascotas por senderos de montaña y escapadas naturales."
+    },
+    "meiLin": {
+      "name": "Mei Lin",
+      "expertise": "Tours por Asia Oriental",
+      "bio": "Guía licenciada para Japón, China y Corea del Sur. Le encanta compartir tradiciones y gastronomía local."
+    },
+    "ayushiUniyal": {
+      "name": "Ayushi Uniyal",
+      "expertise": "🏖️ Escapadas Costeras",
+      "bio": "Le encanta ayudar a los viajeros a explorar la hermosa costa y playas de la India."
+    },
+    "weddyBrown": {
+      "name": "Weddy Brown",
+      "expertise": "🐾 Viajes Urbanos con Mascotas",
+      "bio": "Guía con sede en Ámsterdam especializado en recorrer ciudades con mascotas."
+    }
+  },
+  "travelTips": {
+  "title": "Consejos de viaje:",
+  "tips": [
+    "Lleva siempre una **powerbank** cuando explores lugares remotos.",
+    "Usa el **filtro de guías de TravelGrid** para encontrar locales que hablen tu idioma.",
+    "Mantén una **copia digital de tu identificación y seguro de viaje** a mano.",
+    "¡Pregunta a tu guía por **lugares fotográficos menos conocidos**!",
+    "Revisa el **clima local** antes de finalizar tu itinerario de viaje."
+  ]
+},
   "common": {
     "home": "Inicio",
     "trendingSpots": "Lugares Populares",
@@ -125,7 +328,14 @@
         "title": "Soporte 24/7",
         "desc": "Estamos aquí cuando nos necesites con soporte al cliente las 24 horas."
       }
-    }
+    },
+    "reviews": {
+    "amitP": "¡TravelGrid hizo que planear mi viaje fuera fácil y divertido! Las recomendaciones curadas fueron precisas y me ahorraron horas de investigación.",
+    "saraL": "Los guías locales y el proceso de reserva sencillo superaron mis expectativas. ¡Definitivamente lo usaré nuevamente para mi próxima aventura!",
+    "johnD": "Me encantaron las funciones comunitarias y el soporte 24/7. La plataforma es intuitiva y las ofertas son inigualables.",
+    "priyaS": "Una plataforma hermosa y moderna que hizo que planear las vacaciones de mis sueños fuera muy fácil. ¡Altamente recomendada!"
+}
+
   },
   "booking": {
     "bookNow": "Reservar Ahora",

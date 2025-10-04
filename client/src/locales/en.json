@@ -1,4 +1,214 @@
-{
+{ "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! It seems you've ventured into uncharted territory. The page you're looking for has either been moved or doesn't exist.",
+    "popularDestinations": "Popular Destinations",
+    "links": {
+      "home": "Home",
+      "discover": "Discover",
+      "guides": "Travel Guides",
+      "tickets": "Book Tickets",
+      "contact": "Contact Us"
+    },
+    "returnHome": "Return to Homepage"
+  },
+
+  "shopping": [
+    "Shop at {destination} Central Market",
+    "Explore {destination} Shopping District",
+    "Visit {destination} Modern Mall",
+    "Browse {destination} Artisan Shops",
+    "Shop at {destination} Flea Market",
+    "Explore {destination} Boutique District",
+    "Visit {destination} Duty-Free Store",
+    "Browse {destination} Local Markets",
+    "Shop at {destination} Designer Outlet",
+    "Explore {destination} Craft Shops",
+    "Visit {destination} Souvenir Market",
+    "Browse {destination} Antique Shops",
+    "Shop at {destination} Fashion District",
+    "Explore {destination} Bookstores",
+    "Visit {destination} Electronics Market"
+  ],
+  "culture": [
+    "Explore {destination} Historic Site",
+    "Visit {destination} Cultural Center",
+    "Experience {destination} Traditional Festival",
+    "Tour {destination} Heritage Site",
+    "Explore {destination} Ancient Ruins",
+    "Visit {destination} Religious Site",
+    "Experience {destination} Cultural Show",
+    "Tour {destination} Palace Complex",
+    "Explore {destination} Traditional Village",
+    "Visit {destination} Monument",
+    "Experience {destination} Local Ceremony",
+    "Tour {destination} Historic District",
+    "Explore {destination} Cultural Quarter",
+    "Visit {destination} Traditional Theater",
+    "Experience {destination} Folk Performance"
+  ],
+  "nature": [
+    "Visit {destination} National Park",
+    "Explore {destination} Botanical Gardens",
+    "Walk in {destination} Nature Reserve",
+    "Hike {destination} Mountain Trail",
+    "Visit {destination} Wildlife Sanctuary",
+    "Explore {destination} Forest Park",
+    "Walk along {destination} Riverfront",
+    "Hike {destination} Scenic Trail",
+    "Visit {destination} Bird Sanctuary",
+    "Explore {destination} Nature Center",
+    "Walk in {destination} City Park",
+    "Hike {destination} Coastal Trail",
+    "Visit {destination} Butterfly Garden",
+    "Explore {destination} Nature Museum",
+    "Walk in {destination} Urban Forest"
+  ],
+  "adventure": [
+    "Adventure at {destination} Activity Center",
+    "Try {destination} Rock Climbing",
+    "Experience {destination} Zip Lining",
+    "Go {destination} White Water Rafting",
+    "Adventure at {destination} Adventure Park",
+    "Try {destination} Paragliding",
+    "Experience {destination} Bungee Jumping",
+    "Go {destination} Mountain Biking",
+    "Adventure at {destination} Water Sports Center",
+    "Try {destination} Scuba Diving",
+    "Experience {destination} Skydiving",
+    "Go {destination} Hiking Adventure",
+    "Adventure at {destination} Extreme Sports Center",
+    "Try {destination} Surfing",
+    "Experience {destination} Caving"
+  ],
+  "beaches": [
+    "Relax at {destination} Main Beach",
+    "Enjoy {destination} Water Sports",
+    "Visit {destination} Hidden Beach",
+    "Swim at {destination} Beach Resort",
+    "Relax at {destination} Private Beach",
+    "Enjoy {destination} Beach Activities",
+    "Visit {destination} Sunset Beach",
+    "Swim at {destination} Crystal Beach",
+    "Relax at {destination} Secluded Beach",
+    "Enjoy {destination} Beach Volleyball",
+    "Visit {destination} Coral Beach",
+    "Swim at {destination} Tropical Beach",
+    "Relax at {destination} Beach Club",
+    "Enjoy {destination} Beach Yoga",
+    "Visit {destination} Island Beach"
+  ],
+  "nightlife": [
+    "Experience {destination} Nightlife District",
+    "Visit {destination} Live Music Venue",
+    "Enjoy {destination} Bar Hopping",
+    "Experience {destination} Nightclub",
+    "Visit {destination} Jazz Club",
+    "Enjoy {destination} Rooftop Bar",
+    "Experience {destination} Karaoke Night",
+    "Visit {destination} Comedy Club",
+    "Enjoy {destination} Dance Club",
+    "Experience {destination} Wine Bar",
+    "Visit {destination} Pub Crawl",
+    "Enjoy {destination} Casino Night",
+    "Experience {destination} Cultural Show",
+    "Visit {destination} Entertainment District",
+    "Enjoy {destination} Night Market"
+  ],
+  "relaxation": [
+    "Relax at {destination} Luxury Spa",
+    "Visit {destination} Wellness Center",
+    "Enjoy {destination} Massage Therapy",
+    "Relax at {destination} Hot Springs",
+    "Visit {destination} Meditation Center",
+    "Enjoy {destination} Yoga Session",
+    "Relax at {destination} Thermal Baths",
+    "Visit {destination} Healing Center",
+    "Enjoy {destination} Aromatherapy",
+    "Relax at {destination} Garden Retreat",
+    "Visit {destination} Mindfulness Center",
+    "Enjoy {destination} Reiki Session",
+    "Relax at {destination} Hammam",
+    "Visit {destination} Holistic Center",
+    "Enjoy {destination} Sound Therapy"
+  ],
+  "photography": [
+    "Photography at {destination} Scenic Viewpoint",
+    "Capture {destination} Sunrise Views",
+    "Photography at {destination} Historic Landmarks",
+    "Capture {destination} Street Life",
+    "Photography at {destination} Architecture",
+    "Capture {destination} Sunset Views",
+    "Photography at {destination} Cultural Sites",
+    "Capture {destination} Nature Scenes",
+    "Photography at {destination} Urban Landscape",
+    "Capture {destination} Local People",
+    "Photography at {destination} Waterfront",
+    "Capture {destination} City Lights",
+    "Photography at {destination} Traditional Markets",
+    "Capture {destination} Wildlife",
+    "Photography at {destination} Panoramic Views"
+  ],
+  "planner": {
+    "activities": {
+      "museums": [
+        "Visit {destination} National Museum",
+        "Explore {destination} Art Gallery",
+        "Tour {destination} Cultural Center",
+        "Discover {destination} History Museum",
+        "Visit {destination} Modern Art Museum",
+        "Explore {destination} Archaeological Museum",
+        "Tour {destination} Science Museum",
+        "Visit {destination} Natural History Museum",
+        "Explore {destination} Contemporary Art Gallery",
+        "Discover {destination} Heritage Museum",
+        "Visit {destination} Maritime Museum",
+        "Explore {destination} Technology Museum",
+        "Tour {destination} Folk Art Museum",
+        "Visit {destination} Photography Museum",
+        "Explore {destination} Design Museum"
+      ]
+    }
+  },
+  "guides": {
+    "meetOur": "Meet Our",
+    "topTravelGuides": "Top Travel Guides",
+    "connectWithGuides": "Connect with experienced local guides who will make your journey truly unforgettable.",
+    "aaravMehta": {
+      "name": "Aarav Mehta",
+      "expertise": "Himalayan Treks",
+      "bio": "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas."
+    },
+    "sofiaRossi": {
+      "name": "Sofia Rossi",
+      "expertise": "Italian Cities & Culture",
+      "bio": "Passionate about art, food, and history. Fluent in English and Italian. Rome-based."
+    },
+    "jamesCarter": {
+      "name": "James Carter",
+      "expertise": "African Safaris",
+      "bio": "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks."
+    },
+    "snowyKat": {
+      "name": "Snowy Kat",
+      "expertise": "🐾 Mountain Treks & Pet Adventures",
+      "bio": "Passionate about guiding pet parents through scenic mountain trails and nature escapes."
+    },
+    "meiLin": {
+      "name": "Mei Lin",
+      "expertise": "East Asia Tours",
+      "bio": "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine."
+    },
+    "ayushiUniyal": {
+      "name": "Ayushi Uniyal",
+      "expertise": "🏖️ Coastal Getaways",
+      "bio": "Loves helping travelers explore India's beautiful coastline and beach destinations."
+    },
+    "weddyBrown": {
+      "name": "Weddy Brown",
+      "expertise": "🐾 Urban Travel with Pets",
+      "bio": "Amsterdam-based guide specializing in navigating cities with pets."
+    }
+  },
   "common": {
     "home": "Home",
     "trendingSpots": "Trending Spots",
@@ -6,7 +216,6 @@
     "support": "Support",
     "tools": "Tools",
     "wishlist": "Wishlist",
-
     "login": "Login",
     "signup": "Sign Up",
     "logout": "Logout",
@@ -50,7 +259,6 @@
     "support": "Support",
     "tools": "Tools",
     "wishlist": "Wishlist",
-
     "dashboard": "Dashboard",
     "ticket": "Ticket",
     "hotels": "Hotels",
@@ -286,4 +494,5 @@
       "signupFailed": "Signup failed"
     }
   }
+
 }

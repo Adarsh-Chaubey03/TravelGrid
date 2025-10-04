@@ -53,10 +53,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className={`min-h-screen ${isDarkMode
-      ? 'bg-gradient-to-br from-black to-pink-700'
-      : 'bg-gradient-to-br from-rose-50 to-gray-100'
-      }`}>
+    <div className="min-h-screen">
       <Navbar />
       {/* Hero Section */}
       <div className={`py-24 px-4 relative overflow-hidden ${isDarkMode

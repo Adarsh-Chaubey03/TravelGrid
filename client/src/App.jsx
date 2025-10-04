@@ -12,7 +12,7 @@ import Footer from "./components/Custom/Footer";
 import Spinner from "./components/Spinner";
 import ErrorBoundary from "./components/ErrorHandle/ErrorBoundary";
 import GoToTopButton from "./components/GoToTopButton";
-import FeedbackButton from "./components/FeedbackButton";
+
 import Chatbot from "./components/Chatbot";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
@@ -34,7 +34,7 @@ function App() {
         <AppProvider>
           <DashboardDataProvider>
             <MapProvider>
-              <div className={`flex flex-col min-h-screen transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
+              <div className={`flex flex-col transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
                 }`}>
 
                 <FluidCursor />
@@ -43,7 +43,6 @@ function App() {
 
                 {/* Navbar */}
                 <Navbar />
-
 
                 {/* Email Verification Banner */}
                 <EmailVerificationBanner />
@@ -57,7 +56,8 @@ function App() {
                 {/* Buttons and Footer */}
                 <GoToTopButton />
                 <Chatbot />
-                <FeedbackButton />
+              
+
                 <Footer />
               </div>
             </MapProvider>

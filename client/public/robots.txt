@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://travelgrid.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin and private areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /hotels
+Allow: /packages
+Allow: /destinations
+Allow: /travel-plan-generator
+Allow: /currency-converter
+Allow: /blog
+Allow: /contact
+Allow: /faq
+Allow: /privacy
+Allow: /terms
+
+# Block specific file types
+Disallow: *.json$
+Disallow: *.xml$
+Disallow: *.txt$
+Disallow: /uploads/
+Disallow: /node_modules/

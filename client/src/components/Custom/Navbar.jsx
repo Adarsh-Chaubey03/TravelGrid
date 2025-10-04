@@ -42,6 +42,8 @@ const Navbar = () => {
       name: t("navigation.support"),
       subitems: [
         { label: t("navigation.travelPlans"), path: "/travel-plan-generator" },
+        { label: "Rentals (Bikes & Cars)", path: "/rentals" },
+        { label: t("navigation.CustomItenary"), path: "/CustomItenary" },
         { label: t("navigation.guide"), path: "/guides" },
         { label: t("navigation.contact"), path: "/contact" },
         { label: t("navigation.reviewSummarizer"), path: "/Summarizer" },
@@ -260,8 +262,8 @@ const Navbar = () => {
                 <button
                   aria-label="Search"
                   onClick={handleLogout}
-                  className="hover:text-pink-500 flex items-center gap-1 transition-colors"
-                >
+                  className="bg-pink-200 text-black-800 hover:bg-pink-300 p-2 rounded transition-colors duration-200">
+                
                   <LogOut size={18} /> {t("auth.logout")}
                 </button>
               </>
@@ -269,13 +271,13 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/login"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
                   {t("auth.login")}
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-gradient-to-r from-pink-600 to-pink-500 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
                   {t("auth.signup")}
                 </NavLink>
@@ -338,7 +340,7 @@ const Navbar = () => {
                   <button
                     aria-label="Search"
                     onClick={() => toggleGroup(link.name)}
-                    className="py-2 px-3 w-full flex justify-between items-center rounded hover:bg-pink-500 transition-all duration-200"
+                    className="py-2 px-3 w-full flex justify-between items-center rounded hover:bg-pink-300 transition-all duration-200"
                   >
                     <span className="font-medium break-words text-sm">
                       {link.name}
@@ -350,7 +352,7 @@ const Navbar = () => {
                   {expanded === link.name && (
                     <div
                       className={`w-full flex flex-col px-4 py-2 border-t ${
-                        isDarkMode ? "border-pink-800" : "border-pink-200"
+                        isDarkMode ? "border-pink-100" : "border-pink-100"
                       }`}
                     >
                       {link.subitems.map((item) => (
@@ -391,7 +393,7 @@ const Navbar = () => {
 
                 <NavLink
                   to="/dashboard"
-                  className="flex gap-2 items-center py-2 px-3 rounded hover:bg-pink-500/30"
+                  className="flex gap-2 items-center py-2 px-3 rounded hover:bg-pink-200/30"
                 >
                   <User size={18} /> {t("navigation.dashboard")}
                 </NavLink>

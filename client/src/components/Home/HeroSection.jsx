@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -236,6 +236,7 @@ const HeroSection = ({ onSearch }) => {
                 </div>
 
                 <motion.button
+
   whileHover={{ scale: 1.07 }}
   whileTap={{ scale: 0.95 }}
   onClick={handleSearch}
@@ -256,12 +257,13 @@ const HeroSection = ({ onSearch }) => {
   `}</style>
 </motion.button>
 
+
               </div>
 
               {/* Category Filters */}
               <div className={`pt-4 border-t ${isDarkMode ? 'border-white/20' : 'border-white/20'
                 }`}>
-                <p className="text-sm font-medium text-black/80 mb-3">{t('home.quickFilters')}:</p>
+                <p className="text-sm font-medium text-white/80 mb-3">{t('home.quickFilters')}:</p>
                 <div className="flex flex-wrap gap-2">
                   {[t('home.restaurants'), t('home.events'), t('home.shopping')].map((filter) => (
                     <motion.button
@@ -292,21 +294,7 @@ const HeroSection = ({ onSearch }) => {
                 </div>
               </div>
 
-              {/* Quick Tools */}
-              <div className={`pt-4 border-t ${isDarkMode ? 'border-white/20' : 'border-white/20'}`}>
-<p className="text-sm font-medium text-white/80 mb-3">Quick Tools:</p>
-                <div className="flex flex-wrap gap-2">
-                  <motion.button
-  whileHover={{ scale: 1.07 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={() => window.location.href = '/currency-converter'}
-  className="px-3 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-400 focus:ring-opacity-50"
->
-  💰 Currency Converter
-</motion.button>
-
-                </div>
-              </div>
+              {/* Quick Tools removed: Currency Converter link deleted as per requirement */}
             </div>
           </motion.div>
         </div>

@@ -62,6 +62,7 @@ const HotelBookingForm = lazy(() => import('./pages/HotelBookingForm'));
 const TicketBooking = lazy(() => import('./pages/TicketBooking'));
 const TravelGuidesCarousel = lazy(() => import('./pages/TravelGuidesProfiles'));
 const TravelPackages = lazy(() => import('./pages/TravelPackages'));
+const Rentals = lazy(() => import('./pages/Rentals'));
 const DiscovermoreDestination = lazy(() => import('./pages/DiscovermoreDestination'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -76,6 +77,7 @@ const TravelForum = lazy(() => import('./pages/TravelForum'));
 const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const Summarizer = lazy(() => import('./components/Summarizer'));
+const CustomItenary = lazy(()=> import('./components/CustomItenary'));
 const Recommendation = lazy(() => import('./components/recommendation'));
 // const Leaderboard = lazy(() => import('./components/Leaderboard/LeaderBoard'));
 
@@ -98,6 +100,9 @@ const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
 const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
 const Music = lazy(() => import('./pages/Music'));
 const VisaChecker = lazy(() => import('./pages/VisaChecker'));
+const SharedTrip = lazy(() => import('./pages/SharedTrip'));
+const QRTripSharing = lazy(() => import('./pages/QRTripSharing'));
+const SharedTripTool = lazy(() => import('./pages/SharedTripTool'));
 
 
 const router = createBrowserRouter([
@@ -125,12 +130,14 @@ const router = createBrowserRouter([
       { path: '/ticket', element: <Suspense fallback={<Spinner />}><TicketBooking /></Suspense> },
       { path: '/guides', element: <Suspense fallback={<Spinner />}><TravelGuidesCarousel /></Suspense> },
       { path: '/packages', element: <Suspense fallback={<Spinner />}><TravelPackages /></Suspense> },
+      { path: '/rentals', element: <Suspense fallback={<Spinner />}><Rentals /></Suspense> },
       { path: '/destinations', element: <Suspense fallback={<Spinner />}><DiscovermoreDestination /></Suspense> },
       { path: '/faq', element: <Suspense fallback={<Spinner />}><FAQ /></Suspense> },
       { path: '/contact', element: <Suspense fallback={<Spinner />}><Contact /></Suspense> },
       { path: '/feedback', element: <Suspense fallback={<Spinner />}><Feedback /></Suspense> },
       { path: '/recommendation', element: <Suspense fallback={<Spinner />}><Recommendation /></Suspense> },
       { path: '/Summarizer', element: <Suspense fallback={<Spinner />}><Summarizer /></Suspense> },
+      { path: '/CustomItenary', element: <Suspense fallback={<Spinner />}><CustomItenary /></Suspense> },
       { path: '/privacy', element: <Suspense fallback={<Spinner />}><PrivacyPolicy /></Suspense> },
       { path: '/terms', element: <Suspense fallback={<Spinner />}><TermsAndConditions /></Suspense> },
       { path: '/trip-calculator', element: <Suspense fallback={<Spinner />}><TripCalculatorPage /></Suspense> },
@@ -146,6 +153,9 @@ const router = createBrowserRouter([
       { path: '/music', element: <Suspense fallback={<Spinner />}><Music /></Suspense> },
       {path:"/itinerary-map", element:<Suspense fallback={<Spinner />}><ItineraryMapPage/></Suspense>},
       { path: '/visa-checker', element: <Suspense fallback={<Spinner />}><VisaChecker /></Suspense> },
+      { path: '/qr-trip-sharing', element: <Suspense fallback={<Spinner />}><QRTripSharing /></Suspense> },
+      { path: '/shared-trip-tool', element: <Suspense fallback={<Spinner />}><SharedTripTool /></Suspense> },
+      { path: '/shared-trip/:tripId', element: <Suspense fallback={<Spinner />}><SharedTrip /></Suspense> },
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
 

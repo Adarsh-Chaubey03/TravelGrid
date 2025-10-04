@@ -17,7 +17,7 @@ const guides1 = [
     name: "Aarav Mehta",
     expertise: "Himalayan Treks",
     bio: "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas.",
-    image: "https://randomuser.me/api/portraits/men/51.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/51.jpg",
     details: {
       location: "Manali, Himachal Pradesh",
       languages: "English, Hindi",
@@ -30,7 +30,7 @@ const guides1 = [
     name: "Sofia Rossi",
     expertise: "Italian Cities & Culture",
     bio: "Passionate about art, food, and history. Fluent in English and Italian. Rome-based.",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/65.jpg",
     details: {
       location: "Rome, Italy",
       languages: "Italian, English",
@@ -43,7 +43,7 @@ const guides1 = [
     name: "James Carter",
     expertise: "African Safaris",
     bio: "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks.",
-    image: "https://randomuser.me/api/portraits/men/34.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/34.jpg",
     details: {
       location: "Nairobi, Kenya",
       languages: "English, Swahili",
@@ -56,7 +56,7 @@ const guides1 = [
     name: "Mei Lin",
     expertise: "East Asia Tours",
     bio: "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine.",
-    image: "https://randomuser.me/api/portraits/women/43.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/43.jpg",
     details: {
       location: "Tokyo, Japan",
       languages: "Japanese, Chinese, Korean, English",
@@ -72,7 +72,7 @@ const guides = [
     name: "Snowy Kat",
     expertise: "🐾 Mountain Treks & Pet Adventures",
     bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes. Specialist in safe trekking experiences for dogs and cats.",
-    image: "https://randomuser.me/api/portraits/men/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/17.jpg",
     details: {
       location: "Manali, India",
       languages: "English, Hindi, Himachali",
@@ -85,7 +85,7 @@ const guides = [
     name: "Ayushi Uniyal",
     expertise: "🏖️ Coastal Getaways",
     bio: "Loves helping travelers explore India's beautiful coastline. Expert in coastal accommodations and beach activities.",
-    image: "https://randomuser.me/api/portraits/women/17.jpg",
+    cardImage: "https://randomuser.me/api/portraits/women/17.jpg",
     details: {
       location: "Goa, India",
       languages: "English, Hindi, Konkani",
@@ -98,7 +98,7 @@ const guides = [
     name: "Weddy Brown",
     expertise: "🏙️ Urban Travel & City Exploration",
     bio: "Amsterdam-based guide specializing in urban exploration. Knows every hidden park, café, and unique stay in the city.",
-    image: "https://randomuser.me/api/portraits/men/74.jpg",
+    cardImage: "https://randomuser.me/api/portraits/men/74.jpg",
     details: {
       location: "Amsterdam, Netherlands",
       languages: "Dutch, English, German",
@@ -319,8 +319,8 @@ setSearchResults(filteredGuides);
                   className="search-result-card"
                   style={{
                     background: isDarkMode
-                      ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                      : "linear-gradient(135deg, #f8fafc 0%, #fce0ffff 100%)",
+                      ?'bg-gradient-to-br from-black to-pink-700 text-white'
+        : 'bg-gradient-to-br from-rose-100 to-gray-200 text-gray-900',
                     borderRadius: "25px",
                     padding: "30px",
                     color: isDarkMode ? "white" : "#1f2937",
@@ -366,7 +366,7 @@ setSearchResults(filteredGuides);
                     }}
                   >
                     <img
-                      src={guide.image}
+                      src={guide.cardImage}
                       alt={guide.name}
                       loading="lazy"
                       style={{
@@ -583,10 +583,10 @@ setSearchResults(filteredGuides);
             >
               {/* Profile Content */}
               <div className="flex flex-col items-center text-center space-y-4">
-                {/* Profile Image */}
+                {/* Profile cardImage */}
                 <div className="relative p-1 rounded-full bg-gradient-to-br from-pink-500 to-purple-500">
                   <img
-                    src={selectedGuide.image}
+                    src={selectedGuide.cardImage}
                     alt="Profile"
                     loading="lazy"
                     className={`w-28 h-28 rounded-full object-cover border-4 ${

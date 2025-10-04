@@ -165,92 +165,81 @@ const TravelPackages = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full mt-14 overflow-x-hidden transition-colors duration-300">
+    <div className="flex flex-col min-h-screen w-full mt-0 overflow-x-hidden transition-colors duration-300">
       <Navbar />
 
-      <main className="flex flex-col flex-1 w-full items-center pt-24">
-        {/* HERO */}
-        <section className="w-full py-20 text-center px-4">
-          <h1
-            className={`text-4xl md:text-5xl font-extrabold mb-4 ${
-              isDarkMode ? "text-white" : "text-gray-800"
-            }`}
-          >
-            Discover Our{" "}
-            <span className={isDarkMode ? "text-pink-400" : "text-pink-600"}>
-              Travel Packages
-            </span>
-          </h1>
+      <main className="flex flex-col flex-1 w-full items-center pt-0">
+        {/* HERO with background + integrated search */}
+                 <section className="relative w-full min-h-[680px] md:min-h-[780px] flex items-center justify-center overflow-hidden -mt-20">
+          {/* Background image */}
+          <img
+            src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1920&auto=format&fit=crop"
+            alt="Travel background"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Overlay for contrast */}
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/60' : 'bg-gradient-to-br from-white/40 via-white/10 to-transparent'} backdrop-blur-[2px]`} />
 
-          <p
-            className={`text-lg md:text-xl max-w-2xl mx-auto mb-10 ${
-              isDarkMode ? "text-pink-200" : "text-gray-600"
-            }`}
-          >
-            Handpicked vacation deals crafted for unforgettable experiences.
-          </p>
+          {/* Content */}
+          <div className="relative z-10 w-full px-4">
+            <div className="max-w-5xl mx-auto text-center">
+              <h1 className={`text-4xl md:text-6xl font-extrabold tracking-tight mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                Discover Our <span className="text-pink-500">Travel Packages</span>
+              </h1>
+              <p className={`${isDarkMode ? 'text-pink-100' : 'text-gray-700'} text-base md:text-lg max-w-2xl mx-auto mb-8`}>
+                Handpicked vacation deals crafted for unforgettable experiences.
+              </p>
 
-          <button
-            onClick={() => navigate("/travel-plan-generator")}
-            className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto"
-          >
-            <span className="text-2xl">🎯</span> Create Custom Travel Plan
-          </button>
-        </section>
+              {/* Search + CTA row */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-full max-w-2xl relative">
+                  <input
+                    type="text"
+                    aria-label="Search travel packages"
+                    placeholder="Search destinations, packages, or keywords..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={`w-full rounded-2xl px-5 py-4 pl-14 pr-12 text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors ${
+                      isDarkMode
+                        ? 'bg-white/10 border border-white/20 text-white placeholder-white'
+                        : 'bg-white/90 border border-gray-200 text-gray-900 placeholder-gray-500'
+                    }`}
+                  />
+                  <div className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-white' : 'text-gray-500'}`}>
+                    <Search size={22} />
+                  </div>
+                  {searchTerm && (
+                    <button
+                      type="button"
+                      onClick={clearSearch}
+                      aria-label="Clear search"
+                      className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-white' : 'text-gray-500 hover:text-gray-700'}`}
+                    >
+                      <X size={20} />
+                    </button>
+                  )}
+                  {searchTerm && (
+                    <div className={`${isDarkMode ? 'text-pink-200' : 'text-pink-600'} text-xs mt-2 text-left`}>
+                      Searching for: <span className="font-semibold">{searchTerm}</span>
+                    </div>
+                  )}
+                </div>
 
-        {/* SEARCH BAR */}
-        <div className="max-w-2xl w-[90%] md:w-[70%] lg:w-[50%] mx-auto mb-14 relative">
-          <div className="relative">
-            <input
-              type="text"
-              aria-label="Search travel packages"
-              placeholder="Search destinations, packages, or keywords..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={`w-full rounded-xl px-5 py-4 pl-14 pr-12 text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-pink-400 backdrop-blur-lg ${
-                isDarkMode
-                  ? "bg-white/10 border border-white/20 text-white placeholder-white"
-                  : "bg-white/70 border border-gray-300 text-gray-900 placeholder-gray-500"
-              }`}
-            />
-            <div
-              className={`absolute left-4 top-1/2 -translate-y-1/2 ${
-                isDarkMode ? "text-white" : "text-gray-500"
-              }`}
-            >
-              <Search size={24} />
+                <button
+                  onClick={() => navigate('/travel-plan-generator')}
+                  className="bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-6 md:px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+                >
+                  <span className="text-xl">🎯</span> Create Custom Travel Plan
+                </button>
+              </div>
             </div>
-            {searchTerm && (
-              <button
-                type="button"
-                onClick={clearSearch}
-                aria-label="Clear search"
-                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors ${
-                  isDarkMode ? "text-white" : "text-gray-400 hover:text-black"
-                }`}
-              >
-                <X size={24} />
-              </button>
-            )}
           </div>
-          {searchTerm && (
-            <div
-              className={`mt-2 text-sm ${
-                isDarkMode ? "text-pink-300" : "text-pink-600"
-              }`}
-            >
-              Searching for: <span className="font-semibold">{searchTerm}</span>
-            </div>
-          )}
-        </div>
+        </section>
 
         {/* FILTERS */}
         <div
-          className={`grid grid-cols-1 mb-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 w-[92%] md:w-[85%] lg:w-[80%] mx-auto p-6 rounded-2xl shadow-xl backdrop-blur-lg transition-colors duration-300 ${
-            isDarkMode
-              ? "bg-white/10 border border-white/20 text-white"
-              : "bg-white/70 border border-gray-200 text-gray-900"
-          }`}
+          className={`grid grid-cols-1 -mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 w-[92%] md:w-[85%] lg:w-[80%] mx-auto p-6 rounded-2xl shadow-xl backdrop-blur-md transition-colors duration-300 bg-white/10 border border-white/30 text-white`}
         >
           {/* Selects */}
           {[
@@ -305,16 +294,12 @@ const TravelPackages = () => {
             },
           ].map(({ label, value, onChange, options }, i) => (
             <div key={i} className="flex flex-col gap-1 relative">
-              <label className="text-sm font-semibold">{label}</label>
+              <label className="text-sm font-semibold text-white">{label}</label>
               <select
                 aria-label={label}
                 value={value}
                 onChange={onChange}
-                className={`appearance-none rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition ${
-                  isDarkMode
-                    ? "bg-gray-800/70 border border-gray-700 text-white"
-                    : "bg-white border border-gray-200 text-gray-900"
-                }`}
+                className={`appearance-none rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-transparent border-white/40 text-white placeholder-white`}
               >
                 {options.map((opt, idx) => (
                   <option key={idx} value={opt.value}>
@@ -324,33 +309,27 @@ const TravelPackages = () => {
               </select>
               <ChevronDown
                 size={18}
-                className={`absolute right-3 top-9 pointer-events-none ${
-                  isDarkMode ? "text-gray-400" : "text-gray-500"
-                }`}
+                className={`absolute right-3 top-9 pointer-events-none text-white/80`}
               />
             </div>
           ))}
 
           {/* Max Price */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-semibold">Max Price (₹)</label>
+            <label className="text-sm font-semibold text-white">Max Price (₹)</label>
             <input
               type="number"
               placeholder="No limit"
               onChange={handlePriceChange}
               min="0"
               aria-label="Max Price"
-              className={`rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition ${
-                isDarkMode
-                  ? "bg-gray-800/70 border border-gray-700 text-white"
-                  : "bg-white border border-gray-200 text-gray-900"
-              }`}
+              className={`rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-transparent border-white/40 text-white placeholder-white`}
             />
           </div>
         </div>
 
         {/* Small reset row under filters */}
-        <div className="w-[92%] md:w-[85%] lg:w-[80%] mx-auto -mt-2 mb-8 flex justify-end">
+        <div className="w-[92%] md:w-[85%] lg:w-[80%] mx-auto mt-6 mb-8 flex justify-end relative z-10">
           <button
             type="button"
             onClick={resetAll}

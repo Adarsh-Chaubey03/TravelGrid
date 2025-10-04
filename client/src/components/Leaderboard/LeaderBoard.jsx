@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  FaTrophy,
-  FaMedal,
-  FaStar,
   FaCode,
-  FaUsers,
-  FaGithub,
 } from "react-icons/fa";
+import { useTheme } from "@/context/ThemeContext";
 
 const GITHUB_REPO = "Adarsh-Chaubey03/TravelGrid";
+// NOTE: Ensure VITE_GITHUB_TOKEN is properly set in your environment variables for higher rate limits.
 const TOKEN = import.meta.env.VITE_GITHUB_TOKEN || "";
 
 // Points configuration for different PR levels
@@ -19,7 +16,7 @@ const POINTS = {
   level3: 10, // Hard/Feature
 };
 
-// Badge component for PR counts
+// Badge component for PR counts (UI component)
 const Badge = ({ count, label, color }) => (
   <div
     className={`flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${color} bg-opacity-20`}
@@ -31,7 +28,7 @@ const Badge = ({ count, label, color }) => (
   </div>
 );
 
-// Skeleton Loader Component
+// Skeleton Loader Component (UI component)
 const SkeletonLoader = () => (
   <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
     {/* Desktop Table Header - Hidden on mobile */}
@@ -48,7 +45,7 @@ const SkeletonLoader = () => (
     </div>
 
     {/* Rows */}
-    <div className="divide-y divide-gray-100 dark:divide-gray-700">
+    <div className="divide-y divide-gray-500/20">
       {[...Array(10)].map((_, i) => (
         <div
           key={i}
@@ -108,6 +105,11 @@ export default function LeaderBoard() {
     totalPoints: 0,
   });
 
+  const { isDarkMode } = useTheme();
+
+  const [apiError, setApiError] = useState(null); // New state to hold API error message
+
+
   useEffect(() => {
     const fetchContributorsWithPoints = async () => {
       try {
@@ -116,25 +118,56 @@ export default function LeaderBoard() {
         let hasMore = true;
 
         while (hasMore) {
-          const res = await fetch(
-            `https://api.github.com/repos/${GITHUB_REPO}/pulls?state=closed&per_page=100&page=${page}`,
-            { headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {} }
-          );
+          // Safety measure to prevent runaway requests, even if API says there's more
+          if (page > 100) { 
+            console.warn("Safety break: Exceeded maximum pagination pages (100).");
+            hasMore = false;
+            break;
+          }
+
+          const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/pulls?state=closed&per_page=100&page=${page}`;
+          const headers = TOKEN ? { Authorization: `token ${TOKEN}` } : {};
+
+          const res = await fetch(apiUrl, { headers });
+
+          // --- IMPLEMENTING PR CHANGES: HTTP Status Check & Loop Break ---
+          if (!res.ok) {
+            const errorStatus = res.status;
+            let errorMessage = `GitHub API Error: Status ${errorStatus}. Could not fetch pull requests.`;
+
+            if (errorStatus === 401 || errorStatus === 403) {
+              errorMessage = "API Fetch failed. Check your GitHub Token or API Rate Limit.";
+            }
+            
+            console.error(errorMessage, await res.text());
+            setApiError(errorMessage);
+            
+            // Break the loop on any API error status (4xx or 5xx)
+            hasMore = false;
+            break; 
+          }
+          // -----------------------------------------------------------------
 
           const prs = await res.json();
+          
+          // Break the loop if the response is an empty array (end of pagination)
           if (prs.length === 0) {
             hasMore = false;
             break;
           }
 
           prs.forEach((pr) => {
+            // Only count merged PRs
             if (!pr.merged_at) return;
 
             const labels = pr.labels.map((l) => l.name.toLowerCase());
-            if (!labels.includes("gssoc25")) return;
+            // Only count PRs with the relevant GSSoC label
+            if (!labels.includes("gssoc25")) return; 
 
             const author = pr.user.login;
             let points = 0;
+            
+            // Calculate points based on labels
             labels.forEach((label) => {
               const normalized = label.replace(/\s+/g, "").toLowerCase();
               if (POINTS[normalized]) {
@@ -142,6 +175,7 @@ export default function LeaderBoard() {
               }
             });
 
+            // Initialize or update contributor entry
             if (!contributorsMap[author]) {
               contributorsMap[author] = {
                 username: author,
@@ -159,18 +193,26 @@ export default function LeaderBoard() {
           page++;
         }
 
-        setContributors(
-          Object.values(contributorsMap).sort((a, b) => b.points - a.points)
-        );
+        // Finalize state update if no API error occurred during fetching
+        if (!apiError) {
+            const finalContributors = Object.values(contributorsMap).sort(
+            (a, b) => b.points - a.points
+            );
+            setContributors(finalContributors);
+        }
+
       } catch (error) {
-        console.error("Error fetching contributors:", error);
+        // Handles network errors (e.g., connection lost)
+        console.error("Network or parsing error fetching contributors:", error);
+        setApiError("A network error occurred. Please check your internet connection.");
       } finally {
+        // Ensure loading state is turned off
         setLoading(false);
       }
     };
 
     fetchContributorsWithPoints();
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   // Calculate stats when contributors data is loaded
   useEffect(() => {
@@ -181,12 +223,11 @@ export default function LeaderBoard() {
         0
       );
 
+      // (Original code included flooring logic, which is kept here)
       const flooredTotalPRs = Math.floor(totalPRs / 10) * 10;
       const flooredTotalPoints = Math.floor(totalPoints / 10) * 10;
       const flooredContributorsCount =
         Math.floor(contributors.length / 10) * 10;
-
-      // console.log(flooredContributorsCount,flooredTotalPoints,flooredTotalPRs)
 
       setStats({
         flooredTotalPRs,
@@ -208,16 +249,39 @@ export default function LeaderBoard() {
           <h1 className="text-5xl font-bold text-pink-600 dark:text-accent-500 mb-2 sm:mb-4 mt-20">
             GSSoC'25 Leaderboard
           </h1>
-          <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-lg text-gray-500 max-w-3xl mx-auto leading-relaxed">
             Celebrating the amazing contributions from GSSoC'25 participants.
             Join us in building something incredible together!
           </p>
         </motion.div>
 
+
+        {/* Error Message Display */}
+        {apiError && !loading && (
+            <motion.div 
+                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-8"
+                role="alert"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+                <strong className="font-bold">Error Loading Data:</strong>
+                <span className="block sm:inline ml-2">{apiError}</span>
+                <p className="text-sm mt-1">Please try again later. If using a personal token, ensure it is valid and your rate limit hasn't been exceeded.</p>
+            </motion.div>
+        )}
         
 
         {loading ? (
           <SkeletonLoader />
+        ) : contributors.length === 0 && !apiError ? (
+            // Display if loading is false, no error, but no contributors found
+            <div className="text-center py-20 bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <FaCode className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-600 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white">No Contributions Found</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    The repository may not have any merged PRs labeled 'gssoc25' yet.
+                </p>
+            </div>
         ) : (
           <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mx-2 sm:mx-0">
             {/* Desktop Table Header - Hidden on mobile */}
@@ -234,14 +298,14 @@ export default function LeaderBoard() {
             </div>
 
             {/* Contributors List */}
-            <div className="divide-y divide-pink-400 ">
+            <div className="divide-y divide-gray-500/20 ">
               {contributors.map((contributor, index) => (
                 <motion.div
                   key={contributor.username}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.03 }}
-                  className="group hover:bg-gray-700 transition-colors"
+                  className="group hover:bg-gray-500/20 transition-colors"
                 >
                   {/* Mobile Layout */}
                   <div className="sm:hidden p-4">
@@ -250,12 +314,20 @@ export default function LeaderBoard() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 ${
                           index === 0
-                            ? "bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30"
+                            ? isDarkMode
+                              ? "bg-yellow-400/30 text-yellow-200"
+                              : "bg-yellow-200 text-yellow-600"
                             : index === 1
-                            ? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                            ? isDarkMode
+                              ? "bg-blue-200/30 text-blue-100"
+                              : "bg-gray-400 text-gray-100"
                             : index === 2
-                            ? "bg-amber-100 text-amber-600 dark:bg-amber-900/30"
-                            : "bg-gray-100 text-gray-500 dark:bg-gray-800/50 dark:text-gray-400"
+                            ? isDarkMode
+                              ? "bg-amber-500/20 text-amber-300"
+                              : "bg-amber-200 text-amber-600"
+                            : isDarkMode
+                            ? "bg-slate-500/30 text-slate-300"
+                            : "bg-slate-300 text-slate-600 "
                         }`}
                       >
                         {index + 1}
@@ -276,7 +348,7 @@ export default function LeaderBoard() {
                               href={contributor.profile}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-medium text-gray-900 dark:text-pink-900 hover:text-primary-600 dark:hover:text-accent-400 transition-colors text-sm truncate block"
+                              className="font-medium text-gray-700 transition-colors text-sm truncate block"
                             >
                               {contributor.username}
                             </a>
@@ -284,7 +356,7 @@ export default function LeaderBoard() {
                               href={`https://github.com/${GITHUB_REPO}/pulls?q=is:pr+author:${contributor.username}+is:merged`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-accent-400 transition-colors block"
+                              className="text-xs text-gray-700 hover:text-gray-900 transition-colors block"
                             >
                               View Contributions →
                             </a>
@@ -296,12 +368,20 @@ export default function LeaderBoard() {
                           <Badge
                             count={contributor.prs}
                             label={`PR${contributor.prs !== 1 ? "s" : ""}`}
-                            color="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                            color={
+                              isDarkMode
+                                ? "bg-blue-900/30 text-blue-400"
+                                : "bg-blue-100 text-blue-700"
+                            }
                           />
                           <Badge
                             count={contributor.points}
                             label="Points"
-                            color="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
+                            color={
+                              isDarkMode
+                                ? "bg-purple-900/30 text-purple-400"
+                                : "bg-purple-200 text-purple-700"
+                            }
                           />
                         </div>
                       </div>
@@ -314,12 +394,20 @@ export default function LeaderBoard() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
                           index === 0
-                            ? "bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30"
+                            ? isDarkMode
+                              ? "bg-yellow-400/30 text-yellow-200"
+                              : "bg-yellow-200 text-yellow-600"
                             : index === 1
-                            ? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                            ? isDarkMode
+                              ? "bg-blue-200/30 text-blue-100"
+                              : "bg-gray-400 text-gray-100"
                             : index === 2
-                            ? "bg-amber-100 text-amber-600 dark:bg-amber-900/30"
-                            : "bg-gray-100 text-gray-500 dark:bg-gray-800/50 dark:text-gray-400"
+                            ? isDarkMode
+                              ? "bg-amber-500/20 text-amber-300"
+                              : "bg-amber-200 text-amber-600"
+                            : isDarkMode
+                            ? "bg-slate-500/30 text-slate-300"
+                            : "bg-slate-300 text-slate-600 "
                         }`}
                       >
                         <span className="font-medium">{index + 1}</span>
@@ -338,7 +426,7 @@ export default function LeaderBoard() {
                             href={contributor.profile}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-accent-400 transition-colors"
+                            className="font-medium text-gray-700 transition-colors"
                           >
                             {contributor.username}
                           </a>
@@ -347,7 +435,7 @@ export default function LeaderBoard() {
                               href={`https://github.com/${GITHUB_REPO}/pulls?q=is:pr+author:${contributor.username}+is:merged`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-accent-400 transition-colors"
+                              className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
                             >
                               View Contributions →
                             </a>
@@ -361,12 +449,20 @@ export default function LeaderBoard() {
                         <Badge
                           count={contributor.prs}
                           label={`PR${contributor.prs !== 1 ? "s" : ""}`}
-                          color="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                          color={
+                            isDarkMode
+                              ? "bg-blue-900/30 text-blue-400"
+                              : "bg-blue-100 text-blue-700"
+                          }
                         />
                         <Badge
                           count={contributor.points}
                           label="Points"
-                          color="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
+                          color={
+                            isDarkMode
+                              ? "bg-purple-900/30 text-purple-400"
+                              : "bg-purple-200 text-purple-700"
+                          }
                         />
                       </div>
                     </div>
@@ -374,12 +470,8 @@ export default function LeaderBoard() {
                 </motion.div>
               ))}
             </div>
-
-            
           </div>
         )}
-
-        
       </div>
     </div>
   );

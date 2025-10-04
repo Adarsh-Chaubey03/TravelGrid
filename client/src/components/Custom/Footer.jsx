@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { FaTwitter, FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 // Footer component
 const Footer = () => {
@@ -49,10 +50,10 @@ const Footer = () => {
 
   return (
     <>
-      <footer className={`relative text-white transition-all duration-300 ${
+      <footer className={`relative transition-all duration-300 ${
      isDarkMode 
           ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900' 
-          : 'bg-gradient-to-br from-gray-900  to-pink-900'
+          : 'bg-gradient-to-br from-gray-900  to-pink-200'
       }`}>
         {/* Background pattern */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />
@@ -76,11 +77,53 @@ const Footer = () => {
   <p className="text-gray-300 text-sm leading-relaxed">
     Discover amazing destinations and create unforgettable memories with our curated travel experiences around the world. Your journey starts here.
   </p>
-  {/* Social Media Links */}
-  <div className="flex space-x-4">
-    {/* Icons like Twitter, Pinterest, YouTube, Contributors */}
-  </div>
-</div>
+   {/* Social Media Links */}
+                <div className="flex space-x-4">
+                  <a
+                    href="https://twitter.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                    className="text-gray-300 hover:text-blue-400 transition-colors text-2xl"
+                  >
+                    <FaTwitter />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/adarsh-chaubey/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="text-gray-300 hover:text-blue-700 transition-colors text-2xl"
+                  >
+                    <FaLinkedin />
+                  </a>
+                  <a
+                    href="https://github.com/Adarsh-Chaubey03"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="text-gray-300 hover:text-gray-800 transition-colors text-2xl"
+                  >
+                    <FaGithub />
+                  </a>
+                  <a
+                    href="https://instagram.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="text-gray-300 hover:text-pink-500 transition-colors text-2xl"
+                  >
+                    <FaInstagram />
+                  </a>
+                  <a
+                       href="0310adarshchaubey@gmail.com"
+                       aria-label="Email"
+                       className="text-gray-300 hover:text-yellow-400 transition-colors text-2xl"
+                      >
+                    <FaEnvelope />
+                  </a>
+                </div>
+              </div>
 
 
               {/* Quick Links */}
@@ -171,7 +214,10 @@ const Footer = () => {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-300 text-sm">+1 (555) 123-4567</p>
+                    <a href="tel:+15551234567" className="text-gray-300 text-sm">
+  +1 (555) 123-4567
+</a>
+
                       <p className="text-gray-300 text-sm">Mon-Fri 9AM-6PM</p>
                     </div>
                   </div>
@@ -239,52 +285,54 @@ const Footer = () => {
                   </div>
                   <button aria-label="Search"
                     type="submit"
-                    className="w-full bg-gradient-to-r from-pink-500 to-purple-700 hover:from-pink-600 hover:to-pink-700 text-white py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300"
+                    className={`w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-pink-400 hover:to-purple-600 ${isDarkMode ? 'text-white' : 'text-black'} py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300`}
                   >
                     <span>Subscribe</span>
                     {/* Send icon */}
                   </button>
                 </form>
-                <div className="text-xs text-gray-400">
+                <div className={`text-xs ${isDarkMode ? 'text-white' :''  } text-center`}>
                   🔒 We respect your privacy. Unsubscribe at any time.
                 </div>
               </div>
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-700 mt-12 py-6">
+            <div className={`border-t border-gray-700 mt-12 py-6 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
               <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-sm">
                      © {new Date().getFullYear()} TravelGrid. All rights reserved.
                   </p>
+
                   {/* Links stacked on mobile, inline on desktop */}
                   <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
-                    <Link to="/privacy" className="text-gray-400 hover:text-pink-300 transition-colors">
+                    <Link to="/privacy" className="hover:text-pink-300 transition-colors">
                       Privacy Policy
                     </Link>
                     <Link
                       to="/terms"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Terms of Service
                     </Link>
                     <Link
                       to="/contact"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Contact
                     </Link>
                     <Link
                       to="/feedback"
-                      className="text-gray-400 hover:text-pink-300 transition-colors"
+                      className="hover:text-pink-300 transition-colors"
                     >
                       Feedback
                     </Link>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center justify-center space-x-2 text-gray-400 text-sm mt-4 text-center">
+
+              <div className="flex flex-wrap items-center justify-center space-x-2 text-sm mt-4 text-center">
                 <span>Made with</span>
                 <svg
                   className="w-4 h-4 text-red-500"
@@ -296,6 +344,7 @@ const Footer = () => {
                 <span>by TravelGrid Team</span>
               </div>
             </div>
+
           </div>
         </div>
       </footer>
@@ -339,7 +388,7 @@ const Footer = () => {
             </div>
             <button aria-label="Search"
               onClick={hideToast}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="..." />

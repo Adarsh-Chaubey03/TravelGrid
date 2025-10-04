@@ -2,61 +2,58 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import CustomCarousel from "../Custom/CustomCarousel";
-import SkeletonGuide from "../SkeletonGuide";
-import { useTranslation } from "react-i18next";
+import SkeletonGuide from "../SkeletonGuide"; // our loader component
 
-// Guide data using translation keys
+// Static guide data (replace with API later if needed)
 const guides = [
   {
-    name: "guide.aaravMehta.name",
-    expertise: "guide.aaravMehta.expertise",
-    bio: "guide.aaravMehta.bio",
+    name: "Aarav Mehta",
+    expertise: "Himalayan Treks",
+    bio: "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas.",
     cardImage: "https://randomuser.me/api/portraits/men/51.jpg",
   },
   {
-    name: "guide.sofiaRossi.name",
-    expertise: "guide.sofiaRossi.expertise",
-    bio: "guide.sofiaRossi.bio",
+    name: "Sofia Rossi",
+    expertise: "Italian Cities & Culture",
+    bio: "Passionate about art, food, and history. Fluent in English and Italian. Rome-based.",
     cardImage: "https://randomuser.me/api/portraits/women/65.jpg",
   },
   {
-    name: "guide.jamesCarter.name",
-    expertise: "guide.jamesCarter.expertise",
-    bio: "guide.jamesCarter.bio",
+    name: "James Carter",
+    expertise: "African Safaris",
+    bio: "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks.",
     cardImage: "https://randomuser.me/api/portraits/men/34.jpg",
   },
   {
-    name: "guide.snowyKat.name",
-    expertise: "guide.snowyKat.expertise",
-    bio: "guide.snowyKat.bio",
+    name: "Snowy Kat",
+    expertise: "🐾 Mountain Treks & Pet Adventures",
+    bio: "Passionate about guiding pet parents through scenic mountain trails and nature escapes.",
     cardImage: "https://randomuser.me/api/portraits/men/17.jpg",
   },
   {
-    name: "guide.meiLin.name",
-    expertise: "guide.meiLin.expertise",
-    bio: "guide.meiLin.bio",
+    name: "Mei Lin",
+    expertise: "East Asia Tours",
+    bio: "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine.",
     cardImage: "https://randomuser.me/api/portraits/women/43.jpg",
   },
   {
-    name: "guide.ayushiUniyal.name",
-    expertise: "guide.ayushiUniyal.expertise",
-    bio: "guide.ayushiUniyal.bio",
+    name: "Ayushi Uniyal",
+    expertise: "🏖️ Coastal Getaways",
+    bio: "Loves helping travelers explore India's beautiful coastline and beach destinations.",
     cardImage: "https://randomuser.me/api/portraits/women/17.jpg",
   },
   {
-    name: "guide.weddyBrown.name",
-    expertise: "guide.weddyBrown.expertise",
-    bio: "guide.weddyBrown.bio",
+    name: "Weddy Brown",
+    expertise: "🐾 Urban Travel with Pets",
+    bio: "Amsterdam-based guide specializing in navigating cities with pets.",
     cardImage: "https://randomuser.me/api/portraits/men/74.jpg"
   }
 ];
-
 
 const TravelGuides = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
-  const { t } = useTranslation();
 
   const handleguide = (guideName) => {
     navigate("/guides", { state: { selectedGuideId: guideName } });
@@ -66,17 +63,9 @@ const TravelGuides = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 3000); // show skeleton for 2 seconds
     return () => clearTimeout(timer);
   }, []);
-
-  // Map translation keys to actual text
-  const translatedGuides = guides.map((guide) => ({
-    ...guide,
-    name: t(guide.name),
-    expertise: t(guide.expertise),
-    bio: t(guide.bio),
-  }));
 
   return (
     <section className="w-full py-20">
@@ -87,9 +76,9 @@ const TravelGuides = () => {
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            {t("guides.meetOur")} {" "}
+            Meet Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              {t("guides.topTravelGuides")}
+              Top Travel Guides
             </span>
           </h2>
           <p
@@ -97,10 +86,11 @@ const TravelGuides = () => {
               isDarkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            {t("guides.connectWithGuides")}
+            Connect with experienced local guides who will make your journey truly unforgettable.
           </p>
         </div>
 
+        {/* If loading show skeletons, else carousel */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
@@ -109,7 +99,7 @@ const TravelGuides = () => {
           </div>
         ) : (
           <CustomCarousel
-            guides={translatedGuides}
+            guides={guides}
             viewprofilehandle={handleguide}
             isHome={true}
           />

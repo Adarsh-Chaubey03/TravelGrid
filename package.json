@@ -3,10 +3,6 @@
     "@emailjs/browser": "^4.4.1",
     "leaflet-routing-machine": "^3.2.12",
     "react-countup": "^6.5.3",
-    "world-countries": "^5.1.0",
-    "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
-    "vite": "^7.1.7"
+    "world-countries": "^5.1.0"
   }
 }

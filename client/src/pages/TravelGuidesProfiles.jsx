@@ -175,7 +175,7 @@ setSearchResults(filteredGuides);
         scrollMarginTop: "80px",
         background: isDarkMode
           ? "linear-gradient(to bottom right, #000000, #831843)"
-          : "linear-gradient(to bottom right, #ffffffff, #c0349d57)",
+          : "linear-gradient(to right,rgb(246, 161, 209),rgb(172, 215, 243))",
       }}
     >
       <h1
@@ -239,10 +239,12 @@ setSearchResults(filteredGuides);
               border: "none",
               outline: "none",
               fontSize: "16px",
-              background: isDarkMode ? "rgba(252, 252, 252, 1)" : "#dc89b854",
+              background: isDarkMode ? "rgba(252, 252, 252, 1)" : "rgba(255, 255, 255, 0.8)",
               color: isDarkMode ? "#2d3748" : "#1f2937",
               fontWeight: "500",
               borderRadius: "10px",
+              backdropFilter: "blur(10px)",
+              border: isDarkMode ? "none" : "1px solid rgba(255, 255, 255, 0.3)",
             }}
           />
           {searchQuery && (
@@ -319,28 +321,31 @@ setSearchResults(filteredGuides);
                   className="search-result-card"
                   style={{
                     background: isDarkMode
-                      ?'bg-gradient-to-br from-black to-pink-700 text-white'
-        : 'bg-gradient-to-br from-rose-100 to-gray-200 text-gray-900',
+                      ? "linear-gradient(135deg, #1f1f1f, #4a1a4a)"
+                      : "#ffffff",
                     borderRadius: "25px",
                     padding: "30px",
                     color: isDarkMode ? "white" : "#1f2937",
                     boxShadow: isDarkMode
                       ? "0 10px 30px rgba(102, 126, 234, 0.3)"
-                      : "0 10px 30px rgba(102, 126, 234, 0.1)",
+                      : "0 4px 20px rgba(0, 0, 0, 0.08)",
                     transition: "all 0.3s ease",
                     cursor: "pointer",
                     position: "relative",
                     overflow: "hidden",
+                    border: isDarkMode ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.05)",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 20px 40px rgba(102, 126, 234, 0.4)";
+                    e.currentTarget.style.boxShadow = isDarkMode
+                      ? "0 20px 40px rgba(102, 126, 234, 0.4)"
+                      : "0 20px 40px rgba(236, 72, 153, 0.25)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 10px 30px rgba(102, 126, 234, 0.3)";
+                    e.currentTarget.style.boxShadow = isDarkMode
+                      ? "0 10px 30px rgba(102, 126, 234, 0.3)"
+                      : "0 4px 20px rgba(0, 0, 0, 0.08)";
                   }}
                   onClick={() => viewProfile(guide)}
                 >

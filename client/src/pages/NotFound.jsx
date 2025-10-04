@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Home, Map, Ticket, BookOpen, Mail, ArrowRight } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 const NotFound = () => {
-    const { t } = useTranslation();
     // Create a 3D hover effect for the button
     useEffect(() => {
         const btn = document.querySelector('.home-btn');
@@ -39,6 +37,7 @@ const NotFound = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-br from-black to-pink-900">
+
             <main className="flex flex-1 items-center justify-center w-full px-4 py-12">
                 <div className="text-center max-w-3xl mx-auto">
                     {/* Decorative elements */}
@@ -48,6 +47,7 @@ const NotFound = () => {
                         <div className="absolute left-[30%] bottom-[30%] w-40 h-40 bg-pink-600 rounded-full filter blur-3xl"></div>
                         <div className="absolute right-[20%] bottom-[20%] w-28 h-28 bg-indigo-600 rounded-full filter blur-3xl"></div>
                     </div>
+
 
                     {/* Error code with animated gradient */}
                     <div
@@ -69,23 +69,23 @@ const NotFound = () => {
                     </div>
 
                     <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-6">
-                        {t('notFound.title', 'Page Not Found')}
+                        Page Not Found
                     </h1>
 
                     <p className="text-lg text-gray-300 mb-8 max-w-lg mx-auto">
-                        {t('notFound.description', "Oops! It seems you've ventured into uncharted territory. The page you're looking for has either been moved or doesn't exist.")}
+                        Oops! It seems you've ventured into uncharted territory. The page you're looking for has either been moved or doesn't exist.
                     </p>
 
                     {/* Destinations you might be looking for */}
                     <div className="mb-12">
-                        <h2 className="text-xl font-semibold text-pink-400 mb-4">{t('notFound.popularDestinations', 'Popular Destinations')}</h2>
+                        <h2 className="text-xl font-semibold text-pink-400 mb-4">Popular Destinations</h2>
                         <div className="flex flex-wrap justify-center gap-3">
                             {[
-                                { name: t('notFound.links.home', 'Home'), path: '/', icon: <Home className="w-4 h-4 mr-1" /> },
-                                { name: t('notFound.links.discover', 'Discover'), path: '/discover', icon: <Map className="w-4 h-4 mr-1" /> },
-                                { name: t('notFound.links.guides', 'Travel Guides'), path: '/guides', icon: <BookOpen className="w-4 h-4 mr-1" /> },
-                                { name: t('notFound.links.tickets', 'Book Tickets'), path: '/ticket', icon: <Ticket className="w-4 h-4 mr-1" /> },
-                                { name: t('notFound.links.contact', 'Contact Us'), path: '/contact', icon: <Mail className="w-4 h-4 mr-1" /> }
+                                { name: 'Home', path: '/', icon: <Home className="w-4 h-4 mr-1" /> },
+                                { name: 'Discover', path: '/discover', icon: <Map className="w-4 h-4 mr-1" /> },
+                                { name: 'Travel Guides', path: '/guides', icon: <BookOpen className="w-4 h-4 mr-1" /> },
+                                { name: 'Book Tickets', path: '/ticket', icon: <Ticket className="w-4 h-4 mr-1" /> },
+                                { name: 'Contact Us', path: '/contact', icon: <Mail className="w-4 h-4 mr-1" /> }
                             ].map((link) => (
                                 <Link
                                     key={link.path}
@@ -106,11 +106,12 @@ const NotFound = () => {
                         style={{ transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
                     >
                         <Home className="w-6 h-6 mr-2" />
-                        {t('notFound.returnHome', 'Return to Homepage')}
+                        Return to Homepage
                         <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                     </Link>
                 </div>
             </main>
+
         </div>
     );
 };

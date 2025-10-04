@@ -53,7 +53,7 @@ const Footer = () => {
       <footer className={`relative transition-all duration-300 ${
      isDarkMode 
           ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900' 
-          : 'bg-gradient-to-br from-gray-900  to-pink-200'
+          : 'bg-gradient-to-br from-gray-900  to-pink-900'
       }`}>
         {/* Background pattern */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />

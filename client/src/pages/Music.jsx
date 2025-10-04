@@ -275,24 +275,66 @@ const MusicPage = () => {
     return (
         <div className={`min-h-screen`}>
             {/* Hero Section */}
-            <div className={`relative overflow-hidden ${isDarkMode ? 'bg-gray-900' : 'bg-pink-100'}`}>
-                <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-pink-100'}`}></div>
-                <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 text-center">
+            <div className="relative overflow-hidden h-[85vh]">
+                {/* Animated Background with Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-purple-900 to-magenta-900"></div>
+                
+                {/* Animated Soundwave Patterns */}
+                <div className="absolute inset-0 opacity-20">
+                    <div className="soundwave-container">
+                        <div className="soundwave soundwave-1"></div>
+                        <div className="soundwave soundwave-2"></div>
+                        <div className="soundwave soundwave-3"></div>
+                        <div className="soundwave soundwave-4"></div>
+                        <div className="soundwave soundwave-5"></div>
+                    </div>
+                </div>
+                
+                {/* Floating Travel Icons */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="travel-icon airplane-icon">✈️</div>
+                    <div className="travel-icon compass-icon">🧭</div>
+                    <div className="travel-icon headphones-icon">🎧</div>
+                    <div className="travel-icon map-icon">🗺️</div>
+                    <div className="travel-icon airplane-icon-2">✈️</div>
+                    <div className="travel-icon compass-icon-2">🧭</div>
+                </div>
+                
+                {/* Bokeh Dots */}
+                <div className="absolute inset-0">
+                    <div className="bokeh-dot bokeh-1"></div>
+                    <div className="bokeh-dot bokeh-2"></div>
+                    <div className="bokeh-dot bokeh-3"></div>
+                    <div className="bokeh-dot bokeh-4"></div>
+                    <div className="bokeh-dot bokeh-5"></div>
+                    <div className="bokeh-dot bokeh-6"></div>
+                    <div className="bokeh-dot bokeh-7"></div>
+                    <div className="bokeh-dot bokeh-8"></div>
+                </div>
+                
+                {/* Glowing Light Effects */}
+                <div className="absolute inset-0">
+                    <div className="glow-effect glow-1"></div>
+                    <div className="glow-effect glow-2"></div>
+                    <div className="glow-effect glow-3"></div>
+                </div>
+                
+                <div className="relative max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 text-center z-10">
                     <div className="flex justify-center mb-8">
-                        <div className={`p-4 rounded-full ${isDarkMode ? 'bg-pink-800' : 'bg-pink-500'} backdrop-blur-sm`}>
-                            <Music className="w-16 h-16 text-pink-200" />
+                        <div className="p-4 rounded-full bg-pink-500/20 backdrop-blur-sm border border-pink-400/30 shadow-lg">
+                            <Music className="w-16 h-16 text-pink-200 drop-shadow-lg" />
                         </div>
                     </div>
-                    <h1 className={`text-5xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'bg-gray-800 bg-clip-text text-transparent'}`}>
-                        Travel <span className='text-pink-700'>Music Hub</span>
+                    <h1 className="text-5xl font-bold mb-6 text-white drop-shadow-2xl">
+                        Travel <span className='text-pink-300 drop-shadow-lg'>Music Hub</span>
                     </h1>
-                    <p className={`text-xl mb-8 max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-pink-900/70'}`}>
+                    <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-200 drop-shadow-lg">
                         Discover and share music for every travel mood. From romantic sunsets to adventurous hikes,
                         find the perfect soundtrack for your journey.
                     </p>
                     <button
                         onClick={() => setShowUploadForm(true)}
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 hover:shadow-xl flex items-center gap-3 mx-auto"
+                        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 hover:shadow-2xl flex items-center gap-3 mx-auto backdrop-blur-sm border border-white/20 shadow-2xl drop-shadow-lg"
                     >
                         <Upload className="w-6 h-6" />
                         Share Your Music
@@ -609,6 +651,207 @@ const MusicPage = () => {
           border: none;
           box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
         }
+
+        /* Hero Background Styles */
+        .soundwave-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        .soundwave {
+          width: 4px;
+          height: 100px;
+          background: linear-gradient(to bottom, transparent, #ff6b9d, transparent);
+          border-radius: 2px;
+          animation: soundwave-animation 2s ease-in-out infinite;
+        }
+
+        .soundwave-1 { animation-delay: 0s; }
+        .soundwave-2 { animation-delay: 0.2s; }
+        .soundwave-3 { animation-delay: 0.4s; }
+        .soundwave-4 { animation-delay: 0.6s; }
+        .soundwave-5 { animation-delay: 0.8s; }
+
+        @keyframes soundwave-animation {
+          0%, 100% { height: 100px; opacity: 0.3; }
+          50% { height: 200px; opacity: 0.8; }
+        }
+
+        /* Travel Icons */
+        .travel-icon {
+          position: absolute;
+          font-size: 24px;
+          opacity: 0.6;
+          animation: float 6s ease-in-out infinite;
+          filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+        }
+
+        .airplane-icon {
+          top: 20%;
+          left: 10%;
+          animation-delay: 0s;
+        }
+
+        .compass-icon {
+          top: 30%;
+          right: 15%;
+          animation-delay: 1s;
+        }
+
+        .headphones-icon {
+          top: 60%;
+          left: 20%;
+          animation-delay: 2s;
+        }
+
+        .map-icon {
+          top: 70%;
+          right: 25%;
+          animation-delay: 3s;
+        }
+
+        .airplane-icon-2 {
+          top: 40%;
+          left: 80%;
+          animation-delay: 4s;
+        }
+
+        .compass-icon-2 {
+          top: 80%;
+          left: 60%;
+          animation-delay: 5s;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Bokeh Dots */
+        .bokeh-dot {
+          position: absolute;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 107, 157, 0.3), transparent);
+          animation: bokeh-float 8s ease-in-out infinite;
+        }
+
+        .bokeh-1 {
+          width: 60px;
+          height: 60px;
+          top: 15%;
+          left: 20%;
+          animation-delay: 0s;
+        }
+
+        .bokeh-2 {
+          width: 40px;
+          height: 40px;
+          top: 25%;
+          right: 30%;
+          animation-delay: 1s;
+        }
+
+        .bokeh-3 {
+          width: 80px;
+          height: 80px;
+          top: 50%;
+          left: 10%;
+          animation-delay: 2s;
+        }
+
+        .bokeh-4 {
+          width: 50px;
+          height: 50px;
+          top: 60%;
+          right: 20%;
+          animation-delay: 3s;
+        }
+
+        .bokeh-5 {
+          width: 70px;
+          height: 70px;
+          top: 80%;
+          left: 40%;
+          animation-delay: 4s;
+        }
+
+        .bokeh-6 {
+          width: 45px;
+          height: 45px;
+          top: 10%;
+          right: 10%;
+          animation-delay: 5s;
+        }
+
+        .bokeh-7 {
+          width: 55px;
+          height: 55px;
+          top: 35%;
+          left: 70%;
+          animation-delay: 6s;
+        }
+
+        .bokeh-8 {
+          width: 65px;
+          height: 65px;
+          top: 75%;
+          right: 50%;
+          animation-delay: 7s;
+        }
+
+        @keyframes bokeh-float {
+          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+          50% { transform: translateY(-30px) scale(1.2); opacity: 0.6; }
+        }
+
+        /* Glowing Light Effects */
+        .glow-effect {
+          position: absolute;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 107, 157, 0.2), transparent);
+          animation: glow-pulse 4s ease-in-out infinite;
+        }
+
+        .glow-1 {
+          width: 300px;
+          height: 300px;
+          top: 10%;
+          left: 5%;
+          animation-delay: 0s;
+        }
+
+        .glow-2 {
+          width: 200px;
+          height: 200px;
+          top: 50%;
+          right: 10%;
+          animation-delay: 1.5s;
+        }
+
+        .glow-3 {
+          width: 250px;
+          height: 250px;
+          bottom: 20%;
+          left: 30%;
+          animation-delay: 3s;
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.1); }
+        }
+
+        /* Custom gradient colors */
+        .from-navy-900 { background-color: #0f172a; }
+        .via-purple-900 { background-color: #581c87; }
+        .to-magenta-900 { background-color: #831843; }
       `}</style>
         </div>
     );

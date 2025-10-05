@@ -5,8 +5,10 @@ import Navbar from '../components/Custom/Navbar';
 import ARExperience from "../components/ARExperience";
 import { useWishlist } from '../context/WishlistContext';
 import toast from 'react-hot-toast';
+import { useTheme } from '../context/ThemeContext';
 
 const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
+  const { isDarkMode } = useTheme();
   const hotelsData = [
     { id: 0, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn9VEpeeu6H4AcaaaXE051Mnv1byf9UDDLZg&s", name: "JW Marriott Hotel Mumbai", rating: 8.6, distance: 2.3, lat: 19.1019, lng: 72.8262 },
     { id: 1, img: "https://www.theleela.com/prod/content/assets/aio-banner/dekstop/leela-hyderabad-hotel.webp?VersionId=pv2n4jR67S0ZF75HqAbWQqM9zvf_fEV0", name: "The Oberoi New Delhi", rating: 8.8, distance: 5.1, lat: 28.5963, lng: 77.2397 },
@@ -518,7 +520,7 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className={`${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900' : 'bg-gradient-to-r from-pink-200/50 via-white/70 to-blue-200/50'} min-h-screen flex items-center justify-center`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-pink-300">Loading destination details...</p>
@@ -528,7 +530,7 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   }
 
   if (!location) {
-    return <div className="min-h-screen bg-gray-50 text-white flex items-center justify-center">Location not found</div>;
+    return <div className={`${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900' : 'bg-gradient-to-r from-pink-200/50 via-white/70 to-blue-200/50'} min-h-screen text-white flex items-center justify-center`}>Location not found</div>;
   }
 
   const showInMap = (lat, lng) => {
@@ -686,7 +688,7 @@ const LocationDetail = () => { // Remove locationId prop, we'll get it from URL
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900' : 'bg-gradient-to-r from-pink-200/50 via-white/70 to-blue-200/50'} min-h-screen`}>
       <Navbar lightBackground />
 
       {/* Image */}

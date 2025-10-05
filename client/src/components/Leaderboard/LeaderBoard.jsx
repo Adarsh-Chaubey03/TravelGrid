@@ -238,7 +238,11 @@ export default function LeaderBoard() {
   }, [contributors]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-secondary-900 py-6 sm:py-12 px-2 sm:px-4">
+    <div className={`min-h-screen py-6 sm:py-12 px-2 sm:px-4 ${
+            isDarkMode 
+            ? 'bg-gradient-to-br from-black to-pink-900'
+            : 'from-pink-200/50 via-white/70 to-blue-200/50'}`}>
+              
       <div className="max-w-5xl mx-auto">
         <motion.div
           className="text-center mb-8 sm:mb-12 px-2"

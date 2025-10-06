@@ -55,8 +55,13 @@ const ForumSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className={`text-2xl md:text-3xl font-bold mb-6 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+          <h2 className={`text-2xl md:text-3xl font-bold mb-6 transition-all duration-300
+          
+          ${isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}
+            
+            
+            >
             Join the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               Conversation

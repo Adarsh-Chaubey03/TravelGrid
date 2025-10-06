@@ -581,8 +581,8 @@ const fetchForumTopics = async () => {
       <div
         className={`min-h-screen mt-20 transition-all duration-300 ${
           isDarkMode
-            ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-            : "bg-gradient-to-br from-blue-50 via-white to-pink-50"
+            ? "bg-gradient-to-br from-black to-pink-900"
+            : "bg-gradient-to-br from-pink-200/50 via-white/70 to-blue-200/50"
         } p-4 lg:p-8`}
       >
         <div className="max-w-7xl mx-auto space-y-8">

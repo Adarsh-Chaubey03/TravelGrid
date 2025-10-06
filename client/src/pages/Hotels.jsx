@@ -68,7 +68,7 @@ function Hotels() {
       className={`flex flex-col min-h-screen w-full overflow-x-hidden ${
         isDarkMode
           ? "bg-gradient-to-br from-black to-pink-900"
-          : "bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50"
+          : 'from-pink-200/50 via-white/70 to-blue-200/50'
       }`}
     >
       <Navbar lightBackground={false} />

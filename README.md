@@ -205,9 +205,9 @@ Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://gi
 ### 🎯 **Contribution Levels**
 | Level | Description | Points | Badge |
 |-------|-------------|--------|-------|
-| 🥉 **Beginner** | Fix typos, update docs, minor bug fixes | 5-10 | ![Beginner](https://img.shields.io/badge/Level-Beginner-green) |
-| 🥈 **Intermediate** | Add features, improve UI/UX, performance | 15-25 | ![Intermediate](https://img.shields.io/badge/Level-Intermediate-blue) |
-| 🥇 **Advanced** | Major features, architecture improvements | 30-50 | ![Advanced](https://img.shields.io/badge/Level-Advanced-red) |
+| 🥉 **Beginner** | Fix typos, update docs, minor bug fixes | 3 | ![1](https://img.shields.io/badge/Level-1-green) |
+| 🥈 **Intermediate** | Add features, improve UI/UX, performance | 7 | ![2](https://img.shields.io/badge/Level-2-blue) |
+| 🥇 **Advanced** | Major features, architecture improvements | 10 | ![3](https://img.shields.io/badge/Level-3-red) |
 ---
 
 ## Contributors

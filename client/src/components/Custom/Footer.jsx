@@ -291,14 +291,14 @@ const Footer = () => {
                     {/* Send icon */}
                   </button>
                 </form>
-                <div className={`text-xs ${isDarkMode ? 'text-white' :''  } text-center`}>
+                <div className={`text-xs text-white text-center`}>
                   🔒 We respect your privacy. Unsubscribe at any time.
                 </div>
               </div>
             </div>
 
             {/* Bottom Section */}
-            <div className={`border-t border-gray-700 mt-12 py-6 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
+            <div className={`border-t border-gray-700 mt-12 py-6 ${isDarkMode ? 'text-gray-400' : 'text-white'}`}>
               <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                   <p className="text-sm">

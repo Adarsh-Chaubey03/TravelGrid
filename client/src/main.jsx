@@ -74,6 +74,7 @@ const EnhancedCurrencyConverter = lazy(() => import('./pages/EnhancedCurrencyCon
 const Feedback = lazy(() => import('./pages/Feedback'));
 const TravelPlanGenerator = lazy(() => import('./pages/TravelPlanGenerator'));
 const TravelForum = lazy(() => import('./pages/TravelForum'));
+const BikeDetail = lazy(() => import('./pages/BikeDetail'));
 const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const Summarizer = lazy(() => import('./components/Summarizer'));
@@ -131,6 +132,7 @@ const router = createBrowserRouter([
       { path: '/guides', element: <Suspense fallback={<Spinner />}><TravelGuidesCarousel /></Suspense> },
       { path: '/packages', element: <Suspense fallback={<Spinner />}><TravelPackages /></Suspense> },
       { path: '/rentals', element: <Suspense fallback={<Spinner />}><Rentals /></Suspense> },
+      { path: '/rentals/bike/:id', element: <Suspense fallback={<Spinner />}><BikeDetail /></Suspense> },
       { path: '/destinations', element: <Suspense fallback={<Spinner />}><DiscovermoreDestination /></Suspense> },
       { path: '/faq', element: <Suspense fallback={<Spinner />}><FAQ /></Suspense> },
       { path: '/contact', element: <Suspense fallback={<Spinner />}><Contact /></Suspense> },

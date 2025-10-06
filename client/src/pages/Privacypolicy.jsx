@@ -7,7 +7,17 @@ export default function PrivacyPolicy() {
   return (
     <>
       <Navbar />
-      <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`} style={{ paddingTop: '140px' }}>
+      <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8
+        
+        
+        ${        isDarkMode 
+            ? 'bg-gradient-to-br from-black to-pink-900'
+            : 'from-pink-200/50 via-white/70 to-blue-200/50'}`}
+        
+        
+        
+        
+        style={{ paddingTop: '140px' }}>
         <div className="max-w-4xl mx-auto">
           <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-xl border p-8 md:p-12`}>
 

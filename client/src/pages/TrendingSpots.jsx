@@ -9,21 +9,20 @@ import { SiGmail } from "react-icons/si";
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material'
 import { useWishlist } from '@/context/WishlistContext';
 import toast from 'react-hot-toast';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const TrendingSpots = () => {
   const [spots, setSpots] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [displayedSpots, setDisplayedSpots] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(9);
+  const [hasMore, setHasMore] = useState(true);
   const [favoriteSpots, setFavoriteSpots] = useState([]);
   const [open, setOpen] = useState(false);
   const { wishlist, addToWishlist } = useWishlist();
-  
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
 
-  
-
+  // Your mock data here (mockTrendingSpots)
   const mockTrendingSpots = [
     {
       id: 1,
@@ -267,17 +266,46 @@ const TrendingSpots = () => {
     }
   ];
 
+  const ITEMS_PER_LOAD = 9;
+
   useEffect(() => {
-   const timer = setTimeout(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
       setSpots(mockTrendingSpots);
       setLoading(false);
+      setDisplayedSpots(mockTrendingSpots.slice(0, ITEMS_PER_LOAD));
+      setHasMore(mockTrendingSpots.length > ITEMS_PER_LOAD);
     }, 1000);
-    // cleanup
-    return  () => clearTimeout(timer)
+    return () => clearTimeout(timer);
   }, []);
 
-  const handleLoadMoreSpots = () => {
-    setVisibleCount((prev) => prev + 9);
+  const [selectedFilter, setSelectedFilter] = useState("All Spots");
+
+  useEffect(() => {
+    // Re-filter spots and reset displayed spots when the filter changes
+    const filtered = selectedFilter === "All Spots"
+      ? spots
+      : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
+
+    setDisplayedSpots(filtered.slice(0, ITEMS_PER_LOAD));
+    setHasMore(filtered.length > ITEMS_PER_LOAD);
+  }, [selectedFilter, spots]);
+
+  const fetchMoreData = () => {
+    const newDisplayedSpots = selectedFilter === "All Spots"
+      ? spots
+      : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
+
+    if (displayedSpots.length >= newDisplayedSpots.length) {
+      setHasMore(false);
+      return;
+    }
+
+    setTimeout(() => {
+      setDisplayedSpots(
+        displayedSpots.concat(newDisplayedSpots.slice(displayedSpots.length, displayedSpots.length + ITEMS_PER_LOAD))
+      );
+    }, 2000); // Simulate network delay
   };
 
   const toggleFavorite = (spotId) => {
@@ -288,28 +316,17 @@ const TrendingSpots = () => {
     );
   };
   const AddToWishListHandler = (spot) => {
-  const inWishlist = wishlist?.some((p) => p.id === spot.id);
-
-  if (!inWishlist) {
-    addToWishlist(spot);   // ✅ save the whole spot object
-    toast.success("Added to wishlist!");
-  } else {
-    toast("Already in your wishlist");
-  }
-};
+    const inWishlist = wishlist?.some((p) => p.id === spot.id);
+    if (!inWishlist) {
+      addToWishlist(spot);
+      toast.success("Added to wishlist!");
+    } else {
+      toast("Already in your wishlist");
+    }
+  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  // const filteredSpots = filter === 'all'
-  //   ? spots
-  //   : spots.filter(spot => spot.category === filter);
-
-  const [selectedFilter, setSelectedFilter] = useState("All Spots");
-
-const filteredSpots = selectedFilter === "All Spots"
-  ? spots
-  : spots.filter(spot => spot.category.toLowerCase() === selectedFilter.toLowerCase());
 
   const categories = [
     { key: 'All Spots', label: 'All Spots', icon: TrendingUp },
@@ -320,55 +337,25 @@ const filteredSpots = selectedFilter === "All Spots"
     { key: 'Adventure', label: 'Adventure', icon: Heart }
   ];
 
-  // option for social media sharing
-
-  const shareUrl = window.location.href; // generate url of current page
+  const shareUrl = window.location.href;
   const options = [
     {
-      icon: <FaSquareWhatsapp
-        color="green"
-        size={50}
-        cursor={'pointer'}
-        onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)}
-      />,
+      icon: <FaSquareWhatsapp color="green" size={50} cursor={'pointer'} onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareUrl)}`)} />,
       text: "WhatsApp"
     },
     {
-      icon: <FaFacebook
-        color="blue"
-        size={50}
-        cursor={'pointer'}
-        onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          shareUrl
-        )}`, "_blank")}
-      />,
+      icon: <FaFacebook color="blue" size={50} cursor={'pointer'} onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")} />,
       text: "Facebook"
     },
     {
-      icon: <FaSquareXTwitter
-        size={50}
-        cursor={'pointer'}
-        color="black"
-        onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          shareUrl
-        )}`)}
-      />,
+      icon: <FaSquareXTwitter size={50} cursor={'pointer'} color="black" onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`)} />,
       text: "Twitter"
     },
     {
-      icon: <SiGmail
-        size={50}
-        cursor={'pointer'}
-        color="red"
-        onClick={() => window.open(`mailto:?subject=${encodeURIComponent(
-          "Check out this Trending Spot!"
-        )}&body=${encodeURIComponent(
-          `I found this spot, thought you might like it: ${shareUrl}`
-        )}`)}
-      />,
+      icon: <SiGmail size={50} cursor={'pointer'} color="red" onClick={() => window.open(`mailto:?subject=${encodeURIComponent("Check out this Trending Spot!")}&body=${encodeURIComponent(`I found this spot, thought you might like it: ${shareUrl}`)}`)} />,
       text: "Mail"
     }
-  ]
+  ];
 
   const handleExploreLocation = (locationId) => {
     navigate(`/location/${locationId}`);
@@ -386,47 +373,45 @@ const filteredSpots = selectedFilter === "All Spots"
   }
 
   const statsData = {
-  "All Spots": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "23%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "150M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.7★", color: "text-yellow-400" }
-  ],
-  "Beach": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "12%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "50M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.5★", color: "text-yellow-400" }
-  ],
-  "Cultural": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "18%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "70M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.6★", color: "text-yellow-400" }
-  ],
-  "Nature": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "20%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "90M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.8★", color: "text-yellow-400" }
-  ],
-  "City": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "15%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "110M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.4★", color: "text-yellow-400" }
-  ],
-  "Adventure": [
-    { icon: MapPin, label: "Destinations", value: `${filteredSpots.length}+`, color: "text-blue-400" },
-    { icon: TrendingUp, label: "Avg Growth", value: "10%", color: "text-green-400" },
-    { icon: Users, label: "Travelers", value: "40M+", color: "text-purple-400" },
-    { icon: Star, label: "Avg Rating", value: "4.3★", color: "text-yellow-400" }
-  ],
-  // add Nature, City, Adventure, etc.
-};
+    "All Spots": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "23%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "150M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.7★", color: "text-yellow-400" }
+    ],
+    "Beach": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "12%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "50M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.5★", color: "text-yellow-400" }
+    ],
+    "Cultural": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "18%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "70M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.6★", color: "text-yellow-400" }
+    ],
+    "Nature": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "20%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "90M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.8★", color: "text-yellow-400" }
+    ],
+    "City": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "15%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "110M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.4★", color: "text-yellow-400" }
+    ],
+    "Adventure": [
+      { icon: MapPin, label: "Destinations", value: `${displayedSpots.length}+`, color: "text-blue-400" },
+      { icon: TrendingUp, label: "Avg Growth", value: "10%", color: "text-green-400" },
+      { icon: Users, label: "Travelers", value: "40M+", color: "text-purple-400" },
+      { icon: Star, label: "Avg Rating", value: "4.4★", color: "text-yellow-400" }
+    ],
+  };
 
   return (
-    
     <div className={`min-h-screen bg-gradient-to-br ${isDarkMode ? ' from-black/70 via-gray-900/60 to-transparent' : 'from-pink-100/60 via-white/40 to-transparent'}`}>
       <Navbar />
 
@@ -480,7 +465,6 @@ const filteredSpots = selectedFilter === "All Spots"
       </section>
 
       {/* Stats Banner */}
-      
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -498,203 +482,202 @@ const filteredSpots = selectedFilter === "All Spots"
         </div>
       </section>
 
-      {/* Spots Grid */}
+      {/* Spots Grid with InfiniteScroll */}
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSpots.slice(0, visibleCount).map((spot, index) => (
-              <div
-                key={spot.id}
-                className={`backdrop-blur-md rounded-2xl border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 overflow-hidden h-full ${
-                  isDarkMode 
-                    ? 'bg-white/10 border-white/20 hover:border-pink-500/20' 
-                    : 'bg-white/90 border-black/20 hover:border-pink-500/20'
-                }`}
-              >
-                {/* Image Container */}
-                <div className="relative h-48 md:h-64 overflow-hidden">
-                  <img
-                    src={spot.image}
-                    alt={spot.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-                  {/* Trending Badge */}
-                  <div className="absolute top-3 left-3">
-                    <div className="px-2 py-1 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white text-sm font-semibold flex items-center space-x-1">
-                      <TrendingUp className="h-3 w-3" />
-                      <span>#{index + 1}</span>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="absolute top-3 right-3 flex space-x-2">
-                    <button
-                      onClick={() => {toggleFavorite(spot.id); AddToWishListHandler(spot)}}
-                      className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'
-                        }`}
-                    >
-                      {favoriteSpots.includes(spot.id) ? (
-                        <HeartFilled className="h-4 w-4 text-red-500" />
-                      ) : (
-                        <Heart className="h-4 w-4" />
-                      )}
-                    </button>
-                    <button className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'
-                      }`}
-                      onClick={handleOpen}
-                    >
-                      <Share2 className="h-4 w-4" />
-                    </button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      slotProps={{
-                        backdrop: {
-                          style: { backgroundColor: "transparent" }, // no black overlay
-                        },
-                      }}
-
-                    >
-                      <DialogTitle align="center">Share this Spot</DialogTitle>
-                      <DialogContent>
-                        <div style={{ display: "flex", alignItems: "center", gap: "1vmax" }}>
-                          {
-                            options.map((item, index) => {
-                              return (
-                                <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
-                                  <IconButton>{item.icon}</IconButton>
-                                  {item.text}
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-
-                  {/* Growth Badge */}
-                  <div className="absolute bottom-3 right-3">
-                    <div className="px-2 py-1 rounded-full bg-green-500 text-white text-xs font-semibold">
-                      +{spot.growth_percentage}%
-                    </div>
-                  </div>
-
-                  {/* Location Info Overlay */}
-                  <div className="absolute bottom-3 left-3">
-                    <h3 className="text-lg font-bold text-white">{spot.name}</h3>
-                    <div className="flex items-center text-sm text-gray-200">
-                      <MapPin className="h-3 w-3 mr-1" />
-                      {spot.country}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                      <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                        {spot.rating}
-                      </span>
-                      <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                        ({spot.recent_reviews} reviews)
-                      </span>
-                    </div>
-                    <div
-                      className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                        spot.price_range === '$' ? 'bg-green-100 text-green-800' :
-                        spot.price_range === '$$' ? 'bg-yellow-200 text-yellow-800' :
-                        'bg-red-200 text-red-800'
-                      }`}
-                    >
-                      {spot.price_range}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Users className="h-4 w-4 text-pink-500" />
-                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        {spot.visitors_count}
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="h-4 w-4 text-pink-500" />
-                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        {spot.best_time}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {spot.highlights.slice(0, 2).map((highlight, idx) => (
-                        <span
-                          key={idx}
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${isDarkMode
-                            ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
-                            : 'bg-pink-100 text-pink-700'
-                            }`}
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                      {spot.highlights.length > 2 && (
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          isDarkMode 
-                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' 
-                            : 'bg-blue-100 text-blue-700'
-                        }`}>
-                          +{spot.highlights.length - 2} more
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-auto">
-                    <div className="flex items-center space-x-2">
-                      <Eye className="h-4 w-4 text-pink-500" />
-                      <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        {spot.recent_reviews} reviews
-                      </span>
-                    </div>
-                    <div className="text-sm font-medium text-pink-500">
-                      Score: {spot.trending_score}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => handleExploreLocation(spot.id)}
-                    className="w-full mt-4 bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
-                  >
-                    Explore {spot.name}
-                  </button>
-                </div>
+          <InfiniteScroll
+            dataLength={displayedSpots.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={
+              <div className="text-center py-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Loading more spots...</p>
               </div>
-            ))}
-          </div>
+            }
+            endMessage={
+              <p className={`text-center py-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                <b>You've seen all the trending spots!</b>
+              </p>
+            }
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayedSpots.map((spot, index) => (
+                <div
+                  key={spot.id}
+                  className={`backdrop-blur-md rounded-2xl border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 overflow-hidden h-full ${
+                    isDarkMode
+                      ? 'bg-white/10 border-white/20 hover:border-pink-500/20'
+                      : 'bg-white/90 border-black/20 hover:border-pink-500/20'
+                  }`}
+                >
+                  {/* Image Container */}
+                  <div className="relative h-48 md:h-64 overflow-hidden">
+                    <img
+                      src={spot.image}
+                      alt={spot.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-          {filteredSpots.length === 0 && (
+                    {/* Trending Badge */}
+                    <div className="absolute top-3 left-3">
+                      <div className="px-2 py-1 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white text-sm font-semibold flex items-center space-x-1">
+                        <TrendingUp className="h-3 w-3" />
+                        <span>#{index + 1}</span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="absolute top-3 right-3 flex space-x-2">
+                      <button
+                        onClick={() => { toggleFavorite(spot.id); AddToWishListHandler(spot) }}
+                        className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'}`}
+                      >
+                        {favoriteSpots.includes(spot.id) ? (
+                          <HeartFilled className="h-4 w-4 text-red-500" />
+                        ) : (
+                          <Heart className="h-4 w-4" />
+                        )}
+                      </button>
+                      <button className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${isDarkMode ? 'bg-black/50 text-white' : 'bg-white/80 text-gray-700'}`}
+                        onClick={handleOpen}
+                      >
+                        <Share2 className="h-4 w-4" />
+                      </button>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        slotProps={{
+                          backdrop: {
+                            style: { backgroundColor: "transparent" },
+                          },
+                        }}
+                      >
+                        <DialogTitle align="center">Share this Spot</DialogTitle>
+                        <DialogContent>
+                          <div style={{ display: "flex", alignItems: "center", gap: "1vmax" }}>
+                            {options.map((item, index) => (
+                              <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                <IconButton>{item.icon}</IconButton>
+                                {item.text}
+                              </div>
+                            ))}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+
+                    {/* Growth Badge */}
+                    <div className="absolute bottom-3 right-3">
+                      <div className="px-2 py-1 rounded-full bg-green-500 text-white text-xs font-semibold">
+                        +{spot.growth_percentage}%
+                      </div>
+                    </div>
+
+                    {/* Location Info Overlay */}
+                    <div className="absolute bottom-3 left-3">
+                      <h3 className="text-lg font-bold text-white">{spot.name}</h3>
+                      <div className="flex items-center text-sm text-gray-200">
+                        <MapPin className="h-3 w-3 mr-1" />
+                        {spot.country}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-2">
+                        <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                        <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                          {spot.rating}
+                        </span>
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                          ({spot.recent_reviews} reviews)
+                        </span>
+                      </div>
+                      <div
+                        className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                          spot.price_range === '$' ? 'bg-green-100 text-green-800' :
+                          spot.price_range === '$$' ? 'bg-yellow-200 text-yellow-800' :
+                          'bg-red-200 text-red-800'
+                        }`}
+                      >
+                        {spot.price_range}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center space-x-2">
+                        <Users className="h-4 w-4 text-pink-500" />
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {spot.visitors_count}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="h-4 w-4 text-pink-500" />
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {spot.best_time}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <div className="flex flex-wrap gap-2">
+                        {spot.highlights.slice(0, 2).map((highlight, idx) => (
+                          <span
+                            key={idx}
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${isDarkMode
+                              ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+                              : 'bg-pink-100 text-pink-700'
+                              }`}
+                          >
+                            {highlight}
+                          </span>
+                        ))}
+                        {spot.highlights.length > 2 && (
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            isDarkMode
+                              ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                              : 'bg-blue-100 text-blue-700'
+                            }`}>
+                            +{spot.highlights.length - 2} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-auto">
+                      <div className="flex items-center space-x-2">
+                        <Eye className="h-4 w-4 text-pink-500" />
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {spot.recent_reviews} reviews
+                        </span>
+                      </div>
+                      <div className="text-sm font-medium text-pink-500">
+                        Score: {spot.trending_score}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleExploreLocation(spot.id)}
+                      className="w-full mt-4 bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
+                    >
+                      Explore {spot.name}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </InfiniteScroll>
+
+          {displayedSpots.length === 0 && (
             <div className="text-center py-12">
               <p className={`text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 No destinations match the selected category.
               </p>
-            </div>
-          )}
-
-          {visibleCount < filteredSpots.length && (
-            <div className="text-center mt-8">
-              <button
-                onClick={handleLoadMoreSpots}
-                className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer"
-              >
-                Load More Trending Spots
-              </button>
             </div>
           )}
         </div>

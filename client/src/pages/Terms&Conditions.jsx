@@ -98,7 +98,16 @@ export default function TermsAndConditions() {
   return (
     <>
       <Navbar />
-      <div className={`min-h-screen w-full overflow-x-hidden transition-all duration-300 ${isDarkMode ? "bg-gray-900" : "bg-gray-50"}`} style={{ paddingTop: "70px" }}>
+      <div className={`min-h-screen w-full overflow-x-hidden transition-all duration-300 
+        
+        ${        isDarkMode 
+            ? 'bg-gradient-to-br from-black to-pink-900'
+            : 'from-pink-200/50 via-white/70 to-blue-200/50'}`} 
+        
+        
+        
+        
+        style={{ paddingTop: "70px" }}>
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

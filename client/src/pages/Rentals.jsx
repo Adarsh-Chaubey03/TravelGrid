@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { Search, MapPin, SlidersHorizontal } from "lucide-react";
 import Navbar from "../components/Custom/Navbar";
@@ -16,6 +17,7 @@ const demoInventory = [
 
 const Rentals = () => {
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
   const [q, setQ] = useState("");
   const [city, setCity] = useState("All");
   const [sort, setSort] = useState("relevance");
@@ -130,7 +132,26 @@ const Rentals = () => {
                 <MapPin size={16} /> {item.city}
               </div>
               <div className="text-pink-500 font-extrabold text-lg mb-4">₹ {item.price}/day</div>
-              <button className="mt-auto bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold transition-all duration-300">Book Now</button>
+              <button
+                onClick={() => {
+                  const parsedCc = /([0-9]{2,4})cc/i.exec(item.title || "");
+                  const bikePayload = {
+                    id: item.id,
+                    modelName: item.title,
+                    engineSize: parsedCc ? `${parsedCc[1]} cc` : undefined,
+                    city: item.city,
+                    dailyRentalCost: item.price,
+                    images: [item.image],
+                    specs: { fuelType: "Petrol" },
+                    guidelines: { minAge: 18, requiredDocs: ["Driving License", "Government ID"], helmetIncluded: true },
+                    usability: { recommendedRideType: item.type === "Bike" ? "City" : "City" }
+                  };
+                  navigate(`/rentals/bike/${item.id}`, { state: { bike: bikePayload } });
+                }}
+                className="mt-auto bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2.5 rounded-xl font-semibold transition-all duration-300"
+              >
+                Book Now
+              </button>
             </div>
           </div>
         ))}

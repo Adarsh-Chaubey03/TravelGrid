@@ -53,44 +53,56 @@ const generateItineraryId = () => `i-${Date.now()}-${Math.floor(Math.random() * 
 
 // --- BANNER COMPONENT (Replaces Header) ---
 const Banner = ({ isDarkMode, toggleTheme }) => (
-  
-    <div className={`relative w-full overflow-hidden mb-8 shadow-xl ${isDarkMode ? 'dark' : 'light'}`}>
-        {/* Background Gradient matching the image style */}
-        <div className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 ease-in-out ${
-            isDarkMode 
-            ? 'bg-gradient-to-br from-black to-pink-900'
-            : 'from-pink-200/50 via-white/70 to-blue-200/50'
-        }`}></div>
+	<div className={`relative w-full overflow-hidden mb-8 shadow-xl ${isDarkMode ? 'dark' : 'light'}`}>
+		{/* Background Image */}
+		<div
+			className="absolute inset-0 bg-cover bg-center"
+			style={{
+				backgroundImage:
+					"url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1920&auto=format&fit=crop')",
+			}}
+		/>
+		{/* Overlay Gradient */}
+		<div
+			className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 ease-in-out ${
+				isDarkMode
+					? 'from-black/80 via-black/60 to-pink-900/70'
+					: 'from-white/20 via-white/10 to-blue-200/40'
+			}`}
+		/>
 
-        <div className="relative max-w-7xl mx-auto py-12 sm:py-20 px-4 flex justify-end">
-            {/* Theme Toggle Button positioned top right */}
-            <button
-                onClick={toggleTheme}
-                className={`absolute top-4 right-4 p-2 rounded-full transition-colors z-10 ${
-                    isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-yellow-300' 
-                    : 'bg-white hover:bg-gray-100 text-indigo-600 shadow-md'
-                }`}
-                aria-label={`Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`}
-            >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+		<div className="relative max-w-7xl mx-auto py-14 sm:py-24 px-4">
+			{/* Theme Toggle Button positioned top right */}
+			<button
+				onClick={toggleTheme}
+				className={`absolute top-4 right-4 p-2 rounded-full transition-colors z-10 ${
+					isDarkMode
+						? 'bg-gray-700 hover:bg-gray-600 text-yellow-300'
+						: 'bg-white hover:bg-gray-100 text-indigo-600 shadow-md'
+				}`}
+				aria-label={`Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`}
+			>
+				{isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+			</button>
 
-            {/* Content centered in the banner */}
-            <div className="w-full text-center">
-                <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-3">
-                    <span className="text-gray-900 dark:text-gray-100">AI Travel </span>
-                    <span className="text-pink-600 dark:text-pink-400">Itenary Builder</span>
-                </h1>
-                <p className="text-base sm:text-xl max-w-2xl mx-auto mb-4 text-gray-700 dark:text-gray-300">
-                    Generate personalized day-by-day travel itineraries based on your preferences of the places.
-                </p>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                    <span role="img" aria-label="sparkle">✨</span> Search your country in search box and city for fast instant travel planning!
-                </p>
-            </div>
-        </div>
-    </div>
+			{/* Content centered in the banner */}
+			<div className="w-full text-center">
+				<h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">
+					<span className="text-gray-900 dark:text-gray-100">Build Your </span>
+					<span className="text-pink-600 dark:text-pink-400">Custom Itinerary</span>
+				</h1>
+				<p className="text-base sm:text-xl max-w-3xl mx-auto mb-6 text-gray-800 dark:text-gray-200">
+					Plan multi-day trips with AI-powered destination search. Drag and drop places, set times, and export to PDF.
+				</p>
+				<a
+					href="#custom-itinerary-builder"
+					className="inline-flex items-center px-6 py-3 rounded-full font-semibold bg-pink-600 text-white hover:bg-pink-700 transition-shadow shadow-lg"
+				>
+					Start Planning
+				</a>
+			</div>
+		</div>
+	</div>
 );
 
 
@@ -450,7 +462,7 @@ const App = () => {
         
         <Banner isDarkMode={isDarkMode} toggleTheme={toggleTheme} /> {/* Use the new Banner */}
 
-        <main className="flex-grow p-4 sm:p-8 max-w-7xl w-full mx-auto">
+        <main id="custom-itinerary-builder" className="flex-grow p-4 sm:p-8 max-w-7xl w-full mx-auto">
           
           {/* PDF Status Message */}
           {message && (

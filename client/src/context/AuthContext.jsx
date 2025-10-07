@@ -15,8 +15,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Hardcoded API base URL, kept self-contained as requested
-  const API_BASE_URL = 'http://localhost:5000/api/v1';
+  // Hardcoded API base URL - match server routes which are mounted under /api
+  const API_BASE_URL = 'http://localhost:5000/api';
 
   // Helper function for consistent API calls with enhanced error handling
   const apiFetch = async (endpoint, options = {}) => {
@@ -129,9 +129,9 @@ export const AuthProvider = ({ children }) => {
     return { success, error, status };
   };
 
-  // Logout
+  // Logout (server exposes GET /api/auth/logout)
   const logout = async () => {
-    const { success, error } = await apiFetch('/auth/logout', { method: 'POST' });
+    const { success, error } = await apiFetch('/auth/logout', { method: 'GET' });
     if (success) {
       setUser(null);
       localStorage.removeItem('jwt_token');

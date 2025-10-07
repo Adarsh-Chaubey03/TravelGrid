@@ -1,8 +1,8 @@
 ---
 name: Preferred Template
-about: " Use this format for all types of issues."
+about: "Use this format for all types of issues."
 title: ''
-labels: 'gssoc25'
+labels: 'gssoc25, hacktoberfest, hacktoberfest-accepted'
 assignees: ''
 
 ---
@@ -14,22 +14,14 @@ assignees: ''
 
 Briefly describe the problem.
 
-
-
-
 ## 💡 Expected Behavior
 
-
 What should happen instead?
-
 
 ## 📷 Screenshots (Optional)
 
 Attach screenshots if needed.
 
-
 ## ✅ Additional Context (Optional)
 
 Add any other relevant info.
-
-

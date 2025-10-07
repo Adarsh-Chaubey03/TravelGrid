@@ -301,7 +301,7 @@ const Feedback = () => {
                           setIsPackageDropdownOpen(!isPackageDropdownOpen);
                           setIsHotelDropdownOpen(false);
                         }}
-                        className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between text-black"
+                        className={`w-full px-4 py-3 ${isDarkMode ? "bg-gradient-to-br from-pink-500/20 to-purple-600/20 text-white border-2 border-white/30" : "bg-white text-gray-900 border-1 border-gray-200"} backdrop-blur-sm rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between`}
                       >
                         <span className="truncate">
                           {formData.package
@@ -372,7 +372,7 @@ const Feedback = () => {
                           setIsHotelDropdownOpen(!isHotelDropdownOpen);
                           setIsPackageDropdownOpen(false);
                         }}
-                        className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between text-black"
+                        className={`w-full px-4 py-3 ${isDarkMode ? "bg-gradient-to-br from-pink-500/20 to-purple-600/20 text-white border-2 border-white/30" : "bg-white text-gray-900 border-1 border-gray-200"} backdrop-blur-sm rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between`}
                       >
                         <span className="truncate">
                           {formData.hotel
@@ -435,7 +435,7 @@ const Feedback = () => {
 
                 {/* Message */}
                 <div>
-                                      <label className={`block text-sm font-semibold mb-2 ${
+                    <label className={`block text-sm font-semibold mb-2 ${
                       isDarkMode ? 'text-gray-200' : 'text-gray-700'
                     }`}>
                       Your Feedback *
@@ -445,7 +445,7 @@ const Feedback = () => {
                     rows="4"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/90 backdrop-blur-sm border-2 border-white/30 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none resize-none text-black"
+                    className={`w-full px-4 py-3 ${isDarkMode ? "bg-gradient-to-br from-pink-500/20 to-purple-600/20 text-white border-2 border-white/30" : "bg-white text-gray-900 border-1 border-gray-200"} backdrop-blur-sm rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between`}
                     placeholder="Tell us about your experience, suggestions, or any issues you encountered..."
                     required
                   />
@@ -474,7 +474,7 @@ const Feedback = () => {
                       </button>
                     ))}
                   </div>
-                  <p className="text-sm text-gray-300 mt-3">
+                  <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-500"} mt-3`}>
                     {formData.rating === 0 && "Rate your experience"}
                     {formData.rating === 1 && "Poor"}
                     {formData.rating === 2 && "Fair"}

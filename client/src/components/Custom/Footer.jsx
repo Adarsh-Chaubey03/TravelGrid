@@ -116,10 +116,10 @@ const Footer = () => {
                     <FaInstagram />
                   </a>
                   <a
-                       href="0310adarshchaubey@gmail.com"
-                       aria-label="Email"
-                       className="text-gray-300 hover:text-yellow-400 transition-colors text-2xl"
-                      >
+                      href="mailto:hello@travelgrid.com"
+                      aria-label="Email"
+                      className="text-gray-300 hover:text-yellow-400 transition-colors text-2xl"
+                     >
                     <FaEnvelope />
                   </a>
                 </div>

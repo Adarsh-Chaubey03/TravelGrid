@@ -79,7 +79,8 @@ const initialForumTopics = [
   {
     id: 4,
     title: "Best hotels in Mumbai for business travelers",
-    description: "Looking for recommendations for hotels with good wifi, conference rooms, and central location in Mumbai.",
+    description:
+      "Looking for recommendations for hotels with good wifi, conference rooms, and central location in Mumbai.",
     category: "accommodation",
     author: "BusinessNomad",
     createdAt: "2024-01-12",
@@ -89,7 +90,7 @@ const initialForumTopics = [
         message: "Try The Taj Mahal Palace or The Oberoi for luxury options.",
         createdAt: "2025-07-28T10:15:00.000Z",
         _id: "reply3",
-      }
+      },
     ],
     views: 145,
     postType: "question",
@@ -98,29 +99,32 @@ const initialForumTopics = [
   {
     id: 5,
     title: "Flight vs train: Delhi to Goa comparison",
-    description: "Weighing options between flight and train for Delhi to Goa journey. What are the pros and cons?",
+    description:
+      "Weighing options between flight and train for Delhi to Goa journey. What are the pros and cons?",
     category: "transport",
     author: "RouteExplorer",
     createdAt: "2024-01-09",
     replies: [],
     views: 98,
-    postType: "question", 
+    postType: "question",
     trending: false,
   },
   {
     id: 6,
     title: "Street food safety tips for India",
-    description: "First time traveling to India. What are the best practices for trying street food safely?",
+    description:
+      "First time traveling to India. What are the best practices for trying street food safely?",
     category: "food",
     author: "FoodieBackpacker",
     createdAt: "2024-01-14",
     replies: [
       {
         senderName: "IndiaExpert",
-        message: "Stick to busy stalls, avoid raw vegetables, and carry hand sanitizer.",
+        message:
+          "Stick to busy stalls, avoid raw vegetables, and carry hand sanitizer.",
         createdAt: "2025-07-29T14:30:00.000Z",
         _id: "reply4",
-      }
+      },
     ],
     views: 203,
     postType: "tips",
@@ -129,7 +133,8 @@ const initialForumTopics = [
   {
     id: 7,
     title: "Essential travel apps and tools",
-    description: "Share your favorite apps and digital tools that make traveling easier and more organized.",
+    description:
+      "Share your favorite apps and digital tools that make traveling easier and more organized.",
     category: "tips",
     author: "TechTraveler",
     createdAt: "2024-01-11",
@@ -141,17 +146,19 @@ const initialForumTopics = [
   {
     id: 8,
     title: "Hidden gems around Rishikesh",
-    description: "Planning a spiritual journey to Rishikesh. Any lesser-known places worth visiting nearby?",
-    category: "destinations", 
+    description:
+      "Planning a spiritual journey to Rishikesh. Any lesser-known places worth visiting nearby?",
+    category: "destinations",
     author: "SpiritSeeker",
     createdAt: "2024-01-13",
     replies: [
       {
         senderName: "YogaLover",
-        message: "Visit Kunjapuri Temple for sunrise and Beatles Ashram for history.",
+        message:
+          "Visit Kunjapuri Temple for sunrise and Beatles Ashram for history.",
         createdAt: "2025-07-30T08:45:00.000Z",
         _id: "reply5",
-      }
+      },
     ],
     views: 134,
     postType: "question",
@@ -160,7 +167,8 @@ const initialForumTopics = [
   {
     id: 9,
     title: "Backpacking Southeast Asia: Complete guide",
-    description: "Comprehensive guide for first-time backpackers in Southeast Asia covering routes, budget, and essential tips.",
+    description:
+      "Comprehensive guide for first-time backpackers in Southeast Asia covering routes, budget, and essential tips.",
     category: "general",
     author: "BackpackGuru",
     createdAt: "2024-01-07",
@@ -188,46 +196,53 @@ export default function Forum() {
   const [reply, setReply] = useState(false);
   const [replyPostId, setReplyPostId] = useState(null);
 
-
-
   // Define the data fetching logic in its own function
-const fetchForumTopics = async () => {
-  try {
-// Add error handling for network issues
-const fetchForumTopics = async () => {
-  try {
-    const res = await axios.get("http://localhost:5000/api/post/allPosts", {
-      timeout: 10000, // 10 second timeout
-    });
-    // ... rest of your code
-  } catch (err) {
-    console.error("Failed to load forum topics:", err);
-    if (err.code === 'ECONNREFUSED' || err.message.includes('Network Error')) {
-      toast.error("Unable to connect to server. Please check if the backend is running on port 5000.");
-    } else {
+  const fetchForumTopics = async () => {
+    try {
+      // Add error handling for network issues
+      const fetchForumTopics = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:5000/api/post/allPosts",
+            {
+              timeout: 10000, // 10 second timeout
+            }
+          );
+          // ... rest of your code
+        } catch (err) {
+          console.error("Failed to load forum topics:", err);
+          if (
+            err.code === "ECONNREFUSED" ||
+            err.message.includes("Network Error")
+          ) {
+            toast.error(
+              "Unable to connect to server. Please check if the backend is running on port 5000."
+            );
+          } else {
+            toast.error("Failed to fetch forum topics");
+          }
+        }
+      };
+      const transformed = res.data.map((post) => ({
+        id: post._id,
+        title: post.title,
+        description: post.info,
+        category: post.tag?.toLowerCase() || "general",
+        author: post.senderName,
+        createdAt: post.createdAt,
+        replies: post.replies || [],
+        views: post.views || 0,
+        trending: post.trending || false,
+      }));
+      setForumTopics(transformed);
+    } catch (err) {
+      console.error("Failed to load forum topics:", err);
       toast.error("Failed to fetch forum topics");
     }
-  }
-};    const transformed = res.data.map((post) => ({
-      id: post._id,
-      title: post.title,
-      description: post.info,
-      category: post.tag?.toLowerCase() || "general",
-      author: post.senderName,
-      createdAt: post.createdAt,
-      replies: post.replies || [],
-      views: post.views || 0,
-      trending: post.trending || false,
-    }));
-    setForumTopics(transformed);
-  } catch (err) {
-    console.error("Failed to load forum topics:", err);
-    toast.error("Failed to fetch forum topics");
-  }
-};
+  };
 
   useEffect(() => {
-     fetchForumTopics();
+    fetchForumTopics();
   }, []);
 
   const categories = [
@@ -452,8 +467,6 @@ const fetchForumTopics = async () => {
     }
   };
 
-  
-
   const filteredAndSortedTopics = useMemo(() => {
     let filteredTopics = forumTopics;
 
@@ -514,7 +527,6 @@ const fetchForumTopics = async () => {
 
       const data = await res.json();
       if (res.ok) {
-        
         fetchForumTopics();
 
         // Reset state
@@ -528,6 +540,25 @@ const fetchForumTopics = async () => {
       toast.error("Something went wrong!");
     }
   };
+  const selectClasses = `
+    flex-grow py-3 px-4 rounded-2xl border-2 appearance-none 
+    transition-all duration-300 focus:outline-none cursor-pointer
+    ${
+      isDarkMode
+        ? "bg-gray-800 border-gray-600 text-white focus:border-pink-500"
+        : "bg-white border-gray-200 text-gray-900 focus:border-blue-500"
+    }
+  `;
+  // Tailwind classes for the SVG icon wrapper
+  const svgWrapperClasses = `
+    p-3 rounded-2xl flex items-center justify-center 
+    ${
+      isDarkMode
+        ? "bg-gray-800 border border-gray-600"
+        : "bg-gray-50 border border-gray-200"
+    }
+    text-gray-500 transition-colors duration-300
+  `;
 
   return (
     <>
@@ -622,11 +653,11 @@ const fetchForumTopics = async () => {
 
           {/* Search and Filter Section */}
           <div
-            className={`glassmorphism rounded-3xl p-6 shadow-xl border ${
+            className={`flex-grow glassmorphism rounded-3xl p-6 shadow-xl border ${
               isDarkMode ? "border-gray-700" : "border-gray-200"
             }`}
           >
-            <div className="flex flex-col lg:flex-row gap-6">
+            <div className="flex flex-grow lg:flex-row gap-6">
               {/* Search Bar */}
               <div className="flex-1">
                 <div
@@ -654,27 +685,39 @@ const fetchForumTopics = async () => {
               </div>
 
               {/* Sort Dropdown */}
-              <div className="lg:w-64">
-                <div className="relative">
-                  <Filter
-                    className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  />
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none ${
-                      isDarkMode
-                        ? "bg-gray-800 border-gray-600 text-white focus:border-pink-500"
-                        : "bg-white border-gray-200 text-gray-900 focus:border-blue-500"
-                    }`}
-                  >
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="mostReplies">Most Replies</option>
-                    <option value="trending">Trending</option>
-                  </select>
+              <div className="lg:w-96 max-w-full">
+                <div className="flex items-end space-x-3 w-full">
+                  {/* 1. SVG Icon Container */}
+                  <div className={svgWrapperClasses} aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-funnel w-6 h-6"
+                    >
+                      <path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"></path>
+                    </svg>
+                  </div>
+
+                  {/* 2. Select Dropdown Container */}
+                  <div className="relative flex-grow">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className={selectClasses}
+                    >
+                      <option value="newest">Newest First</option>
+                      <option value="oldest">Oldest First</option>
+                      <option value="mostReplies">Most Replies</option>
+                      <option value="trending">Trending</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>

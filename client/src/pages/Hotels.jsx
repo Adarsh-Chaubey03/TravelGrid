@@ -134,7 +134,7 @@ function Hotels() {
               key={hotel.id}
               className={`flex flex-col rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl cursor-pointer ${
                 isDarkMode
-                  ? "bg-gray-800/90 border border-pink-400/30 hover:bg-gray-800/95"
+                  ? "bg-gray-800/90 border border-pink-400/30 hover:bg-gray-800/95 hover:scale-105"
                   : "bg-white/95 border border-pink-300/50 hover:bg-white/100 hover:scale-105"
               }`}
             >
@@ -142,7 +142,7 @@ function Hotels() {
                 src={hotel.image}
                 alt={hotel.name}
                 loading="lazy"
-                className="w-full h-56 object-cover object-center"
+                className="w-full h-56 object-cover object-center rounded-t-2xl"
               />
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
@@ -181,7 +181,7 @@ function Hotels() {
                 </p>
                 <button
                   onClick={() => navigate(`/hotels/${hotel.id}`)}
-                  className="mt-4 self-start bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white px-5 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                  className="mt-4 self-center w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
                 >
                   Book Hotel
                 </button>
@@ -190,7 +190,7 @@ function Hotels() {
                   className={`mt-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     isDarkMode
                       ? "bg-pink-900/30 hover:bg-pink-900/50 text-pink-400"
-                      : "bg-pink-100 hover:bg-pink-200 text-pink-600"
+                      : "bg-pink-200 hover:bg-pink-300 text-pink-600"
                   }`}
                 >
                   ❤️ Save to Dashboard

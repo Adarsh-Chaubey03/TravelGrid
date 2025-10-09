@@ -6,13 +6,13 @@ import Navbar from "../components/Custom/Navbar";
 
 const demoInventory = [
   // Bikes
-  { id: "b1", type: "Bike", title: "City Bike 250cc", price: 1200, city: "Mumbai", image: "https://th.bing.com/th/id/R.75e28403bbf65f7c23c138b1624fff53?rik=fHpcAZnfs9W5Rg&riu=http%3a%2f%2f2.bp.blogspot.com%2f-dL31KssJy9M%2fUu0L9YrrASI%2fAAAAAAAAAQY%2forJuzwjCcB0%2fs1600%2flatest-heavy-beautiful-bike-hd-wallpaper.jpg&ehk=hC8K%2btk6D8pFfdRvJlN0%2fDJuwET6%2fml4RbKXx4YsmF8%3d&risl=&pid=ImgRaw&r=0" },
-  { id: "b2", type: "Bike", title: "Scooter 125cc", price: 800, city: "Pune", image: "https://th.bing.com/th/id/R.498696cef0387857444bb9740f5c46fb?rik=DX2GBAcExPXtpQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f-ccqyXftoVkE%2fUyF0jtlEzmI%2fAAAAAAAAZvU%2fYeJFyPez278%2fs1600%2fBikes%2bWallpapers%2b(22).jpg&ehk=Jt07aUCnIacirwAFX11NYBzLXa38%2feJd7osSkHmLoZc%3d&risl=&pid=ImgRaw&r=0" },
-  { id: "b3", type: "Bike", title: "Adventure 390cc", price: 1800, city: "Jaipur", image: "https://4.bp.blogspot.com/-qDD7AiIUUg0/ULD5tyYL2qI/AAAAAAAAK4Y/PcW9UMi29CI/s1600/bikes+wallpapers+(4).jpg" },
+  { id: "b1", type: "Bike", title: "City Bike 250cc", price: 1200, city: "Mumbai", available: true, image: "https://th.bing.com/th/id/R.75e28403bbf65f7c23c138b1624fff53?rik=fHpcAZnfs9W5Rg&riu=http%3a%2f%2f2.bp.blogspot.com%2f-dL31KssJy9M%2fUu0L9YrrASI%2fAAAAAAAAAQY%2forJuzwjCcB0%2fs1600%2flatest-heavy-beautiful-bike-hd-wallpaper.jpg&ehk=hC8K%2btk6D8pFfdRvJlN0%2fDJuwET6%2fml4RbKXx4YsmF8%3d&risl=&pid=ImgRaw&r=0" },
+  { id: "b2", type: "Bike", title: "Scooter 125cc", price: 800, city: "Pune", available: false, image: "https://th.bing.com/th/id/R.498696cef0387857444bb9740f5c46fb?rik=DX2GBAcExPXtpQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f-ccqyXftoVkE%2fUyF0jtlEzmI%2fAAAAAAAAZvU%2fYeJFyPez278%2fs1600%2fBikes%2bWallpapers%2b(22).jpg&ehk=Jt07aUCnIacirwAFX11NYBzLXa38%2feJd7osSkHmLoZc%3d&risl=&pid=ImgRaw&r=0" },
+  { id: "b3", type: "Bike", title: "Adventure 390cc", price: 1800, city: "Jaipur", available: true, image: "https://4.bp.blogspot.com/-qDD7AiIUUg0/ULD5tyYL2qI/AAAAAAAAK4Y/PcW9UMi29CI/s1600/bikes+wallpapers+(4).jpg" },
   // Cars
-  { id: "c1", type: "Car", title: "Hatchback Compact", price: 2600, city: "Delhi", image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop" },
-  { id: "c2", type: "Car", title: "SUV Premium", price: 5200, city: "Bengaluru", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1400&auto=format&fit=crop" },
-  { id: "c3", type: "Car", title: "Sedan Comfort", price: 3400, city: "Goa", image: "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1400&auto=format&fit=crop" },
+  { id: "c1", type: "Car", title: "Hatchback Compact", price: 2600, city: "Delhi", available: true, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop" },
+  { id: "c2", type: "Car", title: "SUV Premium", price: 5200, city: "Bengaluru", available: false, image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1400&auto=format&fit=crop" },
+  { id: "c3", type: "Car", title: "Sedan Comfort", price: 3400, city: "Goa", available: true, image: "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1400&auto=format&fit=crop" },
 ];
 
 const Rentals = () => {
@@ -125,6 +125,14 @@ const Rentals = () => {
             <div className="relative h-48 w-full overflow-hidden">
               <img src={item.image} alt={item.title} className="w-full h-full object-cover" loading="lazy" />
               <span className="absolute top-3 left-3 text-xs font-semibold bg-pink-600 text-white px-2 py-1 rounded-full">{item.type}</span>
+              {/* Availability tag */}
+              <span className={`absolute top-3 right-3 text-[11px] md:text-xs font-semibold px-2 py-1 rounded-full border ${
+                item.available
+                  ? 'bg-green-600/90 text-white border-green-500'
+                  : 'bg-gray-300/90 text-gray-800 border-gray-300'
+              }`}>
+                {item.available ? 'Available' : 'Not available'}
+              </span>
             </div>
             <div className="p-5 flex-1 flex flex-col">
               <h3 className="text-lg font-bold mb-1">{item.title}</h3>

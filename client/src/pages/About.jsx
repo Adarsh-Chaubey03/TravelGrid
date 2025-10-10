@@ -204,7 +204,7 @@ function About() {
   ];
 
   return (
-    <div className={`w-full overflow-hidden transition-all duration-300`}>
+    <div className={`w-full overflow-hidden transition-all duration-300 mt-16`}>
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}

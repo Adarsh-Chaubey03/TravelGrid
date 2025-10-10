@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/* 
+
 @tailwind base;
-@tailwind components; */
+@tailwind components;
 @tailwind utilities;
 
 /* CSS Variables for Theme Colors */

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "../LanguageSelector";
+import MoodToggle from '../../services/MoodToggle';
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -219,6 +220,8 @@ const Navbar = () => {
 
           {/* Desktop Auth Buttons and Theme Toggle */}
           <div className="hidden md:flex gap-4 items-center text-pink-500 font-medium">
+            {/* Mood Toggle */}
+            <MoodToggle />
             {/* Language Selector */}
             <LanguageSelector />
             {/* Theme Toggle */}
@@ -286,6 +289,7 @@ const Navbar = () => {
 
           {/* Mobile Toggle */}
           <div className="md:hidden flex items-center gap-2">
+            <MoodToggle />
             <LanguageSelector />
             <ThemeToggle />
 

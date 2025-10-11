@@ -129,7 +129,7 @@ const Wishlist = () => {
                   <button
                     aria-label="Search"
                     onClick={handleNavigateToTrending}
-                    className="text-sm flex items-center text-pink-600 dark:text-pink-400 hover:underline"
+                    className="text-sm flex items-center  text-black dark:text-white hover:underline"
                   >
                     <TrendingUp className="h-4 w-4 mr-1" />
                     View Trending

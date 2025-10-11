@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { FaTwitter, FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 // Footer component
 const Footer = () => {
@@ -83,10 +84,10 @@ const Footer = () => {
                     href="https://twitter.com/yourusername"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Twitter"
-                    className="text-gray-300 hover:text-blue-400 transition-colors text-2xl"
+                    aria-label="X (formerly Twitter)"
+                    className="text-gray-300 hover:text-gray-100 transition-colors text-2xl"
                   >
-                    <FaTwitter />
+                    <FaXTwitter />
                   </a>
                   <a
                     href="https://www.linkedin.com/in/adarsh-chaubey/"

@@ -639,11 +639,14 @@ function About() {
                 <div className="relative w-full h-full transition-transform duration-700 group-hover:rotate-y-180"
                   style={{ transformStyle: 'preserve-3d' }}>
                   {/* Front */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 group-hover:border-pink-400 transition-all duration-300"
+                  <div className={`absolute inset-0 rounded-lg p-6 border transition-all duration-300 ${isDarkMode
+                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 group-hover:border-pink-400'
+                    : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 group-hover:border-pink-300 shadow-xl shadow-gray-600'
+                    }`}
                     style={{ backfaceVisibility: 'hidden' }}>
                     <div className="text-4xl mb-4">{feature.icon}</div>
-                    <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                    <h3 className={`text-xl font-bold mb-3 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{feature.title}</h3>
+                    <p className={`leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{feature.description}</p>
                   </div>
 
                   {/* Back */}

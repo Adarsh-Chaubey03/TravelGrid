@@ -440,8 +440,8 @@ const TrendingSpots = () => {
         </div>
       </section>
 
-      {/* Filter Tabs */}
-      <section className="sticky top-0 z-10 bg-gray-900 shadow-md">
+  {/* Filter Tabs */}
+  <section className={`sticky top-0 z-10 shadow-md ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-pink-100/60 via-white/40 to-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (

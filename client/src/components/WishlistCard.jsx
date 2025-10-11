@@ -2,10 +2,12 @@ import React from 'react';
 import { useWishlist } from '../context/WishlistContext';
 import { MapPin, Star, Users, Calendar, Trash2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
 const WishlistCard = ({ item }) => {
   const { removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
+  const {isDarkMode}=useTheme();
 
   const handleRemoveFromWishlist = (e) => {
     e.stopPropagation();
@@ -19,7 +21,7 @@ const WishlistCard = ({ item }) => {
 
   return (
     <div 
-      className="rounded-xl shadow-md overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 h-full flex flex-col relative group"
+      className={`rounded-xl shadow-md overflow-hidden border border-gray-500/20 ${isDarkMode?"bg-gray-500/20":"bg-white/30"} hover:shadow-xl transition-all duration-300 h-full flex flex-col relative group`}
       onClick={handleNavigateToDetails}
     >
       {/* Image Section */}
@@ -34,7 +36,7 @@ const WishlistCard = ({ item }) => {
         {/* Actions overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
           <button aria-label="Search"
-            className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+            className={`p-2 rounded-full shadow-md  transition-colors ${isDarkMode?"bg-red-900/30 border-white/20 ":"bg-white/80 border-white/60"} cursor-pointer`}
             onClick={handleRemoveFromWishlist}
             title="Remove from wishlist"
           >
@@ -42,7 +44,7 @@ const WishlistCard = ({ item }) => {
           </button>
           
           <button aria-label="Search"
-            className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
+            className={`p-2 rounded-full shadow-md  transition-colors ${isDarkMode?" border-white/20 bg-blue-900/50":"bg-white/80 border-white/60"} cursor-pointer`}
             onClick={(e) => {
               e.stopPropagation();
               window.open(`/location/${item.id}`, '_blank');
@@ -56,7 +58,7 @@ const WishlistCard = ({ item }) => {
         {/* Category badge */}
         {item.category && (
           <div className="absolute top-3 left-3">
-            <div className="px-2 py-1 rounded-full text-xs font-medium bg-pink-500 text-white">
+            <div className="px-2 py-1 rounded-full text-xs font-medium bg-pink-500 text-gray-900">
               {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
             </div>
           </div>
@@ -65,7 +67,7 @@ const WishlistCard = ({ item }) => {
         {/* Rating badge */}
         {item.rating && (
           <div className="absolute top-3 right-3">
-            <div className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900 flex items-center">
+            <div className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-300 text-gray-800 flex items-center">
               <Star className="h-3 w-3 mr-1" fill="currentColor" />
               {item.rating}
             </div>
@@ -75,11 +77,11 @@ const WishlistCard = ({ item }) => {
 
       {/* Content Section */}
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="font-bold text-gray-800 dark:text-white text-lg mb-1">{item.name}</h3>
+        <h3 className="font-bold text-gray-900 text-lg mb-1">{item.name}</h3>
         
-        <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3">
+        <div className="flex items-center text-gray-700 text-sm mb-3">
           <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-          <span>{item.country || 'Unknown Location'}</span>
+          <span className='text-gray-700'>{item.country || 'Unknown Location'}</span>
         </div>
 
         {/* Stats grid */}
@@ -87,13 +89,13 @@ const WishlistCard = ({ item }) => {
           {item.visitors_count && (
             <div className="flex items-center">
               <Users className="h-3 w-3 mr-1 text-pink-500" />
-              <span className="text-gray-600 dark:text-gray-300">{item.visitors_count} visitors</span>
+              <span className="text-gray-700">{item.visitors_count} visitors</span>
             </div>
           )}
           {item.best_time && (
             <div className="flex items-center">
               <Calendar className="h-3 w-3 mr-1 text-pink-500" />
-              <span className="text-gray-600 dark:text-gray-300">{item.best_time}</span>
+              <span className="text-gray-700">{item.best_time}</span>
             </div>
           )}
         </div>
@@ -105,7 +107,7 @@ const WishlistCard = ({ item }) => {
               {item.highlights.map((highlight, idx) => (
                 <span
                   key={idx}
-                  className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300"
+                  className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${isDarkMode?"bg-gray-500/20 text-pink-300":"bg-pink-500/10 text-pink-500"}`}
                 >
                   {highlight}
                 </span>

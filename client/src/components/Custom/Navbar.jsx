@@ -131,7 +131,7 @@ const Navbar = () => {
             : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
         } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
-        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-6">
+        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-4.5">
           {/* Logo */}
           <NavLink
             to="/"

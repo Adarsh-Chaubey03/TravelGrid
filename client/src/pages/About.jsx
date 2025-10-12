@@ -796,8 +796,10 @@ function About() {
             {techStack.map((tech, index) => (
               <motion.div
                 key={index}
+
                 whileHover={{ scale: 1.1 }}
                 className={`${tech.color} text-white px-6 py-3 rounded-xl font-semibold tracking-wide transition-all duration-300 cursor-pointer shadow-2xl backdrop-blur-sm`}
+
               >
                 {tech.name}
               </motion.div>

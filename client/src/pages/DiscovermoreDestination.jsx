@@ -87,7 +87,12 @@ function DiscovermoreDestination() {
     };
 
     return (
-        <section className={`w-full  text-cyan-950 ${isDarkMode?'bg-[#1e293b]':'bg-gradient-to-br'} py-16 text-center`}>
+        <section className={`w-full  text-cyan-950
+     ${        isDarkMode 
+            ? 'bg-gradient-to-br from-black to-pink-900'
+            : 'from-pink-200/50 via-white/70 to-blue-200/50'}  py-16 text-center` }>
+
+
             <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode?'text-white':'text-black'} mt-6`}>
                 Discover New Destinations
             </h2>

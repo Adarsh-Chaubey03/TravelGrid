@@ -28,14 +28,16 @@ const Navbar = () => {
 
   const navLinks = [
     { name: t("navigation.home"), path: "/" },
-    { name: t("navigation.about"), path: "/about" },
     { name: t("navigation.trendingSpots"), path: "/trending-spots" },
+    { name: t("navigation.about"), path: "/about" },
     {
       name: t("navigation.booking"),
       subitems: [
         { label: t("navigation.ticket"), path: "/ticket" },
         { label: t("navigation.hotels"), path: "/hotels" },
         { label: t("navigation.packages"), path: "/packages" },
+        { label: "Rentals", path: "/rentals" },
+        { label: t("Visa"), path: "/visa-checker" },
         { label: t("navigation.bookingHistory"), path: "/booking-history" },
       ],
     },
@@ -43,28 +45,27 @@ const Navbar = () => {
       name: t("navigation.support"),
       subitems: [
         { label: t("navigation.travelPlans"), path: "/travel-plan-generator" },
-        { label: "Rentals (Bikes & Cars)", path: "/rentals" },
-        { label: t("navigation.CustomItenary"), path: "/CustomItenary" },
+        { label: t("navigation.customItinerary"), path: "/custom-itinerary" },
         { label: t("navigation.guide"), path: "/guides" },
         { label: t("navigation.contact"), path: "/contact" },
-        { label: t("Visa"), path: "/visa-checker" },
+       
       ],
     },
     {
       name: t("navigation.tools"),
       subitems: [
-        { label: t("navigation.tripCalculator"), path: "/trip-calculator" },
         { label: t("navigation.packingChecklist"), path: "/packing-checklist" },
+        { label: t("navigation.tripCalculator"), path: "/trip-calculator" },
         {
           label: t("navigation.travelRecommendations"),
           path: "/recommendation",
         },
-        { label: t("navigation.feedback"), path: "/feedback" },
+        { label: "Enhanced Currency Converter", path: "/enhanced-currency" },
+        { label: "Map", path: "/itinerary-map" },
         { label: "AI Mood Board", path: "/mood-board" },
         { label: "AI Travel Planner", path: "/ai-travel-planner" },
         { label: "Music", path: "/music" },
-        { label: "Map", path: "/itinerary-map" },
-        { label: "Enhanced Currency Converter", path: "/enhanced-currency" },
+        { label: t("navigation.feedback"), path: "/feedback" },
       ],
     },
     { name: t("navigation.wishlist"), path: "/wishlist" },

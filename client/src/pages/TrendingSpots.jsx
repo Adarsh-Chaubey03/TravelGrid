@@ -426,7 +426,7 @@ const TrendingSpots = () => {
           />
           <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-tr from-black via-blue-500/20 to-blue-400/20' : 'bg-gradient-to-b from-white/70 via-pink-100/50 to-transparent'}`} />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center mt-20">
           <h1 className="text-4xl mt-8 md:text-5xl font-bold mb-4">
             Discover <span className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Trending Destinations</span>
           </h1>

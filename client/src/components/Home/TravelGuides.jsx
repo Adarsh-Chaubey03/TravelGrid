@@ -72,7 +72,7 @@ const TravelGuides = () => {
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="mb-16">
           <h2
-            className={`text-3xl md:text-4xl font-bold mb-6 transition-all duration-300 ${
+            className={`text-3xl md:text-4xl font-medium mb-6 transition-all duration-300 ${
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
           >

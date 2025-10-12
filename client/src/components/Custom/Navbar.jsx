@@ -142,7 +142,8 @@ const Navbar = () => {
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
             className="flex items-center gap-2 text-xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-all duration-200 hover:scale-105"
-          >
+
+    
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
@@ -362,6 +363,24 @@ const Navbar = () => {
             >
               <X size={22} />
             </button>
+          </div>
+
+          {/* Settings Section - Mood & Language */}
+          <div className={`flex flex-col gap-3 mb-6 pb-6 border-b ${
+            isDarkMode ? "border-gray-600" : "border-gray-300"
+          }`}>
+            <div className="flex items-center justify-between px-3">
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                Mood Music
+              </span>
+              <MoodToggle />
+            </div>
+            <div className="flex items-center justify-between px-3">
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                Language
+              </span>
+              <LanguageSelector />
+            </div>
           </div>
 
           {/* Mobile Nav Links */}

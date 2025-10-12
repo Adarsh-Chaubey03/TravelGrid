@@ -187,7 +187,7 @@ const TravelPackages = () => {
               <h1 className={`text-4xl md:text-6xl font-extrabold tracking-tight mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 Discover Our <span className="text-pink-500">Travel Packages</span>
               </h1>
-              <p className={`${isDarkMode ? 'text-pink-100' : 'text-gray-700'} text-base md:text-lg max-w-2xl mx-auto mb-8`}>
+              <p className={`${isDarkMode ? 'text-pink-100' : 'text-black'} text-base md:text-lg max-w-2xl mx-auto mb-8`}>
                 Handpicked vacation deals crafted for unforgettable experiences.
               </p>
 

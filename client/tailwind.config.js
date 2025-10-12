@@ -9,6 +9,9 @@ export default {
   darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
+      screens: {
+        'xs': '475px', // Custom breakpoint for very small screens
+      },
       /*colors: {
         // Custom color palette for better dark mode support
         dark: {

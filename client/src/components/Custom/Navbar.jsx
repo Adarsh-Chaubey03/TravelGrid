@@ -100,6 +100,7 @@ const Navbar = () => {
   useEffect(() => {
     setIsSidebarOpen(false);
   }, [location.pathname]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -120,19 +121,19 @@ const Navbar = () => {
   }, []);
 
   const linkBaseClasses =
-    "py-1.5 px-2 text-sm font-medium rounded-sm  hover:text-pink-500 hover:shadow-sm transition-all duration-300";
+    "py-1.5 px-2 text-sm font-medium rounded-sm hover:text-pink-500 hover:shadow-sm transition-all duration-300";
 
   return (
     <div>
       {/* Top Navbar */}
       <nav
-        className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${
+        className={`box-border w-full fixed top-0 left-0 z-50 h-16 backdrop-blur-xl backdrop-saturate-150 border-b transition-all duration-300 pr-2 sm:pr-3 pl-0 ${
           isDarkMode
-            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
-            : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
+            ? "bg-slate-900/70 border-slate-700/50 text-white shadow-slate-900/50"
+            : "bg-white/70 border-gray-200/50 text-gray-800 shadow-gray-500/20"
         } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
-        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-4.5">
+        <div className="w-full max-w-full mx-auto flex justify-between items-center gap-2 px-1 py-3">
           {/* Logo */}
           <NavLink
             to="/"
@@ -140,22 +141,23 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-2 sm:gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 flex-shrink-0"
-          >
+            className="flex items-center gap-2 text-xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-all duration-200 hover:scale-105"
+
+    
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
               loading="lazy"
-              className="w-7 h-7 sm:w-8 sm:h-8 mx-1 sm:mx-2 rounded-full border border-pink-300 shadow-md flex-shrink-0"
+              className="w-7 h-7 ml-2 rounded-full border border-pink-300 shadow-md flex-shrink-0 hover:shadow-lg hover:border-pink-400 transition-all duration-200"
             />
-            <span className="text-base sm:text-lg font-bold truncate max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-none">
+            <span className="text-base font-bold truncate max-w-[100px] sm:max-w-[140px] md:max-w-none">
               TravelGrid
             </span>
           </NavLink>
 
           {/* Desktop Nav */}
           <div
-            className={`hidden md:flex items-center gap-2 font-small flex-1 justify-center ${
+            className={`hidden md:flex items-center gap-1 font-small flex-1 justify-center ${
               isDarkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
@@ -164,23 +166,30 @@ const Navbar = () => {
                 <div className="relative group" key={link.name}>
                   <button
                     aria-label={link.name}
-                    className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all  duration-300 flex items-center gap-1 truncate max-w-fit cursor-pointer ${
+                    className={`py-1.5 px-2 text-sm font-medium rounded-lg transition-all duration-300 flex items-center gap-1 truncate max-w-fit cursor-pointer ${
                       activeParentTab === link.name
-                        ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
-                        : `hover:text-pink-500 hover:shadow-sm ${
-                            isDarkMode ? "text-gray-200" : "text-gray-900"
+                        ? "bg-gradient-to-r from-pink-600 to-pink-500 shadow-lg text-white scale-105"
+                        : `hover:text-pink-500 hover:bg-pink-50/50 hover:shadow-md ${
+                            isDarkMode ? "text-gray-200 hover:bg-pink-900/20" : "text-gray-900"
                           }`
                     }`}
-                  >  
-                  {/* Chevron rotate on hover */}
-                    {link.name} <ChevronDown className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180  font-bold ${activeParentTab===link.name? "text-white": 'text-gray-900'}`} />
+                  >
+                    {/* Chevron rotate on hover */}
+                    {link.name}{" "}
+                    <ChevronDown
+                      className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180 font-bold ${
+                        activeParentTab === link.name
+                          ? "text-white"
+                          : isDarkMode ? "text-gray-300" : "text-gray-700"
+                      }`}
+                    />
                   </button>
                   {/* Dropdown menu */}
                   <div
-                    className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${
+                    className={`absolute left-0 mt-2 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[180px] max-w-[260px] rounded-xl shadow-2xl ${
                       isDarkMode
-                        ? "bg-slate-800 text-white border border-slate-700"
-                        : "bg-white text-gray-900 border border-gray-200"
+                        ? "bg-slate-800/95 text-white border border-slate-700 backdrop-blur-lg"
+                        : "bg-white/95 text-gray-900 border border-gray-200 backdrop-blur-lg"
                     }`}
                   >
                     {link.subitems.map((item) => (
@@ -188,9 +197,9 @@ const Navbar = () => {
                         key={item.label}
                         to={item.path}
                         className={({ isActive }) =>
-                          `py-2 px-2 text-sm hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white block transition-all rounded-md duration-200 break-words ${
+                          `py-2 px-3 text-sm rounded-lg hover:bg-gradient-to-r from-pink-500 to-pink-600 hover:text-white hover:shadow-md hover:scale-[1.02] block transition-all duration-200 break-words ${
                             isActive
-                              ? "bg-gradient-to-r from-pink-700 to-pink-500 text-white"
+                              ? "bg-gradient-to-r from-pink-600 to-pink-500 text-white shadow-md"
                               : ""
                           }`
                         }
@@ -206,10 +215,10 @@ const Navbar = () => {
                   to={link.path}
                   end
                   className={({ isActive }) =>
-                    `${linkBaseClasses} ${
+                    `${linkBaseClasses} rounded-lg ${
                       isActive
-                        ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white hover:text-white "
-                        : ""
+                        ? "bg-gradient-to-r from-pink-600 to-pink-500 shadow-lg text-white hover:text-white scale-105"
+                        : isDarkMode ? "hover:bg-pink-900/20" : "hover:bg-pink-50/50"
                     }`
                   }
                 >
@@ -220,7 +229,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Auth Buttons and Theme Toggle */}
-          <div className="hidden md:flex gap-4 items-center text-pink-500 font-medium">
+          <div className="hidden md:flex gap-2 items-center text-pink-500 font-medium">
             {/* Mood Toggle */}
             <MoodToggle />
             {/* Language Selector */}
@@ -234,54 +243,66 @@ const Navbar = () => {
                 {user && !user.isEmailVerified && (
                   <NavLink
                     to={`/verify-email?email=${encodeURIComponent(user.email)}`}
-                    className="flex items-center gap-2 bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 px-3 py-2 rounded-md text-sm font-medium hover:bg-yellow-600/30 transition-all break-words"
+                    className="flex items-center gap-1.5 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-500 border border-yellow-500/40 px-3 py-1.5 rounded-lg text-xs font-semibold hover:from-yellow-500/30 hover:to-orange-500/30 hover:border-yellow-500/60 hover:shadow-lg hover:scale-105 transition-all duration-200 backdrop-blur-sm"
                     title="Click to verify your email"
                   >
-                    <AlertTriangle size={16} />
-                    {t("auth.verifyEmail")}
+                    <AlertTriangle size={14} className="animate-pulse" />
+                    <span className="hidden lg:inline">{t("auth.verifyEmail")}</span>
                   </NavLink>
                 )}
 
                 <NavLink
                   to="/dashboard"
-                  className={`flex items-center gap-2 transition-colors ${isDarkMode ? "hover:text-white" : "hover:text-pink-500"}` }
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                    isDarkMode
+                      ? "bg-slate-800/80 text-gray-200 hover:bg-slate-700 hover:text-white border border-slate-700 hover:border-slate-600"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900 border border-gray-200 hover:border-gray-300"
+                  } hover:shadow-lg hover:scale-105`}
                 >
                   {user?.picture ? (
                     <img
                       src={user.picture}
                       alt="User Avatar"
                       loading="lazy"
-                      className="w-6 h-6 rounded-full object-cover"
+                      className="w-6 h-6 rounded-full object-cover ring-2 ring-pink-400"
                     />
                   ) : user?.name ? (
-                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-pink-600 text-white text-xs font-bold">
+                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-pink-600 text-white text-xs font-bold shadow-md">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                   ) : (
-                    <User size={18} />
+                    <User size={16} />
                   )}
-                  {t("navigation.dashboard")}
+                  <span className="hidden lg:inline">{t("navigation.dashboard")}</span>
                 </NavLink>
+
                 <button
-                  aria-label="Search"
+                  aria-label="Logout"
                   onClick={handleLogout}
-                  className="bg-pink-200 text-black-800 hover:bg-pink-300 p-2 rounded transition-colors duration-200">
-                
-                  <LogOut size={18} /> {t("auth.logout")}
+                  className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200"
+                >
+                  <LogOut size={16} />
+                  <span className="hidden lg:inline">{t("auth.logout")}</span>
                 </button>
               </>
             ) : (
               <>
                 <NavLink
                   to="/login"
-                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className={`flex items-center gap-2 px-4 py-1.5 rounded-lg font-semibold text-sm transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-xl hover:scale-105 ${
+                    isDarkMode
+                      ? "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600"
+                      : "bg-white text-gray-800 hover:bg-gray-50 border border-gray-300"
+                  }`}
                 >
+                  <LogIn size={16} />
                   {t("auth.login")}
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-4 py-1.5 rounded-lg font-semibold text-sm transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-xl hover:scale-105"
                 >
+                  <User size={16} />
                   {t("auth.signup")}
                 </NavLink>
               </>
@@ -289,15 +310,21 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Toggle */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-1.5">
+            <MoodToggle />
+            <LanguageSelector />
             <ThemeToggle />
 
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
-              className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-2 rounded-md hover:bg-pink-500/20 cursor-pointer flex-shrink-0"
+              className={`p-2 rounded-lg transition-all duration-200 ${
+                isDarkMode
+                  ? "text-pink-400 hover:text-pink-300 hover:bg-pink-500/20"
+                  : "text-pink-500 hover:text-pink-600 hover:bg-pink-500/10"
+              } ${isSidebarOpen ? "bg-pink-500/20" : ""}`}
             >
-              {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+              {isSidebarOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -313,24 +340,28 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-[80vw] sm:w-[60vw] max-w-[320px] z-[1002] transition-transform duration-300 ease-in-out transform ${
+        className={`fixed top-0 right-0 h-full w-[80vw] sm:w-[60vw] max-w-[300px] z-[1002] transition-transform duration-300 ease-in-out transform backdrop-blur-xl ${
           isDarkMode
-            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-200"
-            : "bg-gradient-to-r from-white via-gray-50 to-white text-gray-900"
+            ? "bg-slate-900/95 text-gray-200 border-l border-slate-700/50"
+            : "bg-white/95 text-gray-900 border-l border-gray-200/50"
         } ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
       >
-        <div className="p-5 flex flex-col h-full overflow-y-auto custom-scroll">
+        <div className="p-4 flex flex-col h-full overflow-y-auto custom-scroll">
           <div
-            className={`flex justify-end mb-6 border-b ${
+            className={`flex justify-end mb-4 pb-3 border-b ${
               isDarkMode ? "border-gray-600" : "border-gray-300"
             }`}
           >
             <button
               onClick={() => setIsSidebarOpen(false)}
-              className="text-pink-500 hover:text-pink-400 p-1 rounded-md hover:bg-pink-500/10"
+              className={`p-2 rounded-lg transition-all duration-200 ${
+                isDarkMode
+                  ? "text-pink-400 hover:text-pink-300 hover:bg-pink-500/20"
+                  : "text-pink-500 hover:text-pink-600 hover:bg-pink-500/10"
+              }`}
               aria-label="Close menu"
             >
-              <X size={24} />
+              <X size={22} />
             </button>
           </div>
 
@@ -353,33 +384,46 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Nav Links */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {navLinks.map((link) =>
               link.subitems ? (
                 <div key={link.name} className="flex flex-col">
                   <button
-                    aria-label="Search"
+                    aria-label={`Toggle ${link.name}`}
                     onClick={() => toggleGroup(link.name)}
-                    className="py-2 px-3 w-full flex justify-between items-center rounded hover:bg-pink-300 transition-all duration-200"
+                    className={`py-2.5 px-3 w-full flex justify-between items-center rounded-lg font-semibold transition-all duration-200 text-sm ${
+                      isDarkMode
+                        ? "hover:bg-pink-500/20 active:bg-pink-500/30"
+                        : "hover:bg-pink-100 active:bg-pink-200"
+                    } ${expanded === link.name ? (isDarkMode ? "bg-pink-500/20" : "bg-pink-100") : ""}`}
                   >
-                    <span className="font-medium break-words text-sm">
-                      {link.name}
-                    </span>
-                    <span className="text-xl flex-shrink-0">
-                      {expanded === link.name ? "-" : "+"}
-                    </span>
+                    <span className="break-words">{link.name}</span>
+                    <ChevronDown 
+                      size={18}
+                      className={`flex-shrink-0 transition-transform duration-300 ${
+                        expanded === link.name ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
                   {expanded === link.name && (
                     <div
-                      className={`w-full flex flex-col px-4 py-2 border-t ${
-                        isDarkMode ? "border-pink-100" : "border-pink-100"
+                      className={`w-full flex flex-col px-2 py-2 mt-1 space-y-1 border-l-2 ml-3 ${
+                        isDarkMode ? "border-pink-500/30" : "border-pink-300"
                       }`}
                     >
                       {link.subitems.map((item) => (
                         <NavLink
                           key={item.label}
                           to={item.path}
-                          className="w-full py-2 px-2 rounded hover:bg-pink-500 transition-all duration-200 break-words text-sm"
+                          className={({ isActive }) =>
+                            `w-full py-2 px-3 rounded-lg transition-all duration-200 break-words text-sm font-medium ${
+                              isActive
+                                ? "bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-md"
+                                : isDarkMode
+                                ? "hover:bg-pink-500/20"
+                                : "hover:bg-pink-100"
+                            }`
+                          }
                         >
                           {item.label}
                         </NavLink>
@@ -391,7 +435,15 @@ const Navbar = () => {
                 <NavLink
                   key={link.name}
                   to={link.path}
-                  className="py-2 px-3 font-medium rounded hover:bg-pink-500 transition-all duration-200 break-words text-sm"
+                  className={({ isActive }) =>
+                    `py-2.5 px-3 font-semibold rounded-lg transition-all duration-200 break-words text-sm ${
+                      isActive
+                        ? "bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-md"
+                        : isDarkMode
+                        ? "hover:bg-pink-500/20"
+                        : "hover:bg-pink-100"
+                    }`
+                  }
                 >
                   {link.name}
                 </NavLink>
@@ -399,48 +451,79 @@ const Navbar = () => {
             )}
 
             {/* Mobile Auth Buttons */}
-            {isLoggedIn ? (
-              <>
-                {/* Email verification alert for mobile */}
-                {user && !user.isEmailVerified && (
-                  <NavLink
-                    to={`/verify-email?email=${encodeURIComponent(user.email)}`}
-                    className="flex gap-2 items-center py-2 px-3 rounded bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 font-medium break-words text-sm"
-                  >
-                    <AlertTriangle size={18} /> {t("auth.verifyEmail")}
-                  </NavLink>
-                )}
+            <div className="mt-4 pt-4 border-t border-gray-300/50 space-y-2">
+              {isLoggedIn ? (
+                <>
+                  {/* Email verification alert for mobile */}
+                  {user && !user.isEmailVerified && (
+                    <NavLink
+                      to={`/verify-email?email=${encodeURIComponent(
+                        user.email
+                      )}`}
+                      className="flex gap-2 items-center py-2.5 px-3 rounded-lg bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-500 border border-yellow-500/40 font-semibold break-words text-sm hover:from-yellow-500/30 hover:to-orange-500/30 transition-all duration-200"
+                    >
+                      <AlertTriangle size={16} className="animate-pulse flex-shrink-0" />
+                      <span>{t("auth.verifyEmail")}</span>
+                    </NavLink>
+                  )}
 
-                <NavLink
-                  to="/dashboard"
-                  className="flex gap-2 items-center py-2 px-3 rounded hover:bg-pink-200/30"
-                >
-                  <User size={18} /> {t("navigation.dashboard")}
-                </NavLink>
-                <button
-                  aria-label="Search"
-                  onClick={handleLogout}
-                  className="flex gap-2 items-center text-red-400 py-2 px-3 hover:bg-red-500/10"
-                >
-                  <LogOut size={18} /> {t("auth.logout")}
-                </button>
-              </>
-            ) : (
-              <>
-                <NavLink
-                  to="/login"
-                  className="flex gap-2 items-center py-2 px-3 rounded font-medium hover:bg-pink-500 transition-all text-sm"
-                >
-                  <LogIn size={18} /> {t("auth.login")}
-                </NavLink>
-                <NavLink
-                  to="/signup"
-                  className="bg-gradient-to-b from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2 px-3 rounded font-medium text-center mt-2 hover:shadow-lg hover:scale-105 transition-all text-sm"
-                >
-                  {t("auth.signup")}
-                </NavLink>
-              </>
-            )}
+                  <NavLink
+                    to="/dashboard"
+                    className={`flex gap-2 items-center py-2.5 px-3 rounded-lg font-semibold text-sm transition-all duration-200 ${
+                      isDarkMode
+                        ? "bg-slate-800/80 hover:bg-slate-700 border border-slate-700"
+                        : "bg-gray-100 hover:bg-gray-200 border border-gray-200"
+                    }`}
+                  >
+                    {user?.picture ? (
+                      <img
+                        src={user.picture}
+                        alt="User Avatar"
+                        loading="lazy"
+                        className="w-5 h-5 rounded-full object-cover ring-2 ring-pink-400"
+                      />
+                    ) : user?.name ? (
+                      <div className="w-5 h-5 flex items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-pink-600 text-white text-xs font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    ) : (
+                      <User size={16} />
+                    )}
+                    {t("navigation.dashboard")}
+                  </NavLink>
+
+                  <button
+                    aria-label="Logout"
+                    onClick={handleLogout}
+                    className="flex gap-2 items-center w-full py-2.5 px-3 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+                  >
+                    <LogOut size={16} />
+                    {t("auth.logout")}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/login"
+                    className={`flex gap-2 items-center py-2.5 px-3 rounded-lg font-semibold transition-all duration-200 text-sm ${
+                      isDarkMode
+                        ? "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600"
+                        : "bg-white hover:bg-gray-50 border border-gray-300"
+                    } shadow-md hover:shadow-lg`}
+                  >
+                    <LogIn size={16} />
+                    {t("auth.login")}
+                  </NavLink>
+                  <NavLink
+                    to="/signup"
+                    className="flex gap-2 items-center justify-center bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-2.5 px-3 rounded-lg font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+                  >
+                    <User size={16} />
+                    {t("auth.signup")}
+                  </NavLink>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

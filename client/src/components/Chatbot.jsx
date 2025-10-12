@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { MessageCircle, X, Send, Bot, User, Loader2, MapPin, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, User, MapPin, Sparkles, Plane, Globe, Hotel, Clock, Star, Heart } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -13,9 +14,12 @@ const Chatbot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showVideoSection, setShowVideoSection] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const videoRef = useRef(null);
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,14 +41,49 @@ const Chatbot = () => {
       setTimeout(() => {
         setOpen(false);
         setIsAnimating(false);
-      }, 250);
+        setShowVideoSection(false);
+      }, 400);
     } else {
       setOpen(true);
+      setShowVideoSection(true);
       setIsAnimating(true);
       setTimeout(() => {
         setIsAnimating(false);
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(err => console.log("Video autoplay prevented:", err));
+          }
+        }, 100);
       }, 50);
     }
+  };
+
+  const handleStartChat = () => {
+    setShowVideoSection(false);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+  };
+
+  const handleVideoEnd = () => {
+    setShowVideoSection(false);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+  };
+
+  // Navigation handlers for pills
+  const handlePillClick = (route) => {
+    navigate(route);
+  };
+
+  // Navigation handlers for feature cards
+  const handleFeatureCardClick = (route) => {
+    navigate(route);
   };
 
   const sendMessage = async () => {
@@ -96,16 +135,24 @@ const Chatbot = () => {
     });
   };
 
+  // Popular destinations data
+  const popularDestinations = [
+    { name: "Bali", emoji: "🏝️", travelers: "12.5K" },
+    { name: "Paris", emoji: "🗼", travelers: "9.8K" },
+    { name: "Tokyo", emoji: "🗾", travelers: "8.3K" },
+    { name: "New York", emoji: "🗽", travelers: "11.2K" }
+  ];
+
   return (
-    <div className="fixed bottom-24 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50">
       {!open && (
-        <button 
+        <button
           onClick={toggleChat}
           className="group relative bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 p-4 rounded-full text-white shadow-2xl hover:shadow-pink-500/25 transform hover:scale-110 transition-all duration-300 ease-out"
           aria-label="Open travel chat"
         >
           <MessageCircle className="w-6 h-6" />
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-pulse">
             <Sparkles className="w-2 h-2 text-white" />
           </div>
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 opacity-75 animate-ping"></div>
@@ -113,28 +160,33 @@ const Chatbot = () => {
       )}
 
       {(open || isAnimating) && (
-        <div 
-          className={`w-96 rounded-3xl shadow-2xl overflow-hidden flex flex-col border transition-all duration-300 ease-out transform origin-bottom-right ${
+        <div
+          className={`w-[calc(100vw-2rem)] sm:w-96 rounded-3xl shadow-2xl overflow-hidden flex flex-col border transition-all duration-400 origin-bottom-right ${
             isDarkMode 
               ? 'bg-slate-800/95 backdrop-blur-sm border-slate-600' 
               : 'bg-white/95 backdrop-blur-sm border-pink-100'
           } ${
-            open && !isAnimating 
-              ? 'scale-100 opacity-100 translate-y-0' 
-              : 'scale-95 opacity-0 translate-y-2'
+            open && !isAnimating
+              ? 'animate-[zoomIn_0.4s_ease-out] shadow-xl'
+              : !open && isAnimating
+              ? 'animate-[zoomOut_0.4s_ease-in]'
+              : 'scale-95 opacity-0'
           }`}
           style={{
-            boxShadow: isDarkMode 
-              ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(71, 85, 105, 0.2)' 
-              : '0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 192, 203, 0.1)'
+            maxHeight: 'min(700px, calc(100vh - 120px))',
+            height: 'min(700px, calc(100vh - 120px))',
+            minHeight: '400px',
+            boxShadow: isDarkMode
+              ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(71, 85, 105, 0.2), 0 0 60px rgba(236, 72, 153, 0.15)'
+              : '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 192, 203, 0.2), 0 0 60px rgba(236, 72, 153, 0.15)'
           }}
         >
           {/* Header */}
-          <div className="relative bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 text-white overflow-hidden">
+          <div className="relative bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 text-white overflow-hidden flex-shrink-0">
             <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-16 translate-x-16"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"></div>
-            
+
             <div className="relative flex justify-between items-center p-5">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
@@ -148,7 +200,7 @@ const Chatbot = () => {
                   </div>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={toggleChat}
                 className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 hover:rotate-90 cursor-pointer"
                 aria-label="Close chat"
@@ -158,137 +210,310 @@ const Chatbot = () => {
             </div>
           </div>
 
-          {/* Messages Container */}
-          <div 
-            className={`flex-1 overflow-y-auto p-5 space-y-4 max-h-96 min-h-80 transition-all duration-300 ${
-              isDarkMode 
-                ? 'bg-gradient-to-b from-slate-800 via-slate-700/30 to-slate-800' 
-                : 'bg-gradient-to-b from-white via-pink-50/30 to-white'
-            }`}
-            style={{ 
-              scrollbarWidth: 'thin',
-              scrollbarColor: '#ec4899 transparent'
-            }}
-          >
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex items-start space-x-3 ${
-                  msg.from === "user" ? "flex-row-reverse space-x-reverse" : ""
-                } animate-in slide-in-from-bottom-3 fade-in duration-500`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
-                  msg.from === "user" 
-                    ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white" 
-                    : isDarkMode 
-                      ? "bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-2 border-slate-500" 
-                      : "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-2 border-white"
-                }`}>
-                  {msg.from === "user" ? <User className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-                </div>
+          {/* Enhanced Video Section */}
+          {showVideoSection && (
+            <div className={`flex flex-col p-4 overflow-y-auto relative custom-scroll ${
+  isDarkMode 
+    ? 'bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900' 
+    : 'bg-gradient-to-br from-pink-50 via-white to-rose-50'
+}`}
+style={{
+  flex: '1 1 auto',
+  minHeight: '0',
+}}>
+              {/* Enhanced Animated Background Elements */}
+              <div className="absolute top-10 right-10 w-20 h-20 bg-gradient-to-br from-pink-300 to-rose-300 rounded-full opacity-20 blur-2xl animate-pulse"></div>
+              <div className="absolute bottom-20 left-10 w-16 h-16 bg-gradient-to-br from-yellow-300 to-orange-300 rounded-full opacity-20 blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full opacity-15 blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-                <div className={`flex flex-col max-w-xs ${
-                  msg.from === "user" ? "items-end" : "items-start"
-                }`}>
-                  <div className={`p-4 rounded-2xl text-sm leading-relaxed transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${
-                    msg.from === "user"
-                      ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-br-md shadow-lg"
-                      : isDarkMode 
-                        ? "bg-slate-700 text-gray-200 rounded-bl-md shadow-md border border-slate-600" 
-                        : "bg-white text-gray-800 rounded-bl-md shadow-md border border-pink-100/50"
-                  }`}>
-                    <div className="whitespace-pre-wrap">{msg.text}</div>
+              {/* Video Container */}
+              <div className="relative w-full mb-3 animate-in fade-in slide-in-from-top duration-700">
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-white/50 transform hover:scale-[1.02] transition-transform duration-300">
+                  <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    onEnded={handleVideoEnd}
+                    playsInline
+                  >
+                    <source src="/video.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none"></div>
+
+                  {/* Enhanced Shimmer Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ animation: 'shimmer 3s infinite' }}></div>
+
+                  {/* Enhanced Overlay Welcome Text */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-center animate-in fade-in slide-in-from-bottom duration-1000 delay-300">
+                    <h3 className="text-lg font-bold mb-0.5 drop-shadow-2xl">
+                      Welcome Traveler! 🌍
+                    </h3>
+                    <p className="text-xs opacity-90 drop-shadow-lg">Your adventure starts here</p>
                   </div>
-                  <span className={`text-xs mt-2 px-2 ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-400'
-                  }`}>
-                    {formatTime(msg.timestamp)}
-                  </span>
                 </div>
               </div>
-            ))}
 
-            {isLoading && (
-              <div className="flex items-start space-x-3 animate-in slide-in-from-bottom-3 fade-in duration-300">
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center shadow-lg border-2 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-slate-500' 
-                    : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-white'
-                }`}>
-                  <MapPin className="w-4 h-4" />
+              {/* NEW: Popular Destinations Section */}
+              <div className="mb-3 animate-in fade-in slide-in-from-bottom duration-700 delay-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className={`text-sm font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'} flex items-center`}>
+                    <Globe className="w-4 h-4 mr-1.5 text-pink-500" />
+                    Trending Destinations
+                  </h4>
+                  <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>This Month</span>
                 </div>
-                <div className={`p-4 rounded-2xl rounded-bl-md shadow-md border ${
-                  isDarkMode 
-                    ? 'bg-slate-700 border-slate-600' 
-                    : 'bg-white border-pink-100/50'
-                }`}>
-                  <div className="flex items-center space-x-3">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="grid grid-cols-2 gap-2">
+                  {popularDestinations.map((destination, index) => (
+                    <div
+                      key={index}
+                      className={`rounded-xl p-2 border transform hover:scale-105 transition-all duration-200 cursor-pointer ${
+                        isDarkMode 
+                          ? 'bg-slate-700/60 border-slate-600 hover:bg-slate-600/60' 
+                          : 'bg-white/80 border-pink-200 hover:bg-white'
+                      }`}
+                      onClick={() => setInput(`Tell me about ${destination.name}`)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">{destination.emoji}</span>
+                          <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                            {destination.name}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Heart className="w-3 h-3 text-rose-500" />
+                          <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                            {destination.travelers}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <span className={`text-sm ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                    }`}>Finding the best suggestions...</span>
-                  </div>
+                  ))}
                 </div>
               </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
 
-          {/* Input Area */}
-          <div className={`border-t p-4 transition-all duration-300 ${
-            isDarkMode 
-              ? 'border-slate-600 bg-slate-800/80 backdrop-blur-sm' 
-              : 'border-pink-100 bg-white/80 backdrop-blur-sm'
-          }`}>
-            {/* changed items-end to items-center for better layout consistency */}
-            <div className="flex items-center justify-between  space-x-3">
-              <div className="flex-1 relative">
-                 {/* Reduce padding area and hide scrollbar in textarea for better ux and for long input*/}
-                <textarea
-                  ref={inputRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask about destinations..."
-                  className={`w-full px-3 py-2 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 overflow-hidden focus:border-transparent transition-all duration-300 max-h-28 min-h-[52px] ${
-                    isDarkMode 
-                      ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' 
-                      : 'bg-gray-50/80 border-pink-500 text-gray-700 placeholder-gray-400'
-                  }`}
-                  style={{ 
-                    height: 'auto',
-                    minHeight: '52px',
-                    maxHeight: '128px',
-                  }}
-                  onInput={(e) => {
-                    e.target.style.height = 'auto';
-                    e.target.style.height = Math.min(e.target.scrollHeight, 128) + 'px';
-                  }}
-                  disabled={isLoading}
-                />
+              {/* Enhanced Features Pills */}
+              <div className="flex gap-1.5 justify-center mb-3 flex-wrap animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                <button
+                  onClick={() => handlePillClick("/packages")}
+                  className="flex items-center space-x-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full px-3 py-1.5 shadow-lg text-xs font-medium transform hover:scale-110 transition-transform duration-200 cursor-pointer animate-in fade-in zoom-in duration-100"
+                >
+                  <MapPin className="w-3 h-3 animate-bounce" style={{ animationDuration: '2s' }} />
+                  <span>500+ Cities</span>
+                </button>
+                <button
+                  onClick={() => handlePillClick("/ticket")}
+                  className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full px-3 py-1.5 shadow-lg text-xs font-medium transform hover:scale-110 transition-transform duration-200 cursor-pointer animate-in fade-in zoom-in duration-100"
+                >
+                  <Sparkles className="w-3 h-3 animate-pulse" />
+                  <span>Custom Trips</span>
+                </button>
+                <button
+                  onClick={() => handlePillClick("/contact")}
+                  className="flex items-center space-x-1.5 bg-gradient-to-r from-orange-500 to-rose-500 text-white rounded-full px-3 py-1.5 shadow-lg text-xs font-medium transform hover:scale-110 transition-transform duration-200 cursor-pointer animate-in fade-in zoom-in duration-100"
+                >
+                  <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '3s' }} />
+                  <span>24/7 Support</span>
+                </button>
               </div>
-              {/* Update button styles for consistent rounded shape and changed color scheme for better visibility */}
-              <button
-                onClick={sendMessage}
-                disabled={!input.trim() || isLoading}
-                className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-full hover:from-pink-600 hover:to-rose-600 disabled:text-gray-400 disabled:from-white/10 disabled:to-white/10 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 hover:shadow-lg flex-shrink-0 shadow-md cursor-pointer"
-                aria-label="Send message"
-              >
-                <Send className="w-4 h-4" />
-              </button>
+
+              {/* Enhanced Feature Cards */}
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                <button
+                  onClick={() => handleFeatureCardClick("/trending-spots")}
+                  className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                    isDarkMode 
+                      ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                      : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                  }`}
+                >
+                  <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>🗺️</div>
+                  <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Destinations</div>
+                </button>
+                <button
+                  onClick={() => handleFeatureCardClick("/CustomItenary")}
+                  className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                    isDarkMode 
+                      ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                      : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                  }`}
+                >
+                  <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>✈️</div>
+                  <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Itineraries</div>
+                </button>
+                <button
+                  onClick={() => handleFeatureCardClick("/hotels")}
+                  className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                    isDarkMode 
+                      ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                      : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                  }`}
+                >
+                  <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>🏨</div>
+                  <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Hotels</div>
+                </button>
+              </div>
+
+              {/* Enhanced Info Text */}
+              <div className="text-center mb-3 px-2">
+                <p className={`text-xs font-semibold ${
+                  isDarkMode 
+                    ? 'text-pink-300' 
+                    : 'text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600'
+                }`}>
+                  ✨ Get personalized recommendations instantly! ✨
+                </p>
+              </div>
+
+              {/* Enhanced CTA Button */}
+              <div className="animate-in fade-in slide-in-from-bottom duration-700 delay-600 mt-auto">
+                <button
+                  onClick={handleStartChat}
+                  className="relative w-full py-3 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden group text-sm"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <span className="relative flex items-center justify-center space-x-2">
+                    <Sparkles className="w-4 h-4 animate-pulse" />
+                    <span>Start Planning Your Trip</span>
+                    <Sparkles className="w-4 h-4 animate-pulse" />
+                  </span>
+                </button>
+                <div className="flex items-center justify-center mt-2 space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                    <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                    <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                    <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                    <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                  </div>
+                  <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Join 10,000+ happy travelers
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className={`text-xs mt-3 text-center flex items-center justify-center space-x-1 ${
-              isDarkMode ? 'text-gray-400' : 'text-gray-400'
-            }`}>
-              <Sparkles className="w-3 h-3" />
-              <span>Press Enter to send • Shift+Enter for new line</span>
-            </div>
-          </div>
+          )}
+
+          {/* Messages Container */}
+          {!showVideoSection && (
+            <>
+              <div
+  className={`flex-1 overflow-y-auto p-5 space-y-4 custom-scroll ${
+    isDarkMode 
+      ? 'bg-gradient-to-b from-slate-800 via-slate-700/30 to-slate-800' 
+      : 'bg-gradient-to-b from-white via-pink-50/30 to-white'
+  }`}
+>
+                {messages.map((msg, index) => (
+                  <div
+                    key={index}
+                    className={`flex items-start space-x-3 ${
+                      msg.from === "user" ? "flex-row-reverse space-x-reverse" : ""
+                    } animate-in slide-in-from-bottom-3 fade-in duration-500`}
+                  >
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
+                      msg.from === "user"
+                        ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white"
+                        : isDarkMode 
+                          ? "bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-2 border-slate-500"
+                          : "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-2 border-white"
+                    }`}>
+                      {msg.from === "user" ? <User className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
+                    </div>
+
+                    <div className={`flex flex-col max-w-xs ${
+                      msg.from === "user" ? "items-end" : "items-start"
+                    }`}>
+                      <div className={`p-4 rounded-2xl text-sm leading-relaxed transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${
+                        msg.from === "user"
+                          ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-br-md shadow-lg"
+                          : isDarkMode 
+                            ? "bg-slate-700 text-gray-200 rounded-bl-md shadow-md border border-slate-600"
+                            : "bg-white text-gray-800 rounded-bl-md shadow-md border border-pink-100/50"
+                      }`}>
+                        <div className="whitespace-pre-wrap">{msg.text}</div>
+                      </div>
+                      <span className={`text-xs mt-2 px-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`}>
+                        {formatTime(msg.timestamp)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+                {isLoading && (
+                  <div className="flex items-start space-x-3 animate-in slide-in-from-bottom-3 fade-in duration-300">
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center shadow-lg border-2 ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-br from-slate-600 to-slate-700 text-gray-300 border-slate-500' 
+                        : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 border-white'
+                    }`}>
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div className={`p-4 rounded-2xl rounded-bl-md shadow-md border ${
+                      isDarkMode 
+                        ? 'bg-slate-700 border-slate-600' 
+                        : 'bg-white border-pink-100/50'
+                    }`}>
+                      <div className="flex items-center space-x-3">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Finding the best suggestions...</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input Area */}
+              <div className={`border-t p-4 transition-all duration-300 flex-shrink-0 ${
+                isDarkMode 
+                  ? 'border-slate-600 bg-slate-800/80 backdrop-blur-sm' 
+                  : 'border-pink-100 bg-white/80 backdrop-blur-sm'
+              }`}>
+                <div className="flex items-center justify-between space-x-3">
+                  <div className="flex-1 relative">
+                    <textarea
+                      ref={inputRef}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Ask about destinations..."
+                      className={`w-full px-3 py-2 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 overflow-hidden focus:border-transparent transition-all duration-300 ${
+                        isDarkMode 
+                          ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' 
+                          : 'bg-gray-50/80 border-pink-200 text-gray-700 placeholder-gray-400'
+                      }`}
+                      style={{
+                        height: 'auto',
+                        minHeight: '44px',
+                        maxHeight: '80px',
+                      }}
+                      onInput={(e) => {
+                        e.target.style.height = 'auto';
+                        e.target.style.height = Math.min(e.target.scrollHeight, 80) + 'px';
+                      }}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <button
+                    onClick={sendMessage}
+                    disabled={!input.trim() || isLoading}
+                    className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 text-white rounded-full hover:from-pink-600 hover:to-rose-600 disabled:text-gray-400 disabled:from-gray-200 disabled:to-gray-200 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 hover:shadow-lg flex-shrink-0 shadow-md cursor-pointer"
+                    aria-label="Send message"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className={`text-xs mt-3 text-center flex items-center justify-center space-x-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`}>
+                  <Sparkles className="w-3 h-3" />
+                  <span className="text-xs">Press Enter to send • Shift+Enter for new line</span>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

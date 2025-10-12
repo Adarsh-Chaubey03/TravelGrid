@@ -361,6 +361,27 @@ const TrendingSpots = () => {
     navigate(`/location/${locationId}`);
   };
 
+  const handleRealTimeTrendsClick = () => {
+    // Scroll to the trending destinations section
+    const destinationsSection = document.getElementById('trending-destinations');
+    if (destinationsSection) {
+      // Add offset to account for sticky navigation
+      const elementPosition = destinationsSection.offsetTop;
+      const offsetPosition = elementPosition - 100; // 100px offset from top
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Show a toast notification to confirm the action
+      toast.success("Showing trending destinations!", {
+        duration: 2000,
+        icon: '🔥',
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300'}`}>
@@ -433,10 +454,13 @@ const TrendingSpots = () => {
           <p className={`text-lg md:text-xl mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
             Explore the world's most popular destinations, updated daily based on traveler insights.
           </p>
-          <div className={`inline-flex items-center px-4 py-2 rounded-full  border ${isDarkMode?'bg-pink-500/20 border-pink-500/20 text-pink-400':'bg-pink-500 border-none text-white'}`}>
-            <TrendingUp className="h-5 w-5 mr-2" />
+          <button 
+            onClick={handleRealTimeTrendsClick}
+            className={`inline-flex items-center px-6 py-3 rounded-full border transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer group ${isDarkMode?'bg-pink-500/20 border-pink-500/20 text-pink-400 hover:bg-pink-500/30':'bg-pink-500 border-none text-white hover:bg-pink-600'}`}
+          >
+            <TrendingUp className="h-5 w-5 mr-2 group-hover:animate-pulse" />
             <span className="font-medium">Real-Time Trends</span>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -483,7 +507,7 @@ const TrendingSpots = () => {
       </section>
 
       {/* Spots Grid with InfiniteScroll */}
-      <section className="py-8">
+      <section id="trending-destinations" className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <InfiniteScroll
             dataLength={displayedSpots.length}

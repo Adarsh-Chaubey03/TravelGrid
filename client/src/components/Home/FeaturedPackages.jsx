@@ -32,7 +32,7 @@ const cardVariants = {
     opacity: 1, y: 0,
     transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
   }),
-  rest: { scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  rest: { scale: 1, transition: { duration: 0.5, ease: "easeOut" } }, // smooth hover-out
   hover: { scale: 1.05, transition: { duration: 0.6, ease: "easeInOut" } },
 };
 
@@ -76,7 +76,7 @@ const FeaturedPackages = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+          <h2 className={`text-3xl md:text-4xl font-medium mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
             Featured{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               Travel Packages
@@ -99,10 +99,10 @@ const FeaturedPackages = () => {
                 initial="hidden"
                 whileInView="visible"
                 animate="rest"
-                whileHover="hover"
-                className={`group relative backdrop-blur-lg rounded-2xl overflow-hidden border h-full ${isDarkMode
-                    ? "bg-black/10 border-white/20 shadow-xl shadow-black/10 hover:shadow-lg hover:shadow-pink-500/20"
-                    : "bg-white/20 border border-gray-300 hover:border-pink-300 shadow-lg"
+                whileHover="hover"      // parent controls hover for ALL children
+                className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border h-full ${isDarkMode
+                    ? "bg-gradient-r from-black to-zinc-600 border-white/50 shadow-xl shadow-white/20"
+                    : "bg-white/80 border-gray-200"
                   }`}
               >
                 {/* Image + Wishlist */}
@@ -125,16 +125,16 @@ const FeaturedPackages = () => {
                         ? removeFromWishlist(pkg.id)
                         : addToWishlist(pkg)
                     }
-                    className="absolute top-3 right-3 bg-white/20 backdrop-blur-md rounded-full p-2 hover:bg-white/30 hover:scale-110 transition-all duration-300 z-10"
+                    className="absolute top-3 right-3 text-black hover:scale-110 transition-transform duration-300 z-10"
                   >
                     <FaHeart
-                      className={`text-xl ${isWishlisted(pkg.id) ? "text-pink-500" : "text-white/80"
+                      className={`text-xl ${isWishlisted(pkg.id) ? "text-black-500" : "text-white/60"
                         } transition-colors duration-300`}
                     />
                   </button>
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Price (inherits parent hover) */}
                   <motion.div
@@ -142,14 +142,12 @@ const FeaturedPackages = () => {
                     className="absolute bottom-4 left-4 right-4"
                     style={{ willChange: "transform, opacity" }}
                   >
-                    <p className="text-pink-400 text-sm font-semibold bg-black/30 backdrop-blur-sm rounded-lg px-3 py-1 inline-block">
-                      {pkg.price}
-                    </p>
+                    <p className="text-pink-500 text-sm font-medium">{pkg.price}</p>
                   </motion.div>
                 </div>
 
                 {/* Details */}
-                <div className="p-6 bg-gradient-to-b from-transparent to-black/10">
+                <div className="p-6">
                   <h3
                     className={`text-xl font-semibold mb-2 transition-colors duration-300 ${isDarkMode
                         ? "text-white group-hover:text-pink-400"
@@ -159,7 +157,7 @@ const FeaturedPackages = () => {
                     {pkg.name}
                   </h3>
                   <p
-                    className={`mb-4 transition-colors duration-300 ${isDarkMode ? "text-gray-200 group-hover:text-gray-100" : "text-gray-700"
+                    className={`mb-4 transition-colors duration-300 ${isDarkMode ? "text-gray-300 group-hover:text-black" : "text-gray-600"
                       }`}
                   >
                     {pkg.location}
@@ -167,7 +165,7 @@ const FeaturedPackages = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-medium py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-cyan-200 to-purple-300 hover:from-blue-300 hover:to-purple-300 text-black font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                     onClick={() => navigate(`/package/${i + 9}`)}
                   >
                     Book Now
@@ -183,7 +181,7 @@ const FeaturedPackages = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/packages")}
-            className="px-8 py-3 bg-pink-400/80 backdrop-blur-md text-white font-semibold rounded-xl shadow-lg hover:bg-pink-400 hover:shadow-xl transition-all duration-500 ease-in-out border border-white/30"
+            className="px-6 py-3 bg-pink-300 text-black rounded-xl shadow-md hover:bg-white-100 hover:scale-85 transition-all duration-500 ease-in-out"
           >
             View All Packages →
           </motion.button>

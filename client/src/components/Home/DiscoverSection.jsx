@@ -48,6 +48,8 @@ const destinations = [
   },
 ];
 
+
+
 const container = {
   hidden: {},
   show: {
@@ -73,22 +75,21 @@ const DiscoverSection = () => {
   const handleDiscoverMore = () => {
     navigate("/destinations");
   };
+const [searchTerm, setSearchTerm] = useState("");
+const [category, setCategory] = useState("All");
+const [sortBy, setSortBy] = useState("popularity");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("All");
-  const [sortBy, setSortBy] = useState("popularity");
-
-  const filteredDestinations = destinations
-    .filter((place) =>
-      place.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .filter((place) => category === "All" || place.category === category)
-    .sort((a, b) => {
-      if (sortBy === "popularity") return b.popularity - a.popularity;
-      if (sortBy === "rating") return b.rating - a.rating;
-      if (sortBy === "price") return a.price - b.price;
-      return 0;
-    });
+const filteredDestinations = destinations
+  .filter((place) =>
+    place.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .filter((place) => category === "All" || place.category === category)
+  .sort((a, b) => {
+    if (sortBy === "popularity") return b.popularity - a.popularity;
+    if (sortBy === "rating") return b.rating - a.rating;
+    if (sortBy === "price") return a.price - b.price;
+    return 0;
+  });
 
   return (
     <motion.section
@@ -97,13 +98,14 @@ const DiscoverSection = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full py-20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 $`}
+      >
         {/* Heading */}
         <div className="text-center mb-16">
           <motion.h2
-            className={`text-3xl md:text-4xl font-bold mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-3xl md:text-3xl font-medium mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -126,51 +128,46 @@ const DiscoverSection = () => {
           </motion.p>
         </div>
 
-        {/* Cards */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch"
-        >
-          {filteredDestinations.length > 0 ? (
-            filteredDestinations.map((place) => (
-              <motion.div
-                key={place.id}
-                variants={item}
-                whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`h-full rounded-2xl overflow-hidden backdrop-blur-lg transition-all duration-300 ${
-                  isDarkMode
-                    ? "bg-white/5 border border-white/10 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-pink-500/20 hover:border-pink-400/40"
-                    : "bg-white/20 border border-white/40 shadow-md shadow-purple-300/15 hover:shadow-lg hover:shadow-purple-400/25 hover:border-purple-400/60"
-                }`}
-              >
-                <DiscoverCard
-                  place={place}
-                  handleBookNowClick={handleBookNowClick}
-                />
-              </motion.div>
-            ))
-          ) : (
-            <motion.div
-              className={`col-span-full text-center py-12 rounded-2xl backdrop-blur-md shadow-md ${
-                isDarkMode
-                  ? "bg-white/5 border border-white/10 text-gray-400 shadow-black/10"
-                  : "bg-white/20 border border-white/40 text-gray-600 shadow-purple-300/15"
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              No destinations found.
-            </motion.div>
-          )}
-        </motion.div>
+
+      {/* Cards */}
+<motion.div
+  variants={container}
+  initial="hidden"
+  animate="show"
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch"
+>
+  {filteredDestinations.length > 0 ? (
+    filteredDestinations.map((place) => (
+      <motion.div
+        key={place.id}
+        variants={item}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+        className="h-full"
+      >
+        <DiscoverCard
+          place={place}
+          handleBookNowClick={handleBookNowClick}
+        />
+      </motion.div>
+    ))
+  ) : (
+    <motion.div
+      className="col-span-full text-center text-gray-500 py-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      No destinations found.
+    </motion.div>
+  )}
+</motion.div>
+
+
 
         {/* CTA Section */}
         <div className="text-center mt-16">
           <motion.h3
-            className={`text-2xl md:text-3xl font-bold mb-4 ${
+            className={`text-2xl md:text-3xl font-semibold mb-4 ${
               isDarkMode ? "text-white" : "text-gray-900"
             }`}
             initial={{ opacity: 0 }}
@@ -193,7 +190,7 @@ const DiscoverSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDiscoverMore}
-            className="px-8 py-3 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+            className="px-8 py-3 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-600 hover:to-purple-700 text-black font-medium rounded-full shadow-lg transition-all duration-300 cursor-pointer"
           >
             Discover More Destinations
           </motion.button>

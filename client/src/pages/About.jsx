@@ -779,10 +779,16 @@ function About() {
                 transition={{ duration: 0.8, delay: 0.1 * index }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 hover:border-pink-400 transition-all duration-300"
+                className={`rounded-lg p-6 border transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400' 
+                    : 'bg-gradient-to-br from-white to-pink-50 border-pink-200 hover:border-pink-400'
+                }`}
               >
                 <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
-                <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                <p className={`text-sm leading-relaxed ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                }`}>{item.desc}</p>
               </motion.div>
             ))}
           </div>

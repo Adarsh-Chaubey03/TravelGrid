@@ -140,15 +140,15 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 "
+            className="flex items-center gap-2 sm:gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 flex-shrink-0"
           >
             <img
               src="/favicon.ico"
               alt="TravelGrid Logo"
               loading="lazy"
-              className="w-8 h-8 mx-2 rounded-full border border-pink-300 shadow-md  flex-shrink-0 "
+              className="w-7 h-7 sm:w-8 sm:h-8 mx-1 sm:mx-2 rounded-full border border-pink-300 shadow-md flex-shrink-0"
             />
-            <span className="text-lg font-bold truncate max-w-[120px] sm:max-w-[160px] md:max-w-none">
+            <span className="text-base sm:text-lg font-bold truncate max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-none">
               TravelGrid
             </span>
           </NavLink>
@@ -290,14 +290,12 @@ const Navbar = () => {
 
           {/* Mobile Toggle */}
           <div className="md:hidden flex items-center gap-2">
-            <MoodToggle />
-            <LanguageSelector />
             <ThemeToggle />
 
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
-              className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1 rounded-md hover:bg-pink-500/20 cursor-pointer"
+              className="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-2 rounded-md hover:bg-pink-500/20 cursor-pointer flex-shrink-0"
             >
               {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -334,6 +332,24 @@ const Navbar = () => {
             >
               <X size={24} />
             </button>
+          </div>
+
+          {/* Settings Section - Mood & Language */}
+          <div className={`flex flex-col gap-3 mb-6 pb-6 border-b ${
+            isDarkMode ? "border-gray-600" : "border-gray-300"
+          }`}>
+            <div className="flex items-center justify-between px-3">
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                Mood Music
+              </span>
+              <MoodToggle />
+            </div>
+            <div className="flex items-center justify-between px-3">
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                Language
+              </span>
+              <LanguageSelector />
+            </div>
           </div>
 
           {/* Mobile Nav Links */}

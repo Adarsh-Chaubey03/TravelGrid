@@ -91,7 +91,7 @@ const Banner = ({ isDarkMode, toggleTheme }) => (
 					<span className="text-gray-900 dark:text-gray-100">Build Your </span>
 					<span className="text-pink-600 dark:text-pink-400">Custom Itinerary</span>
 				</h1>
-				<p className="text-base sm:text-xl max-w-3xl mx-auto mb-6 text-gray-800 dark:text-gray-200">
+				<p className="text-base sm:text-xl max-w-3xl mx-auto mb-6 text-white drop-shadow-lg">
 					Plan multi-day trips with AI-powered destination search. Drag and drop places, set times, and export to PDF.
 				</p>
 				<a

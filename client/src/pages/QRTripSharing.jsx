@@ -84,9 +84,13 @@ const QRTripSharing = () => {
   const isFormValid = tripData.destination && tripData.country;
 
   return (
-    <div className={`min-h-screen py-8 px-4 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen py-8 px-4 mt-20 ${
+      isDarkMode 
+        ? 'bg-gradient-to-b from-black/60 via-black/40 to-black/70' 
+        :  'from-pink-200/50 via-white/70 to-blue-200/50'
+    }`}>
       <div className="max-w-4xl mx-auto">
-        <div className={`rounded-lg p-6 mb-6 ${
+        <div className={`rounded-lg p-6 mb-6 mt-8 ${
           isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
         }`}>
           <div className="text-center mb-8">

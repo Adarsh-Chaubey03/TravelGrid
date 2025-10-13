@@ -132,7 +132,7 @@ const Navbar = () => {
             : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
         } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
-        <div className="w-full max-w-full mx-auto  flex justify-between items-center gap-4 px-2 py-4.5">
+        <div className="w-full max-w-full mx-auto flex justify-between items-center gap-6 px-2 py-4.5">
           {/* Logo */}
           <NavLink
             to="/"
@@ -140,7 +140,7 @@ const Navbar = () => {
               typeof window !== "undefined" &&
               window.scrollTo({ top: 0, behavior: "smooth" })
             }
-            className="flex items-center gap-2 sm:gap-3 text-2xl font-bold tracking-tight bg-gradient-to-br from-pink-400 to-pink-600 bg-clip-text text-transparent transition-colors duration-200 flex-shrink-0"
+            className={`flex items-center gap-1 font-bold tracking-tight bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-400 bg-clip-text text-transparent transition-colors duration-200 flex-shrink-0`}
           >
             <img
               src="/favicon.ico"
@@ -148,14 +148,14 @@ const Navbar = () => {
               loading="lazy"
               className="w-7 h-7 sm:w-8 sm:h-8 mx-1 sm:mx-2 rounded-full border border-pink-300 shadow-md flex-shrink-0"
             />
-            <span className="text-base sm:text-lg font-bold truncate max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-none">
+            <span className="text-base sm:text-lg md:text-xl font-bold  max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-none whitespace-nowrap" style={{fontFamily:'"Poppins", serif'}}>
               TravelGrid
             </span>
           </NavLink>
 
           {/* Desktop Nav */}
           <div
-            className={`hidden md:flex items-center gap-2 font-small flex-1 justify-center ${
+            className={`hidden md:flex items-center gap-1.5 font-small flex-1 justify-center ${
               isDarkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
@@ -220,7 +220,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Auth Buttons and Theme Toggle */}
-          <div className="hidden md:flex gap-4 items-center text-pink-500 font-medium">
+          <div className="hidden md:flex gap-3 items-center text-pink-500 font-medium">
             {/* Mood Toggle */}
             <MoodToggle />
             {/* Language Selector */}

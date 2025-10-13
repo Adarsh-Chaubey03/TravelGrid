@@ -268,7 +268,7 @@ export default function LeaderBoard() {
     <div
       className={`min-h-screen py-6 sm:py-12 px-2 sm:px-4 ${
         isDarkMode
-          ? "bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"
+          ? "bg-gradient-to-b from-black/60 via-black/40 to-black/70"
           : "bg-gradient-to-br from-pink-50 via-white to-blue-50"
       }`}
     >

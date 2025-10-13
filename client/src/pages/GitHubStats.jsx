@@ -242,9 +242,13 @@ export default function HowItWorks() {
                     whileHover="hover"
                     className="relative"
                   >
-                    <div className={`w-20 h-20 rounded-full bg-gradient-to-br from-gray-600 to-gray-900  border-2 flex items-center justify-center relative z-10 transition-all duration-300 ${hoveredStep === step.id ? 'border-pink-500 shadow-lg shadow-yellow-500/50' : 'border-pink-600'
+                    <div className={`w-20 h-20 rounded-full ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-br from-gray-600 to-gray-900' 
+                        : 'bg-gradient-to-br from-gray-200 to-gray-300'
+                    } border-2 flex items-center justify-center relative z-10 transition-all duration-300 ${hoveredStep === step.id ? 'border-pink-500 shadow-lg shadow-yellow-500/50' : 'border-pink-600'
                       }`}>
-                      <step.icon className="w-8 h-8 text-white" />
+                      <step.icon className={`w-8 h-8 ${isDarkMode ? 'text-white' : 'text-gray-700'}`} />
                     </div>
                     {hoveredStep === step.id && (
                       <motion.div

@@ -46,11 +46,92 @@ const Contact = () => {
     }
   };
 
+  // 🔧 ENHANCED: Contact cards with clickable actions for better UX
+  // Each card now includes:
+  // - type: Determines the action type (email, whatsapp, or location)
+  // - link: The href/URL that will be opened when clicked
+  // - isClickable: Boolean flag to indicate if the card should be clickable
   const contactCards = [
-    { icon: '✈️', title: 'Travel Inquiries', info: 'hello@travelgrid.com', sub: 'Response within 2 hours', bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', color: 'text-pink-300', iconBg: 'from-blue-500 to-blue-600' },
-    { icon: '🌍', title: '24/7 Support', info: '+91 1234567890', sub: 'Emergency assistance', bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', color: 'text-pink-300', iconBg: 'from-green-500 to-green-600' },
-    { icon: '📍', title: 'Visit Our Office', info: 'Xyz, New Delhi', sub: 'Mon-Fri: 9AM-6PM', bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', color: 'text-pink-300', iconBg: 'from-purple-500 to-purple-600' }
+    { 
+      icon: '✈️', 
+      title: 'Email Inquiry', 
+      info: 'hello@travelgrid.com', 
+      sub: 'Response within 2 hours', 
+      bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', 
+      color: 'text-pink-300', 
+      iconBg: 'from-blue-500 to-blue-600',
+      type: 'email', // Email type for mailto: link
+      link: 'mailto:hello@travelgrid.com', // Opens default email client with pre-filled email address
+      isClickable: true // Makes the card clickable
+    },
+    { 
+      icon: '📱', 
+      title: 'WhatsApp Support', 
+      info: '+91 1234567890', 
+      sub: 'Emergency assistance', 
+      bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', 
+      color: 'text-pink-300', 
+      iconBg: 'from-green-500 to-green-600',
+      type: 'whatsapp', // WhatsApp type for WhatsApp Web link
+      link: 'https://wa.me/911234567890', // Opens WhatsApp chat with the number (format: country code + number without + or spaces)
+      isClickable: true // Makes the card clickable
+    },
+    { 
+      icon: '📍', 
+      title: 'Visit Our Office', 
+      info: 'Xyz, New Delhi', 
+      sub: 'Mon-Fri: 9AM-6PM', 
+      bg: 'bg-gradient-to-br from-black/80 to-pink-900/80 hover:from-black/90 hover:to-pink-800/90', 
+      color: 'text-pink-300', 
+      iconBg: 'from-purple-500 to-purple-600',
+      type: 'location', // Location type (not clickable in this implementation)
+      link: null, // No link for location card
+      isClickable: false // Not clickable
+    }
   ];
+
+  // 🎯 FUNCTION: Handle contact card click
+  // This function is called when a clickable contact card is clicked
+  // It opens the appropriate action based on the card type:
+  // - Email: Opens default email client with mailto: link
+  // - WhatsApp: Opens WhatsApp Web or app with the phone number
+  // 
+  // IMPLEMENTATION DETAILS:
+  // For email: Creates and clicks a hidden anchor tag (most reliable method)
+  // - Avoids browser selection dialogs that can occur with window.location.href
+  // - Works consistently across all browsers and operating systems
+  // - Properly triggers the system's default email client (Outlook, Gmail, Apple Mail, etc.)
+  const handleCardClick = (card) => {
+    // Only proceed if the card is marked as clickable and has a valid link
+    if (card.isClickable && card.link) {
+      
+      if (card.type === 'email') {
+        // 📧 EMAIL HANDLING: Use anchor element method for maximum compatibility
+        // Create a temporary anchor element
+        const anchor = document.createElement('a');
+        // Set the mailto: link
+        anchor.href = card.link;
+        // Set target to _self to open in same window (standard for mailto:)
+        anchor.target = '_self';
+        // Add to DOM temporarily (required for some browsers like Safari)
+        document.body.appendChild(anchor);
+        // Programmatically trigger the click event
+        // This opens the default email client without browser selection dialog
+        anchor.click();
+        // Clean up: remove the temporary anchor from DOM
+        document.body.removeChild(anchor);
+      } 
+      else if (card.type === 'whatsapp') {
+        // 💬 WHATSAPP HANDLING: Open in new tab
+        // Opens WhatsApp Web or native app depending on device
+        window.open(card.link, '_blank', 'noopener,noreferrer');
+      }
+      else {
+        // 🔗 OTHER LINKS: Generic handling for future link types
+        window.open(card.link, '_blank', 'noopener,noreferrer');
+      }
+    }
+  };
 
   return (
     <div className={`min-h-screen ${isDarkMode
@@ -86,11 +167,42 @@ const Contact = () => {
             <h3 className={`text-2xl font-bold mb-8 text-center ${isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>Contact Information</h3>
             <div className="space-y-6">
+              {/* 
+                🎨 ENHANCED CONTACT CARDS: Now clickable with visual feedback
+                - Cards with isClickable=true will open email/WhatsApp when clicked
+                - Hover effects indicate interactivity (cursor-pointer, enhanced scale)
+                - Visual cues help users understand which cards are clickable
+                - Accessibility: Cards use onClick for keyboard navigation support
+              */}
               {contactCards.map((card, index) => (
-                <div key={index} className={`flex items-center p-6 backdrop-blur-sm rounded-xl transition-all duration-300 hover:scale-105 shadow-xl ${isDarkMode
+                <div 
+                  key={index} 
+                  // onClick handler: Calls handleCardClick when card is clicked
+                  // Only functional for clickable cards (email, WhatsApp)
+                  onClick={() => handleCardClick(card)}
+                  // Conditional cursor styling:
+                  // - cursor-pointer: Shows hand cursor for clickable cards (better UX)
+                  // - cursor-default: Normal cursor for non-clickable cards
+                  className={`flex items-center p-6 backdrop-blur-sm rounded-xl transition-all duration-300 shadow-xl ${
+                    // Enhanced hover scale for clickable cards (1.05 → 1.07) for better visual feedback
+                    card.isClickable ? 'hover:scale-[1.07] cursor-pointer' : 'hover:scale-105 cursor-default'
+                  } ${isDarkMode
                   ? `${card.bg} border border-pink-500/30 hover:border-pink-400/50`
                   : 'bg-white border border-gray-200 hover:border-rose-300'
-                  }`}>
+                  }`}
+                  // Accessibility: Add role and aria-label for screen readers
+                  role={card.isClickable ? "button" : "article"}
+                  aria-label={card.isClickable ? `Click to ${card.type === 'email' ? 'send email to' : 'open WhatsApp chat with'} ${card.info}` : card.title}
+                  // Keyboard accessibility: Make clickable cards focusable and activatable with Enter/Space
+                  tabIndex={card.isClickable ? 0 : -1}
+                  onKeyDown={(e) => {
+                    // Allow Enter or Space key to trigger the card click for keyboard users
+                    if (card.isClickable && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault(); // Prevent page scroll on Space key
+                      handleCardClick(card);
+                    }
+                  }}
+                >
                   <div className={`w-14 h-14 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-2xl mr-5 shadow-lg`}>
                     {card.icon}
                   </div>

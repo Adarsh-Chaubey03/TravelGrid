@@ -71,6 +71,18 @@ const Navbar = () => {
     { name: t("navigation.wishlist"), path: "/wishlist" },
   ];
 
+  // Function to get the active subitem label for dropdown display
+  const getActiveSubitem = (link) => {
+  if (!link.subitems) return null;
+  
+  for (const sub of link.subitems) {
+    if (location.pathname === sub.path || location.pathname.startsWith(sub.path + '/')) {
+      return sub.label;
+    }
+  }
+  return null;
+  };
+
   const getActiveParentTab = () => {
     for (const link of navLinks) {
       if (link.subitems) {
@@ -159,8 +171,9 @@ const Navbar = () => {
               isDarkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
-            {navLinks.map((link) =>
-              link.subitems ? (
+            {navLinks.map((link) => {
+            const activeSubitem = getActiveSubitem(link);
+              return link.subitems ? (
                 <div className="relative group" key={link.name}>
                   <button
                     aria-label={link.name}
@@ -173,7 +186,7 @@ const Navbar = () => {
                     }`}
                   >  
                   {/* Chevron rotate on hover */}
-                    {link.name} <ChevronDown className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180  font-bold ${activeParentTab===link.name? "text-white": 'text-gray-900'}`} />
+                    {activeSubitem || link.name} <ChevronDown className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180  font-bold ${activeParentTab===link.name? "text-white": 'text-gray-900'}`} />
                   </button>
                   {/* Dropdown menu */}
                   <div
@@ -216,7 +229,7 @@ const Navbar = () => {
                   {link.name}
                 </NavLink>
               )
-            )}
+            })}
           </div>
 
           {/* Desktop Auth Buttons and Theme Toggle */}

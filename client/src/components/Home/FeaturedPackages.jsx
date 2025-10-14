@@ -100,9 +100,9 @@ const FeaturedPackages = () => {
                 whileInView="visible"
                 animate="rest"
                 whileHover="hover"      // parent controls hover for ALL children
-                className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border h-full ${isDarkMode
-                    ? "bg-gradient-r from-black to-zinc-600 border-white/50 shadow-xl shadow-white/20"
-                    : "bg-white/80 border-gray-200"
+                className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border h-full transition-all duration-300 ${isDarkMode
+                    ? "bg-black/30 border-white/20 hover:border-white/40"
+                    : "bg-white/30 border-gray-300 hover:border-pink-300"
                   }`}
               >
                 {/* Image + Wishlist */}
@@ -125,11 +125,16 @@ const FeaturedPackages = () => {
                         ? removeFromWishlist(pkg.id)
                         : addToWishlist(pkg)
                     }
-                    className="absolute top-3 right-3 text-black hover:scale-110 transition-transform duration-300 z-10"
+                    className="absolute top-3 right-3 hover:scale-110 transition-transform duration-300 z-10"
                   >
                     <FaHeart
-                      className={`text-xl ${isWishlisted(pkg.id) ? "text-black-500" : "text-white/60"
-                        } transition-colors duration-300`}
+                      className={`text-xl transition-colors duration-300 ${
+                        isWishlisted(pkg.id) 
+                          ? isDarkMode 
+                            ? "text-pink-500" 
+                            : "text-pink-600"
+                          : "text-white/80 hover:text-white"
+                      }`}
                     />
                   </button>
 
@@ -142,7 +147,7 @@ const FeaturedPackages = () => {
                     className="absolute bottom-4 left-4 right-4"
                     style={{ willChange: "transform, opacity" }}
                   >
-                    <p className="text-pink-500 text-sm font-medium">{pkg.price}</p>
+                    <p className="text-white text-sm font-medium">{pkg.price}</p>
                   </motion.div>
                 </div>
 
@@ -151,13 +156,16 @@ const FeaturedPackages = () => {
                   <h3
                     className={`text-xl font-semibold mb-2 transition-colors duration-300 ${isDarkMode
                         ? "text-white group-hover:text-pink-400"
-                        : "text-gray-900 group-hover:text-pink-500"
+                        : "text-gray-900 group-hover:text-pink-600"
                       }`}
                   >
                     {pkg.name}
                   </h3>
                   <p
-                    className={`mb-4 transition-colors duration-300 ${isDarkMode ? "text-gray-300 group-hover:text-black" : "text-gray-600"
+                    className={`mb-4 transition-colors duration-300 ${
+                      isDarkMode 
+                        ? "text-gray-300 group-hover:text-gray-200" 
+                        : "text-gray-700 group-hover:text-gray-800"
                       }`}
                   >
                     {pkg.location}
@@ -165,7 +173,11 @@ const FeaturedPackages = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-cyan-200 to-purple-300 hover:from-blue-300 hover:to-purple-300 text-black font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    className={`w-full font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${
+                      isDarkMode
+                        ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
+                        : "bg-gradient-to-r from-cyan-200 to-purple-300 hover:from-blue-300 hover:to-purple-300 text-black"
+                    }`}
                     onClick={() => navigate(`/package/${i + 9}`)}
                   >
                     Book Now

@@ -309,7 +309,7 @@ const TravelPackages = () => {
               </select>
               <ChevronDown
                 size={18}
-                className={`absolute right-3 top-9 pointer-events-none text-white/80`}
+                className={`absolute right-3 top-9 pointer-events-none ${isDarkMode ? 'text-white/80' : 'text-black/80'}`}
               />
             </div>
           ))}

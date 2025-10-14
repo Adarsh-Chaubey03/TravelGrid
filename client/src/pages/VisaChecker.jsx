@@ -231,29 +231,29 @@ ${isDarkMode  ? 'bg-white/10 shadow-lg backdrop-blur-md hover:shadow-xl hover:bg
     <form
       onSubmit={onCheck}
       className={`border p-6 rounded-2xl shadow-lg backdrop-blur-sm ${isDarkMode ? 'bg-white/10 border-white/10' : 'bg-white/90 border-pink-400'}`}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-1 gap-6">
-
-        {/* Passport */}
-        <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">
-            Passport Country
-          </label>
-          <select
-            value={passport}
-            onChange={(e) => setPassport(e.target.value)}
-            required
-            className={`w-full p-3 rounded-xl text-gray-900 border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300 cursor-pointer`}
-          >
-            <option value="">Select Passport</option>
-            {countries.map((c) => (
-              <option key={c.code} value={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
+    ><div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-1 gap-6">
+    {/* Passport */}
+    <div>
+      <label className="block text-sm font-medium mb-2 text-gray-700">
+        Passport Country
+      </label>
+      <select
+        value={passport}
+        onChange={(e) => setPassport(e.target.value)}
+        required
+        size="1"
+        className={`w-full p-3 rounded-xl text-gray-900 border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300 cursor-pointer`}
+        onFocus={(e) => e.target.size = "10"}
+        onBlur={(e) => e.target.size = "1"}
+      >
+        <option value="">Select Passport</option>
+        {countries.map((c) => (
+          <option key={c.code} value={c.name}>
+            {c.name}
+          </option>
+        ))}
+      </select>
+    </div>
         {/* Destination */}
         <div>
           <label className="block text-sm font-medium mb-2 text-gray-700">
@@ -263,7 +263,10 @@ ${isDarkMode  ? 'bg-white/10 shadow-lg backdrop-blur-md hover:shadow-xl hover:bg
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             required
+            size="1"
             className={`w-full p-2 rounded-md outline-none text-gray-900 border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300 cursor-pointer`}
+            onFocus={(e) => e.target.size = "10"}
+            onBlur={(e) => e.target.size = "1"}
            
           >
             <option value="">Select Destination</option>

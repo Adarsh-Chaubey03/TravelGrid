@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Eye, EyeOff, Mail, Lock, User, UserPlus, AlertCircle, CheckCircle } from "lucide-react";
@@ -9,9 +9,12 @@ import Footer from "../components/Custom/Footer";
 import LanguageSelector from "../components/LanguageSelector";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/context/ThemeContext";
+import ProgressBar from "../components/Auth/ProgressBar"; 
+
 
 const Signup = () => {
   const { t } = useTranslation();
+  const [currentStep, setCurrentStep] = useState(1); 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,6 +33,26 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
+ 
+
+  const calculateCurrentStep = () => {
+  // Step 4 is complete if Confirm Password has data
+  if (formData.confirmPassword.length > 0) return 4;
+  // Step 3 is complete if Password has data
+  if (formData.password.length > 0) return 3;
+  // Step 2 is complete if Email has data
+  if (formData.email.length > 0) return 2;
+  // Step 1 is complete if Name has data
+  if (formData.name.length > 0) return 1;
+  
+  // Default to step 1
+  return 1;
+};
+
+//  Use useEffect to automatically update currentStep when formData changes
+useEffect(() => {
+  setCurrentStep(calculateCurrentStep());
+}, [formData]);
 
   const getPasswordStrength = () => {
     const password = formData.password;
@@ -112,6 +135,8 @@ const Signup = () => {
           <div className={`bg-gray-100 backdrop-blur-md rounded-2xl p-8 mb-8 border ${
               isDarkMode ? "border-white/20" : " border-black/20"
             }`}>
+                <ProgressBar currentStep={currentStep} />
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3">

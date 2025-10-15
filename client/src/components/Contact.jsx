@@ -82,9 +82,9 @@ const Contact = () => {
   return (
     <div
       className={`min-h-screen ${
-        isDarkMode
-          ? "bg-gradient-to-br from-gray-900 via-black to-pink-900"
-          : "bg-gradient-to-br from-rose-50 via-gray-100 to-rose-200"
+        isDarkMode 
+        ? 'bg-gradient-to-br from-black to-pink-900'
+        : 'from-pink-200/50 via-white/70 to-blue-200/50'
       }`}
     >
       <Navbar />

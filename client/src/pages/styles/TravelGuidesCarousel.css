@@ -1,6 +1,7 @@
 .travel-guides-section {
   width: 100%;
-  background: linear-gradient(to bottom right, #000000, #831843);
+  /* Background is controlled by Tailwind classes from the component */
+  background: transparent;
   padding: 20px 20px;
   text-align: center;
   min-height: 120vh;
@@ -51,7 +52,8 @@
   margin-top: 60px;
   text-align: center;
   padding: 30px;
-  background: linear-gradient(to bottom right, #1f1f1f, #831843);
+  /* Background is controlled by Tailwind classes from the component */
+  background: transparent;
   border-radius: 20px;
   animation: fadeInUp 0.5s ease-in-out;
   color: #f3f4f6;

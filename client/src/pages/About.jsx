@@ -779,11 +779,10 @@ function About() {
                 transition={{ duration: 0.8, delay: 0.1 * index }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className={`rounded-lg p-6 border transition-all duration-300 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400' 
-                    : 'bg-gradient-to-br from-white to-pink-50 border-pink-200 hover:border-pink-400'
-                }`}
+                className={`rounded-lg p-6 border transition-all duration-300 ${isDarkMode
+                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
+                  : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
+                  }`}
               >
                 <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
                 <p className={`text-sm leading-relaxed ${

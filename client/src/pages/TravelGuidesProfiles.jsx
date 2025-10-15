@@ -170,12 +170,13 @@ setSearchResults(filteredGuides);
 
   return (
     <section
-      className="travel-guides-section"
+      className={`travel-guides-section bg-gradient-to-br ${
+        isDarkMode
+          ? "from-black to-pink-900"
+          : "from-pink-200/50 via-white/70 to-blue-200/50"
+      }`}
       style={{
         scrollMarginTop: "80px",
-        background: isDarkMode
-          ? "linear-gradient(to bottom right, #000000, #831843)"
-          : "linear-gradient(to right,rgb(246, 161, 209),rgb(172, 215, 243))",
       }}
     >
       <h1
@@ -566,7 +567,14 @@ setSearchResults(filteredGuides);
       )}
 
       {selectedGuide && (
-        <div className="profile-section" ref={profileRef}>
+        <div
+          className={`profile-section bg-gradient-to-br ${
+            isDarkMode
+              ? "from-black to-pink-900"
+              : "from-pink-200/50 via-white/70 to-blue-200/50"
+          }`}
+          ref={profileRef}
+        >
           {/* Heading */}
           <div className="profile-heading">
             <div className="line" />

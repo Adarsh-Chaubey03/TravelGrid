@@ -1,8 +1,9 @@
 // MoodToggle.tsx
 import React, { useState, useRef, useEffect } from 'react';
-import { Music, Play, Square } from 'lucide-react';
+import { Music, Play, Square, Sparkles, Flame, Heart, Leaf, Target } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Variants } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const songs = [
   { name: "Nature Calls", src: "/music_tunes/song1.mp3" },
@@ -11,6 +12,60 @@ const songs = [
   { name: "Voice of the Forest", src: "/music_tunes/song4.mp3" },
   { name: "Carol of the Bells", src: "/music_tunes/song5.mp3" },
 ];
+
+type MoodKey = 'relax' | 'adventure' | 'romantic' | 'nature' | 'focus' | null;
+
+const MOOD_STORAGE_KEY = 'travelgrid:mood';
+
+const moodConfigs: Record<Exclude<MoodKey, null>, {
+  label: string;
+  icon: React.ReactNode;
+  gradientLight: string;
+  gradientDark: string;
+  particles: 'stars' | 'leaves' | 'waves' | 'hearts' | 'sparks';
+  song: { name: string; src: string };
+}> = {
+  relax: {
+    label: 'Relax',
+    icon: <Sparkles className="w-4 h-4" />,
+    gradientLight: 'from-blue-100/70 via-white/60 to-cyan-100/70',
+    gradientDark: 'from-slate-900/80 via-indigo-900/60 to-cyan-900/70',
+    particles: 'waves',
+    song: { name: 'Nature Calls', src: '/music_tunes/song1.mp3' }
+  },
+  adventure: {
+    label: 'Adventure',
+    icon: <Flame className="w-4 h-4" />,
+    gradientLight: 'from-amber-100/70 via-white/60 to-pink-100/70',
+    gradientDark: 'from-rose-900/80 via-fuchsia-900/60 to-amber-900/70',
+    particles: 'sparks',
+    song: { name: 'Raga Hamsadhvani', src: '/music_tunes/song3.mp3' }
+  },
+  romantic: {
+    label: 'Romantic',
+    icon: <Heart className="w-4 h-4" />,
+    gradientLight: 'from-pink-100/70 via-white/60 to-purple-100/70',
+    gradientDark: 'from-pink-900/80 via-rose-900/60 to-purple-900/70',
+    particles: 'hearts',
+    song: { name: 'Dandelions', src: '/music_tunes/song2.mp3' }
+  },
+  nature: {
+    label: 'Nature',
+    icon: <Leaf className="w-4 h-4" />,
+    gradientLight: 'from-green-100/70 via-white/60 to-emerald-100/70',
+    gradientDark: 'from-emerald-900/80 via-teal-900/60 to-lime-900/70',
+    particles: 'leaves',
+    song: { name: 'Voice of the Forest', src: '/music_tunes/song4.mp3' }
+  },
+  focus: {
+    label: 'Focus',
+    icon: <Target className="w-4 h-4" />,
+    gradientLight: 'from-zinc-100/70 via-white/60 to-blue-100/70',
+    gradientDark: 'from-black/80 via-slate-900/60 to-blue-900/70',
+    particles: 'stars',
+    song: { name: 'Carol of the Bells', src: '/music_tunes/song5.mp3' }
+  }
+};
 
 // GradientText Component
 const GradientText: React.FC<{ children: React.ReactNode; animationSpeed?: number }> = ({
@@ -54,10 +109,21 @@ const MoodToggle: React.FC = () => {
   const [currentSong, setCurrentSong] = useState<string | null>(null);
   const [currentSongName, setCurrentSongName] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moodPanelOpen, setMoodPanelOpen] = useState(false);
+  const [mood, setMood] = useState<MoodKey>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
+    // Load persisted mood on mount
+    const stored = (localStorage.getItem(MOOD_STORAGE_KEY) as MoodKey) || null;
+    if (stored && moodConfigs[stored as Exclude<MoodKey, null>]) {
+      const cfg = moodConfigs[stored as Exclude<MoodKey, null>];
+      setMood(stored);
+      // play after first render
+      setTimeout(() => playSong(cfg.song.src, cfg.song.name), 0);
+    }
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -100,6 +166,20 @@ const MoodToggle: React.FC = () => {
     setCurrentSong(null);
     setCurrentSongName(null);
     setIsPlaying(false);
+  };
+
+  const resetMood = () => {
+    stopSong();
+    setMood(null);
+    localStorage.removeItem(MOOD_STORAGE_KEY);
+  };
+
+  const applyMood = (key: Exclude<MoodKey, null>) => {
+    const cfg = moodConfigs[key];
+    setMood(key);
+    handleSongPlay(cfg.song.src, cfg.song.name);
+    localStorage.setItem(MOOD_STORAGE_KEY, key);
+    setMoodPanelOpen(false);
   };
 
   const handleSongPlay = (songSrc: string, songName: string) => {
@@ -167,7 +247,7 @@ const itemVariants: Variants = {
           if (isPlaying) {
             stopSong();
           } else {
-            setMenuOpen(!menuOpen);
+            setMoodPanelOpen(!moodPanelOpen);
           }
         }}
         className="flex items-center gap-2 px-3 py-2 backdrop-blur-sm border rounded-full transition-all duration-300 shadow-lg relative z-10 text-sm font-medium md:min-w-[140px] justify-center theme-button"
@@ -222,37 +302,120 @@ const itemVariants: Variants = {
         </AnimatePresence>
       </motion.button>
 
-      {/* Vertical Pop-up Bubbles with Staggered Animation */}
+      {/* Mood Panel */}
       <AnimatePresence>
-        {menuOpen && (
+        {moodPanelOpen && (
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="flex flex-col items-end space-y-2 mt-2 absolute top-full right-0 z-50"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            className="absolute top-full right-0 mt-2 z-50 w-64 md:w-72 rounded-2xl border shadow-2xl backdrop-blur-md theme-dropdown-item"
           >
-            {songs.map((song, index) => (
-              <motion.div
-                key={song.src}
-                variants={itemVariants}
-                custom={index}
-              >
-                <div
-                  className="group relative w-32 sm:w-36 md:w-40 flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 rounded-full backdrop-blur-sm border shadow-lg cursor-pointer transition-all duration-300 theme-dropdown-item"
-                  onClick={() => handleSongPlay(song.src, song.name)}
+            <div className="p-3 border-b theme-dropdown-item">
+              <div className="text-xs font-semibold theme-song-text">Select a mood</div>
+            </div>
+            <div className="p-2 grid grid-cols-2 gap-2">
+              {Object.entries(moodConfigs).map(([key, cfg]) => (
+                <button
+                  key={key}
+                  onClick={() => applyMood(key as Exclude<MoodKey, null>)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-200 theme-dropdown-item ${
+                    mood === (key as MoodKey) ? 'ring-1 ring-pink-400' : ''
+                  }`}
                 >
-                  <span
-                    className={`text-left text-xs sm:text-sm theme-song-text ${
-                      currentSong === song.src && isPlaying ? 'theme-song-playing' : ''
-                    }`}
-                  >
-                    {song.name}
-                  </span>
-                  {/* Play button only shows on hover */}
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 theme-play-icon" />
-                </div>
-              </motion.div>
+                  <span>{cfg.icon}</span>
+                  <span className="text-sm theme-song-text">{cfg.label}</span>
+                </button>
+              ))}
+            </div>
+            <div className="px-3 pb-3 flex items-center justify-between gap-2">
+              <button
+                onClick={() => setMenuOpen((v) => !v)}
+                className="text-xs px-3 py-2 rounded-lg border theme-dropdown-item"
+              >
+                Songs
+              </button>
+              <button
+                onClick={resetMood}
+                className="text-xs px-3 py-2 rounded-lg border theme-dropdown-item"
+              >
+                Stop Music & Reset
+              </button>
+            </div>
+            {/* Songs inside panel */}
+            <AnimatePresence>
+              {menuOpen && (
+                <motion.div
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="px-2 pb-3 flex flex-col gap-2"
+                >
+                  {songs.map((song, index) => (
+                    <motion.div key={song.src} variants={itemVariants} custom={index}>
+                      <div
+                        className="group relative w-full flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 rounded-xl backdrop-blur-sm border shadow-lg cursor-pointer transition-all duration-300 theme-dropdown-item"
+                        onClick={() => handleSongPlay(song.src, song.name)}
+                      >
+                        <span
+                          className={`text-left text-xs sm:text-sm theme-song-text ${
+                            currentSong === song.src && isPlaying ? 'theme-song-playing' : ''
+                          }`}
+                        >
+                          {song.name}
+                        </span>
+                        <Play className="w-4 h-4 sm:w-5 sm:h-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 theme-play-icon" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Fullscreen gradient overlay based on mood */}
+      <AnimatePresence>
+        {mood && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`fixed inset-0 -z-10 bg-gradient-to-br ${
+              isDarkMode ? moodConfigs[mood].gradientDark : moodConfigs[mood].gradientLight
+            } pointer-events-none transition-colors duration-700`}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Simple particle/floating icons layer */}
+      <AnimatePresence>
+        {mood && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.35 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 -z-10 pointer-events-none overflow-hidden"
+          >
+            {Array.from({ length: 24 }).map((_, i) => (
+              <motion.span
+                key={i}
+                initial={{ y: 0, opacity: 0 }}
+                animate={{ y: [0, -80 - (i % 5) * 20], x: [0, (i % 2 === 0 ? 1 : -1) * (20 + (i % 7) * 8)], opacity: [0, 1, 0] }}
+                transition={{ duration: 6 + (i % 5), repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
+                className={`absolute text-lg select-none ${
+                  mood === 'nature' ? 'text-emerald-400' : mood === 'romantic' ? 'text-pink-400' : mood === 'adventure' ? 'text-amber-400' : mood === 'focus' ? 'text-blue-400' : 'text-cyan-400'
+                }`}
+                style={{ left: `${(i * 41) % 100}%`, bottom: `${(i * 17) % 100}%` }}
+              >
+                {mood === 'nature' && '🍃'}
+                {mood === 'romantic' && '💖'}
+                {mood === 'adventure' && '✨'}
+                {mood === 'focus' && '✦'}
+                {mood === 'relax' && '〜'}
+              </motion.span>
             ))}
           </motion.div>
         )}

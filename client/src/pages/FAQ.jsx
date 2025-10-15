@@ -72,14 +72,19 @@ export default function FAQ() {
               </button>
               <div
                 id={`faq-panel-${idx}`}
-                className={`px-6 pb-5 text-gray-700 text-base transition-all duration-500 ease-in-out ${openIndex === idx ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}
-                style={{ transitionProperty: 'max-height, opacity' }}
+                // FIX: The answer content is always rendered, and its visibility is controlled by max-height/opacity.
+                // Added conditional padding to prevent the closed panel from retaining vertical space.
+                className={`px-6 text-gray-700 text-base transition-all duration-500 ease-in-out ${
+                  openIndex === idx 
+                    ? 'max-h-40 opacity-100 pb-5' // Open state with correct bottom padding
+                    : 'max-h-0 opacity-0 pb-0' // Closed state with no bottom padding
+                } overflow-hidden`}
+                style={{ transitionProperty: 'max-height, opacity, padding-bottom' }}
               >
-                {openIndex === idx && (
-                  <div className="animate-fade-in">
-                    {faq.answer}
-                  </div>
-                )}
+                {/* FIX: Answer content is rendered unconditionally */}
+                <div className="animate-fade-in">
+                  {faq.answer}
+                </div>
               </div>
             </div>
           ))}
@@ -87,4 +92,4 @@ export default function FAQ() {
       </div>
     </div>
   );
-} 
+}

@@ -71,21 +71,18 @@ function Blog() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-black to-pink-900 overflow-x-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <div className="flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 animate-fade-in">
-              TravelGrid <span className="text-pink-400">Blog</span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-300">
-              Tips, stories & insights to make your journey unforgettable.
-            </p>
-          </div>
-
+      {/* Hero Section - FIXED */}
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-4xl mx-auto flex flex-col items-center justify-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 animate-fade-in">
+            TravelGrid <span className="text-pink-400">Blog</span>
+          </h1>
+          <p className="text-xl sm:text-2xl text-gray-300">
+            Tips, stories & insights to make your journey unforgettable.
+          </p>
 
           {/* Search Bar */}
-          <div className="mt-6 max-w-xl mx-auto">
+          <div className="mt-6 max-w-xl mx-auto w-full">
             <input
               type="text"
               value={searchTerm}
@@ -110,7 +107,7 @@ function Blog() {
 
           <div className="w-24 h-1 bg-pink-400 mx-auto mt-6 rounded-full"></div>
           {/* Featured Blog Section */}
-          <div className="mt-10 bg-gradient-to-r from-pink-600 to-purple-700 p-6 rounded-lg shadow-xl text-left max-w-3xl mx-auto">
+          <div className="mt-10 bg-gradient-to-r from-pink-600 to-purple-700 p-6 rounded-lg shadow-xl text-left max-w-3xl w-full">
             <h3 className="text-white text-xl font-bold mb-2">
               🔥 Featured: How to Travel on a Budget
             </h3>
@@ -127,6 +124,7 @@ function Blog() {
           </div>
         </div>
       </div>
+      {/* --- */}
       {/* Tag Cloud */}
       <div className="mb-8 flex flex-wrap gap-3 justify-center">
         {[
@@ -178,7 +176,7 @@ function Blog() {
                   <img
                     src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${blog.author}`}
                     alt="avatar"
-                    loading="lazy" 
+                    loading="lazy"
                     className="w-8 h-8 rounded-full border border-pink-400"
                   />
                   <span className="text-pink-300 text-sm">
@@ -232,6 +230,7 @@ function Blog() {
           We're building cool content based on your vibe 😎
         </p>
       </div>
+      <Footer />
     </div>
   );
 }

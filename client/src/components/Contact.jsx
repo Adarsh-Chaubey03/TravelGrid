@@ -3,11 +3,15 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import Navbar from "./Custom/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail as LuMail,
+  Phone as LuPhone,
+  MapPin as LuMapPin,
+  Loader,
+  CheckCircle,
+} from "lucide-react";
 
-// Import specific icons from lucide-react (or your preferred icon library)
-import { Mail as LuMail, Phone as LuPhone, MapPin as LuMapPin, Loader, CheckCircle } from "lucide-react";
-
-// Environment variables from Vite
+// Environment variables (from Vite)
 const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
@@ -18,18 +22,15 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     if (!serviceID || !templateID || !publicKey) {
-      alert(
-        "EmailJS environment variables ARE NOT SET. Please check .env file for VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY."
-      );
+      alert("Missing EmailJS environment variables. Please check your .env file.");
       setIsLoading(false);
       return;
     }
@@ -54,12 +55,13 @@ const Contact = () => {
     }
   };
 
-  // UPDATED: Using React Icons (LuMail, LuPhone, LuMapPin) instead of emojis
+  // Contact Information Cards (with clickable links)
   const contactCards = [
     {
-      icon: LuMail, // Pass the component itself
+      icon: LuMail,
       title: "Travel Inquiries",
       info: "hello@travelgrid.com",
+      link: "mailto:hello@travelgrid.com",
       sub: "Response within 2 hours",
       iconBg: "from-blue-500 to-cyan-600",
     },
@@ -67,6 +69,7 @@ const Contact = () => {
       icon: LuPhone,
       title: "24/7 Support",
       info: "+91 1234567890",
+      link: "tel:+911234567890",
       sub: "Emergency assistance",
       iconBg: "from-green-500 to-teal-600",
     },
@@ -74,6 +77,7 @@ const Contact = () => {
       icon: LuMapPin,
       title: "Visit Our Office",
       info: "Xyz, New Delhi",
+      link: "https://www.google.com/maps/place/New+Delhi",
       sub: "Mon-Fri: 9AM–6PM",
       iconBg: "from-purple-500 to-indigo-600",
     },
@@ -82,9 +86,9 @@ const Contact = () => {
   return (
     <div
       className={`min-h-screen ${
-        isDarkMode 
-        ? 'bg-gradient-to-br from-black to-pink-900'
-        : 'from-pink-200/50 via-white/70 to-blue-200/50'
+        isDarkMode
+          ? "bg-gradient-to-br from-black to-pink-900"
+          : "from-pink-200/50 via-white/70 to-blue-200/50"
       }`}
     >
       <Navbar />
@@ -92,18 +96,15 @@ const Contact = () => {
       {/* Hero Section */}
       <div
         className={`py-32 px-4 relative overflow-hidden ${
-          isDarkMode
-            ? "text-white"
-            : "text-gray-900"
+          isDarkMode ? "text-white" : "text-gray-900"
         }`}
       >
         {isDarkMode && (
-            <>
-                <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700 opacity-10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-700 opacity-5 rounded-full blur-3xl animate-pulse delay-500"></div>
-            </>
+          <>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700 opacity-10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-700 opacity-5 rounded-full blur-3xl animate-pulse delay-500"></div>
+          </>
         )}
-        
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.p
             initial={{ opacity: 0, y: -20 }}
@@ -134,7 +135,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Section */}
       <div className="max-w-7xl mx-auto px-4 -mt-16 md:-mt-24 relative z-20 pb-24">
         <div className="grid lg:grid-cols-2 gap-10 md:gap-16">
           {/* Contact Info Card */}
@@ -157,13 +158,16 @@ const Contact = () => {
             </h3>
             <div className="space-y-8">
               {contactCards.map((card, index) => {
-                const IconComponent = card.icon; // The React Icon Component
+                const Icon = card.icon;
                 return (
-                  <motion.div
+                  <motion.a
                     key={index}
+                    href={card.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className={`flex items-start p-6 rounded-2xl transition-all duration-300 border ${
+                    className={`flex items-start p-6 rounded-2xl transition-all duration-300 border group ${
                       isDarkMode
                         ? "bg-white/5 border-pink-600/50 hover:border-pink-500/80 shadow-inner shadow-black/30"
                         : "bg-rose-50/50 border-gray-200 hover:border-rose-400/80 shadow-sm"
@@ -172,8 +176,7 @@ const Contact = () => {
                     <div
                       className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${card.iconBg} rounded-full flex items-center justify-center text-white text-3xl mr-6 shadow-xl`}
                     >
-                      {/* RENDER THE REACT ICON HERE */}
-                      <IconComponent size={30} strokeWidth={2.5} /> 
+                      <Icon size={30} strokeWidth={2.5} />
                     </div>
                     <div>
                       <h4
@@ -183,7 +186,7 @@ const Contact = () => {
                       >
                         {card.title}
                       </h4>
-                      <p className="text-pink-500 font-medium text-lg">
+                      <p className="text-pink-500 font-medium text-lg group-hover:underline">
                         {card.info}
                       </p>
                       <p
@@ -194,13 +197,13 @@ const Contact = () => {
                         {card.sub}
                       </p>
                     </div>
-                  </motion.div>
-                )
+                  </motion.a>
+                );
               })}
             </div>
           </motion.div>
 
-          {/* Contact Form Card */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -235,7 +238,6 @@ const Contact = () => {
                     transition={{ type: "spring", stiffness: 150, delay: 0.2 }}
                     className="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white text-4xl mx-auto mb-8 shadow-xl"
                   >
-                    {/* UPDATED: Success icon using React Icons (CheckCircle) */}
                     <CheckCircle size={40} strokeWidth={2.5} />
                   </motion.div>
                   <h3 className="text-3xl font-extrabold text-green-500 mb-4">
@@ -246,7 +248,7 @@ const Contact = () => {
                       isDarkMode ? "text-gray-300" : "text-gray-600"
                     }`}
                   >
-                    Our travel experts will review your request and get back to you within 24 hours.
+                    Our travel experts will get back to you within 24 hours.
                   </p>
                 </motion.div>
               ) : (
@@ -260,23 +262,13 @@ const Contact = () => {
                   className="space-y-6"
                 >
                   {[
-                    {
-                      name: "name",
-                      type: "text",
-                      placeholder: "Your Full Name",
-                      label: "Your Name",
-                    },
-                    {
-                      name: "email",
-                      type: "email",
-                      placeholder: "name@example.com",
-                      label: "Email Address",
-                    },
+                    { name: "name", type: "text", label: "Your Name", placeholder: "Full Name" },
+                    { name: "email", type: "email", label: "Email", placeholder: "you@example.com" },
                     {
                       name: "message",
                       type: "textarea",
-                      placeholder: "Tell us about your dream destination, budget, and travel dates...",
                       label: "Message",
+                      placeholder: "Tell us about your dream trip...",
                     },
                   ].map((field, index) => (
                     <div key={index}>
@@ -293,12 +285,12 @@ const Contact = () => {
                           rows="6"
                           value={formData[field.name]}
                           onChange={handleChange}
-                          className={`w-full px-4 py-3 border-2 rounded-xl transition-all outline-none resize-none focus:ring-4 focus:shadow-lg ${
-                            isDarkMode
-                              ? "border-pink-500/50 bg-white/5 text-white placeholder-gray-500 focus:ring-pink-600/30"
-                              : "border-rose-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-rose-200"
-                          }`}
                           placeholder={field.placeholder}
+                          className={`w-full px-4 py-3 border-2 rounded-xl outline-none resize-none transition-all focus:ring-4 ${
+                            isDarkMode
+                              ? "border-pink-500/50 bg-white/5 text-white focus:ring-pink-600/30"
+                              : "border-rose-300 bg-white text-gray-900 focus:ring-rose-200"
+                          }`}
                           required
                           disabled={isLoading}
                         />
@@ -308,30 +300,29 @@ const Contact = () => {
                           name={field.name}
                           value={formData[field.name]}
                           onChange={handleChange}
-                          className={`w-full px-4 py-3 border-2 rounded-xl transition-all outline-none focus:ring-4 focus:shadow-lg ${
-                            isDarkMode
-                              ? "border-pink-500/50 bg-white/5 text-white placeholder-gray-500 focus:ring-pink-600/30"
-                              : "border-rose-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-rose-200"
-                          }`}
                           placeholder={field.placeholder}
+                          className={`w-full px-4 py-3 border-2 rounded-xl outline-none transition-all focus:ring-4 ${
+                            isDarkMode
+                              ? "border-pink-500/50 bg-white/5 text-white focus:ring-pink-600/30"
+                              : "border-rose-300 bg-white text-gray-900 focus:ring-rose-200"
+                          }`}
                           required
                           disabled={isLoading}
                         />
                       )}
                     </div>
                   ))}
+
                   <motion.button
-                    aria-label="Send message"
                     type="submit"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold text-lg py-4 rounded-xl transition-all transform hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-pink-400/50 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
                     disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold text-lg py-4 rounded-xl transition-all hover:shadow-xl flex items-center justify-center disabled:opacity-60"
                   >
                     {isLoading ? (
                       <>
-                        {/* UPDATED: Loading spinner using React Icons (Loader) */}
-                        <Loader className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
+                        <Loader className="animate-spin -ml-1 mr-3 h-5 w-5" />
                         Sending...
                       </>
                     ) : (

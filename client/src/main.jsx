@@ -195,34 +195,49 @@ const router = createBrowserRouter([
   },
 ]);
 
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+if (!clientId) {
+  console.error("❌ Missing environment variable: VITE_GOOGLE_CLIENT_ID");
+  alert("Google Sign-In is temporarily unavailable. Please add VITE_GOOGLE_CLIENT_ID in your .env file.");
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <LanguageProvider>
-          <ThemeProvider>
-            <AuthProvider>
-              <WishlistProvider>
-                <Provider store={appStore}>
-                  <RouterProvider router={router} />
-                  <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                    toastOptions={{
-                      duration: 5000,
-                      style: {
-                        background: '#333',
-                        color: '#fff',
-                        fontSize: '16px',
-                      },
-                    }}
-                  />
-                </Provider>
-              </WishlistProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </GoogleOAuthProvider>
+      {clientId ? (
+        <GoogleOAuthProvider clientId={clientId}>
+          <LanguageProvider>
+            <ThemeProvider>
+              <AuthProvider>
+                <WishlistProvider>
+                  <Provider store={appStore}>
+                    <RouterProvider router={router} />
+                    <Toaster
+                      position="top-center"
+                      reverseOrder={false}
+                      toastOptions={{
+                        duration: 5000,
+                        style: {
+                          background: '#333',
+                          color: '#fff',
+                          fontSize: '16px',
+                        },
+                      }}
+                    />
+                  </Provider>
+                </WishlistProvider>
+              </AuthProvider>
+            </ThemeProvider>
+          </LanguageProvider>
+        </GoogleOAuthProvider>
+      ) : (
+        <div style={{ textAlign: 'center', marginTop: '50px', color: 'red' }}>
+          <h2>⚠️ Google Sign-In Disabled</h2>
+          <p>Missing <b>VITE_GOOGLE_CLIENT_ID</b> in your environment file.</p>
+        </div>
+      )}
     </ErrorBoundary>
   </StrictMode>
 );
+

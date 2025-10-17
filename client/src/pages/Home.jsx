@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
 import HeroSection from '../components/Home/HeroSection'
-import FeatureCards from '../components/Home/FeatureCards'
+import WhyChooseTravelGrid from '../components/WhyChooseTravelGrid'
 import ForumSection from '../components/Home/ForumSection'
 import DiscoverSection from '../components/Home/DiscoverSection'
 import FeaturedPackages from '../components/Home/FeaturedPackages'
@@ -26,9 +26,9 @@ function Home() {
                     <HeroSection onSearch={setSearchFilter} />
                 </div>
 
-                {/* Feature Cards Section */}
-                <div className="w-full py-16 px-4">
-                    <FeatureCards />
+                {/* Why Choose TravelGrid Section */}
+                <div className="w-full">
+                    <WhyChooseTravelGrid />
                 </div>
 
                 {/* Featured Packages Section */}

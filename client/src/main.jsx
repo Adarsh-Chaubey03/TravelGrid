@@ -75,6 +75,8 @@ const Feedback = lazy(() => import('./pages/Feedback'));
 const TravelPlanGenerator = lazy(() => import('./pages/TravelPlanGenerator'));
 const TravelForum = lazy(() => import('./pages/TravelForum'));
 const BikeDetail = lazy(() => import('./pages/BikeDetail'));
+const BikeBookingForm = lazy(() => import('./pages/BikeBookingForm'));
+const BookingSuccess = lazy(() => import('./pages/BookingSuccess'));
 const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const CustomItenary = lazy(()=> import('./components/CustomItenary'));
@@ -132,6 +134,8 @@ const router = createBrowserRouter([
       { path: '/packages', element: <Suspense fallback={<Spinner />}><TravelPackages /></Suspense> },
       { path: '/rentals', element: <Suspense fallback={<Spinner />}><Rentals /></Suspense> },
       { path: '/rentals/bike/:id', element: <Suspense fallback={<Spinner />}><BikeDetail /></Suspense> },
+      { path: '/rentals/bike/:id/booking', element: <Suspense fallback={<Spinner />}><BikeBookingForm /></Suspense> },
+      { path: '/rentals/booking-success', element: <Suspense fallback={<Spinner />}><BookingSuccess /></Suspense> },
       { path: '/destinations', element: <Suspense fallback={<Spinner />}><DiscovermoreDestination /></Suspense> },
       { path: '/faq', element: <Suspense fallback={<Spinner />}><FAQ /></Suspense> },
       { path: '/contact', element: <Suspense fallback={<Spinner />}><Contact /></Suspense> },

@@ -1,52 +1,8 @@
-import React, { useMemo, useState, createContext, useContext } from "react";
+import React, { useMemo, useState } from "react";
 // Import necessary React Router elements
-import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ArrowLeft, Info, Sun, Moon } from "lucide-react";
-
-
-// --- MOCK THEME CONTEXT ---
-// Provides dark mode state and toggle functionality.
-const ThemeContext = createContext({
-  isDarkMode: true, // Default to dark mode for aesthetics
-  toggleDarkMode: () => {},
-});
-
-const useTheme = () => useContext(ThemeContext);
-
-const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-
-  const contextValue = useMemo(() => ({ isDarkMode, toggleDarkMode }), [isDarkMode]);
-
-  return (
-    <ThemeContext.Provider value={contextValue}>
-      {/* Apply base styles to the entire app wrapper */}
-      <div className={`transition-colors duration-500 min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        {children}
-      </div>
-    </ThemeContext.Provider>
-  );
-};
-
-// Simple floating toggle for demonstration
-const ThemeToggle = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
-  return (
-    <button
-      onClick={toggleDarkMode}
-      className={`fixed top-4 right-4 z-50 p-3 rounded-full shadow-lg transition-colors ${
-        isDarkMode ? 'bg-white text-gray-900 hover:bg-gray-200' : 'bg-gray-900 text-white hover:bg-gray-700'
-      }`}
-      aria-label="Toggle dark mode"
-    >
-      {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-    </button>
-  );
-};
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ChevronLeft, ChevronRight, ArrowLeft, Info } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 // --- FALLBACK DATA ---
 const FALLBACK_BIKE = {
@@ -291,23 +247,4 @@ function BikeDetail() {
   );
 }
 
-export default function App() {
-    return (
-        <ThemeProvider>
-          <ThemeToggle />
-          <BrowserRouter>
-            {/* Routes define where the BikeDetail component should be rendered */}
-            <Routes>
-              {/* Default path (e.g., /) */}
-              <Route path="/" element={<BikeDetail />} />
-              {/* Specific path with a parameter (e.g., /rentals/sample-1) */}
-              <Route path="/rentals/:bikeId" element={<BikeDetail />} /> 
-              {/* Generic rentals path */}
-              <Route path="/rentals" element={<BikeDetail />} /> 
-              {/* Catch-all route to display the detail view if route is ambiguous */}
-              <Route path="*" element={<BikeDetail />} /> 
-            </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-    );
-}
+export default BikeDetail;

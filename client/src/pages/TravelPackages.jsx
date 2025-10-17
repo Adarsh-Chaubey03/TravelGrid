@@ -173,14 +173,13 @@ const TravelPackages = () => {
                  <section className="relative w-full min-h-[680px] md:min-h-[780px] flex items-center justify-center overflow-hidden -mt-20">
           {/* Background image */}
           <img
-            src="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1920&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1631242431618-268c347fa851?auto=format&fit=crop&q=80"
             alt="Travel background"
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Overlay for contrast */}
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/60' : 'bg-gradient-to-br from-white/40 via-white/10 to-transparent'} backdrop-blur-[2px]`} />
-
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/60' : 'bg-gradient-to-br from-white/30 via-white/10 to-transparent'}`} />  
           {/* Content */}
           <div className="relative z-10 w-full px-4">
             <div className="max-w-5xl mx-auto text-center">
@@ -202,7 +201,7 @@ const TravelPackages = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className={`w-full rounded-2xl px-5 py-4 pl-14 pr-12 text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors ${
                       isDarkMode
-                        ? 'bg-white/10 border border-white/20 text-white placeholder-white'
+                        ? 'bg-white/15 border border-white/20 text-white placeholder-white'
                         : 'bg-white/90 border border-gray-200 text-gray-900 placeholder-gray-500'
                     }`}
                   />
@@ -239,7 +238,7 @@ const TravelPackages = () => {
 
         {/* FILTERS */}
         <div
-          className={`grid grid-cols-1 -mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 w-[92%] md:w-[85%] lg:w-[80%] mx-auto p-6 rounded-2xl shadow-xl backdrop-blur-md transition-colors duration-300 bg-white/10 border border-white/30 text-white`}
+          className={`grid grid-cols-1 -mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 w-[92%] md:w-[85%] lg:w-[80%] mx-auto p-6 rounded-2xl shadow-xl backdrop-blur-md transition-colors duration-300 border text-gray-900 ${isDarkMode?"bg-white/10 border-white/20":"bg-white/60 border-white/10"}`}
         >
           {/* Selects */}
           {[
@@ -294,7 +293,7 @@ const TravelPackages = () => {
             },
           ].map(({ label, value, onChange, options }, i) => (
             <div key={i} className="flex flex-col gap-1 relative">
-              <label className="text-sm font-semibold text-white">{label}</label>
+              <label className="text-sm font-semibold text-gray-900">{label}</label>
               <select
                 aria-label={label}
                 value={value}
@@ -309,21 +308,21 @@ const TravelPackages = () => {
               </select>
               <ChevronDown
                 size={18}
-                className={`absolute right-3 top-9 pointer-events-none text-white/80`}
+                className={`absolute right-3 top-9 pointer-events-none ${isDarkMode ? 'text-white/80' : 'text-black/80'}`}
               />
             </div>
           ))}
 
           {/* Max Price */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-semibold text-white">Max Price (₹)</label>
+            <label className="text-sm font-semibold text-gray-900">Max Price (₹)</label>
             <input
               type="number"
               placeholder="No limit"
               onChange={handlePriceChange}
               min="0"
               aria-label="Max Price"
-              className={`rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-transparent border-white/40 text-white placeholder-white`}
+              className={`rounded-lg px-3 py-2 text-sm border shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-pink-400 transition border-white/20 text-gray-900 placeholder:text-gray-400 ${isDarkMode?"bg-black/10":"bg-white/90"}`}
             />
           </div>
         </div>

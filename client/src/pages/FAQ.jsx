@@ -49,63 +49,71 @@ export default function FAQ() {
   const toggle = (idx) => setOpenIndex(openIndex === idx ? null : idx);
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center py-12 px-4 md:px-0">
-      <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-pink-500 mb-6 text-center drop-shadow-sm">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4 md:px-0 bg-gradient-to-br from-black to-pink-900">
+      <div className="w-full max-w-3xl mx-auto mt-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 mb-4 text-center drop-shadow-lg">
           Frequently Asked Questions
         </h1>
-        <p className="text-gray-600 text-lg mb-10 text-center">
+        <p className="text-gray-400 text-lg mb-10 text-center max-w-xl mx-auto">
           Find answers to common questions about booking, payments, cancellations, and more on TravelGrid.
         </p>
-
+        
         <div className="space-y-4">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                className={`rounded-xl border ${
-                  isOpen ? "border-pink-300 ring-1 ring-pink-200" : "border-pink-100"
-                } bg-white shadow-sm overflow-hidden transition-all duration-200`}
+          {faqs.map((faq, idx) => (
+            <div
+              key={idx}
+              // Improved base styling: more subtle dark background, stronger focus state with a border
+              className={`rounded-2xl border transition-all duration-300 ease-out transform ${
+                openIndex === idx
+                  ? 'border-pink-500/80 shadow-2xl shadow-purple-500/20 bg-slate-800' // Open state
+                  : 'border-slate-700 hover:border-pink-500/40 bg-slate-900/80 hover:bg-slate-800/80' // Closed state
+              }`}
+            >
+              <button
+                className="w-full flex justify-between items-start px-6 md:px-8 py-5 text-left rounded-2xl group focus:outline-none"
+                onClick={() => toggle(idx)}
+                aria-expanded={openIndex === idx}
+                aria-controls={`faq-panel-${idx}`}
               >
-                <button
-                  onClick={() => toggle(idx)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-panel-${idx}`}
-                  className={`w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none focus:ring-2 focus:ring-pink-300 transition-colors duration-150 ${
-                    isOpen ? "bg-pink-50" : "hover:bg-gray-50"
-                  }`}
-                >
-                  <span
-                    className={`text-lg font-semibold transition-colors duration-150 ${
-                      isOpen ? "text-pink-700" : "text-gray-800"
-                    }`}
-                  >
-                    {faq.question}
-                  </span>
-
+                <span className="text-lg md:text-xl font-semibold bg-clip-text text-transparent transition-all duration-300 leading-snug pr-4
+                  bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 group-hover:from-pink-300 group-hover:via-purple-300 group-hover:to-blue-300
+                  ">
+                  {faq.question}
+                </span>
+                
+                {/* Arrow icon styling improved for better contrast and gradient use */}
+                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ease-in-out mt-1 ${
+                  openIndex === idx 
+                    ? 'bg-gradient-to-br from-pink-600 to-purple-700 rotate-180 scale-105 shadow-md shadow-pink-500/40' 
+                    : 'bg-slate-700 group-hover:bg-slate-600'
+                }`}>
                   <svg
-                    className={`w-6 h-6 transform transition-transform duration-200 ${
-                      isOpen ? "rotate-180 text-pink-500" : "text-pink-400"
-                    }`}
+                    className={`w-5 h-5 transition-colors duration-300 ${openIndex === idx ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
-                </button>
-
-                <div
-                  id={`faq-panel-${idx}`}
-                  className={`px-6 text-gray-700 text-base transition-all duration-400 ease-in-out overflow-hidden ${
-                    isOpen ? "max-h-80 opacity-100 pb-5" : "max-h-0 opacity-0 pb-0"
-                  }`}
-                  style={{ transitionProperty: "max-height, opacity, padding-bottom" }}
-                >
-                  <div className="pt-2">{faq.answer}</div>
+                </div>
+              </button>
+              
+              {/* Answer Panel: Added a glowing left border for visual depth */}
+              <div
+                id={`faq-panel-${idx}`}
+                className={`transition-all duration-500 ease-in-out ${
+                  openIndex === idx 
+                    ? 'max-h-64 opacity-100' 
+                    : 'max-h-0 opacity-0'
+                } overflow-hidden`}
+              >
+                <div className="px-6 md:px-8 pb-5 pt-0">
+                  <div className="border-l-4 border-pink-500/70 pl-6 py-2 transition-all duration-500 ease-out">
+                    <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
             );

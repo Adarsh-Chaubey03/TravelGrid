@@ -4,6 +4,11 @@ import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import { FaRegLightbulb } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
+import { GiBullseye } from "react-icons/gi";
+
+
 
 const Feedback = () => {
   // Add CSS to force dropdown to open downward
@@ -173,38 +178,38 @@ const Feedback = () => {
 
   const feedbackCards = [
     { 
-      icon: '🎯', 
+      icon: <GiBullseye />, 
       title: 'Improve Our Services', 
       info: 'Help us enhance your travel experience', 
       sub: 'Your insights drive our improvements', 
       bg: 'bg-gradient-to-br from-pink-500/20 to-purple-600/20 hover:from-pink-500/30 hover:to-purple-600/30', 
-      color: 'text-pink-300', 
+      color: 'text-pink-400', 
       iconBg: 'from-pink-500 to-purple-600' 
     },
     { 
-      icon: '💡', 
+      icon: <FaRegLightbulb />, 
       title: 'Share Ideas', 
       info: 'Suggest new features and destinations', 
       sub: 'We love hearing your creative ideas',
       bg: 'bg-gradient-to-br from-purple-500/20 to-blue-600/20 hover:from-purple-500/30 hover:to-blue-600/30', 
-      color: 'text-purple-300', 
+      color: 'text-purple-400', 
       iconBg: 'from-purple-500 to-blue-600' 
     },
     { 
-      icon: '⭐', 
+      icon: <FaRegStar />, 
       title: 'Rate Your Experience', 
       info: 'Let us know how we\'re doing', 
       sub: 'Your ratings help other travelers', 
       bg: 'bg-gradient-to-br from-yellow-500/20 to-orange-600/20 hover:from-yellow-500/30 hover:to-orange-600/30', 
       iconBg: 'from-yellow-500 to-orange-600', 
-      color: 'text-yellow-300' 
+      color: 'text-yellow-400' 
     }
   ];
 
   return (
     <div className={`min-h-screen`}>
       {/* Hero Section */}
-      <div className={`py-32 px-4 relative overflow-hidden`}>
+      <div className={`py-30 px-4 relative overflow-hidden`}>
         <div className={`absolute inset-0 ${
           isDarkMode ? 'bg-black bg-opacity-10' : 'bg-white bg-opacity-20'
         }`}></div>
@@ -213,7 +218,7 @@ const Feedback = () => {
             Share Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Feedback</span>
           </h1>
           <p className={`text-2xl opacity-95 max-w-3xl mx-auto ${
-            isDarkMode ? 'text-gray-200' : 'text-gray-700'
+            isDarkMode ? 'bg-gradient-to-r from-pink-100 via-fuchsia-400 to-pink-100 bg-clip-text text-transparent font-medium' : 'text-gray-700'
           }`}>
             Help us improve your travel experience! Your feedback is invaluable
             to us and helps us create better adventures for everyone.
@@ -233,7 +238,7 @@ const Feedback = () => {
             <h3 className={`text-3xl font-bold mb-8 text-center ${
               isDarkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              Why Your Feedback Matters
+              Why Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Feedback</span> Matters
             </h3>
             <div className="space-y-6">
               {feedbackCards.map((card, index) => (
@@ -251,7 +256,7 @@ const Feedback = () => {
                     }`}>{card.title}</h4>
                     <p className={`${card.color} font-medium mb-1`}>{card.info}</p>
                     <p className={`text-sm ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
                     }`}>{card.sub}</p>
                   </div>
                 </div>
@@ -268,7 +273,7 @@ const Feedback = () => {
             <h2 className={`text-3xl font-bold mb-8 text-center ${
               isDarkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              Tell Us What You Think
+              Tell Us What You <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Think</span>
             </h2>
 
             {isSubmitted ? (
@@ -289,7 +294,7 @@ const Feedback = () => {
                 {/* Package/Destination and Hotel */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
-                    <label className={`block text-sm font-semibold mb-2 ${
+                    <label className={`block text-md font-semibold mb-2 ${
                       isDarkMode ? 'text-gray-200' : 'text-gray-700'
                     }`}>
                       Package
@@ -330,9 +335,9 @@ const Feedback = () => {
                       </button>
 
                       {isPackageDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 bg-white/95 backdrop-blur-md border-2 border-white/30 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
+                        <div className="absolute top-full left-0 mt-1 bg-gradient-to-br from-pink-500/70 to-purple-600/70 text-white backdrop-blur-md border-2 border-white/30 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto min-w-full w-max">
                           <div
-                            className="px-4 py-2 cursor-pointer hover:bg-pink-50 text-black"
+                            className="px-4 py-2 cursor-pointer hover:bg-pink-50 text-white"
                             onClick={() => {
                               setFormData({ ...formData, package: "" });
                               setIsPackageDropdownOpen(false);
@@ -343,7 +348,7 @@ const Feedback = () => {
                           {travelPackages.map((pkg) => (
                             <div
                               key={pkg.value}
-                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap text-black"
+                              className="px-4 py-2 cursor-pointer hover:bg-pink-50 whitespace-nowrap text-white border-b border-pink-300 hover:text-black"
                               onClick={() => {
                                 setFormData({
                                   ...formData,
@@ -360,7 +365,7 @@ const Feedback = () => {
                     </div>
                   </div>
                   <div className="relative">
-                    <label className={`block text-sm font-semibold mb-2 ${
+                    <label className={`block text-md font-semibold mb-2 ${
                       isDarkMode ? 'text-gray-200' : 'text-gray-700'
                     }`}>
                       Hotel (if booked)
@@ -435,8 +440,8 @@ const Feedback = () => {
 
                 {/* Message */}
                 <div>
-                    <label className={`block text-sm font-semibold mb-2 ${
-                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                    <label className={`block text-md font-semibold mb-2 ${
+                      isDarkMode ? 'text-gray-200' : 'text-gray-600'
                     }`}>
                       Your Feedback *
                     </label>
@@ -445,7 +450,7 @@ const Feedback = () => {
                     rows="4"
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 ${isDarkMode ? "bg-gradient-to-br from-pink-500/20 to-purple-600/20 text-white border-2 border-white/30" : "bg-white text-gray-900 border-1 border-gray-200"} backdrop-blur-sm rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between`}
+                    className={`w-full px-4 py-3 ${isDarkMode ? "bg-gradient-to-br from-pink-500/20 to-purple-600/20 text-gray-100 border-2 border-white/30" : "bg-white text-gray-600 border-1 border-gray-200"} backdrop-blur-sm rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-left flex items-center justify-between`}
                     placeholder="Tell us about your experience, suggestions, or any issues you encountered..."
                     required
                   />

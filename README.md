@@ -158,6 +158,21 @@ TravelGrid/
 ├── README.md
 ```
 
+## 🤖 AI-Powered Travel Companion
+
+TravelGrid now features an **AI-Powered Travel Companion Chatbot** that helps users plan trips, find destinations, create itineraries, recommend music, and more! This intelligent assistant integrates with all existing platform features to provide a personalized travel planning experience.
+
+### Key Features
+- **Intelligent Conversational Interface**: Natural language processing for travel queries
+- **Itinerary Creation**: Generate detailed travel itineraries based on user preferences
+- **Package Recommendations**: Find travel packages matching user interests
+- **Destination Discovery**: Provide information about places to visit
+- **Music Recommendations**: Suggest travel playlists based on mood and destination
+- **Budget Planning**: Assist with currency conversion and expense tracking
+
+### Technical Details
+For implementation details, see [AI_TRAVEL_COMPANION_IMPLEMENTATION.md](./AI_TRAVEL_COMPANION_IMPLEMENTATION.md)
+
 ## Code of Conduct
 
 Refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CODE_OF_CONDUCT.md) for contributing guidelines and community standards.

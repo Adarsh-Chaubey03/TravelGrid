@@ -650,7 +650,7 @@ function About() {
                   </div>
 
                   {/* Back */}
-                   <div className="absolute inset-0 rounded-lg p-6 border-2 border-pink-300 flex flex-col items-center justify-center text-center transition-all duration-300 backdrop-blur-md bg-pink-200/30 hover:bg-pink-200/40 hover:border-pink-200"
+                  <div className="absolute inset-0 rounded-lg p-6 border-4 border-pink-300 flex flex-col items-center justify-center text-center transition-all duration-300 backdrop-blur-md bg-pink-200/20 hover:bg-pink-200/30 hover:border-pink-200 shadow-[0_0_20px_rgba(236,72,153,0.6)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]"
                     style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                     onClick={() => handleCardClick(feature.path)}>
                     <h3 className="text-7xl mb-4 drop-shadow-lg">{feature.icon}</h3>

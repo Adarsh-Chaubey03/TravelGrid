@@ -315,12 +315,12 @@ function About() {
               viewport={{ once: true }}
               className="relative order-2 lg:order-1"
             >
-              <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
+              <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
                 <div className="text-6xl mb-4">🚀</div>
                 <h3 className="text-2xl font-bold text-white mb-2">
                   Future Vision
                 </h3>
-                <p className="text-blue-100">
+                <p className="text-pink-100">
                   Revolutionizing how the world travels
                 </p>
               </div>
@@ -785,9 +785,8 @@ function About() {
                   }`}
               >
                 <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
-                <p className={`text-sm leading-relaxed ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>{item.desc}</p>
+                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{item.desc}</p>
               </motion.div>
             ))}
           </div>

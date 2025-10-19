@@ -275,7 +275,7 @@ const MusicPage = () => {
     return (
         <div className={`min-h-screen`}>
             {/* Hero Section */}
-            <div className="relative overflow-hidden h-[85vh]">
+            <div className="relative overflow-hidden h-[75vh] mt-20">
                 {/* Animated Background with Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-purple-900 to-magenta-900"></div>
                 
@@ -319,8 +319,8 @@ const MusicPage = () => {
                     <div className="glow-effect glow-3"></div>
                 </div>
                 
-                <div className="relative max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 text-center z-10">
-                    <div className="flex justify-center mb-8">
+                <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 text-center z-10">
+                    <div className="flex justify-center items-center mb-8">
                         <div className="p-4 rounded-full bg-pink-500/20 backdrop-blur-sm border border-pink-400/30 shadow-lg">
                             <Music className="w-16 h-16 text-pink-200 drop-shadow-lg" />
                         </div>

@@ -6,6 +6,7 @@ import Footer from "../components/Custom/Footer";
 import hotels from "../data/hotels";
 import { useTheme } from "../context/ThemeContext";
 import { config } from "../config";
+import { Search } from "lucide-react";
 
 function Hotels() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function Hotels() {
       className={`flex flex-col min-h-screen w-full overflow-x-hidden ${
         isDarkMode
           ? "bg-gradient-to-br from-black to-pink-900"
-          : 'from-pink-200/50 via-white/70 to-blue-200/50'
+          : "from-pink-200/50 via-white/70 to-blue-200/50"
       }`}
     >
       <Navbar lightBackground={false} />
@@ -76,26 +77,20 @@ function Hotels() {
       <main className="flex flex-col flex-1 w-full items-center">
         <section className="relative w-full py-24 flex flex-col items-center text-center px-4">
           {/* Background image */}
-          <div
+          <img
+            src="https://images.unsplash.com/photo-1570591070094-f9b1cc333b71?auto=format&fit=crop&q=60"
             aria-hidden="true"
-            className="absolute inset-0 z-10"
-            style={{
-              backgroundImage: `url(/hotels.png)`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            {/* Black transparent overlay inside */}
-            <div className="absolute inset-0 bg-black/50" />
-          </div>
+            className="absolute  w-full h-full inset-0 z-10 object-cover"
+            loading="lazy"
+          />
 
           {/* Gradient overlay to preserve original look in both themes */}
           <div
             aria-hidden="true"
             className={`absolute inset-0 z-20 ${
               isDarkMode
-                ? "bg-gradient-to-br from-black/60 to-pink-900/30"
-                : "bg-gradient-to-b from-blue-50/70 via-pink-50/60 to-purple-50/70"
+                ? "bg-gradient-to-br from-gray-900/60 to-pink-900/30"
+                : "bg-gradient-to-b from-blue-200/30 via-pink-100/30 to-purple-100/30"
             }`}
           />
 
@@ -103,26 +98,38 @@ function Hotels() {
           <div className="relative z-30">
             <h1
               className={`text-4xl md:text-5xl font-extrabold mb-6 ${
-                isDarkMode ? "text-white" : "text-gray-700"
+                isDarkMode ? "text-gray-200" : "text-gray-800"
               }`}
             >
-              Explore World-Class <span className="text-pink-600">Hotels</span>
+              Explore World-Class <span className="text-pink-500">Hotels</span>
             </h1>
             <p
-              className={`text-lg md:text-xl max-w-2xl mb-8 ${
-                isDarkMode ? "text-gray-100" : "text-gray-700"
+              className={`text-lg md:text-xl max-w-2xl mb-6 ${
+                isDarkMode ? "text-gray-100" : "text-gray-800"
               }`}
             >
-              Browse and book from our curated list of the top luxury hotels
-              worldwide.
+              Experience the world’s best luxury hotels, carefully curated for
+              you.
             </p>
-            <div className="w-full max-w-lg mx-auto">
+            <div className="w-full max-w-2xl mx-auto relative group">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by hotel or destination..."
-                className="w-full px-6 py-4 rounded-xl bg-white border-2 border-pink-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-pink-500/30 focus:border-pink-500 shadow-lg transition-all"
+                className={`w-full rounded-xl px-4 py-5 pl-16 pr-6 text-base md:text-lg focus:outline-none transition-all duration-300  border backdrop-blur-lg group-hover:shadow-pink-500/25 ${
+                  isDarkMode
+                    ? "bg-white/15 border-white/30 text-white placeholder-white/80 focus:bg-white/10 focus:border-pink-400/50 focus:ring-4 focus:ring-pink-500/40"
+                    : "bg-white/80 border-black/30 text-gray-900 placeholder-gray-600 focus:bg-white/90 focus:border-pink-400/50 focus:ring-4 focus:ring-pink-500/40"
+                }`}
+              />
+              <Search
+                className={`absolute left-5 top-1/2 -translate-y-1/2 transition-all duration-300 ${
+                  isDarkMode
+                    ? "text-white/90"
+                    : "text-gray-600"
+                }`}
+                size={22}
               />
             </div>
           </div>
@@ -132,10 +139,10 @@ function Hotels() {
           {filteredHotels.map((hotel) => (
             <div
               key={hotel.id}
-              className={`flex flex-col rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl cursor-pointer ${
+              className={`group flex flex-col rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl cursor-pointer hover:translate-y-2 ${
                 isDarkMode
-                  ? "bg-gray-800/90 border border-pink-400/30 hover:bg-gray-800/95 hover:scale-105"
-                  : "bg-white/95 border border-pink-300/50 hover:bg-white/100 hover:scale-105"
+                  ? "bg-white/10 border-white/40 text-white hover:bg-white/15 hover:border-pink-500/30 hover:shadow-pink-500/20"
+                  : "bg-white/80 border-white/30 text-gray-900 hover:bg-white/90 hover:border-pink-500/30 hover:shadow-pink-500/20"
               }`}
             >
               <img
@@ -147,15 +154,15 @@ function Hotels() {
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
                   <h3
-                    className={`text-2xl font-semibold ${
-                      isDarkMode ? "text-white" : "text-gray-950"
+                    className={`text-md sm:text-lg font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
                     {hotel.name}
                   </h3>
                   {hotel.isPetFriendly && (
                     <div
-                      className={`text-xl cursor-pointer ${
+                      className={`text-sm sm:text-lg cursor-pointer ${
                         isDarkMode ? "text-pink-400" : "text-pink-600"
                       }`}
                       title="Pet-friendly hotel"
@@ -166,14 +173,14 @@ function Hotels() {
                 </div>
 
                 <span
-                  className={`font-medium mb-3 ${
-                    isDarkMode ? "text-pink-400" : "text-pink-600"
+                  className={`text-sm sm:text-md font-medium mb-3 ${
+                    isDarkMode ? "text-pink-400" : "text-pink-500"
                   }`}
                 >
                   {hotel.location}
                 </span>
                 <p
-                  className={`text-sm line-clamp-3 flex-1 ${
+                  className={`text-xs sm:text-sm line-clamp-3 flex-1 ${
                     isDarkMode ? "text-gray-300" : "text-gray-700"
                   }`}
                 >
@@ -181,16 +188,16 @@ function Hotels() {
                 </p>
                 <button
                   onClick={() => navigate(`/hotels/${hotel.id}`)}
-                  className="mt-4 self-center w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                  className="mt-4 self-center w-full bg-gradient-to-r from-pink-500/90 to-purple-500/90 hover:from-pink-600/90 hover:to-purple-600/90 text-white py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer"
                 >
                   Book Hotel
                 </button>
                 <button
                   onClick={() => handleLike(hotel)}
-                  className={`mt-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  className={`mt-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
                     isDarkMode
-                      ? "bg-pink-900/30 hover:bg-pink-900/50 text-pink-400"
-                      : "bg-pink-200 hover:bg-pink-300 text-pink-600"
+                      ? "bg-fuchsia-400/10 hover:bg-fuchsia-400/30 text-pink-200"
+                      : "bg-fuchsia-200 hover:bg-fuchsia-300 text-pink-500"
                   }`}
                 >
                   ❤️ Save to Dashboard

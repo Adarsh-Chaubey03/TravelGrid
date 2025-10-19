@@ -297,7 +297,10 @@ const Footer = () => {
                   </button>
                 </form>
                 <div className={`text-xs text-white text-center`}>
-                  🔒 We respect your privacy. Unsubscribe at any time.
+                ✈️ Join our travel circle! Discover insider tips, curated guides, and hidden gems crafted just for you. <br />
+Keep exploring with us — unsubscribe only if you ever stop dreaming!
+
+
                 </div>
               </div>
             </div>

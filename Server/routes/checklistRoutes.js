@@ -1,6 +1,6 @@
 import express from "express";
 import { generateChecklist, saveChecklist, getSavedChecklists } from "../controller/checklistController.js";
-import { protect } from "../middleware/auth.js";
+import { verifyJWT as protect } from '../middleware/auth.js';
 
 const router = express.Router();
 

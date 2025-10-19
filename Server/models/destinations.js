@@ -7,5 +7,6 @@ const destinationSchema = new mongoose.Schema({
   avgTransportPerDay: Number
 });
 
-export default Destination = mongoose.model("Destination", destinationSchema);
+const Destination = mongoose.model("Destination", destinationSchema);
 
+export default Destination;

@@ -134,10 +134,11 @@ function About() {
 
   ];
 
-  const techStack = [
+ const techStack = [
     { name: "React.js", color: "bg-blue-500" },
     { name: "Tailwind CSS", color: "bg-cyan-500" },
     { name: "ShadCN UI", color: "bg-purple-500" },
+    { name: "MongoDB", color: "bg-green-500" },
     { name: "Vite", color: "bg-yellow-500" },
     { name: "Git & GitHub", color: "bg-gray-600" },
   ];
@@ -315,12 +316,12 @@ function About() {
               viewport={{ once: true }}
               className="relative order-2 lg:order-1"
             >
-              <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
+              <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
                 <div className="text-6xl mb-4">🚀</div>
                 <h3 className="text-2xl font-bold text-white mb-2">
                   Future Vision
                 </h3>
-                <p className="text-blue-100">
+                <p className="text-pink-100">
                   Revolutionizing how the world travels
                 </p>
               </div>
@@ -650,12 +651,13 @@ function About() {
                   </div>
 
                   {/* Back */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-600 to-purple-700 rounded-lg p-6 border border-pink-400 flex flex-col items-center justify-center text-center hover:from-pink-500 hover:to-purple-600 transition-all duration-300"
-                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                    onClick={() => handleCardClick(feature.path)}>
-                    <h3 className="text-7xl mb-4">{feature.icon}</h3>
-                    <h3 className="text-xl font-bold text-white mb-3">Explore the Feature</h3>
-                  </div>
+                  // Updated back card section in the features map
+<div className="absolute inset-0 rounded-lg p-6 border-4 border-pink-300 flex flex-col items-center justify-center text-center transition-all duration-300 backdrop-blur-md bg-pink-200/20 hover:bg-pink-200/30 hover:border-pink-200 shadow-[0_0_20px_rgba(236,72,153,0.6)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]"
+  style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+  onClick={() => handleCardClick(feature.path)}>
+  <h3 className="text-7xl mb-4 drop-shadow-lg">{feature.icon}</h3>
+  <h3 className={`text-xl font-bold mb-3 drop-shadow-lg ${isDarkMode ? 'text-white' : 'text-black'}`}>Explore the Feature</h3>
+</div>
                 </div>
 
               </motion.div>
@@ -715,7 +717,7 @@ function About() {
 
       <GitHubStats></GitHubStats>
 
-      {/* Tech Stack Section */}
+      {/* Tech Stack Section*/}
       <section
         id="tech"
         data-animate
@@ -766,10 +768,11 @@ function About() {
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { title: "Frontend", desc: "React.js with modern hooks and components", color: "text-blue-400" },
               { title: "Styling", desc: "Tailwind CSS for responsive design", color: "text-cyan-400" },
+              { title: "Database", desc: "MongoDB for scalable data storage", color: "text-green-400" },
               { title: "Development", desc: "Vite for fast build and development", color: "text-yellow-400" }
             ].map((item, index) => (
               <motion.div
@@ -785,9 +788,8 @@ function About() {
                   }`}
               >
                 <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
-                <p className={`text-sm leading-relaxed ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>{item.desc}</p>
+                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{item.desc}</p>
               </motion.div>
             ))}
           </div>

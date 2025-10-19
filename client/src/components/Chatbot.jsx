@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { MessageCircle, X, Send, User, MapPin, Sparkles, Plane, Globe, Hotel, Clock, Star, Heart } from "lucide-react";
+import { MessageCircle, X, Send, User, MapPin, Sparkles, Plane, Globe, Hotel, Clock, Star, Heart, Wand2, Calendar, Wallet, Music, Palette } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -10,15 +11,22 @@ const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi there! ✈️ I'm your travel assistant. Ready to plan your next adventure? Ask me about destinations, hotels, or travel tips!", timestamp: Date.now() }
+    { 
+      from: "bot", 
+      text: "Hi there! ✈️ I'm your AI Travel Companion. I can help you plan trips, find destinations, create itineraries, recommend music, and more! What would you like to do today?", 
+      timestamp: Date.now(),
+      type: "welcome"
+    }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showVideoSection, setShowVideoSection] = useState(false);
+  const [activeFeature, setActiveFeature] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const videoRef = useRef(null);
   const { isDarkMode } = useTheme();
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
   const scrollToBottom = () => {
@@ -42,6 +50,7 @@ const Chatbot = () => {
         setOpen(false);
         setIsAnimating(false);
         setShowVideoSection(false);
+        setActiveFeature(null);
       }, 400);
     } else {
       setOpen(true);
@@ -79,11 +88,111 @@ const Chatbot = () => {
   // Navigation handlers for pills
   const handlePillClick = (route) => {
     navigate(route);
+    toggleChat();
   };
 
   // Navigation handlers for feature cards
   const handleFeatureCardClick = (route) => {
     navigate(route);
+    toggleChat();
+  };
+
+  // Feature handlers
+  const handleFeatureRequest = (featureType) => {
+    setActiveFeature(featureType);
+    
+    switch(featureType) {
+      case 'itinerary':
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "I'd be happy to help you create a travel itinerary! 🗺️\n\nPlease tell me:\n1. Your destination\n2. Trip duration (number of days)\n3. Your interests (e.g., adventure, relaxation, culture, food)\n\nExample: 'Create a 5-day itinerary for Bali focusing on beaches and culture'", 
+          timestamp: Date.now(),
+          type: "itinerary_prompt"
+        }]);
+        break;
+        
+      case 'packages':
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "Let me find some amazing travel packages for you! 🎒\n\nWhat type of trip are you looking for?\n- Adventure trips\n- Relaxation getaways\n- Cultural experiences\n- Family vacations\n- Romantic getaways\n\nTell me your preferences and I'll find the perfect packages!", 
+          timestamp: Date.now(),
+          type: "packages_prompt"
+        }]);
+        break;
+        
+      case 'destinations':
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "I can help you discover amazing destinations! 🌍\n\nWhat kind of place are you interested in?\n- Tropical beaches\n- Mountain retreats\n- Historic cities\n- Wildlife safaris\n- Urban adventures\n\nTell me what you're looking for and I'll suggest some great options!", 
+          timestamp: Date.now(),
+          type: "destinations_prompt"
+        }]);
+        break;
+        
+      case 'music':
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "Let's find the perfect travel playlist for you! 🎵\n\nWhat mood are you going for?\n- Adventure & excitement\n- Relaxation & chill\n- Romance & sunset\n- Cultural exploration\n- Workout & energy\n\nTell me your travel mood and I'll recommend some great music!", 
+          timestamp: Date.now(),
+          type: "music_prompt"
+        }]);
+        break;
+        
+      case 'budget':
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "I can help you plan your travel budget! 💰\n\nWhat do you need help with?\n- Currency conversion\n- Daily budget planning\n- Expense tracking tips\n- Money-saving strategies\n- Best payment methods for travel\n\nLet me know what you'd like to know about travel finances!", 
+          timestamp: Date.now(),
+          type: "budget_prompt"
+        }]);
+        break;
+        
+      default:
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: "What would you like help with? I can assist with travel planning, itineraries, destinations, music, and more!", 
+          timestamp: Date.now()
+        }]);
+    }
+    
+    setShowVideoSection(false);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+  };
+
+  // Function to send message to backend API
+  const sendToBackend = async (message) => {
+    try {
+      const response = await fetch('/api/chatbot/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: message,
+          userId: isAuthenticated ? user._id : null
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        return data.response;
+      } else {
+        throw new Error(data.message || 'Failed to get response');
+      }
+    } catch (error) {
+      console.error('Backend API error:', error);
+      return "I'm having trouble connecting to my advanced AI right now. Let me try to help you with my basic knowledge instead.";
+    }
+  };
+
+  // Handler for AI Travel Checklist
+  const handleChecklistClick = () => {
+    navigate("/ai-travel-checklist");
   };
 
   const sendMessage = async () => {
@@ -99,16 +208,28 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-      const result = await model.generateContent(input.trim());
-      const response = await result.response;
-      const text = response.text();
+      // For feature-specific requests, use backend API
+      if (activeFeature) {
+        const response = await sendToBackend(input.trim());
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: response,
+          timestamp: Date.now(),
+          type: `${activeFeature}_response`
+        }]);
+      } else {
+        // For general chat, use Gemini API as before
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const result = await model.generateContent(input.trim());
+        const response = await result.response;
+        const text = response.text();
 
-      setMessages(prev => [...prev, { 
-        from: "bot", 
-        text: text, 
-        timestamp: Date.now() 
-      }]);
+        setMessages(prev => [...prev, { 
+          from: "bot", 
+          text: text,
+          timestamp: Date.now() 
+        }]);
+      }
     } catch (err) {
       console.error("Chatbot error:", err);
       setMessages(prev => [...prev, { 
@@ -118,6 +239,7 @@ const Chatbot = () => {
       }]);
     } finally {
       setIsLoading(false);
+      setActiveFeature(null);
     }
   };
 
@@ -141,6 +263,40 @@ const Chatbot = () => {
     { name: "Paris", emoji: "🗼", travelers: "9.8K" },
     { name: "Tokyo", emoji: "🗾", travelers: "8.3K" },
     { name: "New York", emoji: "🗽", travelers: "11.2K" }
+  ];
+
+  // Quick action buttons
+  const quickActions = [
+    { 
+      id: 'itinerary', 
+      icon: <Calendar className="w-4 h-4" />, 
+      label: 'Create Itinerary', 
+      color: 'from-blue-500 to-cyan-500' 
+    },
+    { 
+      id: 'packages', 
+      icon: <Plane className="w-4 h-4" />, 
+      label: 'Find Packages', 
+      color: 'from-purple-500 to-pink-500' 
+    },
+    { 
+      id: 'destinations', 
+      icon: <Globe className="w-4 h-4" />, 
+      label: 'Discover Places', 
+      color: 'from-green-500 to-emerald-500' 
+    },
+    { 
+      id: 'music', 
+      icon: <Music className="w-4 h-4" />, 
+      label: 'Travel Music', 
+      color: 'from-yellow-500 to-orange-500' 
+    },
+    { 
+      id: 'budget', 
+      icon: <Wallet className="w-4 h-4" />, 
+      label: 'Plan Budget', 
+      color: 'from-rose-500 to-red-500' 
+    }
   ];
 
   return (
@@ -193,7 +349,7 @@ const Chatbot = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="font-bold text-lg">Travel Assistant</span>
+                  <span className="font-bold text-lg">AI Travel Companion</span>
                   <div className="text-xs text-pink-100 flex items-center">
                     <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                     Online & ready to help
@@ -316,6 +472,35 @@ style={{
                 </button>
               </div>
 
+              {/* Quick Action Buttons */}
+              <div className="mb-3">
+                <h4 className={`text-sm font-semibold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'} flex items-center`}>
+                  <Wand2 className="w-4 h-4 mr-1.5 text-pink-500" />
+                  Quick Actions
+                </h4>
+                <div className="grid grid-cols-3 gap-2">
+                  {quickActions.map((action) => (
+                    <button
+                      key={action.id}
+                      onClick={() => handleFeatureRequest(action.id)}
+                      className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                        isDarkMode 
+                          ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                          : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                      }`}
+                    >
+                      <div className={`w-8 h-8 rounded-lg mx-auto mb-1 flex items-center justify-center bg-gradient-to-br ${action.color} text-white`}>
+                        {action.icon}
+                      </div>
+                      <div className={`text-xs font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                        {action.label}
+                      </div>
+                    </button>
+                  ))
+                  }
+                </div>
+              </div>
+
               {/* Enhanced Feature Cards */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 <button
@@ -350,6 +535,18 @@ style={{
                 >
                   <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>🏨</div>
                   <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Hotels</div>
+                </button>
+                {/* AI Travel Checklist Card */}
+                <button
+                  onClick={handleChecklistClick}
+                  className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                    isDarkMode 
+                      ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                      : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                  }`}
+                >
+                  <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>📋</div>
+                  <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Checklist</div>
                 </button>
               </div>
 
@@ -459,7 +656,11 @@ style={{
                           <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
                           <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                         </div>
-                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Finding the best suggestions...</span>
+                        <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {activeFeature 
+                            ? `Creating your ${activeFeature}...` 
+                            : "Finding the best suggestions..."}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -480,7 +681,9 @@ style={{
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      placeholder="Ask about destinations..."
+                      placeholder={activeFeature 
+                        ? `Describe what you need for your ${activeFeature}...` 
+                        : "Ask about destinations, travel tips, or anything travel-related..."}
                       className={`w-full px-3 py-2 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 overflow-hidden focus:border-transparent transition-all duration-300 ${
                         isDarkMode 
                           ? 'bg-slate-700 border-slate-600 text-gray-200 placeholder-gray-400' 

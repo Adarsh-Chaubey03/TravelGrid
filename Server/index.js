@@ -27,7 +27,7 @@ import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
 import chatbotRoutes from './routes/chatbotRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
-
+import checklistRoutes from './routes/checklistRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;

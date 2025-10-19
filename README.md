@@ -6,9 +6,10 @@
 
 ---
 
+
 ## 📖 Project Overview
 
-TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India’s premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
+TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India's premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
 
 By contributing to TravelGrid, developers can:
 
@@ -186,9 +187,9 @@ Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://gi
 ![GSSoC Logo](https://github.com/dimpal-yadav/TravelGrid/blob/main/GirlScript-Summer-of-Code.png)
 🌟 **Exciting News...**
 
-🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *TravelGrid!* Let’s make learning and career development smarter – together! 🌟👨‍💻👩‍💻
+🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *TravelGrid!* Let's make learning and career development smarter – together! 🌟👨‍💻👩‍💻
 
-👩‍💻 GSSoC is one of India’s **largest 3-month-long open-source programs** that encourages developers of all levels to contribute to real-world projects 🌍 while learning, collaborating, and growing together. 🌱
+👩‍💻 GSSoC is one of India's **largest 3-month-long open-source programs** that encourages developers of all levels to contribute to real-world projects 🌍 while learning, collaborating, and growing together. 🌱
 
 🌈 With **mentorship, community support**, and **collaborative coding**, it's the perfect platform for developers to:
 
@@ -197,7 +198,7 @@ Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://gi
 - 🏆 Get recognized for their work
 - 📜 Receive certificates and swag!
 
-🎉 **I can’t wait to welcome new contributors** from GSSoC 2025 to this TravelGrid project family! Let's build, learn, and grow together — one commit at a time. 🔥👨‍💻👩‍💻
+🎉 **I can't wait to welcome new contributors** from GSSoC 2025 to this TravelGrid project family! Let's build, learn, and grow together — one commit at a time. 🔥👨‍💻👩‍💻
 
 ## 🏆 **GSSoC 2025 Guidelines**
 
@@ -252,4 +253,3 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 ## Support
 
 If you find this project valuable, please star the repository on [GitHub](https://github.com/Adarsh-Chaubey03/TravelGrid) to support its development.
-

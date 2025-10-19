@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const topics = [
   {
@@ -40,6 +41,10 @@ const cardVariants = {
 const ForumSection = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
+  const { t } = useTranslation();
+
+  const forumsObj = t("home.forums", { returnObjects: true });
+  const forums = forumsObj.list || [];
 
   return (
     <motion.section
@@ -59,22 +64,23 @@ const ForumSection = () => {
           
           ${isDarkMode ? 'text-white' : 'text-gray-900'
             }`}
-            
-            
-            >
-            Join the{" "}
+
+
+          >
+            {t("home.forums.titlePrefix")}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              Conversation
+              {t("home.forums.titleHighlight")}
             </span>
           </h2>
           <p className={`text-base md:text-lg mb-12 px-4 max-w-2xl mx-auto leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
             }`}>
-            Connect with fellow travelers, ask questions, and share your experiences in our buzzing travel community!
+            {t("home.forums.description")}
+
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left items-stretch">
-          {topics.map((topic, index) => (
+          {(forums.length > 0 ? forums : topics).map((topic, index) => (
             <motion.div
               key={index}
               custom={index}
@@ -83,8 +89,8 @@ const ForumSection = () => {
               whileInView="visible"
               viewport={{ once: true }}
               className={`group backdrop-blur-md rounded-xl p-6 border transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/20 relative h-full ${isDarkMode
-                  ? 'bg-gray-900 border-pink-300 hover:border-white/40'
-                  : 'bg-white/80 border-pink-200 shadow-2xl shadow-pink-200 hover:border-pink-300'
+                  ? "bg-gray-900 border-pink-300 hover:border-white/40"
+                  : "bg-white/80 border-pink-200 shadow-2xl shadow-pink-200 hover:border-pink-300"
                 }`}
             >
               <div
@@ -92,21 +98,26 @@ const ForumSection = () => {
               >
                 {topic.tag}
               </div>
-              <h3 className={`text-lg font-semibold mt-6 mb-3 group-hover:text-pink-300 transition-colors duration-300 ${
-                isDarkMode 
-                  ? 'text-white group-hover:text-pink-400'
-                  : 'text-gray-900 group-hover:text-pink-500'
-                }`}>
+              <h3
+                className={`text-lg font-semibold mt-6 mb-3 group-hover:text-pink-300 transition-colors duration-300 ${isDarkMode
+                    ? "text-white group-hover:text-pink-400"
+                    : "text-gray-900 group-hover:text-pink-500"
+                  }`}
+              >
                 {topic.title}
               </h3>
-              <p className={`text-sm group-hover:text-gray-900 transition-colors duration-300 ${isDarkMode ? 'text-gray-300 group-hover:text-white' : 'text-gray-600'
-                }`}>
-                {topic.replies} replies
+              <p
+                className={`text-sm group-hover:text-gray-900 transition-colors duration-300 ${isDarkMode
+                    ? "text-gray-300 group-hover:text-white"
+                    : "text-gray-600"
+                  }`}
+              >
+                {topic.replies} {t("home.forums.replies")}
               </p>
             </motion.div>
           ))}
         </div>
-
+        
         <div className="mt-16">
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -114,7 +125,7 @@ const ForumSection = () => {
             onClick={() => navigate('/forum')}
             className="py-3 px-8 bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-400 hover:to-purple-400 text-black font-semibold rounded-full shadow-lg transition-all duration-300 cursor-pointer"
           >
-            Visit Forum
+            {t("home.forums.button")}
           </motion.button>
         </div>
       </div>

@@ -5,22 +5,35 @@ import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../../context/WishlistContext";
 import { useTheme } from "../../context/ThemeContext";
 import SkeletonCard from "../SkeletonCard";
+import { useTranslation } from "react-i18next";
 
 const packages = [
   {
-    id: 1, name: "Santorini Escape", location: "Greece", price: "From ₹12,999",
+    id: 1,
+    nameKey: "santoriniEscape",
+    locationKey: "greece",
+    priceKey: "santoriniPrice",
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
   },
   {
-    id: 2, name: "Alpine Adventure", location: "Switzerland", price: "From ₹18,899",
+    id: 2,
+    nameKey: "alpineAdventure",
+    locationKey: "switzerland",
+    priceKey: "alpinePrice",
     image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=400&q=80",
   },
   {
-    id: 3, name: "Safari Journey", location: "Kenya", price: "From ₹20,199",
+    id: 3,
+    nameKey: "safariJourney",
+    locationKey: "kenya",
+    priceKey: "safariPrice",
     image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80",
   },
   {
-    id: 4, name: "Bali Bliss", location: "Indonesia", price: "From ₹9,999",
+    id: 4,
+    nameKey: "baliBliss",
+    locationKey: "indonesia",
+    priceKey: "baliPrice",
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80",
   },
 ];
@@ -49,6 +62,7 @@ const priceVariants = {
 };
 
 const FeaturedPackages = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { isDarkMode } = useTheme();
@@ -77,13 +91,13 @@ const FeaturedPackages = () => {
           className="text-center mb-16"
         >
           <h2 className={`text-3xl md:text-4xl font-medium mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-            Featured{" "}
+            {t("home.featuredTravelPackages.featured")}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              Travel Packages
+              {t("home.featuredTravelPackages.TravelPackages")}
             </span>
           </h2>
           <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-            Discover handpicked destinations and exclusive deals curated for unforgettable experiences.
+            {t("home.featuredTravelPackages.featuredTravelPackagesDescription")}.
           </p>
         </motion.div>
 
@@ -101,8 +115,8 @@ const FeaturedPackages = () => {
                 animate="rest"
                 whileHover="hover"      // parent controls hover for ALL children
                 className={`group relative backdrop-blur-md rounded-2xl overflow-hidden border h-full transition-all duration-300 ${isDarkMode
-                    ? "bg-black/30 border-white/20 hover:border-white/40"
-                    : "bg-white/30 border-gray-300 hover:border-pink-300"
+                  ? "bg-black/30 border-white/20 hover:border-white/40"
+                  : "bg-white/30 border-gray-300 hover:border-pink-300"
                   }`}
               >
                 {/* Image + Wishlist */}
@@ -128,13 +142,12 @@ const FeaturedPackages = () => {
                     className="absolute top-3 right-3 hover:scale-110 transition-transform duration-300 z-10"
                   >
                     <FaHeart
-                      className={`text-xl transition-colors duration-300 ${
-                        isWishlisted(pkg.id) 
-                          ? isDarkMode 
-                            ? "text-pink-500" 
+                      className={`text-xl transition-colors duration-300 ${isWishlisted(pkg.id)
+                          ? isDarkMode
+                            ? "text-pink-500"
                             : "text-pink-600"
                           : "text-white/80 hover:text-white"
-                      }`}
+                        }`}
                     />
                   </button>
 
@@ -155,32 +168,38 @@ const FeaturedPackages = () => {
                 <div className="p-6">
                   <h3
                     className={`text-xl font-semibold mb-2 transition-colors duration-300 ${isDarkMode
-                        ? "text-white group-hover:text-pink-400"
-                        : "text-gray-900 group-hover:text-pink-600"
+                      ? "text-white group-hover:text-pink-400"
+                      : "text-gray-900 group-hover:text-pink-600"
                       }`}
                   >
-                    {pkg.name}
+                    {t(`home.featuredTravelPackages.${pkg.nameKey}`)}
                   </h3>
                   <p
-                    className={`mb-4 transition-colors duration-300 ${
-                      isDarkMode 
-                        ? "text-gray-300 group-hover:text-gray-200" 
+                    className={`mb-4 transition-colors duration-300 ${isDarkMode
+                        ? "text-gray-300 group-hover:text-gray-200"
                         : "text-gray-700 group-hover:text-gray-800"
                       }`}
                   >
-                    {pkg.location}
+                    {t(`home.featuredTravelPackages.${pkg.locationKey}`)}
+                  </p>
+                  <p
+                    className={`mb-4 transition-colors duration-300 ${isDarkMode
+                        ? "text-gray-300 group-hover:text-gray-200"
+                        : "text-gray-700 group-hover:text-gray-800"
+                      }`}
+                  >
+                    {t(`home.featuredTravelPackages.${pkg.priceKey}`)}
                   </p>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-full font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${
-                      isDarkMode
+                    className={`w-full font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${isDarkMode
                         ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
                         : "bg-gradient-to-r from-cyan-200 to-purple-300 hover:from-blue-300 hover:to-purple-300 text-black"
-                    }`}
+                      }`}
                     onClick={() => navigate(`/package/${i + 9}`)}
                   >
-                    Book Now
+                    {t("home.featuredTravelPackages.bookNow")}
                   </motion.button>
                 </div>
               </motion.div>
@@ -195,7 +214,7 @@ const FeaturedPackages = () => {
             onClick={() => navigate("/packages")}
             className="px-6 py-3 bg-pink-300 text-black rounded-xl shadow-md hover:bg-white-100 hover:scale-85 transition-all duration-500 ease-in-out"
           >
-            View All Packages →
+            {t("home.featuredTravelPackages.viewAllPackages")}
           </motion.button>
         </div>
       </div>

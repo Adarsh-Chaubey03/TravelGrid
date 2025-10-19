@@ -6,7 +6,6 @@
     "support": "Support",
     "tools": "Tools",
     "wishlist": "Wishlist",
-
     "login": "Login",
     "signup": "Sign Up",
     "logout": "Logout",
@@ -50,7 +49,6 @@
     "support": "Support",
     "tools": "Tools",
     "wishlist": "Wishlist",
-
     "dashboard": "Dashboard",
     "ticket": "Ticket",
     "hotels": "Hotels",
@@ -60,7 +58,7 @@
     "guide": "Guide",
     "contact": "Contact",
     "reviewSummarizer": "Hotel / Flight Review Summarizer",
-    "customItinerary":"Custom Travel Itinerary",
+    "customItinerary": "Custom Travel Itinerary",
     "tripCalculator": "Trip Expense Calculator",
     "packingChecklist": "Packing Checklist",
     "travelRecommendations": "Travel Recommendations",
@@ -105,9 +103,6 @@
     "quickFilters": "Quick Filters",
     "whyChoose": "Why Choose",
     "featureDescription": "Experience the best in travel with our comprehensive platform designed for modern travelers seeking unforgettable adventures.",
-    "whatOur": "What Our",
-    "travelersSay": "Travelers Say",
-    "testimonialsDescription": "Join thousands of satisfied travelers who have discovered amazing destinations with TravelGrid.",
     "features": {
       "greatPrices": {
         "title": "Great Prices",
@@ -125,165 +120,338 @@
         "title": "24/7 Support",
         "desc": "We're here whenever you need us with round-the-clock customer support."
       }
-    }
-  },
-  "booking": {
-    "bookNow": "Book Now",
-    "bookTicket": "Book Ticket",
-    "bookHotel": "Book Hotel",
-    "bookPackage": "Book Package",
-    "selectDate": "Select Date",
-    "selectTime": "Select Time",
-    "selectPassengers": "Select Passengers",
-    "selectRooms": "Select Rooms",
-    "totalPrice": "Total Price",
-    "proceedToPayment": "Proceed to Payment",
-    "bookingConfirmed": "Booking Confirmed",
-    "bookingFailed": "Booking Failed",
-    "paymentSuccessful": "Payment Successful",
-    "paymentFailed": "Payment Failed"
-  },
-  "hotels": {
-    "searchHotels": "Search Hotels",
-    "hotelDetails": "Hotel Details",
-    "roomTypes": "Room Types",
-    "amenities": "Amenities",
-    "reviews": "Reviews",
-    "location": "Location",
-    "price": "Price",
-    "perNight": "per night",
-    "checkIn": "Check In",
-    "checkOut": "Check Out",
-    "guests": "Guests",
-    "rooms": "Rooms"
-  },
-  "packages": {
-    "travelPackages": "Travel Packages",
-    "packageDetails": "Package Details",
-    "inclusions": "Inclusions",
-    "exclusions": "Exclusions",
-    "itinerary": "Itinerary",
-    "terms": "Terms & Conditions",
-    "duration": "Duration",
-    "price": "Price",
-    "bookPackage": "Book Package"
-  },
-  "tools": {
-    "tripCalculator": "Trip Expense Calculator",
-    "packingChecklist": "Packing Checklist",
-    "travelPlanGenerator": "Travel Plan Generator",
-    "currencyConverter": "Currency Converter",
-    "weather": "Weather",
-    "calculateExpenses": "Calculate Expenses",
-    "addExpense": "Add Expense",
-    "totalExpenses": "Total Expenses",
-    "budget": "Budget",
-    "remaining": "Remaining"
-  },
-  "profile": {
-    "profile": "Profile",
-    "personalInfo": "Personal Information",
-    "accountSettings": "Account Settings",
-    "preferences": "Preferences",
-    "language": "Language",
-    "theme": "Theme",
-    "notifications": "Notifications",
-    "privacy": "Privacy",
-    "security": "Security",
-    "updateProfile": "Update Profile",
-    "changePassword": "Change Password",
-    "deleteAccount": "Delete Account"
-  },
-  "errors": {
-    "pleaseSignIn": "Please sign in to search for destinations.",
-    "somethingWentWrong": "Something went wrong",
-    "networkError": "Network error",
-    "serverError": "Server error",
-    "notFound": "Page not found",
-    "unauthorized": "Unauthorized",
-    "forbidden": "Forbidden",
-    "invalidInput": "Invalid input",
-    "requiredField": "This field is required",
-    "invalidEmail": "Invalid email address",
-    "passwordTooShort": "Password must be at least 8 characters",
-    "passwordsDoNotMatch": "Passwords do not match"
-  },
-  "success": {
-    "profileUpdated": "Profile updated successfully",
-    "passwordChanged": "Password changed successfully",
-    "bookingCreated": "Booking created successfully",
-    "reviewSubmitted": "Review submitted successfully",
-    "feedbackSubmitted": "Feedback submitted successfully"
-  },
-  "footer": {
-    "aboutUs": "About Us",
-    "contactUs": "Contact Us",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "help": "Help",
-    "support": "Support",
-    "followUs": "Follow Us",
-    "newsletter": "Newsletter",
-    "subscribe": "Subscribe",
-    "allRightsReserved": "All rights reserved"
-  },
-  "login": {
-    "title": "Welcome Back",
-    "subtitle": "Sign in to your account to continue your journey",
-    "email": "Email Address",
-    "emailPlaceholder": "Enter your email",
-    "password": "Password",
-    "passwordPlaceholder": "Enter your password",
-    "signIn": "Sign In",
-    "signingIn": "Signing In...",
-    "orContinue": "Or ",
-    "googleSignIn": "Continue with Google",
-    "noAccount": "Don't have an account?",
-    "signupHere": "Sign up here",
-    "forgotPassword": "Forgot Password?",
-    "clickHere": "Click Here",
-    "errors": {
-      "emptyEmail": "Please enter your email.",
-      "invalidEmail": "Please enter a valid email address.",
-      "emptyPassword": "Please enter your password.",
-      "verifyEmail": "Please verify your email before logging in.",
-      "invalidCredentials": "Invalid email or password"
     },
-    "actions": {
-      "resendConfirm": "Would you like to resend the verification email?"
-    }
-  },
-  "signup": {
-    "title": "Create Account",
-    "subtitle": "Join TravelGrid and start your adventure",
-    "name": "Full Name",
-    "namePlaceholder": "Enter your full name",
-    "email": "Email Address",
-    "emailPlaceholder": "Enter your email",
-    "password": "Password",
-    "passwordPlaceholder": "Create a password",
-    "confirmPassword": "Confirm Password",
-    "confirmPasswordPlaceholder": "Confirm your password",
-    "createAccount": "Create Account",
-    "creatingAccount": "Creating Account...",
-    "orContinue": "Or ",
-    "googleSignUp": "Continue with Google",
-    "alreadyAccount": "Already have an account?",
-    "signinHere": "Sign in here",
-    "weakPassword": "Weak password",
-    "mediumPassword": "Medium strength",
-    "strongPassword": "Strong password",
-    "passwordsMatch": "Passwords match",
-    "passwordsDontMatch": "Passwords don't match",
-    "success": "Account created! Please verify your email to continue.",
+    "featuredTravelPackages": {
+      "featured": "Featured",
+      "TravelPackages": "Travel Packages",
+      "featuredTravelPackagesDescription": "Discover handpicked destinations and exclusive deals curated for unforgettable experiences.",
+      "bookNow": "Book Now",
+      "viewAllPackages": "View All Packages →",
+      "pricePrefix": "From",
+      "location": "Location",
+      "addToWishlist": "Add to Wishlist",
+      "removeFromWishlist": "Remove from Wishlist",
+      "santoriniEscape": "Santorini Escape",
+      "greece": "Greece",
+      "santoriniPrice": "From ₹ 12,999",
+      "alpineAdventure": "Alpine Adventure",
+      "switzerland": "Switzerland",
+      "alpinePrice": "From ₹ 18,899",
+      "safariJourney": "Safari Journey",
+      "kenya": "Kenya",
+      "safariPrice": "From ₹ 20,199",
+      "baliBliss": "Bali Bliss",
+      "indonesia": "Indonesia",
+      "baliPrice": "From ₹ 9,999"
+    },
+    "travelGuides": {
+      "viewProfile": "View Profile",
+      "heading": "Meet Our Top Travel Guides",
+      "description": "Connect with experienced local guides who will make your journey truly unforgettable.",
+      "guides": [
+        {
+          "name": "Aarav Mehta",
+          "expertise": "Himalayan Treks",
+          "bio": "Certified mountain guide with 10+ years of experience leading treks in the Indian Himalayas."
+        },
+        {
+          "name": "Sofia Rossi",
+          "expertise": "Italian Cities & Culture",
+          "bio": "Passionate about art, food, and history. Fluent in English and Italian. Rome-based."
+        },
+        {
+          "name": "James Carter",
+          "expertise": "African Safaris",
+          "bio": "Wildlife expert and safari guide, specializing in Kenya and Tanzania national parks."
+        },
+        {
+          "name": "Snowy Kat",
+          "expertise": "🐾 Mountain Treks & Pet Adventures",
+          "bio": "Passionate about guiding pet parents through scenic mountain trails and nature escapes."
+        },
+        {
+          "name": "Mei Lin",
+          "expertise": "East Asia Tours",
+          "bio": "Licensed guide for Japan, China, and South Korea. Loves sharing local traditions and cuisine."
+        },
+        {
+          "name": "Ayushi Uniyal",
+          "expertise": "🏖️ Coastal Getaways",
+          "bio": "Loves helping travelers explore India's beautiful coastline and beach destinations."
+        },
+        {
+          "name": "Weddy Brown",
+          "expertise": "🐾 Urban Travel with Pets",
+          "bio": "Amsterdam-based guide specializing in navigating cities with pets."
+        }
+      ]
+    },
+    "testimonials": {
+      "whatOur": "What Our",
+      "travelersSay": "Travelers Say",
+      "testimonialsDescription": "See what our travelers love about TravelGrid.",
+      "list": [
+        {
+          "name": "Amit P.",
+          "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+          "review": "TravelGrid made my trip planning effortless and fun! The curated recommendations were spot-on and saved me hours of research.",
+          "rating": 5
+        },
+        {
+          "name": "Sara L.",
+          "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+          "review": "The local guides and easy booking process exceeded my expectations. Will definitely use again for my next adventure!",
+          "rating": 5
+        },
+        {
+          "name": "John D.",
+          "avatar": "https://randomuser.me/api/portraits/men/65.jpg",
+          "review": "Loved the community features and 24/7 support. The platform is intuitive and the deals are unbeatable.",
+          "rating": 4
+        },
+        {
+          "name": "Priya S.",
+          "avatar": "https://randomuser.me/api/portraits/women/68.jpg",
+          "review": "A beautiful, modern platform that made planning my dream vacation so much easier. Highly recommended!",
+          "rating": 5
+        }
+      ]
+    },
+    "forums": {
+      "titlePrefix": "Join the",
+      "titleHighlight": "Conversation",
+      "description": "Connect with fellow travelers, ask questions, and share your experiences in our buzzing travel community!",
+      "button": "Visit Forum",
+      "list": [
+        {
+          "title": "Best travel hacks for solo travelers",
+          "replies": "23 replies",
+          "tag": "Tips & Tricks",
+          "tagColor": "from-green-400 to-blue-500"
+        },
+        {
+          "title": "How to plan a budget-friendly trip to Leh",
+          "replies": "15 replies",
+          "tag": "Destinations",
+          "tagColor": "from-pink-400 to-purple-500"
+        },
+        {
+          "title": "Top 5 underrated places in South India",
+          "replies": "9 replies",
+          "tag": "Hidden Gems",
+          "tagColor": "from-yellow-400 to-red-500"
+        }
+      ]
+    },
+    "discover": {
+      "headingPrefix": "Discover",
+      "headingHighlight": "New Destinations",
+      "description": "Explore trending places, hidden gems, and must-visit spots curated just for you.",
+      "destinations": [
+        {
+          "id": 1,
+          "name": "Manali, Himachal",
+          "category": "Mountain",
+          "rating": 4.7,
+          "popularity": 800,
+          "price": 4500,
+          "image": "https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60",
+          "description": "A beautiful hill station known for its scenic beauty and adventure sports."
+        },
+        {
+          "id": 2,
+          "name": "Jaipur, Rajasthan",
+          "category": "Historical",
+          "rating": 4.5,
+          "popularity": 700,
+          "price": 3500,
+          "image": "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&auto=format&fit=crop&q=60",
+          "description": "The Pink City with rich history, forts, and vibrant culture."
+        },
+        {
+          "id": 3,
+          "name": "Goa",
+          "category": "Beach",
+          "rating": 4.8,
+          "popularity": 950,
+          "price": 5000,
+          "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&auto=format&fit=crop&q=60",
+          "description": "Popular beach destination with nightlife, water sports, and culture."
+        },
+        {
+          "id": 4,
+          "name": "Rishikesh, Uttarakhand",
+          "category": "Mountain",
+          "rating": 4.6,
+          "popularity": 650,
+          "price": 3000,
+          "image": "https://plus.unsplash.com/premium_photo-1697730398251-40cd8dc57e0b?w=600&auto=format&fit=crop&q=60",
+          "description": "The yoga capital of the world, nestled on the banks of the Ganges."
+        }
+      ],
+      "ctaTitle": "Ready to plan your next adventure?",
+      "ctaDescription": "Discover more travel ideas, tips, and personalized recommendations.",
+      "ctaButton": "Discover More Destinations",
+      "noDestinations": "No destinations found."
+    },
+    "booking": {
+      "bookNow": "Book Now",
+      "bookTicket": "Book Ticket",
+      "bookHotel": "Book Hotel",
+      "bookPackage": "Book Package",
+      "selectDate": "Select Date",
+      "selectTime": "Select Time",
+      "selectPassengers": "Select Passengers",
+      "selectRooms": "Select Rooms",
+      "totalPrice": "Total Price",
+      "proceedToPayment": "Proceed to Payment",
+      "bookingConfirmed": "Booking Confirmed",
+      "bookingFailed": "Booking Failed",
+      "paymentSuccessful": "Payment Successful",
+      "paymentFailed": "Payment Failed"
+    },
+    "hotels": {
+      "searchHotels": "Search Hotels",
+      "hotelDetails": "Hotel Details",
+      "roomTypes": "Room Types",
+      "amenities": "Amenities",
+      "reviews": "Reviews",
+      "location": "Location",
+      "price": "Price",
+      "perNight": "per night",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "guests": "Guests",
+      "rooms": "Rooms"
+    },
+    "packages": {
+      "travelPackages": "Travel Packages",
+      "packageDetails": "Package Details",
+      "inclusions": "Inclusions",
+      "exclusions": "Exclusions",
+      "itinerary": "Itinerary",
+      "terms": "Terms & Conditions",
+      "duration": "Duration",
+      "price": "Price",
+      "bookPackage": "Book Package"
+    },
+    "tools": {
+      "tripCalculator": "Trip Expense Calculator",
+      "packingChecklist": "Packing Checklist",
+      "travelPlanGenerator": "Travel Plan Generator",
+      "currencyConverter": "Currency Converter",
+      "weather": "Weather",
+      "calculateExpenses": "Calculate Expenses",
+      "addExpense": "Add Expense",
+      "totalExpenses": "Total Expenses",
+      "budget": "Budget",
+      "remaining": "Remaining"
+    },
+    "profile": {
+      "profile": "Profile",
+      "personalInfo": "Personal Information",
+      "accountSettings": "Account Settings",
+      "preferences": "Preferences",
+      "language": "Language",
+      "theme": "Theme",
+      "notifications": "Notifications",
+      "privacy": "Privacy",
+      "security": "Security",
+      "updateProfile": "Update Profile",
+      "changePassword": "Change Password",
+      "deleteAccount": "Delete Account"
+    },
     "errors": {
-      "fillAll": "Please fill in all the required details to proceed.",
-      "invalidEmail": "Please enter a valid email address",
-      "invalidName": "Name can only contain letters and spaces",
-      "shortName": "Name must be at least 2 characters long",
-      "weakPassword": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
-      "passwordMismatch": "Passwords do not match.",
-      "signupFailed": "Signup failed"
+      "pleaseSignIn": "Please sign in to search for destinations.",
+      "somethingWentWrong": "Something went wrong",
+      "networkError": "Network error",
+      "serverError": "Server error",
+      "notFound": "Page not found",
+      "unauthorized": "Unauthorized",
+      "forbidden": "Forbidden",
+      "invalidInput": "Invalid input",
+      "requiredField": "This field is required",
+      "invalidEmail": "Invalid email address",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "success": {
+      "profileUpdated": "Profile updated successfully",
+      "passwordChanged": "Password changed successfully",
+      "bookingCreated": "Booking created successfully",
+      "reviewSubmitted": "Review submitted successfully",
+      "feedbackSubmitted": "Feedback submitted successfully"
+    },
+    "footer": {
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "help": "Help",
+      "support": "Support",
+      "followUs": "Follow Us",
+      "newsletter": "Newsletter",
+      "subscribe": "Subscribe",
+      "allRightsReserved": "All rights reserved"
+    },
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue your journey",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "signingIn": "Signing In...",
+      "orContinue": "Or ",
+      "googleSignIn": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "signupHere": "Sign up here",
+      "forgotPassword": "Forgot Password?",
+      "clickHere": "Click Here",
+      "errors": {
+        "emptyEmail": "Please enter your email.",
+        "invalidEmail": "Please enter a valid email address.",
+        "emptyPassword": "Please enter your password.",
+        "verifyEmail": "Please verify your email before logging in.",
+        "invalidCredentials": "Invalid email or password"
+      },
+      "actions": {
+        "resendConfirm": "Would you like to resend the verification email?"
+      }
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join TravelGrid and start your adventure",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "createAccount": "Create Account",
+      "creatingAccount": "Creating Account...",
+      "orContinue": "Or ",
+      "googleSignUp": "Continue with Google",
+      "alreadyAccount": "Already have an account?",
+      "signinHere": "Sign in here",
+      "weakPassword": "Weak password",
+      "mediumPassword": "Medium strength",
+      "strongPassword": "Strong password",
+      "passwordsMatch": "Passwords match",
+      "passwordsDontMatch": "Passwords don't match",
+      "success": "Account created! Please verify your email to continue.",
+      "errors": {
+        "fillAll": "Please fill in all the required details to proceed.",
+        "invalidEmail": "Please enter a valid email address",
+        "invalidName": "Name can only contain letters and spaces",
+        "shortName": "Name must be at least 2 characters long",
+        "weakPassword": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
+        "passwordMismatch": "Passwords do not match.",
+        "signupFailed": "Signup failed"
+      }
     }
   }
 }

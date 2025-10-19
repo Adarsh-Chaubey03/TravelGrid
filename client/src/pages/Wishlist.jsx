@@ -89,12 +89,14 @@ const Wishlist = () => {
                 />
               </div>
               <h3
-                className="text-xl md:text-2xl font-bold mb-3 text-gray-900 dark:text-gray-100"
+                className="text-xl md:text-2xl font-bold mb-3"
+                style={{ color: "var(--text-primary)" }}
               >
                 Your wishlist is empty
               </h3>
               <p
-                className="text-md max-w-md mx-auto mb-6 text-gray-700 dark:text-gray-300"
+                className="text-md max-w-md mx-auto mb-6"
+                style={{ color: "var(--text-primary)" }}
               >
                 Start saving your dream destinations to plan your next
                 adventure!

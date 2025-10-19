@@ -12,6 +12,7 @@ The TravelGrid application now supports a comprehensive dark/light mode toggle f
 - **System Preference Detection**: Automatically detects user's system theme preference
 - **Smooth Transitions**: All theme changes have smooth 300ms transitions
 - **Responsive Design**: Works perfectly on desktop and mobile devices
+- **✨ NEW ✨ Keyboard Shortcut**: Toggle the theme from anywhere using `Ctrl+Shift+D`.
 
 ### ✅ Components Updated
 - **Navbar**: Full dark mode support with proper contrast
@@ -57,15 +58,17 @@ The TravelGrid application now supports a comprehensive dark/light mode toggle f
 - Animated sun/moon icons
 - Smooth rotation and scale transitions
 - Hover effects with color changes
-- Accessible with proper ARIA labels
+- Accessible with proper ARIA labels (including shortcut) // ✏️ UPDATE THIS LINE
+- Keyboard shortcut listener (Ctrl+Shift+D) // ✨ ADD THIS LINE
 ```
 
 ## Usage
 
 ### For Users
-1. **Toggle Theme**: Click the sun/moon icon in the navbar
-2. **Persistent**: Your preference is saved and will persist across sessions
-3. **System Sync**: If you haven't set a preference, it follows your system theme
+1.  **Toggle Theme**: Click the sun/moon icon in the navbar
+2.  **✨ NEW ✨ Keyboard Shortcut**: You can also press `Ctrl+Shift+D` to toggle the theme at any time.
+3.  **Persistent**: Your preference is saved...
+4.  **System Sync**: If you haven't set a preference...
 
 ### For Developers
 1. **Access Theme**: Use `useTheme()` hook in any component
@@ -93,6 +96,7 @@ The TravelGrid application now supports a comprehensive dark/light mode toggle f
 - **Focus Indicators**: Clear focus rings on interactive elements
 - **Keyboard Navigation**: Full keyboard accessibility
 - **Screen Reader Support**: Proper ARIA labels and descriptions
+- **✨ NEW ✨ Keyboard Shortcut**: `Ctrl+Shift+D` global shortcut for easy theme access.
 
 ### ✅ User Experience
 - **Smooth Transitions**: 300ms transitions for all theme changes
@@ -174,6 +178,7 @@ The TravelGrid application now supports a comprehensive dark/light mode toggle f
 - [x] Accessibility features work
 - [x] No console errors
 - [x] Performance is good
+- [x] Keyboard shortcut (`Ctrl+Shift+D`) toggles theme correctly
 
 ### Automated Testing
 - [ ] Unit tests for ThemeContext

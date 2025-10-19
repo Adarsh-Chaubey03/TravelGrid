@@ -134,10 +134,11 @@ function About() {
 
   ];
 
-  const techStack = [
+ const techStack = [
     { name: "React.js", color: "bg-blue-500" },
     { name: "Tailwind CSS", color: "bg-cyan-500" },
     { name: "ShadCN UI", color: "bg-purple-500" },
+    { name: "MongoDB", color: "bg-green-500" },
     { name: "Vite", color: "bg-yellow-500" },
     { name: "Git & GitHub", color: "bg-gray-600" },
   ];
@@ -716,7 +717,7 @@ function About() {
 
       <GitHubStats></GitHubStats>
 
-      {/* Tech Stack Section */}
+      {/* Tech Stack Section*/}
       <section
         id="tech"
         data-animate
@@ -767,10 +768,11 @@ function About() {
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { title: "Frontend", desc: "React.js with modern hooks and components", color: "text-blue-400" },
               { title: "Styling", desc: "Tailwind CSS for responsive design", color: "text-cyan-400" },
+              { title: "Database", desc: "MongoDB for scalable data storage", color: "text-green-400" },
               { title: "Development", desc: "Vite for fast build and development", color: "text-yellow-400" }
             ].map((item, index) => (
               <motion.div

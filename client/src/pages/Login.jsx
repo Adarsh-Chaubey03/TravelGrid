@@ -75,18 +75,26 @@ const Login = () => {
         <div className="max-w-md w-full">
           {/* Header */}
           <div className="text-center mb-8 mt-4">
-            <h1 className="text-3xl font-bold text-gray-700 mb-2">
-              {t("login.title")}
-            </h1>
+           <h1
+           className="text-3xl font-bold mb-2 bg-clip-text text-transparent"
+           style={{
+           backgroundImage: 'linear-gradient(45deg, #ec4899 0%,  #9c4a7dff  50%, #fb923c 100%)',
+       }}
+      >
+          {t("login.title")}
+          </h1>
             <p className="text-gray-500 font-medium">{t("login.subtitle")}</p>
           </div>
 
           {/* Login Form */}
-          <div
-            className={`bg-gray-100 backdrop-blur-md rounded-2xl p-8 mb-8 border ${
-              isDarkMode ? "border-white/20" : " border-black/20"
-            }`}
-          >
+        <div
+        className={`rounded-2xl p-8 mb-8 border shadow-md transition-all duration-300
+        ${isDarkMode 
+                    ? "bg-gray-900/40 backdrop-blur-lg border-white/20 text-white" 
+                    : "bg-white border-black/10 text-black"
+          }`}
+       >
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 flex items-center gap-3">
@@ -149,10 +157,22 @@ const Login = () => {
 
               {/* Submit */}
               <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white py-3 px-6 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
+              type="submit"
+              disabled={isLoading}
+              className="w-full text-white py-3 px-6 rounded-lg font-semibold 
+                         transition-all duration-300 ease-in-out 
+                         flex items-center justify-center gap-2 
+                         disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+               style={{
+               background: 'linear-gradient(45deg, #ec4899, #d946ef, #8b5cf6, #38bdf8)',
+               backgroundSize: '200% 200%',
+               backgroundPosition: 'left center',
+                      }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = 'right center'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = 'left center'}
+             >
+
+
                 {isLoading ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -183,11 +203,20 @@ const Login = () => {
               </div>
 
               {/* Google */}
-              <GoogleLoginButton 
-                onSuccess={() => navigate(from, { replace: true })}
-                buttonText={t("login.googleSignIn")}
-                className="w-full rounded-full"
-              />
+            <GoogleLoginButton
+  onSuccess={() => navigate("/", { replace: true })}
+  buttonText={t("signup.googleSignUp")}
+  className={`w-full rounded-xl backdrop-blur-md border border-blue-200/30 shadow-md transition-all duration-300 ${
+    isDarkMode ? '' : 'bg-blue-100/30 text-blue-900'
+  }`}
+  style={!isDarkMode ? {
+    background: 'rgba(173, 216, 230, 0.25)', // light blue glassy color
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
+    border: '1px solid rgba(173, 216, 230, 0.3)',
+  } : {}}
+/>
             </form>
 
             {/* Links */}

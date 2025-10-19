@@ -76,24 +76,24 @@ const Login = () => {
           {/* Header */}
           <div className="text-center mb-8 mt-4">
            <h1
-  className="text-3xl font-bold mb-2 bg-clip-text text-transparent"
-  style={{
-    backgroundImage: 'linear-gradient(45deg, #ec4899 0%,  #9c4a7dff  50%, #fb923c 100%)',
-  }}
->
-  {t("login.title")}
-</h1>
+           className="text-3xl font-bold mb-2 bg-clip-text text-transparent"
+           style={{
+           backgroundImage: 'linear-gradient(45deg, #ec4899 0%,  #9c4a7dff  50%, #fb923c 100%)',
+       }}
+      >
+          {t("login.title")}
+          </h1>
             <p className="text-gray-500 font-medium">{t("login.subtitle")}</p>
           </div>
 
           {/* Login Form */}
         <div
-  className={`rounded-2xl p-8 mb-8 border shadow-md transition-all duration-300
-    ${isDarkMode 
-      ? "bg-gray-900/40 backdrop-blur-lg border-white/20 text-white" 
-      : "bg-white border-black/10 text-black"
-    }`}
->
+        className={`rounded-2xl p-8 mb-8 border shadow-md transition-all duration-300
+        ${isDarkMode 
+                    ? "bg-gray-900/40 backdrop-blur-lg border-white/20 text-white" 
+                    : "bg-white border-black/10 text-black"
+          }`}
+       >
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
@@ -156,21 +156,21 @@ const Login = () => {
               </div>
 
               {/* Submit */}
-<button
-  type="submit"
-  disabled={isLoading}
-  className="w-full text-white py-3 px-6 rounded-lg font-semibold 
-             transition-all duration-300 ease-in-out 
-             flex items-center justify-center gap-2 
-             disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-  style={{
-    background: 'linear-gradient(45deg, #ec4899, #d946ef, #8b5cf6, #38bdf8)',
-    backgroundSize: '200% 200%',
-    backgroundPosition: 'left center',
-  }}
-  onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = 'right center'}
-  onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = 'left center'}
->
+              <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full text-white py-3 px-6 rounded-lg font-semibold 
+                         transition-all duration-300 ease-in-out 
+                         flex items-center justify-center gap-2 
+                         disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+               style={{
+               background: 'linear-gradient(45deg, #ec4899, #d946ef, #8b5cf6, #38bdf8)',
+               backgroundSize: '200% 200%',
+               backgroundPosition: 'left center',
+                      }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = 'right center'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = 'left center'}
+             >
 
 
                 {isLoading ? (

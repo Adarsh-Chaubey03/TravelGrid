@@ -28,10 +28,33 @@ const tripSchema = new mongoose.Schema({
       },
     ],
   },
+  // Collaborative features
+  collaborators: [{
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    role: {
+      type: String,
+      enum: ['owner', 'editor', 'viewer'],
+      default: 'editor'
+    },
+    joinedAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  isCollaborative: {
+    type: Boolean,
+    default: false
+  },
+  collaborationToken: {
+    type: String,
+    unique: true,
+    sparse: true
+  }
 }, {
   timestamps: true
 });
 
 export const Trip = mongoose.model('Trip', tripSchema);
-
-

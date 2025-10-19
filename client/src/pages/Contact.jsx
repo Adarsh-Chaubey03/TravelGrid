@@ -25,9 +25,19 @@ const Contact = () => {
     { icon: '📍', title: 'Visit Our Office', info: 'Xyz, New Delhi', sub: 'Mon-Fri: 9AM-6PM', bg: 'bg-purple-50 hover:bg-purple-100', color: 'text-purple-600', iconBg: 'from-purple-500 to-purple-600' }
   ];
 
+  const getLink = (title, info) => {
+    if (title === 'Travel Inquiries') {
+      return `mailto:${info}`;
+    }
+    if (title === '24/7 Support') {
+      const phone = info.replace(/\D/g, '');
+      return `https://wa.me/${phone}`;
+    }
+    return null;
+  };
+
   return (
     <div className={`min-h-screen`}>
-      
       {/* Hero Section */}
       <div className={`py-24 px-4 relative overflow-hidden`}>
         <div className={`absolute inset-0`}></div>
@@ -51,25 +61,35 @@ const Contact = () => {
           }`}>
             <h3 className={`text-2xl font-bold mb-8 text-center`}>Contact Information</h3>
             <div className="space-y-6">
-              {contactCards.map((card, index) => (
-                <div key={index} className={`flex items-center p-4 rounded-xl transition-colors`}>
-                  <div className={`w-12 h-12 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-xl mr-4`}>
-                    {card.icon}
+              {contactCards.map((card, index) => {
+                const link = getLink(card.title, card.info);
+                const content = (
+                  <div className={`flex items-center p-4 rounded-xl transition-colors`}>
+                    <div className={`w-12 h-12 bg-gradient-to-br ${card.iconBg} rounded-xl flex items-center justify-center text-white text-xl mr-4`}>
+                      {card.icon}
+                    </div>
+                    <div>
+                      <h4 className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {card.title}
+                      </h4>
+                      <p className={`${card.color} font-medium`}>{card.info}</p>
+                      <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>{card.sub}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className={`font-semibold ${
-                      isDarkMode ? 'text-white' : 'text-gray-900'
-                    }`}>{card.title}</h4>
-                    <p className={`${card.color} font-medium`}>{card.info}</p>
-                    <p className={`text-sm ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-500'
-                    }`}>{card.sub}</p>
-                  </div>
-                </div>
-              ))}
+                );
+
+                // If card has link (WhatsApp or Email), wrap with <a>
+                return link ? (
+                  <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="block">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={index}>{content}</div>
+                );
+              })}
             </div>
           </div>
-          
+
           {/* Contact Form */}
           <div className={`rounded-2xl shadow-2xl p-8 border ${
             isDarkMode 
@@ -88,8 +108,7 @@ const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {[
-                  { name: 'name', type: 'text', placeholder: 'Enter your full name', label: 'Your Name' },
+                {[{ name: 'name', type: 'text', placeholder: 'Enter your full name', label: 'Your Name' },
                   { name: 'email', type: 'email', placeholder: 'Enter your email address', label: 'Email Address' },
                   { name: 'message', type: 'textarea', placeholder: 'Tell us about your dream destination...', label: 'Message' }
                 ].map((field, index) => (
@@ -145,3 +164,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
+

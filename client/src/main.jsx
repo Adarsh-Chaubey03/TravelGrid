@@ -99,14 +99,13 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const BookingHistory = lazy(() => import('./pages/BookingHistory'));
 const MoodBoardPage = lazy(() => import('./pages/MoodBoardPage'));
 const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
-const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
-const Music = lazy(() => import('./pages/Music'));
-const VisaChecker = lazy(() => import('./pages/VisaChecker'));
-const SharedTrip = lazy(() => import('./pages/SharedTrip'));
-const QRTripSharing = lazy(() => import('./pages/QRTripSharing'));
-const SharedTripTool = lazy(() => import('./pages/SharedTripTool'));
-const SafetyIntelligence = lazy(() => import('./pages/SafetyIntelligence'));
-
+import AITravelChecklist from './components/AITravelChecklist';
+import MusicPlayerDemo from './pages/MusicPlayerDemo';
+import Music from './pages/Music';
+import VisaChecker from './pages/VisaChecker';
+import SharedTrip from './pages/SharedTrip';
+import QRTripSharing from './pages/QRTripSharing';
+import SharedTripTool from './pages/SharedTripTool';
 
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
@@ -163,9 +162,7 @@ const router = createBrowserRouter([
       { path: '/shared-trip/:tripId', element: <Suspense fallback={<Spinner />}><SharedTrip /></Suspense> },
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
-      { path: '/safety-intelligence', element: <Suspense fallback={<Spinner />}><SafetyIntelligence /></Suspense> },
-
-
+      { path: '/ai-travel-checklist', element: <Suspense fallback={<Spinner />}><AITravelChecklist /></Suspense> },
 
       {
         path: '/dashboard',

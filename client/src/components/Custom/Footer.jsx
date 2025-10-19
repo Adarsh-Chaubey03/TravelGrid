@@ -51,13 +51,16 @@ const Footer = () => {
 
   return (
     <>
-      <footer className={`relative transition-all duration-300 ${
+<footer className={`relative transition-all duration-300 ${
      isDarkMode 
-          ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900' 
-          : 'bg-gradient-to-br from-gray-900  to-pink-900'
+          ? 'bg-slate-900/90 backdrop-blur-md' 
+          : 'bg-slate-900/95 backdrop-blur-lg border-t-2 border-white/20 shadow-[0_-10px_40px_-5px_rgba(147,51,234,0.6)]'
       }`}>
+        {/* Stronger Purplish Glow - Light Mode, Fainter in Dark Mode */}
+        <div className={`absolute -top-24 left-0 right-0 h-24 blur-[80px] ${isDarkMode ? 'bg-purple-600/20' : 'bg-purple-600/80'}`} />
         {/* Background pattern */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-20" />
+
 
         <div className="relative z-10">
           {/* remove extra padding in footer */}

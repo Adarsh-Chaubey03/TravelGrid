@@ -1,10 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { TravelPackage } from "../models/travelPackage.js";
+import TravelPackage from "../models/travelPackage.js";
 import { MoodBoard } from "../models/moodBoard.js";
 import { Music } from "../models/music.js";
 import { User } from "../models/user.js";
-import { Destination } from "../models/destinations.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import Destination from "../models/destinations.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -76,12 +76,12 @@ When helping with currency:
 // Function to get user context
 const getUserContext = async (userId) => {
   if (!userId) return null;
-  
+
   try {
     const user = await User.findById(userId).select('name email preferences travelHistory');
     const moodBoards = await MoodBoard.find({ owner: userId }).limit(5);
     const savedPackages = []; // Would need to implement saved packages feature
-    
+
     return {
       user: user ? user.toObject() : null,
       moodBoards: moodBoards.map(mb => ({
@@ -109,9 +109,9 @@ const getRelevantPackages = async (query, limit = 5) => {
         { activities: { $regex: query, $options: 'i' } }
       ]
     })
-    .limit(limit)
-    .select('title destination duration price rating images');
-    
+      .limit(limit)
+      .select('title destination duration price rating images');
+
     return packages;
   } catch (error) {
     console.error('Error fetching travel packages:', error);
@@ -129,9 +129,9 @@ const getRelevantDestinations = async (query, limit = 5) => {
         { description: { $regex: query, $options: 'i' } }
       ]
     })
-    .limit(limit)
-    .select('name country description images climate');
-    
+      .limit(limit)
+      .select('name country description images climate');
+
     return destinations;
   } catch (error) {
     console.error('Error fetching destinations:', error);
@@ -149,9 +149,9 @@ const getRelevantMusic = async (query, limit = 5) => {
         { type: { $regex: query, $options: 'i' } }
       ]
     })
-    .limit(limit)
-    .select('title artist type duration');
-    
+      .limit(limit)
+      .select('title artist type duration');
+
     return music;
   } catch (error) {
     console.error('Error fetching music:', error);
@@ -162,67 +162,67 @@ const getRelevantMusic = async (query, limit = 5) => {
 // Function to categorize user intent
 const categorizeIntent = (message) => {
   const lowerMessage = message.toLowerCase();
-  
+
   if (lowerMessage.includes('plan') || lowerMessage.includes('itinerary') || lowerMessage.includes('schedule')) {
     return 'itinerary_creation';
   }
-  
+
   if (lowerMessage.includes('package') || lowerMessage.includes('tour') || lowerMessage.includes('deal')) {
     return 'package_recommendation';
   }
-  
+
   if (lowerMessage.includes('destination') || lowerMessage.includes('place') || lowerMessage.includes('visit')) {
     return 'destination_info';
   }
-  
+
   if (lowerMessage.includes('mood') || lowerMessage.includes('board') || lowerMessage.includes('inspiration')) {
     return 'mood_board_integration';
   }
-  
+
   if (lowerMessage.includes('music') || lowerMessage.includes('song') || lowerMessage.includes('playlist')) {
     return 'music_recommendation';
   }
-  
+
   if (lowerMessage.includes('currency') || lowerMessage.includes('money') || lowerMessage.includes('exchange')) {
     return 'currency_assistance';
   }
-  
+
   return 'general_travel_assistance';
 };
 
 // Main chatbot response function
 export const getChatbotResponse = asyncHandler(async (req, res) => {
   const { message, userId } = req.body;
-  
+
   if (!message) {
     return res.status(400).json({
       success: false,
       message: "Message is required"
     });
   }
-  
+
   try {
     // Get user context
     const userContext = await getUserContext(userId);
-    
+
     // Categorize user intent
     const intent = categorizeIntent(message);
-    
+
     // Get relevant data based on intent
     let contextData = {};
-    
+
     if (intent === 'package_recommendation' || intent === 'itinerary_creation') {
       contextData.packages = await getRelevantPackages(message);
     }
-    
+
     if (intent === 'destination_info') {
       contextData.destinations = await getRelevantDestinations(message);
     }
-    
+
     if (intent === 'music_recommendation') {
       contextData.music = await getRelevantMusic(message);
     }
-    
+
     // Construct the full prompt
     const fullPrompt = `
 ${PROMPT_TEMPLATES[intent] || PROMPT_TEMPLATES.travel_planning}
@@ -235,13 +235,13 @@ ${Object.keys(contextData).length > 0 ? `Relevant Data: ${JSON.stringify(context
 
 Please provide a helpful, concise response to the user's query.
 `;
-    
+
     // Generate response using Gemini
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(fullPrompt);
     const response = await result.response;
     const text = response.text();
-    
+
     // Return the response
     res.status(200).json({
       success: true,
@@ -265,18 +265,18 @@ Please provide a helpful, concise response to the user's query.
 // Function to get travel recommendations
 export const getTravelRecommendations = asyncHandler(async (req, res) => {
   const { userId, preferences = {} } = req.body;
-  
+
   try {
     // Get user context
     const userContext = await getUserContext(userId);
-    
+
     // Get recommendations based on preferences
     const recommendations = {
       packages: [],
       destinations: [],
       music: []
     };
-    
+
     // Get packages based on user preferences
     if (preferences.interests && preferences.interests.length > 0) {
       const interestQuery = preferences.interests.join('|');
@@ -284,17 +284,17 @@ export const getTravelRecommendations = asyncHandler(async (req, res) => {
     } else {
       recommendations.packages = await TravelPackage.find().limit(3).select('title destination duration price rating images');
     }
-    
+
     // Get popular destinations
     recommendations.destinations = await Destination.find({ popular: true }).limit(3).select('name country description images climate');
-    
+
     // Get music based on mood
     if (preferences.mood) {
       recommendations.music = await getRelevantMusic(preferences.mood, 3);
     } else {
       recommendations.music = await Music.find().limit(3).select('title artist type duration');
     }
-    
+
     res.status(200).json({
       success: true,
       recommendations
@@ -311,14 +311,14 @@ export const getTravelRecommendations = asyncHandler(async (req, res) => {
 // Function to create a travel itinerary
 export const createItinerary = asyncHandler(async (req, res) => {
   const { destination, duration, interests, userId } = req.body;
-  
+
   if (!destination || !duration || !interests) {
     return res.status(400).json({
       success: false,
       message: "Destination, duration, and interests are required"
     });
   }
-  
+
   try {
     // Generate itinerary using AI
     const prompt = `
@@ -333,12 +333,12 @@ Include:
 
 Format the response in a clear, organized way with day-by-day breakdowns.
 `;
-    
+
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const itinerary = response.text();
-    
+
     res.status(200).json({
       success: true,
       itinerary

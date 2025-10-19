@@ -29,6 +29,7 @@ const Navbar = () => {
   const navLinks = [
     { name: t("navigation.home"), path: "/" },
     { name: t("navigation.trendingSpots"), path: "/trending-spots" },
+    { name: t("navigation.about"), path: "/about" },
     {
       name: t("navigation.booking"),
       subitems: [
@@ -38,6 +39,16 @@ const Navbar = () => {
         { label: "Rentals", path: "/rentals" },
         { label: t("Visa"), path: "/visa-checker" },
         { label: t("navigation.bookingHistory"), path: "/booking-history" },
+      ],
+    },
+    {
+      name: t("navigation.support"),
+      subitems: [
+        { label: t("navigation.travelPlans"), path: "/travel-plan-generator" },
+        { label: t("navigation.customItinerary"), path: "/custom-itinerary" },
+        { label: t("navigation.guide"), path: "/guides" },
+        { label: t("navigation.contact"), path: "/contact" },
+       
       ],
     },
     {
@@ -58,15 +69,6 @@ const Navbar = () => {
       ],
     },
     { name: t("navigation.wishlist"), path: "/wishlist" },
-    {
-      name: t("navigation.support"),
-      subitems: [
-        { label: t("navigation.travelPlans"), path: "/travel-plan-generator" },
-        { label: t("navigation.customItinerary"), path: "/custom-itinerary" },
-        { label: t("navigation.guide"), path: "/guides" },
-        { label: t("navigation.contact"), path: "/contact" },
-      ],
-    },
   ];
 
   // Function to get the active subitem label for dropdown display
@@ -138,8 +140,8 @@ const Navbar = () => {
       <nav
         className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${
           isDarkMode
-            ? "bg-slate-900/90 border-slate-700 text-white"
-            : "bg-slate-900/95 border-white/20 text-white"
+            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
+            : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
         } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
         <div className="w-full max-w-full mx-auto flex justify-between items-center gap-6 px-2 py-4.5">
@@ -165,7 +167,9 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <div
-            className={`hidden md:flex items-center gap-1.5 font-small flex-1 justify-center text-white`}
+            className={`hidden md:flex items-center gap-1.5 font-small flex-1 justify-center ${
+              isDarkMode ? "text-gray-200" : "text-gray-700"
+            }`}
           >
             {navLinks.map((link) => {
             const activeSubitem = getActiveSubitem(link);
@@ -176,18 +180,20 @@ const Navbar = () => {
                     className={`py-1.5 px-2 text-sm font-medium rounded-sm transition-all  duration-300 flex items-center gap-1 truncate max-w-fit cursor-pointer ${
                       activeParentTab === link.name
                         ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white"
-                        : `hover:text-pink-500 hover:shadow-sm text-white`
+                        : `hover:text-pink-500 hover:shadow-sm ${
+                            isDarkMode ? "text-gray-200" : "text-gray-900"
+                          }`
                     }`}
                   >  
                   {/* Chevron rotate on hover */}
-                    {activeSubitem || link.name} <ChevronDown className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180  font-bold text-white`} />
+                    {activeSubitem || link.name} <ChevronDown className={`w-4 h-4 transform transition-transform duration-400 group-hover:rotate-180  font-bold ${activeParentTab===link.name? "text-white": 'text-gray-900'}`} />
                   </button>
                   {/* Dropdown menu */}
                   <div
                     className={`absolute left-0 mt-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 p-2 min-w-[200px] max-w-[280px] rounded-lg shadow-lg ${
                       isDarkMode
                         ? "bg-slate-800 text-white border border-slate-700"
-                        : "bg-white/90 backdrop-blur-xl text-black border-2 border-white/40 shadow-xl"
+                        : "bg-white text-gray-900 border border-gray-200"
                     }`}
                   >
                     {link.subitems.map((item) => (
@@ -213,7 +219,7 @@ const Navbar = () => {
                   to={link.path}
                   end
                   className={({ isActive }) =>
-                    `${linkBaseClasses} text-white ${
+                    `${linkBaseClasses} ${
                       isActive
                         ? "bg-gradient-to-r from-pink-700 to-pink-500 shadow-md text-white hover:text-white "
                         : ""
@@ -227,7 +233,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Auth Buttons and Theme Toggle */}
-          <div className="hidden md:flex gap-3 items-center text-white font-medium">
+          <div className="hidden md:flex gap-3 items-center text-pink-500 font-medium">
             {/* Mood Toggle */}
             <MoodToggle />
             {/* Language Selector */}
@@ -281,13 +287,13 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/login"
-                  className="bg-white text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
                   {t("auth.login")}
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="bg-pink-400 text-white px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
+                  className="bg-gradient-to-r from-pink-200 to-pink-200 text-black px-3 py-2 rounded-md font-semibold hover:scale-105 transition-all text-sm whitespace-nowrap"
                 >
                   {t("auth.signup")}
                 </NavLink>
@@ -346,13 +352,13 @@ const Navbar = () => {
             isDarkMode ? "border-gray-600" : "border-gray-300"
           }`}>
             <div className="flex items-center justify-between px-3">
-              <span className={`text-sm font-medium text-white`}>
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                 Mood Music
               </span>
               <MoodToggle />
             </div>
             <div className="flex items-center justify-between px-3">
-              <span className={`text-sm font-medium text-white`}>
+              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                 Language
               </span>
               <LanguageSelector />

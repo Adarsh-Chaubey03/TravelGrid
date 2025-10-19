@@ -25,6 +25,7 @@ import currencyRoutes from './routes/currencyRoutes.js';
 import musicRoutes from './routes/musicRoutes.js';
 import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
+import chatbotRoutes from './routes/chatbotRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
 import checklistRoutes from './routes/checklistRoutes.js';
 
@@ -148,8 +149,8 @@ app.use('/api/forgot-password', resetPassword)
 // Share Routes
 app.use('/api/share', shareRoutes);
 
-// Checklist Routes
-app.use('/api/checklist', checklistRoutes);
+// Chatbot Routes
+app.use('/api/chatbot', chatbotRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

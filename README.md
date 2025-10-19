@@ -174,19 +174,6 @@ TravelGrid now features an **AI-Powered Travel Companion Chatbot** that helps us
 ### Technical Details
 For implementation details, see [AI_TRAVEL_COMPANION_IMPLEMENTATION.md](./AI_TRAVEL_COMPANION_IMPLEMENTATION.md)
 
-## 📋 AI-Powered Travel Checklist Generator
-
-TravelGrid now includes an **AI-Powered Travel Checklist Generator** that helps users prepare for their trips with personalized packing lists based on destination, activities, and travel details.
-
-### Key Features
-- **Intelligent Checklist Creation**: AI-generated packing lists based on travel details
-- **Interactive Interface**: Mark items as packed and track progress
-- **Export Functionality**: Save checklists as PDF, Excel, or text files
-- **Customization Options**: Add custom activities and special considerations
-
-### Technical Details
-For implementation details, see [AI_TRAVEL_CHECKLIST_IMPLEMENTATION.md](./AI_TRAVEL_CHECKLIST_IMPLEMENTATION.md)
-
 ## Code of Conduct
 
 Refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CODE_OF_CONDUCT.md) for contributing guidelines and community standards.

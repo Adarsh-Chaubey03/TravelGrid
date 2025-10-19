@@ -4,10 +4,10 @@ import {
   MapPin,
   Star,
   Calendar,
-  Info,
   Sparkles,
   Images,
   Heart,
+  Info,
 } from "lucide-react";
 import Navbar from "../components/Custom/Navbar";
 import ARExperience from "../components/ARExperience";
@@ -297,7 +297,7 @@ const LocationDetail = () => {
 
   const { locationId } = useParams(); // Get locationId from URL parameters
   const [location, setLocation] = useState(null);
-  const [selectedTab, setSelectedTab] = useState("default");
+  const [selectedTab, setSelectedTab] = useState("overview");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [expandDesc, setExpandDesc] = useState(false);
@@ -1002,7 +1002,7 @@ const LocationDetail = () => {
     return () => clearTimeout(timer);
   }, [locationId]); // Add locationId as dependency
 
-  const tabs = [{ key: "photos", label: "Photos", icon: Images }];
+  const tabs = [{ key: "overview", label: "Overview", icon: Info },{ key: "photos", label: "Photos", icon: Images }];
 
   if (loading) {
     return (
@@ -1015,7 +1015,7 @@ const LocationDetail = () => {
       >
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-pink-300">Loading destination details...</p>
+          <p className="text-pink-400">Loading destination details...</p>
         </div>
       </div>
     );
@@ -1037,45 +1037,23 @@ const LocationDetail = () => {
 
   const renderTabContent = () => {
     switch (selectedTab) {
-      case "photos":
-        return (
-          <div className="space-y-8">
-            <h2 className="text-xl text-gray-700 border-b-2 border-gray-400 px-2 py-3 rounded-sm font-medium">
-              Photos
-            </h2>
-            <div className="grid grid-cols-1 items-center place-items-center sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {location.photos.map((image) => (
-                <div
-                  className="aspect-square overflow-hidden shadow-md rounded-xl group"
-                  key={image.id}
-                >
-                  <img
-                    src={image.src}
-                    alt={`Photo ${image.id}`}
-                    className="shadow-md w-full h-full object-cover rounded-xl group-hover:scale-105 transform transition-transform duration-500"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      default:
-        // overview section - this will be the default content
+        case "overview":
+        // overview section
         return (
           <div className="space-y-8">
             {/* Description section */}
             <div class>
-              <h3 className="text-3xl font-bold text-pink-400 mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-pink-500 mb-4">
                 {" "}
                 Description
               </h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-sm sm:text-md text-gray-700 leading-relaxed mb-6">
                 {location.overview.description}
               </p>
               {/* State to control "Read more / Read Less" toggle for detail description */}
               {!expandDesc && (
                 <button
-                  className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300  bg-pink-500/10 text-gray-900 border border-pink-400 cursor-pointer"
+                  className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 bg-pink-300/20 text-gray-900 border border-pink-400 cursor-pointer"
                   onClick={() => setExpandDesc(true)}
                 >
                   Read more
@@ -1083,14 +1061,14 @@ const LocationDetail = () => {
               )}
               {expandDesc && (
                 <>
-                  <h4 className="text-xl font-semibold text-pink-400 mb-3">
+                  <h4 className="text-xl font-semibold text-pink-500 mb-3">
                     Geography & Setting
                   </h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
                     {location.overview.geography}
                   </p>
 
-                  <h4 className="text-xl font-semibold text-pink-400 mb-3">
+                  <h4 className="text-xl font-semibold text-pink-500 mb-3">
                     Culture & Heritage
                   </h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
@@ -1107,12 +1085,12 @@ const LocationDetail = () => {
             </div>
             {/* Highlight section */}
             <div>
-              <h4 className="text-3xl font-bold text-pink-400 mb-4">
+              <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-pink-500 mb-4">
                 Highlights
               </h4>
-              <div className="bg-pink-500/10 border border-pink-400 rounded-xl p-4 inline-block mb-6">
+              <div className="bg-pink-300/20 border border-pink-400 rounded-xl p-4 inline-block mb-6">
                 <span className="text-gray-900 flex gap-2 items-center">
-                  <Calendar className="w-5 h-5 text-pink-500" /> Best time to
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-pink-500" /> Best time to
                   visit: {location.bestTime}
                 </span>
               </div>
@@ -1121,10 +1099,10 @@ const LocationDetail = () => {
                 {location.overview.highlights.map((highlight, index) => (
                   <div
                     key={index}
-                    className="bg-gray-100 rounded-xl p-4 text-gray-700 border border-gray-400 shadow-sm hover:shadow-lg transition-all duration-300"
+                    className={`${isDarkMode?"bg-white/10":"bg-white/70"} rounded-xl p-4 text-gray-700 border border-gray-400/20 shadow-sm hover:shadow-lg transition-all duration-300`}
                   >
-                    <span className="flex items-start gap-4 text-gray-700">
-                      <Sparkles className="w-5 h-5 text-pink-400 flex-shrink-0" />
+                    <span className="flex items-center gap-4 text-gray-900 text-sm sm:text-md">
+                      <Sparkles className="w-4 h-5 sm:w-5 sm:h-5 text-pink-500 flex-shrink-0" />
                       {highlight}
                     </span>
                   </div>
@@ -1140,7 +1118,7 @@ const LocationDetail = () => {
                 <select
                   defaultValue=""
                   onChange={(e) => changePoIData(e.target.value)}
-                  className="w-full md:w-fit mb-4 p-2 border border-gray-300 rounded-lg"
+                  className="w-full md:w-fit mb-4 p-2 border border-gray-400/20 rounded-lg"
                 >
                   <option disabled value="">
                     Point of Interaction
@@ -1151,11 +1129,11 @@ const LocationDetail = () => {
                 </select>
 
                 {/* Scrollable List */}
-                <div className="h-80 overflow-y-auto">
+                <div className="h-80 overflow-y-auto custom-scroll">
                   {pointOfInteractionList.map((place) => (
                     <div
                       key={place.id}
-                      className="mb-4 flex flex-col bg-gray-100 rounded-xl p-2 text-gray-700 border border-gray-400 shadow-sm hover:shadow-lg transition-all duration-300"
+                      className={`mb-4 flex flex-col ${isDarkMode?"bg-white/10":"bg-white/80"} rounded-xl p-2 text-gray-700 border border-gray-400/30 shadow-sm hover:shadow-lg transition-all duration-300`}
                     >
                       <span className="flex items-center gap-4 text-gray-700 mb-2">
                         <img
@@ -1171,7 +1149,7 @@ const LocationDetail = () => {
                         <span>Rating: {place.rating}/10</span>
                         <button
                           onClick={() => showInMap(place.lat, place.lng)}
-                          className="rounded-lg cursor-pointer p-2 border border-pink-400"
+                          className="rounded-lg cursor-pointer bg-pink-300/20 p-2 border border-pink-300 text-gray-900"
                         >
                           Show in Map
                         </button>
@@ -1183,7 +1161,7 @@ const LocationDetail = () => {
 
               {/* Right Column - Map */}
               <div className="w-full mt-6 md:mt-0">
-                <h3 className="text-xl font-semibold mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold mb-3">
                   Map for {location.name || "Location"}
                 </h3>
 
@@ -1199,6 +1177,28 @@ const LocationDetail = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
+            </div>
+          </div>
+        );
+      case "photos":
+        return (
+          <div className="space-y-8">
+            <h2 className="text-xl text-gray-900 border-b-2 border-pink-400/30 px-2 py-3 rounded-sm font-medium">
+              Photos
+            </h2>
+            <div className="grid grid-cols-1 items-center place-items-center sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {location.photos.map((image) => (
+                <div
+                  className="aspect-square overflow-hidden shadow-md rounded-xl group"
+                  key={image.id}
+                >
+                  <img
+                    src={image.src}
+                    alt={`Photo ${image.id}`}
+                    className="shadow-md w-full h-full object-cover rounded-xl group-hover:scale-105 transform transition-transform duration-500"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -1249,38 +1249,35 @@ const LocationDetail = () => {
           loading="lazy"
           className="w-full h-full object-cover contrast-more:"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-black/60 to-black/30 z-10" />
+        <div className={`absolute inset-0 bg-gradient-to-tr ${isDarkMode? "from-black/60 to-black/30":"from-black/10 to-transparent"} z-10`} />
 
         {/* Content */}
-        <div className="absolute top-20 bottom-0 left-0 right-0 p-8 z-20">
+        <div className="absolute top-20 sm:top-25 bottom-0 left-0 right-0 p-8 z-20">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
               {location.name}
             </h1>
-            <p className="md:text-sm sm:text-xs text-md text-wrap text-gray-200 mb-4 max-w-3xl">
-              {location.shortDescription}
-            </p>
             {/* Map and review */}
             <div className="flex items-start  space-x-4">
-              <div className="flex items-center space-x-1 text-gray-200">
-                <Star className="h-5 w-5 text-yellow-500 fill-current" />
+              <div className="flex items-center space-x-1 text-gray-900">
+                <Star className="h-4 w-5 sm:h-5 sm:w-5 text-yellow-500 fill-current" />
                 <span className="font-medium">{location.rating}</span>
-                <span className="text-gray-200">
+                <span className="text-gray-900 text-sm">
                   ({location.reviewCount.toLocaleString()} reviews)
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 text-white mb-2">
-                <MapPin className="h-5 w-5 text-pink-400" />
+              <div className="flex items-center gap-1 text-gray-900 mb-2">
+                <MapPin className="h-4 w-5 sm:h-5 sm:w-5 text-pink-400" />
                 <span>
                   {location.region}, {location.country}
                 </span>
               </div>
             </div>
             {/* Add book now and Add to wishlist button */}
-            <div className="flex items-center space-x-6 text-gray-700">
+            <div className="flex flex-wrap items-center space-x-4 text-gray-700">
               <button
-                className={`flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium cursor-pointer ${
+                className={`flex mx-4 items-center mt-4 space-x-2 px-4 sm:px-6 py-2 rounded-md text-sm sm:text-md md:text-lg whitespace-nowrap transition-all duration-300 font-medium cursor-pointer ${
                   isInWishlist(location.id)
                     ? "bg-red-500 text-white"
                     : "bg-pink-50 text-black"
@@ -1299,13 +1296,13 @@ const LocationDetail = () => {
                 </span>
               </button>
               <button
-                className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-pink-500 text-white cursor-pointer"
+                className="flex mx-4 items-center mt-4 space-x-2 px-4 sm:px-6 py-2 rounded-md text-sm sm:text-md md:text-lg whitespace-nowrap transition-all duration-300 font-medium bg-pink-500 text-white cursor-pointer"
                 onClick={() => navigate(`/package/${locationId}`)}
               >
                 Book now
               </button>
               <button
-                className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-purple-600 text-white cursor-pointer"
+                className="flex mx-4 items-center mt-4 space-x-2 px-4 sm:px-6 py-2 rounded-md text-sm sm:text-md md:text-lg whitespace-nowrap transition-all duration-300 font-medium bg-purple-600 text-white cursor-pointer"
                 onClick={() => setArMode(true)}
               >
                 AR Mode
@@ -1316,7 +1313,7 @@ const LocationDetail = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-gray-100 shadow-lg sticky top-0 z-10 backdrop-blur-sm">
+      <div className={`${isDarkMode?"bg-white/15":"bg-white/70"} shadow-lg sticky top-0 z-10 backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-4 py-4 overflow-x-auto">
             {tabs.map((tab) => (
@@ -1324,12 +1321,12 @@ const LocationDetail = () => {
                 key={tab.key}
                 onClick={() =>
                   setSelectedTab(
-                    selectedTab === "photos" ? "default" : "photos"
+                    selectedTab === "overview" ? "photos" : "overview"
                   )
                 }
-                className={`flex items-center space-x-2 px-6 py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
-                  selectedTab === "photos"
-                    ? "bg-pink-500 text-white shadow-lg"
+                className={`flex items-center space-x-2 px-4 sm:px-6 py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
+                  selectedTab === tab.key
+                    ? "bg-pink-400/30 text-gray-900"
                     : "text-gray-900 hover:text-gray-900 hover:bg-white/10"
                 } cursor-pointer`}
               >

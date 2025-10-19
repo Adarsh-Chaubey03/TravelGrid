@@ -5,6 +5,7 @@ import { DashboardDataProvider } from "./context/DashboardDataContext";
 import { MapProvider } from "./context/MapContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { SafetyProvider } from "./context/SafetyContext";
 import { useTheme } from "./context/ThemeContext";
 
 import Navbar from "./components/Custom/Navbar";
@@ -14,6 +15,7 @@ import ErrorBoundary from "./components/ErrorHandle/ErrorBoundary";
 import GoToTopButton from "./components/GoToTopButton";
 
 import Chatbot from "./components/Chatbot";
+import SOSButton from "./components/SOSButton";
 import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
 
@@ -34,32 +36,34 @@ function App() {
         <AppProvider>
           <DashboardDataProvider>
             <MapProvider>
-              <div className={`flex flex-col transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
-                }`}>
+              <SafetyProvider>
+                <div className={`flex flex-col transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
+                  }`}>
 
-                <FluidCursor />
-                {/* Show spinner when route changes */}
-                {loading && <Spinner />}
+                  <FluidCursor />
+                  {/* Show spinner when route changes */}
+                  {loading && <Spinner />}
 
-                {/* Navbar */}
-                <Navbar />
+                  {/* Navbar */}
+                  <Navbar />
 
-                {/* Email Verification Banner */}
-                <EmailVerificationBanner />
-                {/* Main Content */}
-                <div className="flex-grow">
-                  <ErrorBoundary>
-                    <Outlet />
-                  </ErrorBoundary>
+                  {/* Email Verification Banner */}
+                  <EmailVerificationBanner />
+                  {/* Main Content */}
+                  <div className="flex-grow">
+                    <ErrorBoundary>
+                      <Outlet />
+                    </ErrorBoundary>
+                  </div>
+
+                  {/* Buttons and Footer */}
+                  <GoToTopButton />
+                  <Chatbot />
+                  <SOSButton />
+
+                  <Footer />
                 </div>
-
-                {/* Buttons and Footer */}
-                <GoToTopButton />
-                <Chatbot />
-              
-
-                <Footer />
-              </div>
+              </SafetyProvider>
             </MapProvider>
           </DashboardDataProvider>
         </AppProvider>

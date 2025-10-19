@@ -97,113 +97,106 @@ const Rentals = () => {
       <div className={`w-[92%] md:w-[85%] lg:w-[80%] mx-auto -mt-6 md:-mt-8 mb-10 relative group`}>
         {/* Background glow effect */}
         <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-blue-500/10 blur-2xl group-hover:blur-3xl transition-all duration-700 ${isDarkMode ? 'opacity-40' : 'opacity-30'}`}></div>
-        
+
         {/* Main filter container */}
-        <div className={`relative grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-6 p-6 rounded-2xl backdrop-blur-2xl border shadow-2xl group-hover:shadow-pink-500/20 transition-all duration-500 ${
-          isDarkMode 
-            ? 'bg-white/10 border-white/20 text-white group-hover:bg-white/15 group-hover:border-pink-400/30' 
+        <div className={`relative grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-6 p-6 rounded-2xl backdrop-blur-2xl border shadow-2xl group-hover:shadow-pink-500/20 transition-all duration-500 ${isDarkMode
+            ? 'bg-white/10 border-white/20 text-white group-hover:bg-white/15 group-hover:border-pink-400/30'
             : 'bg-white/80 border-white/30 text-gray-900 shadow-xl group-hover:bg-white/90 group-hover:border-pink-400/30'
-        }`}>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">Location</label>
-          <div className="relative group/input">
-            <MapPin size={16} className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${isDarkMode ? 'text-white/70 group-hover/input:text-pink-400' : 'text-gray-500 group-hover/input:text-pink-500'}`} />
-            <input 
-              value={q} 
-              onChange={(e)=>setQ(e.target.value)} 
-              placeholder="Search by city" 
-              className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`} 
-            />
+          }`}>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">Location</label>
+            <div className="relative group/input">
+              <MapPin size={16} className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${isDarkMode ? 'text-white/70 group-hover/input:text-pink-400' : 'text-gray-500 group-hover/input:text-pink-500'}`} />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search by city"
+                className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">City</label>
-          <div className="relative group/select">
-            <select 
-              value={city} 
-              onChange={(e)=>setCity(e.target.value)} 
-              className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`}
-            >
-              {cities.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">City</label>
+            <div className="relative group/select">
+              <select
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              >
+                {cities.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">Type</label>
-          <div className="relative group/select">
-            <select 
-              value={type} 
-              onChange={(e)=>setType(e.target.value)} 
-              className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`}
-            >
-              {['All','Bike','Car'].map(t => <option key={t} value={t}>{t}</option>)}
-            </select>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">Type</label>
+            <div className="relative group/select">
+              <select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              >
+                {['All', 'Bike', 'Car'].map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">Sort by price</label>
-          <div className="relative group/select">
-            <select 
-              value={sort} 
-              onChange={(e)=>setSort(e.target.value)} 
-              className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`}
-            >
-              <option value="relevance">Relevance</option>
-              <option value="lh">Low to High</option>
-              <option value="hl">High to Low</option>
-            </select>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">Sort by price</label>
+            <div className="relative group/select">
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/select:shadow-pink-500/20 group-hover/select:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              >
+                <option value="relevance">Relevance</option>
+                <option value="lh">Low to High</option>
+                <option value="hl">High to Low</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">Min Price (₹)</label>
-          <div className="relative group/input">
-            <input 
-              value={minPrice} 
-              onChange={(e)=>setMinPrice(e.target.value)} 
-              type="number" 
-              min="0" 
-              placeholder="0"
-              className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`} 
-            />
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">Min Price (₹)</label>
+            <div className="relative group/input">
+              <input
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                type="number"
+                min="0"
+                placeholder="0"
+                className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-pink-400/90">Max Price (₹)</label>
-          <div className="relative group/input">
-            <input 
-              value={maxPrice} 
-              onChange={(e)=>setMaxPrice(e.target.value)} 
-              type="number" 
-              min="0" 
-              placeholder="∞"
-              className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30' 
-                  : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
-              }`} 
-            />
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-pink-400/90">Max Price (₹)</label>
+            <div className="relative group/input">
+              <input
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                type="number"
+                min="0"
+                placeholder="∞"
+                className={`w-full rounded-xl px-4 py-3 text-sm focus:outline-none transition-all duration-300 backdrop-blur-sm border shadow-lg group-hover/input:shadow-pink-500/20 group-hover/input:scale-[1.02] ${isDarkMode
+                    ? 'bg-white/5 border-white/30 text-white placeholder-white/60 focus:bg-white/10 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                    : 'bg-white/60 border-white/40 text-gray-900 placeholder-gray-500 focus:bg-white/80 focus:border-pink-400/50 focus:ring-2 focus:ring-pink-500/30'
+                  }`}
+              />
+            </div>
           </div>
-        </div>
         </div>
       </div>
 
@@ -212,11 +205,10 @@ const Rentals = () => {
         {filtered.map((item) => (
           <div
             key={item.id}
-            className={`group relative flex flex-col rounded-2xl overflow-hidden backdrop-blur-xl border shadow-lg hover:shadow-pink-500/40 hover:-translate-y-2 transition-all duration-500 ${
-              isDarkMode
+            className={`group relative flex flex-col rounded-2xl overflow-hidden backdrop-blur-xl border shadow-lg hover:shadow-pink-500/40 hover:-translate-y-2 transition-all duration-500 ${isDarkMode
                 ? "bg-gradient-to-br from-white/10 via-white/5 to-white/10 border-white/20 text-white"
                 : "bg-white/90 border-gray-200 text-gray-900"
-            }`}
+              }`}
           >
             {/* Image */}
             <div className="relative h-56 w-full overflow-hidden">
@@ -234,11 +226,10 @@ const Rentals = () => {
               </div>
 
               <span
-                className={`absolute top-3 right-3 text-[0.7rem] font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg transition-all duration-500 ${
-                  item.available
+                className={`absolute top-3 right-3 text-[0.7rem] font-semibold px-3 py-1.5 rounded-full backdrop-blur-md shadow-lg transition-all duration-500 ${item.available
                     ? "bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 text-white border border-emerald-300/40 animate-pulse"
                     : "bg-gradient-to-r from-gray-500 to-gray-700 text-white border border-gray-500/50 opacity-80"
-                }`}
+                  }`}
               >
                 {item.available ? "Available" : "Not Available"}
               </span>
@@ -258,11 +249,10 @@ const Rentals = () => {
 
               <button
                 onClick={() => navigate(`/rentals/${item.type.toLowerCase()}/${item.id}`, { state: { item } })}
-                className={`mt-auto py-3 px-6 rounded-xl font-semibold transition-all duration-500 shadow-md hover:shadow-lg hover:scale-105 ${
-                  isDarkMode
+                className={`mt-auto py-3 px-6 rounded-xl font-semibold transition-all duration-500 shadow-md hover:shadow-lg hover:scale-105 ${isDarkMode
                     ? "bg-gradient-to-r from-pink-600/90 to-purple-600/90 text-white hover:from-pink-500 hover:to-purple-500"
                     : "bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-500 hover:to-purple-500"
-                }`}
+                  }`}
               >
                 Book Now
               </button>
@@ -272,11 +262,10 @@ const Rentals = () => {
 
         {filtered.length === 0 && (
           <div
-            className={`col-span-full text-center p-10 rounded-2xl backdrop-blur-xl border shadow-xl ${
-              isDarkMode
+            className={`col-span-full text-center p-10 rounded-2xl backdrop-blur-xl border shadow-xl ${isDarkMode
                 ? "bg-white/10 border-white/20 text-white/80"
                 : "bg-white/80 border-white/30 text-gray-700"
-            }`}
+              }`}
           >
             <SlidersHorizontal className="mx-auto mb-4 text-pink-400" size={48} />
             <p className="text-lg font-medium mb-2">No rentals match your filters</p>

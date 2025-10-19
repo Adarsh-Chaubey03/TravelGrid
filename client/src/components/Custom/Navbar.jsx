@@ -138,13 +138,11 @@ const Navbar = () => {
     <div>
       {/* Top Navbar */}
       <nav
-        className={`box-border w-full fixed top-0 left-0 z-50 h-20 transition-all duration-300 ease-in-out pr-4 sm:pr-6 pl-0
-           ${isDarkMode ? "text-white" : "text-gray-900"}
-           ${
-          isScrolled ? `shadow-xl backdrop-blur-md border-b ${isDarkMode ? 'bg-slate-900/80 border-slate-700' : 'bg-white/80 border-gray-200'}`
-      : 'border-transparent'
-  }
-`}
+        className={`box-border w-full fixed top-0 left-0 z-50 h-20 backdrop-blur-md border-b transition-all duration-300 pr-4 sm:pr-6 pl-0 ${
+          isDarkMode
+            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-slate-700 text-white"
+            : "bg-gradient-to-r from-white via-gray-50 to-white border-gray-200 text-gray-900"
+        } ${isScrolled ? "shadow-xl" : "shadow-md"}`}
       >
         <div className="w-full max-w-full mx-auto flex justify-between items-center gap-6 px-2 py-4.5">
           {/* Logo */}

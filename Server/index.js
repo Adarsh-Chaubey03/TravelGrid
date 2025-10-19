@@ -26,7 +26,7 @@ import musicRoutes from './routes/musicRoutes.js';
 import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
-
+import checklistRoutes from './routes/checklistRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -147,6 +147,9 @@ app.use('/api/forgot-password', resetPassword)
 
 // Share Routes
 app.use('/api/share', shareRoutes);
+
+// Checklist Routes
+app.use('/api/checklist', checklistRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

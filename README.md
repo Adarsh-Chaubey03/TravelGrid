@@ -6,9 +6,10 @@
 
 ---
 
+
 ## 📖 Project Overview
 
-TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India’s premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
+TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India's premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
 
 By contributing to TravelGrid, developers can:
 
@@ -158,6 +159,34 @@ TravelGrid/
 ├── README.md
 ```
 
+## 🤖 AI-Powered Travel Companion
+
+TravelGrid now features an **AI-Powered Travel Companion Chatbot** that helps users plan trips, find destinations, create itineraries, recommend music, and more! This intelligent assistant integrates with all existing platform features to provide a personalized travel planning experience.
+
+### Key Features
+- **Intelligent Conversational Interface**: Natural language processing for travel queries
+- **Itinerary Creation**: Generate detailed travel itineraries based on user preferences
+- **Package Recommendations**: Find travel packages matching user interests
+- **Destination Discovery**: Provide information about places to visit
+- **Music Recommendations**: Suggest travel playlists based on mood and destination
+- **Budget Planning**: Assist with currency conversion and expense tracking
+
+### Technical Details
+For implementation details, see [AI_TRAVEL_COMPANION_IMPLEMENTATION.md](./AI_TRAVEL_COMPANION_IMPLEMENTATION.md)
+
+## 📋 AI-Powered Travel Checklist Generator
+
+TravelGrid now includes an **AI-Powered Travel Checklist Generator** that helps users prepare for their trips with personalized packing lists based on destination, activities, and travel details.
+
+### Key Features
+- **Intelligent Checklist Creation**: AI-generated packing lists based on travel details
+- **Interactive Interface**: Mark items as packed and track progress
+- **Export Functionality**: Save checklists as PDF, Excel, or text files
+- **Customization Options**: Add custom activities and special considerations
+
+### Technical Details
+For implementation details, see [AI_TRAVEL_CHECKLIST_IMPLEMENTATION.md](./AI_TRAVEL_CHECKLIST_IMPLEMENTATION.md)
+
 ## Code of Conduct
 
 Refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CODE_OF_CONDUCT.md) for contributing guidelines and community standards.
@@ -171,9 +200,9 @@ Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://gi
 ![GSSoC Logo](https://github.com/dimpal-yadav/TravelGrid/blob/main/GirlScript-Summer-of-Code.png)
 🌟 **Exciting News...**
 
-🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *TravelGrid!* Let’s make learning and career development smarter – together! 🌟👨‍💻👩‍💻
+🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *TravelGrid!* Let's make learning and career development smarter – together! 🌟👨‍💻👩‍💻
 
-👩‍💻 GSSoC is one of India’s **largest 3-month-long open-source programs** that encourages developers of all levels to contribute to real-world projects 🌍 while learning, collaborating, and growing together. 🌱
+👩‍💻 GSSoC is one of India's **largest 3-month-long open-source programs** that encourages developers of all levels to contribute to real-world projects 🌍 while learning, collaborating, and growing together. 🌱
 
 🌈 With **mentorship, community support**, and **collaborative coding**, it's the perfect platform for developers to:
 
@@ -182,7 +211,7 @@ Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://gi
 - 🏆 Get recognized for their work
 - 📜 Receive certificates and swag!
 
-🎉 **I can’t wait to welcome new contributors** from GSSoC 2025 to this TravelGrid project family! Let's build, learn, and grow together — one commit at a time. 🔥👨‍💻👩‍💻
+🎉 **I can't wait to welcome new contributors** from GSSoC 2025 to this TravelGrid project family! Let's build, learn, and grow together — one commit at a time. 🔥👨‍💻👩‍💻
 
 ## 🏆 **GSSoC 2025 Guidelines**
 
@@ -237,4 +266,3 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 ## Support
 
 If you find this project valuable, please star the repository on [GitHub](https://github.com/Adarsh-Chaubey03/TravelGrid) to support its development.
-

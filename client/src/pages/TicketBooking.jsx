@@ -15,7 +15,13 @@ import {
   Car,
   ArrowRightLeft,
 } from "lucide-react";
+
 import toast from "react-hot-toast";
+import { TrainCard } from "@/components/ui/TrainCard";
+import { MessageDisplay } from "@/components/ui/MessageDisplay";
+
+ 
+
 
 const tripModes = [
   { label: "One-Way", value: "oneWay", icon: <Plane size={18} /> },
@@ -62,7 +68,12 @@ function TicketBooking() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+ const [trains, setTrains] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // Validate required fields
@@ -90,6 +101,48 @@ function TicketBooking() {
       toast.error("Please select number of passengers");
       return;
     }
+
+
+
+    
+
+
+ setIsLoading(true);
+    setError(null);
+    setHasSearched(true);
+    setTrains([]); // Clear previous results
+
+    const apiUrl = `http://127.0.0.1:3001/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong!');
+      }
+      setTrains(data);
+    } catch (err) {
+      let errorMessage = 'An unknown error occurred.';
+      if (err.message === 'Failed to fetch') {
+        errorMessage = 'backend file chaiye hota h laure';
+      } else {
+        errorMessage = err.message;
+      }
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     setSubmitted(true);
   };
@@ -545,6 +598,25 @@ function TicketBooking() {
                 travelType.charAt(0).toUpperCase() + travelType.slice(1) + "s"}
             </button>
           </form>
+            {hasSearched && (
+          <section className="w-full max-w-6xl mx-auto p-4 md:p-8">
+            <h2 className="text-3xl font-bold text-white text-center mb-8">Available Trains</h2>
+            <div className="space-y-4">
+              {isLoading && <MessageDisplay message="Searching for trains..." />}
+              {error && <MessageDisplay message={error} type="error" />}
+              {!isLoading && !error && trains.length === 0 && (
+                <MessageDisplay message="No trains found for this route. Try another search." />
+              )}
+            
+            
+            </div>
+              <div className="h-96 overflow-y-auto space-y-4 p-1">
+            {trains.map((train) => (
+                <TrainCard key={train.trainNumber} train={train} />
+            ))}
+             </div>
+          </section>
+        )}
         </div>
       </main>
     </div>

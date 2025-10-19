@@ -2,15 +2,14 @@
   "common": {
     "home": "Inicio",
     "trendingSpots": "Lugares Populares",
-    "booking": "Reserva",
+    "booking": "Reservas",
     "support": "Soporte",
     "tools": "Herramientas",
     "wishlist": "Lista de Deseos",
-
     "login": "Iniciar Sesión",
     "signup": "Registrarse",
     "logout": "Cerrar Sesión",
-    "dashboard": "Panel de Control",
+    "dashboard": "Panel",
     "verifyEmail": "Verificar Email",
     "loading": "Cargando...",
     "save": "Guardar",
@@ -26,7 +25,7 @@
     "open": "Abrir",
     "edit": "Editar",
     "delete": "Eliminar",
-    "add": "Agregar",
+    "add": "Añadir",
     "remove": "Quitar",
     "view": "Ver",
     "download": "Descargar",
@@ -36,7 +35,7 @@
     "confirm": "Confirmar",
     "yes": "Sí",
     "no": "No",
-    "ok": "OK",
+    "ok": "Aceptar",
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
@@ -44,25 +43,23 @@
   },
   "navigation": {
     "home": "Inicio",
-    "about": "Acerca de",
     "trendingSpots": "Lugares Populares",
-    "booking": "Reserva",
+    "booking": "Reservas",
     "support": "Soporte",
     "tools": "Herramientas",
     "wishlist": "Lista de Deseos",
-
-    "dashboard": "Panel de Control",
+    "dashboard": "Panel",
     "ticket": "Boleto",
     "hotels": "Hoteles",
     "packages": "Paquetes",
     "bookingHistory": "Historial de Reservas",
     "travelPlans": "Planes de Viaje",
-    "guide": "Guía",
+    "guide": "Guías",
     "contact": "Contacto",
-    "reviewSummarizer": "Resumen de Reseñas de Hoteles/Vuelos",
-    "CustomItenary":"Itinerario personalizado",
-    "tripCalculator": "Calculadora de Gastos de Viaje",
-    "packingChecklist": "Lista de Empaque",
+    "reviewSummarizer": "Resumidor de Reseñas de Hoteles/Vuelos",
+    "CustomItenary": "Itinerario Personalizado",
+    "tripCalculator": "Calculadora de Costos de Viaje",
+    "packingChecklist": "Lista de Equipaje",
     "travelRecommendations": "Recomendaciones de Viaje",
     "feedback": "Comentarios"
   },
@@ -75,7 +72,7 @@
     "password": "Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "name": "Nombre",
-    "firstName": "Primer Nombre",
+    "firstName": "Nombre",
     "lastName": "Apellido",
     "phone": "Teléfono",
     "forgotPassword": "¿Olvidaste tu contraseña?",
@@ -85,12 +82,12 @@
     "dontHaveAccount": "¿No tienes una cuenta?",
     "signInWithGoogle": "Iniciar sesión con Google",
     "signUpWithGoogle": "Registrarse con Google",
-    "emailVerificationRequired": "Verificación de email requerida",
+    "emailVerificationRequired": "Se requiere verificación de email",
     "emailVerificationSent": "Email de verificación enviado",
-    "emailVerified": "Email verificado exitosamente",
+    "emailVerified": "Email verificado con éxito",
     "resendVerification": "Reenviar verificación",
     "verificationCode": "Código de Verificación",
-    "enterVerificationCode": "Ingresa el código de verificación"
+    "enterVerificationCode": "Ingresar código de verificación"
   },
   "home": {
     "allCategories": "Todas las Categorías",
@@ -100,14 +97,23 @@
     "shopping": "Compras",
     "attractions": "Atracciones",
     "transportation": "Transporte",
-    "heroDescription": "Encuentra excelentes lugares para quedarte, comer, comprar o visitar de expertos locales. Descubre joyas ocultas y crea recuerdos inolvidables.",
+    "heroTitle": "Tu Viaje Comienza Aquí",
+    "heroSubtitle": "Descubre destinos increíbles, reserva tu viaje perfecto y crea recuerdos inolvidables",
+    "heroDescription": "Encuentra excelentes lugares para alojarte, comer, comprar o visitar de la mano de expertos locales. Descubre joyas ocultas y crea recuerdos inolvidables.",
     "locationPlaceholder": "Ej: Borivali, Mumbai, India",
     "quickFilters": "Filtros Rápidos",
-    "whyChoose": "¿Por qué Elegir",
-    "featureDescription": "Experimenta lo mejor en viajes con nuestra plataforma integral diseñada para viajeros modernos que buscan aventuras inolvidables.",
-    "whatOur": "Lo que Dicen",
+    "whyChoose": "Por Qué Elegirnos",
+    "featureDescription": "Experimenta lo mejor de los viajes con nuestra plataforma integral, diseñada para exploradores modernos que buscan aventuras inolvidables.",
+    "whatOur": "Lo Que Dicen",
     "travelersSay": "Nuestros Viajeros",
     "testimonialsDescription": "Únete a miles de viajeros satisfechos que han descubierto destinos increíbles con TravelGrid.",
+    "getStarted": "Comenzar",
+    "exploreDestinations": "Explorar Destinos",
+    "featuredPackages": "Paquetes Destacados",
+    "trendingDestinations": "Destinos Populares",
+    "travelGuides": "Guías de Viaje",
+    "testimonials": "Testimonios de Nuestros Viajeros",
+    "discoverMore": "Descubrir Más",
     "features": {
       "greatPrices": {
         "title": "Excelentes Precios",
@@ -115,15 +121,15 @@
       },
       "lovedByTravelers": {
         "title": "Amado por Viajeros",
-        "desc": "Confiado por miles de viajeros en todo el mundo con calificaciones de 4.9/5."
+        "desc": "Con la confianza de miles de viajeros en todo el mundo con una calificación de 4.9/5."
       },
       "easyBooking": {
         "title": "Reserva Fácil",
-        "desc": "Reserva vuelos, hoteles y experiencias en segundos con nuestro proceso simplificado."
+        "desc": "Reserva vuelos, hoteles y experiencias en segundos con nuestro proceso optimizado."
       },
       "support": {
         "title": "Soporte 24/7",
-        "desc": "Estamos aquí cuando nos necesites con soporte al cliente las 24 horas."
+        "desc": "Siempre estamos aquí para ti con servicio al cliente las 24 horas."
       }
     }
   },
@@ -147,21 +153,21 @@
     "searchHotels": "Buscar Hoteles",
     "hotelDetails": "Detalles del Hotel",
     "roomTypes": "Tipos de Habitación",
-    "amenities": "Comodidades",
+    "amenities": "Servicios",
     "reviews": "Reseñas",
     "location": "Ubicación",
     "price": "Precio",
     "perNight": "por noche",
-    "checkIn": "Check In",
-    "checkOut": "Check Out",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
     "guests": "Huéspedes",
     "rooms": "Habitaciones"
   },
   "packages": {
     "travelPackages": "Paquetes de Viaje",
     "packageDetails": "Detalles del Paquete",
-    "inclusions": "Incluido",
-    "exclusions": "Excluido",
+    "inclusions": "Incluye",
+    "exclusions": "No Incluye",
     "itinerary": "Itinerario",
     "terms": "Términos y Condiciones",
     "duration": "Duración",
@@ -169,13 +175,13 @@
     "bookPackage": "Reservar Paquete"
   },
   "tools": {
-    "tripCalculator": "Calculadora de Gastos de Viaje",
-    "packingChecklist": "Lista de Empaque",
+    "tripCalculator": "Calculadora de Costos de Viaje",
+    "packingChecklist": "Lista de Equipaje",
     "travelPlanGenerator": "Generador de Planes de Viaje",
     "currencyConverter": "Convertidor de Moneda",
     "weather": "Clima",
     "calculateExpenses": "Calcular Gastos",
-    "addExpense": "Agregar Gasto",
+    "addExpense": "Añadir Gasto",
     "totalExpenses": "Gastos Totales",
     "budget": "Presupuesto",
     "remaining": "Restante"
@@ -183,7 +189,7 @@
   "profile": {
     "profile": "Perfil",
     "personalInfo": "Información Personal",
-    "accountSettings": "Configuración de Cuenta",
+    "accountSettings": "Configuración de la Cuenta",
     "preferences": "Preferencias",
     "language": "Idioma",
     "theme": "Tema",
@@ -195,7 +201,7 @@
     "deleteAccount": "Eliminar Cuenta"
   },
   "errors": {
-    "pleaseSignIn": "Por favor inicia sesión para buscar destinos.",
+    "pleaseSignIn": "Por favor, inicia sesión para buscar destinos.",
     "somethingWentWrong": "Algo salió mal",
     "networkError": "Error de red",
     "serverError": "Error del servidor",
@@ -203,87 +209,110 @@
     "unauthorized": "No autorizado",
     "forbidden": "Prohibido",
     "invalidInput": "Entrada inválida",
-    "requiredField": "Este campo es requerido",
+    "requiredField": "Este campo es obligatorio",
     "invalidEmail": "Dirección de email inválida",
     "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
     "passwordsDoNotMatch": "Las contraseñas no coinciden"
   },
   "success": {
-    "profileUpdated": "Perfil actualizado exitosamente",
-    "passwordChanged": "Contraseña cambiada exitosamente",
-    "bookingCreated": "Reserva creada exitosamente",
-    "reviewSubmitted": "Reseña enviada exitosamente",
-    "feedbackSubmitted": "Comentario enviado exitosamente"
-  },
-  "footer": {
-    "aboutUs": "Sobre Nosotros",
-    "contactUs": "Contáctanos",
-    "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio",
-    "help": "Ayuda",
-    "support": "Soporte",
-    "followUs": "Síguenos",
-    "newsletter": "Boletín",
-    "subscribe": "Suscribirse",
-    "allRightsReserved": "Todos los derechos reservados"
+    "profileUpdated": "Perfil actualizado con éxito",
+    "passwordChanged": "Contraseña cambiada con éxito",
+    "bookingCreated": "Reserva creada con éxito",
+    "reviewSubmitted": "Reseña enviada con éxito",
+    "feedbackSubmitted": "Comentarios enviados con éxito"
   },
   "login": {
-    "title": "Bienvenido de nuevo",
+    "title": "Bienvenido de Nuevo",
     "subtitle": "Inicia sesión en tu cuenta para continuar tu viaje",
-    "email": "Correo electrónico",
-    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "email": "Dirección de Email",
+    "emailPlaceholder": "Ingresa tu email",
     "password": "Contraseña",
     "passwordPlaceholder": "Ingresa tu contraseña",
     "signIn": "Iniciar Sesión",
-    "signingIn": "Iniciando sesión...",
-    "orContinue": "O continúa con",
+    "signingIn": "Iniciando Sesión...",
+    "orContinue": "O continuar con",
     "googleSignIn": "Continuar con Google",
     "noAccount": "¿No tienes una cuenta?",
     "signupHere": "Regístrate aquí",
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "clickHere": "Haz clic aquí",
     "errors": {
-      "emptyEmail": "Por favor ingresa tu correo electrónico.",
-      "invalidEmail": "Por favor ingresa una dirección de correo válida.",
-      "emptyPassword": "Por favor ingresa tu contraseña.",
-      "verifyEmail": "Por favor verifica tu correo electrónico antes de iniciar sesión.",
-      "invalidCredentials": "Correo electrónico o contraseña incorrectos"
+      "emptyEmail": "Por favor, ingresa tu email.",
+      "invalidEmail": "Por favor, ingresa una dirección de email válida.",
+      "emptyPassword": "Por favor, ingresa tu contraseña.",
+      "verifyEmail": "Por favor, verifica tu email antes de iniciar sesión.",
+      "invalidCredentials": "Email o contraseña inválidos"
     },
     "actions": {
-      "resendConfirm": "¿Deseas reenviar el correo de verificación?"
+      "resendConfirm": "¿Deseas reenviar el email de verificación?"
     }
   },
   "signup": {
-    "title": "Crear Cuenta",
+    "title": "Crear una Cuenta",
     "subtitle": "Únete a TravelGrid y comienza tu aventura",
-    "name": "Nombre completo",
+    "name": "Nombre Completo",
     "namePlaceholder": "Ingresa tu nombre completo",
-    "email": "Correo electrónico",
-    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "email": "Dirección de Email",
+    "emailPlaceholder": "Ingresa tu email",
     "password": "Contraseña",
     "passwordPlaceholder": "Crea una contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "confirmPasswordPlaceholder": "Confirma tu contraseña",
     "createAccount": "Crear Cuenta",
-    "creatingAccount": "Creando cuenta...",
-    "orContinue": "O continúa con",
+    "creatingAccount": "Creando Cuenta...",
+    "orContinue": "O continuar con",
     "googleSignUp": "Continuar con Google",
     "alreadyAccount": "¿Ya tienes una cuenta?",
     "signinHere": "Inicia sesión aquí",
-    "weakPassword": "Contraseña débil",
-    "mediumPassword": "Fuerza media",
-    "strongPassword": "Contraseña fuerte",
+    "weakPassword": "Contraseña Débil",
+    "mediumPassword": "Fortaleza Media",
+    "strongPassword": "Contraseña Fuerte",
     "passwordsMatch": "Las contraseñas coinciden",
     "passwordsDontMatch": "Las contraseñas no coinciden",
-    "success": "¡Cuenta creada! Por favor verifica tu correo electrónico para continuar.",
+    "success": "¡Cuenta creada! Por favor, verifica tu email para continuar.",
     "errors": {
-      "fillAll": "Por favor completa todos los campos requeridos para continuar.",
-      "invalidEmail": "Por favor ingresa una dirección de correo válida",
+      "fillAll": "Por favor, completa todos los campos obligatorios para continuar.",
+      "invalidEmail": "Por favor, ingresa una dirección de email válida",
       "invalidName": "El nombre solo puede contener letras y espacios",
       "shortName": "El nombre debe tener al menos 2 caracteres",
-      "weakPassword": "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.",
+      "weakPassword": "La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial.",
       "passwordMismatch": "Las contraseñas no coinciden.",
       "signupFailed": "Registro fallido"
+    }
+  },
+  "footer": {
+    "description": "Descubre destinos increíbles y crea recuerdos inolvidables con nuestras experiencias de viaje seleccionadas en todo el mundo. Tu viaje comienza aquí.",
+    "quickLinks": {
+      "title": "Enlaces Rápidos",
+      "home": "Inicio",
+      "about": "Sobre Nosotros",
+      "trips": "Viajes",
+      "forums": "Foros",
+      "leaderboard": "Clasificación"
+    },
+    "contactInfo": {
+      "title": "Información de Contacto",
+      "addressLine1": "123 Calle del Viaje",
+      "addressLine2": "Ciudad Aventura, AC 12345",
+      "phoneHours": "Lun-Vie 9AM-6PM"
+    },
+    "newsletter": {
+      "title": "Boletín",
+      "description": "Suscríbete para recibir los últimos consejos de viaje, ofertas exclusivas y guías de destinos en tu bandeja de entrada.",
+      "placeholder": "Ingresa tu email",
+      "subscribeButton": "Suscribirse",
+      "privacy": "🔒 Respetamos tu privacidad. Cancela la suscripción en cualquier momento."
+    },
+    "copyright": "© {{year}} TravelGrid. Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "contact": "Contacto",
+    "feedback": "Comentarios",
+    "madeWith": "Hecho con",
+    "teamName": "por el equipo de TravelGrid",
+    "toast": {
+      "invalidEmail": "Por favor, ingresa una dirección de email válida",
+      "success": "¡Te has suscrito exitosamente a nuestro boletín! 🎉"
     }
   }
 }

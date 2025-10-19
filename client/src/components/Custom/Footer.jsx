@@ -266,8 +266,7 @@ const Footer = () => {
                   Newsletter
                 </h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Subscribe to get the latest travel tips, exclusive offers, and
-                  destination guides delivered to your inbox.
+                  Your next adventure starts here! Get insider travel tips, secret destinations, and exclusive offers right in your inbox.
                 </p>
                 <form onSubmit={handleNewsletterSubmit} className="space-y-4">
                   <div className="relative">
@@ -296,7 +295,9 @@ const Footer = () => {
                   </button>
                 </form>
                 <div className={`text-xs text-white text-center`}>
-                  🔒 We respect your privacy. Unsubscribe at any time.
+Keep exploring with us — unsubscribe only if you ever stop dreaming!
+
+
                 </div>
               </div>
             </div>

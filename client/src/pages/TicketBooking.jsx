@@ -19,6 +19,8 @@ import {
 import toast from "react-hot-toast";
 import { TrainCard } from "@/components/ui/TrainCard";
 import { MessageDisplay } from "@/components/ui/MessageDisplay";
+require('dotenv').config();
+const port = process.env.PORT
 
  
 
@@ -112,7 +114,7 @@ function TicketBooking() {
     setHasSearched(true);
     setTrains([]); // Clear previous results
 
-    const apiUrl = `http://127.0.0.1:3001/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
+    const apiUrl = `http://localhost:${PORT}/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
 
     try {
       const response = await fetch(apiUrl);

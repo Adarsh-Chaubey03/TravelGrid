@@ -221,6 +221,7 @@ const Footer = () => {
                 </h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {t("footer.newsletter.description")}
+                  Your next adventure starts here! Get insider travel tips, secret destinations, and exclusive offers right in your inbox.
                 </p>
                 <form onSubmit={handleNewsletterSubmit} className="space-y-4">
                   <div className="relative">
@@ -251,6 +252,9 @@ const Footer = () => {
                 </form>
                 <div className={`text-xs text-white text-center`}>
                   {t("footer.newsletter.privacy")}
+Keep exploring with us — unsubscribe only if you ever stop dreaming!
+
+
                 </div>
               </div>
             </div>

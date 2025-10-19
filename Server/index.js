@@ -5,6 +5,8 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan';
 import dotenv from 'dotenv'
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 dotenv.config({ path: './.env' });
 
@@ -26,9 +28,10 @@ import musicRoutes from './routes/musicRoutes.js';
 import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
-
+import collaborationHandler from './utils/collaborationHandler.js';
 
 const app = express();
+const server = createServer(app); // Create HTTP server for Socket.IO
 const PORT = process.env.PORT || 5000;
 
 // DB Connection
@@ -164,7 +167,23 @@ app.use((err, req, res, next) => {
 
 });
 
+// Initialize Socket.IO
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "http://localhost:5173", // Vite dev
+      "http://localhost:5174", // Vite dev (alternative port)
+      "http://localhost:3000", // CRA dev
+      "https://travel-grid.vercel.app" // Production
+    ],
+    credentials: true
+  }
+});
+
+// Set up collaboration handler
+collaborationHandler(io);
+
 // server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(` Server running on http://localhost:${PORT}`);
 });

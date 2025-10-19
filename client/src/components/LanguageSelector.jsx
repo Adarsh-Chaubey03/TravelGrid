@@ -44,10 +44,10 @@ const LanguageSelector = () => {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 hover:bg-pink-500/20 ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${
                     isDarkMode
-                        ? "text-gray-200 hover:text-white"
-                        : "text-gray-700 hover:text-gray-900"
+                        ? "text-gray-200 hover:text-white hover:bg-pink-500/20"
+                        : "text-white hover:text-white"
                 }`}
                 aria-label="Select language"
             >
@@ -69,7 +69,7 @@ const LanguageSelector = () => {
                     className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-50 ${
                         isDarkMode
                             ? "bg-slate-800 border-slate-700 text-white"
-                            : "bg-white border-gray-200 text-gray-900"
+                            : "bg-white/90 backdrop-blur-xl border-2 border-white/40 text-black"
                     }`}
                 >
                     <div className="py-1">

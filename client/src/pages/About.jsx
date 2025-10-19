@@ -744,7 +744,8 @@ function About() {
             {techStack.map((tech, index) => (
               <motion.div
                 key={index}
-                className={`${tech.color} text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-108 hover:shadow-xl transition-transform duration-300 cursor-pointer`}
+                whileHover={{ scale: 1.1 }}
+                className={`${tech.color} text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 cursor-pointer shadow-lg`}
               >
                 {tech.name}
               </motion.div>
@@ -779,15 +780,10 @@ function About() {
                 transition={{ duration: 0.8, delay: 0.1 * index }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className={`rounded-lg p-6 border transition-all duration-300 ${isDarkMode
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 hover:border-pink-400'
-                  : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 hover:border-pink-300 shadow-xl shadow-gray-600'
-                  }`}
+                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 hover:border-pink-400 transition-all duration-300"
               >
                 <h4 className={`${item.color} font-bold mb-2 text-lg`}>{item.title}</h4>
-                <p className={`text-sm leading-relaxed ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>{item.desc}</p>
+                <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -835,7 +831,7 @@ function About() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/")}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg"
+              className="bg-gradient-to-r from-pink-600 to-purple-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg"
             >
               Explore TravelGrid
             </motion.button>
@@ -848,7 +844,7 @@ function About() {
                   "_blank"
                 )
               }
-              className="border-2 border-pink-400 text-pink-400 px-8 py-3 rounded-lg font-semibold hover:bg-pink-400 hover:text-white transition-all duration-300"
+              className="border-2 border-pink-500 text-pink-400 px-8 py-3 rounded-lg font-semibold hover:bg-pink-500 hover:text-white transition-colors duration-300"
             >
               View on GitHub
             </motion.button>

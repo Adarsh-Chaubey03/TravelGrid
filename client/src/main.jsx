@@ -75,6 +75,8 @@ const Feedback = lazy(() => import('./pages/Feedback'));
 const TravelPlanGenerator = lazy(() => import('./pages/TravelPlanGenerator'));
 const TravelForum = lazy(() => import('./pages/TravelForum'));
 const BikeDetail = lazy(() => import('./pages/BikeDetail'));
+const BikeBookingForm = lazy(() => import('./pages/BikeBookingForm'));
+const BookingSuccess = lazy(() => import('./pages/BookingSuccess'));
 const TrendingSpots = lazy(() => import('./pages/TrendingSpots'));
 const PackingChecklistPage = lazy(() => import('./pages/PackingChecklist'));
 const CustomItenary = lazy(()=> import('./components/CustomItenary'));
@@ -97,13 +99,13 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const BookingHistory = lazy(() => import('./pages/BookingHistory'));
 const MoodBoardPage = lazy(() => import('./pages/MoodBoardPage'));
 const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
-const MusicPlayerDemo = lazy(() => import('./pages/MusicPlayerDemo'));
-const Music = lazy(() => import('./pages/Music'));
-const VisaChecker = lazy(() => import('./pages/VisaChecker'));
-const SharedTrip = lazy(() => import('./pages/SharedTrip'));
-const QRTripSharing = lazy(() => import('./pages/QRTripSharing'));
-const SharedTripTool = lazy(() => import('./pages/SharedTripTool'));
-
+import AITravelChecklist from './components/AITravelChecklist';
+import MusicPlayerDemo from './pages/MusicPlayerDemo';
+import Music from './pages/Music';
+import VisaChecker from './pages/VisaChecker';
+import SharedTrip from './pages/SharedTrip';
+import QRTripSharing from './pages/QRTripSharing';
+import SharedTripTool from './pages/SharedTripTool';
 
 const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
@@ -132,6 +134,8 @@ const router = createBrowserRouter([
       { path: '/packages', element: <Suspense fallback={<Spinner />}><TravelPackages /></Suspense> },
       { path: '/rentals', element: <Suspense fallback={<Spinner />}><Rentals /></Suspense> },
       { path: '/rentals/bike/:id', element: <Suspense fallback={<Spinner />}><BikeDetail /></Suspense> },
+      { path: '/rentals/bike/:id/booking', element: <Suspense fallback={<Spinner />}><BikeBookingForm /></Suspense> },
+      { path: '/rentals/booking-success', element: <Suspense fallback={<Spinner />}><BookingSuccess /></Suspense> },
       { path: '/destinations', element: <Suspense fallback={<Spinner />}><DiscovermoreDestination /></Suspense> },
       { path: '/faq', element: <Suspense fallback={<Spinner />}><FAQ /></Suspense> },
       { path: '/contact', element: <Suspense fallback={<Spinner />}><Contact /></Suspense> },
@@ -158,8 +162,7 @@ const router = createBrowserRouter([
       { path: '/shared-trip/:tripId', element: <Suspense fallback={<Spinner />}><SharedTrip /></Suspense> },
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
-
-
+      { path: '/ai-travel-checklist', element: <Suspense fallback={<Spinner />}><AITravelChecklist /></Suspense> },
 
       {
         path: '/dashboard',

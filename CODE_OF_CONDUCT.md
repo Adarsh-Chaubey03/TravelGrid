@@ -5,6 +5,10 @@
 ![TravelGrid](https://img.shields.io/badge/TravelGrid-Community-blue?style=for-the-badge&logo=google-earth)
 ![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Active-orange?style=for-the-badge&logo=readthedocs)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-blueviolet?style=for-the-badge&logo=git)
+![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-Friendly-%23FF69B4?style=for-the-badge&logo=hackaday)
+![Community Support](https://img.shields.io/badge/Community-Supportive-success?style=for-the-badge&logo=googlechat)
+![Innovation Badge](https://img.shields.io/badge/Innovation-Inspired-yellow?style=for-the-badge&logo=lightbulb)
+![Team Badge](https://img.shields.io/badge/Team-Collaboration-blue?style=for-the-badge&logo=slack)
 
 ---
 
@@ -14,7 +18,7 @@ We, as members, contributors, and leaders of **TravelGrid**, pledge to make part
 
 We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.  
 
-![Welcome GIF](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmJrbnNkaHNmZTJjbml6OHVpdTlzZHBneTRidndkZmc0dTUxZWQxdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qgQUggAC3Pfv687qPC/giphy.gif)
+![Welcome GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWVyc3hubGp2d2d0ODVsMmFvODUzcnYwZWlkZm56ZGt3a21wZnp0ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uY4CJ1kPx3gxpn9HD5/giphy.gif)
 
 ---
 
@@ -36,7 +40,7 @@ Examples of unacceptable behavior include:
 - 🔒 Publishing others' private information (such as a physical or email address) without explicit permission  
 - ❌ Other conduct that could reasonably be considered inappropriate in a professional setting  
 
-![Teamwork GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGFjaHl1OGFqcnA4OHR5NW5kOW45ajFobjF3b2s0czhicmp4N3R4bSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif)
+![Teamwork GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWVyc3hubGp2d2d0ODVsMmFvODUzcnYwZWlkZm56ZGt3a21wZnp0ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AErExHJVxRbkm5hPkB/giphy.gif)
 
 ---
 
@@ -54,7 +58,7 @@ They have the right and responsibility to remove, edit, or reject comments, comm
 
 This Code of Conduct applies across all TravelGrid community spaces — including GitHub repositories, communication platforms (like Discord), events, and social media — as well as any interactions where individuals are officially representing TravelGrid in public or private spaces.  
 
-![Scope GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MG9kaGtrYWdteDEycm5icmpycnZvZjg5eGt2cm11MGlvMm5rZTA0NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/hpXdHPfFI5wTABdDx9/giphy.gif)
+![Scope GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eGkxZWlqeXBzbjFiam44dnNjYmJoZW9nMmUxdG9nMjIwamplbWh0dyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/aZg5FJVAHdB3G/giphy.gif)
 
 ---
 
@@ -62,7 +66,7 @@ This Code of Conduct applies across all TravelGrid community spaces — includin
 
 All contributions must align with this Code of Conduct. PRs containing inappropriate behavior, language, or content may be rejected. Further enforcement may follow as outlined below.  
 
-![PR GIF](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzV1dXg4OTZpMjU0OGwxZHU1ejN1ODF4em5sdWJlZXRubTA5eW9mYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4rZA5D22301iMgrUNd/giphy.gif)
+![PR GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZjN5YXUzOXJpZXFkcXozeDZzcWU0bHg3cHRjM2w3YXJvejdyOWRndSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/leDgjatdaGyPK/giphy.gif)
 
 ---
 
@@ -74,7 +78,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior can be repor
 
 All complaints will be reviewed and investigated promptly and fairly. The team is committed to protecting the privacy and safety of the reporter.  
 
-![Shield GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzZncjQ2ajZ5YjB1Ymh0ZDMxY3p2azU0NjRkZGltNnBxanF1a3AwaiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/nEFaVNgFGGRQdWbmRq/giphy.gif)
+![Shield GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N2U5Z3ZkN2hhamZ4MWsxY3Y1Z2F4cWl3dDhzNWRka2hmYmxlZ3B4cSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/YnZQnSFJXjhAUPIrvy/giphy.gif)
 
 ---
 
@@ -98,7 +102,7 @@ TravelGrid community leaders will follow these guidelines when determining the c
 **Impact**: Repeated violations or egregious behavior such as harassment or hate speech.  
 **Consequence**: Permanent ban from all community spaces.  
 
-![Guidelines GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzZncjQ2ajZ5YjB1Ymh0ZDMxY3p2azU0NjRkZGltNnBxanF1a3AwaiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/SWoSkN6DxTszqIKEqv/giphy.gif)
+![Guidelines GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NW9jejNiYWF0cmN6OTFweTc3aXZ2d29laGl0aTFudjBjNHYyN2ZiaCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/qMGOIRnDWIUUM4htkD/giphy.gif)
 
 ---
 
@@ -108,7 +112,7 @@ This Code of Conduct is adapted from the [Contributor Covenant](https://www.cont
 
 Enforcement guidelines inspired by [Mozilla’s code of conduct enforcement ladder](https://github.com/mozilla/diversity).  
 
-![Attribution GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MG9kaGtrYWdteDEycm5icmpycnZvZjg5eGt2cm11MGlvMm5rZTA0NiZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/R03zWv5p1oNSQd91EP/giphy.gif)
+![Attribution GIF](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NW9jejNiYWF0cmN6OTFweTc3aXZ2d29laGl0aTFudjBjNHYyN2ZiaCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/cst5AXzPxRLyIwMNsV/giphy.gif)
 
 ---
 

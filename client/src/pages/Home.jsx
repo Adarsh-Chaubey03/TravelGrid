@@ -9,6 +9,7 @@ import TravelGuides from '../components/Home/TravelGuides'
 import Testimonials from '../components/Home/Testimonials'
 import MoodBoard from '../components/MoodBoard/MoodBoard'
 import { useSEO } from '../hooks/useSEO'
+import WhyChooseTravelGrid from '@/components/WhyChooseTravelGrid'
 
 
 function Home() {
@@ -28,7 +29,7 @@ function Home() {
 
                 {/* Feature Cards Section */}
                 <div className="w-full py-16 px-4">
-                    <FeatureCards />
+                    <WhyChooseTravelGrid />
                 </div>
 
                 {/* Featured Packages Section */}

@@ -5,6 +5,9 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan';
 import dotenv from 'dotenv'
+import axios from 'axios'
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 dotenv.config({ path: './.env' });
 
@@ -18,16 +21,20 @@ import postRoutes from './routes/postRoutes.js';
 import saveRoutes from './routes/saveRoutes.js';
 import tripRoutes from './routes/trips.js';
 import reviewsRoutes from './routes/reviewRoutes.js'
-import languageRoutes from  './routes/languageRoutes.js';
-import moodBoardRoutes from  './routes/moodBoardRoutes.js';
-import searchRoutes from  './routes/search.js';
-import currencyRoutes from  './routes/currencyRoutes.js';
-import musicRoutes from  './routes/musicRoutes.js';
-import resetPassword from  "./routes/resetPassword.js";
+import languageRoutes from './routes/languageRoutes.js';
+import moodBoardRoutes from './routes/moodBoardRoutes.js';
+import searchRoutes from './routes/search.js';
+import currencyRoutes from './routes/currencyRoutes.js';
+import musicRoutes from './routes/musicRoutes.js';
+import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
-
+import chatbotRoutes from './routes/chatbotRoutes.js';
+import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
+import collaborationHandler from './utils/collaborationHandler.js';
+import checklistRoutes from './routes/checklistRoutes.js';
 
 const app = express();
+const server = createServer(app); // Create HTTP server for Socket.IO
 const PORT = process.env.PORT || 5000;
 
 // DB Connection
@@ -35,33 +42,36 @@ connectDB();
 
 // Middleware
 const allowedOrigins = [
-  "http://localhost:5173", // Vite dev
-  "http://localhost:5174", // Vite dev (alternative port)
-  "http://localhost:3000", // CRA dev
-  "https://travel-grid.vercel.app" // Production
+    "http://localhost:5173", // Vite dev
+    "http://localhost:5174", // Vite dev (alternative port)
+    "http://localhost:3000", // CRA dev
+    "https://travel-grid.vercel.app" // Production
 ];
 
 // Request logging (skip in test)
 if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('combined'));
+    app.use(morgan('combined'));
 }
 
 // Security headers
 app.use(helmet());
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true // <- allow credentials (cookies)
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true // <- allow credentials (cookies)
 }));
 
 app.use(express.json());
 app.use(cookieParser());
+
+// EnhancedSanitization 
+app.use(enhancedSanitizationMiddleware);
 
 // Use centralized security middleware
 app.use(securityMiddleware.sanitizeInputs);
@@ -69,18 +79,18 @@ app.use(securityMiddleware.xssProtection);
 
 // Basic rate limiting for auth and general API
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 300, // limit each IP to 300 requests per windowMs
-  standardHeaders: true,
-  legacyHeaders: false,
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 300, // limit each IP to 300 requests per windowMs
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 app.use('/api', generalLimiter);
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50, // tighter for auth endpoints
-  standardHeaders: true,
-  legacyHeaders: false,
+    windowMs: 15 * 60 * 1000,
+    max: 50, // tighter for auth endpoints
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 app.use('/api/auth', authLimiter);
 
@@ -91,12 +101,12 @@ app.use(securityMiddleware.securityHeaders);
 
 
 app.get('/', (req, res) => {
-  res.send("Hello world")
+    res.send("Hello world")
 })
 
 // Routes
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ message: 'API is running smoothly!' });
+    res.status(200).json({ message: 'API is running smoothly!' });
 });
 
 // Test endpoints removed - no longer needed
@@ -139,28 +149,120 @@ app.use('/api/currency', currencyRoutes);
 // Music Routes
 app.use('/api/music', musicRoutes);
 
-app.use('/api/forgot-password',resetPassword)
+app.use('/api/forgot-password', resetPassword)
 
 // Share Routes
 app.use('/api/share', shareRoutes);
 
+// Chatbot Routes
+app.use('/api/chatbot', chatbotRoutes);
+
 // 404 Not Found middleware
 app.use((req, res, next) => {
-  res.status(404).json({ message: 'Resource not found' });
+    res.status(404).json({ message: 'Resource not found' });
 });
 // Error handling middleware global
 app.use((err, req, res, next) => {
-  // Centralized error handler without leaking stack traces in production
-  if (process.env.NODE_ENV !== 'production') {
-    console.error(err);
-  }
-  const status = err.status || 500;
-  const message = status === 500 ? 'Internal Server Error' : err.message;
-  res.status(status).json({ message });
+    // Centralized error handler without leaking stack traces in production
+    if (process.env.NODE_ENV !== 'production') {
+        console.error(err);
+    }
+    const status = err.status || 500;
+    const message = status === 500 ? 'Internal Server Error' : err.message;
+    res.status(status).json({ message });
 
 });
 
+//API For Train Search 
+
+app.get('/api/trains/search', async (req, res) => {
+    const { from, to, date, passengers, cabin } = req.query;
+
+    
+    if (!from || !to || !date) {
+        return res.status(400).json({ message: 'Missing required query parameters: from, to, date' });
+    }
+    const [year, month, day] = date.split('-');
+    const formattedDate = `${day}-${month}-${year}`; 
+   
+    console.log(`[DEBUG] Received search request with params:`, { from, to, date, passengers, cabin });
+    console.log(`[DEBUG] Original date: ${date}, Reformatted to: ${formattedDate}`);
+
+    
+    const options = {
+        method: 'GET',
+        url: 'https://irctc-api2.p.rapidapi.com/trainAvailability',
+      
+        params: {
+            source: from,
+            destination: to,
+            date: formattedDate 
+        },
+        headers: {
+           
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+        
+            'X-RapidAPI-Host': 'irctc-api2.p.rapidapi.com'
+        }
+    };
+
+    console.log("Attempting to fetch from RapidAPI with the following options:");
+   
+    console.log({
+        url: options.url,
+        params: options.params,
+        host: options.headers['X-RapidAPI-Host']
+    });
+
+   
+    try {
+      
+        const response = await axios.request(options);
+    
+        if (response.data && Array.isArray(response.data.data)) {
+           
+            res.status(200).json(response.data.data);
+        } else {
+           
+            res.status(200).json([]);
+        }
+
+    } catch (error) {
+        console.error("\n--- ERROR FETCHING FROM RAPIDAPI ---");
+        if (error.response) {
+            console.error("Status:", error.response.status);
+            console.error("Data:", error.response.data);
+            console.error("Headers:", error.response.headers);
+        } else if (error.request) {
+            console.error("Request Error:", error.request);
+        } else {
+            console.error('General Error:', error.message);
+        }
+        console.error("--- END OF ERROR ---");
+        res.status(500).json({ 
+            message: 'Failed to fetch train data from the external API.',
+            error: error.message 
+        });
+    }
+});
+
+// Initialize Socket.IO
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "http://localhost:5173", // Vite dev
+      "http://localhost:5174", // Vite dev (alternative port)
+      "http://localhost:3000", // CRA dev
+      "https://travel-grid.vercel.app" // Production
+    ],
+    credentials: true
+  }
+});
+
+// Set up collaboration handler
+collaborationHandler(io);
+
 // server
-app.listen(PORT, () => {
-  console.log(` Server running on http://localhost:${PORT}`);
+server.listen(PORT, () => {
+    console.log(` Server running on http://localhost:${PORT}`);
 });

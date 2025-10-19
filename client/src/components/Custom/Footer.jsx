@@ -51,8 +51,7 @@ const Footer = () => {
 
   return (
     <>
-
-    <footer className={`relative transition-all duration-300 ${
+<footer className={`relative transition-all duration-300 ${
      isDarkMode 
           ? 'bg-slate-900/90 backdrop-blur-md' 
           : 'bg-slate-900/95 backdrop-blur-lg border-t-2 border-white/20 shadow-[0_-10px_40px_-5px_rgba(147,51,234,0.6)]'

@@ -106,6 +106,7 @@ const SharedTrip = lazy(() => import('./pages/SharedTrip'));
 const QRTripSharing = lazy(() => import('./pages/QRTripSharing'));
 const SharedTripTool = lazy(() => import('./pages/SharedTripTool'));
 const SafetyIntelligence = lazy(() => import('./pages/SafetyIntelligence'));
+const DataSyncDashboard = lazy(() => import('./pages/DataSyncDashboard'));
 
 
 const router = createBrowserRouter([
@@ -164,6 +165,7 @@ const router = createBrowserRouter([
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
       { path: '/safety-intelligence', element: <Suspense fallback={<Spinner />}><SafetyIntelligence /></Suspense> },
+      { path: '/data-sync', element: <Suspense fallback={<Spinner />}><DataSyncDashboard /></Suspense> },
 
 
 

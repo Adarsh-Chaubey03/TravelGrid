@@ -6,6 +6,7 @@ import { MapProvider } from "./context/MapContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { SafetyProvider } from "./context/SafetyContext";
+import { SyncProvider } from "./context/SyncContext";
 import { useTheme } from "./context/ThemeContext";
 
 import Navbar from "./components/Custom/Navbar";
@@ -37,32 +38,34 @@ function App() {
           <DashboardDataProvider>
             <MapProvider>
               <SafetyProvider>
-                <div className={`flex flex-col transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
-                  }`}>
+                <SyncProvider>
+                  <div className={`flex flex-col transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-br from-black to-pink-900 text-white' : 'bg-gradient-to-br from-rose-300 via-blue-200 to-gray-300 text-black'
+                    }`}>
 
-                  <FluidCursor />
-                  {/* Show spinner when route changes */}
-                  {loading && <Spinner />}
+                    <FluidCursor />
+                    {/* Show spinner when route changes */}
+                    {loading && <Spinner />}
 
-                  {/* Navbar */}
-                  <Navbar />
+                    {/* Navbar */}
+                    <Navbar />
 
-                  {/* Email Verification Banner */}
-                  <EmailVerificationBanner />
-                  {/* Main Content */}
-                  <div className="flex-grow">
-                    <ErrorBoundary>
-                      <Outlet />
-                    </ErrorBoundary>
+                    {/* Email Verification Banner */}
+                    <EmailVerificationBanner />
+                    {/* Main Content */}
+                    <div className="flex-grow">
+                      <ErrorBoundary>
+                        <Outlet />
+                      </ErrorBoundary>
+                    </div>
+
+                    {/* Buttons and Footer */}
+                    <GoToTopButton />
+                    <Chatbot />
+                    <SOSButton />
+
+                    <Footer />
                   </div>
-
-                  {/* Buttons and Footer */}
-                  <GoToTopButton />
-                  <Chatbot />
-                  <SOSButton />
-
-                  <Footer />
-                </div>
+                </SyncProvider>
               </SafetyProvider>
             </MapProvider>
           </DashboardDataProvider>

@@ -190,6 +190,11 @@ const Chatbot = () => {
     }
   };
 
+  // Handler for AI Travel Checklist
+  const handleChecklistClick = () => {
+    navigate("/ai-travel-checklist");
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -530,6 +535,18 @@ style={{
                 >
                   <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>🏨</div>
                   <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Hotels</div>
+                </button>
+                {/* AI Travel Checklist Card */}
+                <button
+                  onClick={handleChecklistClick}
+                  className={`rounded-xl p-2 text-center border shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 cursor-pointer group ${
+                    isDarkMode 
+                      ? 'bg-slate-700/90 backdrop-blur-sm border-slate-600 hover:bg-slate-600/90' 
+                      : 'bg-white/90 backdrop-blur-sm border-pink-200 hover:bg-white'
+                  }`}
+                >
+                  <div className="text-2xl mb-0.5 animate-bounce group-hover:animate-none" style={{ animationDuration: '2s' }}>📋</div>
+                  <div className={`text-xs font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Checklist</div>
                 </button>
               </div>
 

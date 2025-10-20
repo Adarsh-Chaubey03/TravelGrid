@@ -27,6 +27,8 @@ import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
 import chatbotRoutes from './routes/chatbotRoutes.js';
 import syncRoutes from './routes/syncRoutes.js';
+import safetyRoutes from './routes/safetyRoutes.js';
+import multiModalRoutes from './routes/multiModalRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
 
 
@@ -158,6 +160,9 @@ app.use('/api/safety', safetyRoutes);
 
 // Sync Routes
 app.use('/api/sync', syncRoutes);
+
+// Multi-Modal Planning Routes
+app.use('/api/multimodal', multiModalRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

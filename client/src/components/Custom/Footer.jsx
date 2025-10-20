@@ -16,7 +16,7 @@ const Footer = () => {
   };
 
   const hideToast = () => {
-    setToast({ show: false, message: "", type: "" });
+    setToast({ show: false, message, type: "" });
   };
 
   useEffect(() => {
@@ -132,27 +132,72 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Quick Links */}
-              <div className="space-y-6">
-                <h4 className="text-lg font-semibold text-white border-b border-gray-600 pb-2 text-center">
-                  {t("footer.quickLinks.title")}
-                </h4>
-                <nav className="flex flex-col space-y-3 items-left">
-                  {quickLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      onClick={scrollToTop}
-                      className="text-gray-300 hover:text-pink-300 transition-all duration-300 text-sm flex items-center group"
-                    >
-                      <span className="w-4 flex justify-center">
-                        <span className="w-2 h-2 bg-pink-500 rounded-full group-hover:scale-150 transition-transform"></span>
-                      </span>
-                      <span className="ml-3">{link.name}</span>
-                    </Link>
-                  ))}
-                </nav>
+        <div className="relative z-10 container mx-auto px-4 pt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
+            {/* Logo & Social - Combined details, prioritizing i18n from 'main' */}
+            <div className="space-y-6">
+              <div className="flex items-center space-x-3">
+                <img
+                  src="/favicon.ico"
+                  alt="TravelGrid Logo"
+                  loading="lazy"
+                  className="w-10 h-10"
+                />
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-pink-300 bg-clip-text text-transparent">
+                  TravelGrid
+                </h3>
               </div>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                {/* Using i18n from 'main' */}
+                {t("footer.description")}
+              </p>
+              {/* Social Media Links - Keeping content from 'hillstations' as it was more complete */}
+              <div className="flex space-x-4">
+                <a
+                  href="https://twitter.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="X (formerly Twitter)"
+                  className="text-gray-300 hover:text-gray-100 transition-colors text-2xl"
+                >
+                  <FaXTwitter />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/adarsh-chaubey/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-gray-300 hover:text-blue-700 transition-colors text-2xl"
+                >
+                  <FaLinkedin />
+                </a>
+                <a
+                  href="https://github.com/Adarsh-Chaubey03"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="text-gray-300 hover:text-gray-800 transition-colors text-2xl"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://instagram.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="text-gray-300 hover:text-pink-500 transition-colors text-2xl"
+                >
+                  <FaInstagram />
+                </a>
+                <a
+                  href="mailto:hello@travelgrid.com"
+                  aria-label="Email"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors text-2xl"
+                >
+                  <FaEnvelope />
+                </a>
+              </div>
+            </div>
 
               {/* Contact Info */}
               <div className="space-y-6">
@@ -181,6 +226,7 @@ const Footer = () => {
                       </a>
                     </div>
                   </div>
+                </div>
 
                   {/* Phone */}
                   <div className="flex items-start space-x-3">
@@ -196,6 +242,7 @@ const Footer = () => {
                       <p className="text-gray-300 text-sm">{t("footer.contactInfo.phoneHours")}</p>
                     </div>
                   </div>
+                </div>
 
                   {/* Email */}
                   <div className="flex items-start space-x-3">
@@ -221,6 +268,7 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
+            </div>
 
               {/* Newsletter */}
               <div className="space-y-6">
@@ -262,8 +310,23 @@ const Footer = () => {
                 <div className={`text-xs text-white text-center`}>
                   {t("footer.newsletter.privacy")}
                 </div>
+                <button
+                  aria-label="Search"
+                  type="submit"
+                  className={`w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-pink-400 hover:to-purple-600 ${
+                    isDarkMode ? "text-white" : "text-black"
+                  } py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300`}
+                >
+                  <span>{t("footer.newsletter.subscribeButton")}</span>
+                  {/* Send icon (none was explicitly present in the conflict) */}
+                </button>
+              </form>
+              <div className={`text-xs text-white text-center`}>
+                {/* Keeping the i18n string and the hardcoded message (assuming it provides extra context) */}
+                {t("footer.newsletter.privacy")}
               </div>
             </div>
+          </div>
 
             {/* Bottom Section */}
             <div
@@ -280,53 +343,53 @@ const Footer = () => {
                     })}
                   </p>
 
-                  {/* Links stacked on mobile, inline on desktop */}
-                  <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
-                    <Link
-                      to="/privacy"
-                      className="hover:text-pink-300 transition-colors"
-                    >
-                      {t("footer.privacyPolicy")}
-                    </Link>
-                    <Link
-                      to="/terms"
-                      className="hover:text-pink-300 transition-colors"
-                    >
-                      {t("footer.terms")}
-                    </Link>
-                    <Link
-                      to="/contact"
-                      className="hover:text-pink-300 transition-colors"
-                    >
-                      {t("footer.contact")}
-                    </Link>
-                    <Link
-                      to="/feedback"
-                      className="hover:text-pink-300 transition-colors"
-                    >
-                      {t("footer.feedback")}
-                    </Link>
-                  </div>
+                {/* Links */}
+                <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 text-sm items-center">
+                  <Link
+                    to="/privacy"
+                    className="hover:text-pink-300 transition-colors"
+                  >
+                    {t("footer.privacyPolicy")}
+                  </Link>
+                  <Link
+                    to="/terms"
+                    className="hover:text-pink-300 transition-colors"
+                  >
+                    {t("footer.terms")}
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="hover:text-pink-300 transition-colors"
+                  >
+                    {t("footer.contact")}
+                  </Link>
+                  <Link
+                    to="/feedback"
+                    className="hover:text-pink-300 transition-colors"
+                  >
+                    {t("footer.feedback")}
+                  </Link>
                 </div>
               </div>
-
-              <div className="flex flex-wrap items-center justify-center space-x-2 text-sm mt-4 text-center">
-                <span>{t("footer.madeWith")}</span>
-                <svg
-                  className="w-4 h-4 text-red-500"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span>{t("footer.teamName")}</span>
-              </div>
+            </div>
+            
+            {/* Made with love - Using i18n logic from 'main' */}
+            <div className="flex flex-wrap items-center justify-center space-x-2 text-sm mt-4 text-center">
+              <span>{t("footer.madeWith")}</span>
+              <svg
+                className="w-4 h-4 text-red-500"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+              <span>{t("footer.teamName")}</span>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Toast Notification */}
+      {/* Toast Notification - Retaining i18n and the full SVG path from 'main' */}
       {toast.show && (
         <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2 duration-300">
           <div

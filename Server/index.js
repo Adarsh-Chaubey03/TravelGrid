@@ -246,6 +246,80 @@ app.get('/api/trains/search', async (req, res) => {
     }
 });
 
+
+
+// --- BUS SEARCH ENDPOINT (Using data.gov.in) ---
+app.get('/api/buses/search', async (req, res) => {
+    let { from, to } = req.query;
+    
+    console.log(`Filtering for From: "${from}", To: "${to}"`); // <-- Add this
+   
+
+    if (!from || !to) {
+        return res.status(400).json({ message: 'Missing required query parameters: from, to' });
+    }
+
+   
+    const dataGovResourceUrl = 'https://api.data.gov.in/resource/1f10d3eb-a425-4246-8800-3f72bf7ad2b0';
+    
+   
+    
+    let totalRecords = 0;
+    try {
+        const countResponse = await axios.get(dataGovResourceUrl, {
+            params: {
+                'api-key': process.env.DATA_GOV_API_KEY,
+                'format': 'json',
+                'limit': 1
+            }
+        });
+        totalRecords = countResponse.data.total;
+    } catch (error) {
+        console.error("Error fetching bus data count:", error.message);
+        return res.status(500).json({ message: 'Failed to fetch bus data count.' });
+    }
+
+    if (totalRecords === 0) {
+        return res.status(200).json([]);
+    }
+
+    console.log(`Fetching ${totalRecords} bus records from data.gov.in...`);
+
+   
+    try {
+        const response = await axios.get(dataGovResourceUrl, {
+            params: {
+                'api-key': process.env.DATA_GOV_API_KEY,
+                'format': 'json',
+                'limit': totalRecords
+            }
+        });
+        
+        const allBuses = response.data.records;
+       
+        const filteredBuses = allBuses.filter(bus => 
+            bus.from?.toLowerCase().includes(from.toLowerCase()) &&
+            bus.to?.toLowerCase().includes(to.toLowerCase())
+        );
+
+        console.log(`Found ${filteredBuses.length} matching buses.`);
+        res.status(200).json(filteredBuses);
+
+    } catch (error) {
+        console.error("\n--- ERROR FETCHING FROM DATA.GOV.IN ---");
+        if (error.response) {
+            console.error("Status:", error.response.status);
+            console.error("Data:", error.response.data);
+        } else {
+            console.error('General Error:', error.message);
+        }
+        res.status(500).json({ 
+            message: 'Failed to fetch bus data from data.gov.in.',
+            error: error.message 
+        });
+    }
+});
+
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {

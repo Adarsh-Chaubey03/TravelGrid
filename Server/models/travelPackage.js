@@ -36,4 +36,6 @@ const travelPackageSchema = new mongoose.Schema({
   faqs: [faqSchema],
 }, { timestamps: true });
 
-export default TravelPackage = mongoose.model('TravelPackage', travelPackageSchema); 
+const TravelPackage = mongoose.model('TravelPackage', travelPackageSchema);
+
+export default TravelPackage;

@@ -900,82 +900,120 @@ const PackingChecklist = () => {
         </div>
       ) : (
         <>
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 mb-8 justify-center">
-            <button
-              onClick={() => setShowAddForm(true)}
-              className="flex items-center gap-2 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <Plus size={20} />
-              Add Item
-            </button>
+          <div
+  className={`rounded-2xl p-6 border shadow-lg backdrop-blur-md mb-10 transition-all ${
+    isDarkMode
+      ? "bg-gray-800/40 border-gray-700/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+      : "bg-white/30 border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+  }`}
+>
+  {/* Action Buttons */}
+  <div className="flex flex-wrap gap-4 mb-8 justify-center">
+    <button
+      onClick={() => setShowAddForm(true)}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-gradient-to-br from-indigo-700 to-violet-500 
+        hover:from-indigo-800 hover:to-violet-600 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <Plus size={18} />
+      Add Item
+    </button>
 
-            <button
-              onClick={() => setShowAddSectionForm(true)}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <FolderPlus size={20} />
-              Add Section
-            </button>
+    <button
+      onClick={() => setShowAddSectionForm(true)}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-gradient-to-br from-yellow-600 to-amber-400 
+        hover:from-yellow-700 hover:to-amber-500 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <FolderPlus size={18} />
+      Add Section
+    </button>
 
-            <button
-              onClick={markAllAsPacked}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <Check size={20} />
-              Mark All Packed
-            </button>
+    <button
+      onClick={markAllAsPacked}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-green-600 hover:bg-green-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <Check size={18} />
+      Mark All Packed
+    </button>
 
-            <button
-              onClick={markAllAsUnpacked}
-              className="flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <X size={20} />
-              Mark All Unpacked
-            </button>
+    <button
+      onClick={markAllAsUnpacked}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-yellow-600 hover:bg-yellow-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <X size={18} />
+      Mark All Unpacked
+    </button>
 
-            <button
-              onClick={resetList}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Reset to Default
-            </button>
+    <button
+      onClick={resetList}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-blue-600 hover:bg-blue-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      Reset to Default
+    </button>
 
-            <button
-              onClick={clearAll}
-              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <Trash2 size={20} />
-              Clear All
-            </button>
-          </div>
+    <button
+      onClick={clearAll}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-white 
+        bg-red-600 hover:bg-red-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <Trash2 size={18} />
+      Clear All
+    </button>
+  </div>
 
-          {/* Export Buttons */}
-          <div className="flex flex-wrap gap-3 mb-8 justify-center">
-            <button
-              onClick={exportToPDF}
-              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <Download size={20} />
-              Export PDF
-            </button>
+  {/* Export Buttons */}
+  <div className="flex flex-wrap gap-3 justify-center">
+    <button
+      onClick={exportToPDF}
+      className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white 
+        bg-purple-600 hover:bg-purple-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <Download size={20} />
+      Export PDF
+    </button>
 
-            <button
-              onClick={exportToExcel}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <Download size={20} />
-              Export Excel
-            </button>
+    <button
+      onClick={exportToExcel}
+      className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white 
+        bg-green-600 hover:bg-green-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <Download size={20} />
+      Export Excel
+    </button>
 
-            <button
-              onClick={exportToText}
-              className="flex items-center gap-2 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <FileText size={20} />
-              Export Text
-            </button>
-          </div>
+    <button
+      onClick={exportToText}
+      className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white 
+        bg-gray-600 hover:bg-gray-700 
+        shadow-md hover:shadow-lg 
+        active:scale-95 transition-all duration-200"
+    >
+      <FileText size={20} />
+      Export Text
+    </button>
+  </div>
+</div>
+
         </>
       )}
 
@@ -1245,267 +1283,274 @@ const PackingChecklist = () => {
         </div>
       ) : (
         /* Main Content Area */
-        <div className="flex gap-6">
-          {/* Left Sidebar - Sections */}
-          <div className="w-80 flex-shrink-0">
+        <div className="flex gap-8">
+  {/* Left Sidebar - Sections */}
+  <div className="w-80 flex-shrink-0">
+    <div
+      className={`rounded-2xl p-6 border shadow-lg transition-all backdrop-blur-md ${
+  isDarkMode
+    ? "bg-gray-800/40 border-gray-700/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+    : "bg-white/30 border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+}`}
+    >
+      <h3
+        className={`text-lg font-semibold mb-5 flex items-center justify-between ${
+          isDarkMode ? "text-white" : "text-gray-900"
+        }`}
+      >
+        Sections
+        <span
+          className={`text-xs font-normal ${
+            isDarkMode ? "text-gray-400" : "text-gray-500"
+          }`}
+        >
+          ({Object.keys(groupedItems).length})
+        </span>
+      </h3>
+
+      <div className="space-y-3">
+        {Object.entries(groupedItems).map(([category, categoryItems]) => {
+          const categoryPackedCount = categoryItems.filter(
+            (item) => item.packed
+          ).length;
+          const categoryProgressPercentage =
+            categoryItems.length > 0
+              ? (categoryPackedCount / categoryItems.length) * 100
+              : 0;
+          const isSelected = selectedSection === category;
+
+          return (
             <div
-              className={`rounded-lg p-4 border ${
-                isDarkMode
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border-gray-200"
+              key={category}
+              onClick={() => setSelectedSection(category)}
+              className={`group p-3.5 rounded-lg cursor-pointer transition-all border ${
+                isSelected
+                  ? "bg-pink-600 border-pink-600 text-white shadow-md"
+                  : isDarkMode
+                  ? "bg-gray-700 border-gray-700 hover:bg-gray-600 hover:border-gray-500 text-gray-300"
+                  : "bg-gray-50 border-gray-200 hover:bg-gray-100 hover:border-gray-300 text-gray-800"
               }`}
             >
-              <h3
-                className={`text-lg font-semibold mb-4 ${
-                  isDarkMode ? "text-white" : "text-gray-900"
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-medium truncate">{category}</span>
+                <span className="text-sm opacity-80">
+                  {categoryPackedCount}/{categoryItems.length}
+                </span>
+              </div>
+
+              <div
+                className={`rounded-full h-2 overflow-hidden ${
+                  isDarkMode ? "bg-gray-600" : "bg-gray-300"
                 }`}
               >
-                Sections
-              </h3>
-              <div className="space-y-2">
-                {Object.entries(groupedItems).map(
-                  ([category, categoryItems]) => {
-                    const categoryPackedCount = categoryItems.filter(
-                      (item) => item.packed
-                    ).length;
-                    const categoryProgressPercentage =
-                      categoryItems.length > 0
-                        ? (categoryPackedCount / categoryItems.length) * 100
-                        : 0;
-                    const isSelected = selectedSection === category;
-
-                    return (
-                      <div
-                        key={category}
-                        onClick={() => setSelectedSection(category)}
-                        className={`p-3 rounded-lg cursor-pointer transition-all ${
-                          isSelected
-                            ? "bg-pink-600 text-white"
-                            : isDarkMode
-                            ? "bg-gray-700 hover:bg-gray-600 text-gray-300"
-                            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-medium">{category}</span>
-                          <span className="text-sm">
-                            {categoryPackedCount}/{categoryItems.length}
-                          </span>
-                        </div>
-                        <div
-                          className={`rounded-full h-2 ${
-                            isDarkMode ? "bg-gray-600" : "bg-gray-300"
-                          }`}
-                        >
-                          <div
-                            className={`h-2 rounded-full transition-all duration-300 ${
-                              isSelected ? "bg-white" : "bg-blue-500"
-                            }`}
-                            style={{ width: `${categoryProgressPercentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    );
-                  }
-                )}
+                <div
+                  className={`h-2 rounded-full transition-all duration-500 ease-out ${
+                    isSelected ? "bg-white" : "bg-blue-500 group-hover:bg-blue-600"
+                  }`}
+                  style={{ width: `${categoryProgressPercentage}%` }}
+                ></div>
               </div>
             </div>
-          </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
 
-          {/* Right Content - Checklist Items */}
-          <div className="flex-1">
-            {selectedSection && groupedItems[selectedSection] ? (
-              <div
-                className={`rounded-lg p-6 border ${
-                  isDarkMode
-                    ? "bg-gray-800 border-gray-700"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <h2
-                    className={`text-2xl font-bold flex items-center gap-3 ${
-                      isDarkMode ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    {selectedSection}
-                    <span
-                      className={`text-lg ${
-                        isDarkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
-                    >
-                      (
-                      {
-                        groupedItems[selectedSection].filter(
-                          (item) => item.packed
-                        ).length
-                      }
-                      /{groupedItems[selectedSection].length})
-                    </span>
-                  </h2>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-sm ${
-                        isDarkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
-                    >
-                      {Math.round(
-                        (groupedItems[selectedSection].filter(
-                          (item) => item.packed
-                        ).length /
-                          groupedItems[selectedSection].length) *
-                          100
-                      )}
-                      %
-                    </span>
-                  </div>
-                </div>
-
-                {/* Section Progress Bar */}
-                <div
-                  className={`rounded-full h-4 mb-6 ${
-                    isDarkMode ? "bg-gray-700" : "bg-gray-200"
-                  }`}
-                >
-                  <div
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full transition-all duration-300"
-                    style={{
-                      width: `${
-                        (groupedItems[selectedSection].filter(
-                          (item) => item.packed
-                        ).length /
-                          groupedItems[selectedSection].length) *
-                        100
-                      }%`,
-                    }}
-                  ></div>
-                </div>
-
-                <div className="grid gap-3">
-                  {groupedItems[selectedSection].map((item) => (
-                    <div
-                      key={item.id}
-                      className={`flex items-center gap-3 p-4 rounded-lg transition-all ${
-                        item.packed
-                          ? isDarkMode
-                            ? "bg-green-900/30 border border-green-500/30"
-                            : "bg-green-50 border border-green-200"
-                          : isDarkMode
-                          ? "bg-gray-700/50 border border-gray-600/30"
-                          : "bg-gray-50 border border-gray-200"
-                      }`}
-                    >
-                      <button
-                        onClick={() => toggleItem(item.id)}
-                        className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
-                          item.packed
-                            ? "bg-green-500 border-green-500 text-white"
-                            : isDarkMode
-                            ? "border-gray-400 hover:border-pink-500"
-                            : "border-gray-300 hover:border-pink-500"
-                        }`}
-                      >
-                        {item.packed && <Check size={16} />}
-                      </button>
-
-                      {editingItem === item.id ? (
-                        <div className="flex-1 flex gap-2">
-                          <input
-                            type="text"
-                            value={editItemName}
-                            onChange={(e) => setEditItemName(e.target.value)}
-                            className={`flex-1 px-3 py-2 rounded border focus:border-pink-500 focus:outline-none ${
-                              isDarkMode
-                                ? "bg-gray-600 text-white border-gray-500"
-                                : "bg-white text-gray-900 border-gray-300"
-                            }`}
-                            onKeyPress={(e) =>
-                              e.key === "Enter" && saveEditItem()
-                            }
-                            autoFocus
-                          />
-                          <button
-                            onClick={saveEditItem}
-                            className="text-green-400 hover:text-green-300 transition-colors"
-                          >
-                            <Check size={16} />
-                          </button>
-                          <button
-                            onClick={cancelEditItem}
-                            className="text-red-400 hover:text-red-300 transition-colors"
-                          >
-                            <X size={16} />
-                          </button>
-                        </div>
-                      ) : (
-                        <span
-                          className={`flex-1 text-lg ${
-                            item.packed
-                              ? "line-through text-gray-400"
-                              : isDarkMode
-                              ? "text-white"
-                              : "text-gray-900"
-                          }`}
-                        >
-                          {item.name}
-                        </span>
-                      )}
-
-                      {item.essential && (
-                        <span className="text-xs bg-red-600 text-white px-2 py-1 rounded">
-                          Essential
-                        </span>
-                      )}
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => startEditingItem(item)}
-                          className="text-blue-400 hover:text-blue-300 transition-colors"
-                          title="Edit item"
-                        >
-                          <Edit3 size={16} />
-                        </button>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="text-red-400 hover:text-red-300 transition-colors"
-                          title="Remove item"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div
-                className={`rounded-lg p-6 border text-center ${
-                  isDarkMode
-                    ? "bg-gray-800 border-gray-700"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                <div
-                  className={`text-6xl mb-4 ${
-                    isDarkMode ? "text-gray-400" : "text-gray-300"
-                  }`}
-                >
-                  📦
-                </div>
-                <h3
-                  className={`text-xl font-semibold mb-2 ${
-                    isDarkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  No section selected
-                </h3>
-                <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>
-                  Select a section from the sidebar to view items
-                </p>
-              </div>
+  {/* Right Content - Checklist Items */}
+  <div className="flex-1">
+    {selectedSection && groupedItems[selectedSection] ? (
+      <div
+        className={`rounded-2xl p-6 border shadow-lg transition-all backdrop-blur-md ${
+  isDarkMode
+    ? "bg-gray-800/40 border-gray-700/60 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+    : "bg-white/30 border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+}`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-5">
+          <h2
+            className={`text-2xl font-bold flex items-center gap-3 ${
+              isDarkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            {selectedSection}
+            <span
+              className={`text-base font-normal ${
+                isDarkMode ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
+              (
+              {
+                groupedItems[selectedSection].filter((item) => item.packed)
+                  .length
+              }
+              /{groupedItems[selectedSection].length})
+            </span>
+          </h2>
+          <span
+            className={`text-sm font-medium ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            {Math.round(
+              (groupedItems[selectedSection].filter((item) => item.packed)
+                .length /
+                groupedItems[selectedSection].length) *
+                100
             )}
-          </div>
+            %
+          </span>
         </div>
+
+        {/* Progress Bar */}
+        <div
+          className={`rounded-full h-3 mb-6 overflow-hidden ${
+            isDarkMode ? "bg-gray-700" : "bg-gray-200"
+          }`}
+        >
+          <div
+            className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
+            style={{
+              width: `${
+                (groupedItems[selectedSection].filter((item) => item.packed)
+                  .length /
+                  groupedItems[selectedSection].length) *
+                100
+              }%`,
+            }}
+          ></div>
+        </div>
+
+        {/* Items */}
+        <div className="grid gap-3">
+          {groupedItems[selectedSection].map((item) => (
+            <div
+              key={item.id}
+              className={`flex items-center gap-3 p-4 rounded-lg border transition-all ${
+                item.packed
+                  ? isDarkMode
+                    ? "bg-green-900/30 border-green-500/40"
+                    : "bg-green-50 border-green-200"
+                  : isDarkMode
+                  ? "bg-gray-700/50 border-gray-600/30 hover:bg-gray-700"
+                  : "bg-gray-50 border-gray-200 hover:bg-gray-100"
+              }`}
+            >
+              <button
+                onClick={() => toggleItem(item.id)}
+                className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-200 ${
+                  item.packed
+                    ? "bg-green-500 border-green-500 text-white"
+                    : isDarkMode
+                    ? "border-gray-400 hover:border-pink-500"
+                    : "border-gray-300 hover:border-pink-500"
+                }`}
+              >
+                {item.packed && <Check size={16} />}
+              </button>
+
+              {editingItem === item.id ? (
+                <div className="flex-1 flex gap-2">
+                  <input
+                    type="text"
+                    value={editItemName}
+                    onChange={(e) => setEditItemName(e.target.value)}
+                    className={`flex-1 px-3 py-2 rounded-md border focus:border-pink-500 focus:ring-1 focus:ring-pink-500 focus:outline-none text-sm ${
+                      isDarkMode
+                        ? "bg-gray-600 text-white border-gray-500"
+                        : "bg-white text-gray-900 border-gray-300"
+                    }`}
+                    onKeyPress={(e) => e.key === "Enter" && saveEditItem()}
+                    autoFocus
+                  />
+                  <button
+                    onClick={saveEditItem}
+                    className="text-green-400 hover:text-green-300 transition-colors"
+                  >
+                    <Check size={16} />
+                  </button>
+                  <button
+                    onClick={cancelEditItem}
+                    className="text-red-400 hover:text-red-300 transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <span
+                  className={`flex-1 text-base ${
+                    item.packed
+                      ? "line-through text-gray-400"
+                      : isDarkMode
+                      ? "text-white"
+                      : "text-gray-900"
+                  }`}
+                >
+                  {item.name}
+                </span>
+              )}
+
+              {item.essential && (
+                <span className="text-xs font-semibold bg-red-600 text-white px-2 py-0.5 rounded-md">
+                  Essential
+                </span>
+              )}
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => startEditingItem(item)}
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                  title="Edit item"
+                >
+                  <Edit3 size={16} />
+                </button>
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className={`p-1.5 rounded-lg transition-all duration-300 flex items-center justify-center ${
+    isDarkMode
+      ? "bg-gradient-to-br from-red-400 to-pink-600 text-white hover:scale-105 hover:shadow-[0_0_12px_rgba(244,63,94,0.4)]"
+      : "bg-gradient-to-br from-red-500 to-pink-500 text-white hover:scale-105 hover:shadow-[0_0_12px_rgba(244,63,94,0.3)]"
+  }`}
+                  title="Remove item"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div
+        className={`rounded-xl p-10 border text-center ${
+          isDarkMode
+            ? "bg-gray-800 border-gray-700"
+            : "bg-white border-gray-200"
+        }`}
+      >
+        <div
+          className={`text-6xl mb-4 ${
+            isDarkMode ? "text-gray-400" : "text-gray-300"
+          }`}
+        >
+          📦
+        </div>
+        <h3
+          className={`text-xl font-semibold mb-2 ${
+            isDarkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
+          No section selected
+        </h3>
+        <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>
+          Select a section from the sidebar to view items
+        </p>
+      </div>
+    )}
+  </div>
+</div>
+
       )}
 
       {/* Empty State */}

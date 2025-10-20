@@ -105,6 +105,8 @@ const VisaChecker = lazy(() => import('./pages/VisaChecker'));
 const SharedTrip = lazy(() => import('./pages/SharedTrip'));
 const QRTripSharing = lazy(() => import('./pages/QRTripSharing'));
 const SharedTripTool = lazy(() => import('./pages/SharedTripTool'));
+const ARTravelGuidePage = lazy(() => import('./pages/ARTravelGuidePage'));
+const ARDemoPage = lazy(() => import('./pages/ARDemoPage'));
 
 
 const router = createBrowserRouter([
@@ -162,6 +164,8 @@ const router = createBrowserRouter([
       { path: '/shared-trip/:tripId', element: <Suspense fallback={<Spinner />}><SharedTrip /></Suspense> },
       { path: '/update-password/:id', element: <Suspense fallback={<Spinner />}><UpdatePassword /></Suspense> },
       { path: '/leaderboard', element: <Suspense fallback={<Spinner />}><LeaderBoard /></Suspense> },
+      { path: '/ar-travel-guide', element: <Suspense fallback={<Spinner />}><ARTravelGuidePage /></Suspense> },
+      { path: '/ar-demo', element: <Suspense fallback={<Spinner />}><ARDemoPage /></Suspense> },
 
 
 

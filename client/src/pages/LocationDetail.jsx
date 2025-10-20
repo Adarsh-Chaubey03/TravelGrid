@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Custom/Navbar";
 import ARExperience from "../components/ARExperience";
+import ARTravelGuide from "../components/ARTravelGuide";
 import { useWishlist } from "../context/WishlistContext";
 import toast from "react-hot-toast";
 import { useTheme } from "../context/ThemeContext";
@@ -302,6 +303,7 @@ const LocationDetail = () => {
   const navigate = useNavigate();
   const [expandDesc, setExpandDesc] = useState(false);
   const [arMode, setArMode] = useState(false);
+  const [arTravelMode, setArTravelMode] = useState(false);
   const [pointOfInteractionList, setPointOfInteractionList] =
     useState(hotelsData);
   const [mapSrc, setMapSrc] = useState(
@@ -1308,7 +1310,13 @@ const LocationDetail = () => {
                 className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-purple-600 text-white cursor-pointer"
                 onClick={() => setArMode(true)}
               >
-                AR Mode
+                Basic AR
+              </button>
+              <button
+                className="flex mx-4 items-center mt-4 space-x-2 px-6 py-2 rounded-md whitespace-nowrap transition-all duration-300 font-medium bg-indigo-600 text-white cursor-pointer"
+                onClick={() => setArTravelMode(true)}
+              >
+                Advanced AR
               </button>
             </div>
           </div>
@@ -1347,6 +1355,9 @@ const LocationDetail = () => {
       </div>
       {arMode && (
         <ARExperience location={location} onClose={() => setArMode(false)} />
+      )}
+      {arTravelMode && (
+        <ARTravelGuide location={location} onClose={() => setArTravelMode(false)} />
       )}
     </div>
   );

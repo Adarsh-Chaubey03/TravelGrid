@@ -48,7 +48,7 @@
     "support": "Soporte",
     "tools": "Herramientas",
     "wishlist": "Lista de Deseos",
-    "dashboard": "Panel",
+    "dashboard": "Panel de Control",
     "ticket": "Boleto",
     "hotels": "Hoteles",
     "packages": "Paquetes",
@@ -56,10 +56,10 @@
     "travelPlans": "Planes de Viaje",
     "guide": "Guías",
     "contact": "Contacto",
-    "reviewSummarizer": "Resumidor de Reseñas de Hoteles/Vuelos",
-    "CustomItenary": "Itinerario Personalizado",
-    "tripCalculator": "Calculadora de Costos de Viaje",
-    "packingChecklist": "Lista de Equipaje",
+    "reviewSummarizer": "Resumen de Reseñas de Hoteles/Vuelos",
+    "CustomItenary": "Itinerario personalizado",
+    "tripCalculator": "Calculadora de Gastos de Viaje",
+    "packingChecklist": "Lista de Empaque",
     "travelRecommendations": "Recomendaciones de Viaje",
     "feedback": "Comentarios"
   },
@@ -131,153 +131,334 @@
         "title": "Soporte 24/7",
         "desc": "Siempre estamos aquí para ti con servicio al cliente las 24 horas."
       }
-    }
-  },
-  "booking": {
-    "bookNow": "Reservar Ahora",
-    "bookTicket": "Reservar Boleto",
-    "bookHotel": "Reservar Hotel",
-    "bookPackage": "Reservar Paquete",
-    "selectDate": "Seleccionar Fecha",
-    "selectTime": "Seleccionar Hora",
-    "selectPassengers": "Seleccionar Pasajeros",
-    "selectRooms": "Seleccionar Habitaciones",
-    "totalPrice": "Precio Total",
-    "proceedToPayment": "Proceder al Pago",
-    "bookingConfirmed": "Reserva Confirmada",
-    "bookingFailed": "Reserva Fallida",
-    "paymentSuccessful": "Pago Exitoso",
-    "paymentFailed": "Pago Fallido"
-  },
-  "hotels": {
-    "searchHotels": "Buscar Hoteles",
-    "hotelDetails": "Detalles del Hotel",
-    "roomTypes": "Tipos de Habitación",
-    "amenities": "Servicios",
-    "reviews": "Reseñas",
-    "location": "Ubicación",
-    "price": "Precio",
-    "perNight": "por noche",
-    "checkIn": "Check-in",
-    "checkOut": "Check-out",
-    "guests": "Huéspedes",
-    "rooms": "Habitaciones"
-  },
-  "packages": {
-    "travelPackages": "Paquetes de Viaje",
-    "packageDetails": "Detalles del Paquete",
-    "inclusions": "Incluye",
-    "exclusions": "No Incluye",
-    "itinerary": "Itinerario",
-    "terms": "Términos y Condiciones",
-    "duration": "Duración",
-    "price": "Precio",
-    "bookPackage": "Reservar Paquete"
-  },
-  "tools": {
-    "tripCalculator": "Calculadora de Costos de Viaje",
-    "packingChecklist": "Lista de Equipaje",
-    "travelPlanGenerator": "Generador de Planes de Viaje",
-    "currencyConverter": "Convertidor de Moneda",
-    "weather": "Clima",
-    "calculateExpenses": "Calcular Gastos",
-    "addExpense": "Añadir Gasto",
-    "totalExpenses": "Gastos Totales",
-    "budget": "Presupuesto",
-    "remaining": "Restante"
-  },
-  "profile": {
-    "profile": "Perfil",
-    "personalInfo": "Información Personal",
-    "accountSettings": "Configuración de la Cuenta",
-    "preferences": "Preferencias",
-    "language": "Idioma",
-    "theme": "Tema",
-    "notifications": "Notificaciones",
-    "privacy": "Privacidad",
-    "security": "Seguridad",
-    "updateProfile": "Actualizar Perfil",
-    "changePassword": "Cambiar Contraseña",
-    "deleteAccount": "Eliminar Cuenta"
-  },
-  "errors": {
-    "pleaseSignIn": "Por favor, inicia sesión para buscar destinos.",
-    "somethingWentWrong": "Algo salió mal",
-    "networkError": "Error de red",
-    "serverError": "Error del servidor",
-    "notFound": "Página no encontrada",
-    "unauthorized": "No autorizado",
-    "forbidden": "Prohibido",
-    "invalidInput": "Entrada inválida",
-    "requiredField": "Este campo es obligatorio",
-    "invalidEmail": "Dirección de email inválida",
-    "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
-    "passwordsDoNotMatch": "Las contraseñas no coinciden"
-  },
-  "success": {
-    "profileUpdated": "Perfil actualizado con éxito",
-    "passwordChanged": "Contraseña cambiada con éxito",
-    "bookingCreated": "Reserva creada con éxito",
-    "reviewSubmitted": "Reseña enviada con éxito",
-    "feedbackSubmitted": "Comentarios enviados con éxito"
-  },
-  "login": {
-    "title": "Bienvenido de Nuevo",
-    "subtitle": "Inicia sesión en tu cuenta para continuar tu viaje",
-    "email": "Dirección de Email",
-    "emailPlaceholder": "Ingresa tu email",
-    "password": "Contraseña",
-    "passwordPlaceholder": "Ingresa tu contraseña",
-    "signIn": "Iniciar Sesión",
-    "signingIn": "Iniciando Sesión...",
-    "orContinue": "O continuar con",
-    "googleSignIn": "Continuar con Google",
-    "noAccount": "¿No tienes una cuenta?",
-    "signupHere": "Regístrate aquí",
-    "forgotPassword": "¿Olvidaste tu contraseña?",
-    "clickHere": "Haz clic aquí",
-    "errors": {
-      "emptyEmail": "Por favor, ingresa tu email.",
-      "invalidEmail": "Por favor, ingresa una dirección de email válida.",
-      "emptyPassword": "Por favor, ingresa tu contraseña.",
-      "verifyEmail": "Por favor, verifica tu email antes de iniciar sesión.",
-      "invalidCredentials": "Email o contraseña inválidos"
     },
-    "actions": {
-      "resendConfirm": "¿Deseas reenviar el email de verificación?"
-    }
-  },
-  "signup": {
-    "title": "Crear una Cuenta",
-    "subtitle": "Únete a TravelGrid y comienza tu aventura",
-    "name": "Nombre Completo",
-    "namePlaceholder": "Ingresa tu nombre completo",
-    "email": "Dirección de Email",
-    "emailPlaceholder": "Ingresa tu email",
-    "password": "Contraseña",
-    "passwordPlaceholder": "Crea una contraseña",
-    "confirmPassword": "Confirmar Contraseña",
-    "confirmPasswordPlaceholder": "Confirma tu contraseña",
-    "createAccount": "Crear Cuenta",
-    "creatingAccount": "Creando Cuenta...",
-    "orContinue": "O continuar con",
-    "googleSignUp": "Continuar con Google",
-    "alreadyAccount": "¿Ya tienes una cuenta?",
-    "signinHere": "Inicia sesión aquí",
-    "weakPassword": "Contraseña Débil",
-    "mediumPassword": "Fortaleza Media",
-    "strongPassword": "Contraseña Fuerte",
-    "passwordsMatch": "Las contraseñas coinciden",
-    "passwordsDontMatch": "Las contraseñas no coinciden",
-    "success": "¡Cuenta creada! Por favor, verifica tu email para continuar.",
+    "featuredTravelPackages": {
+      "featured": "Destacados",
+      "TravelPackages": "Paquetes de viaje",
+      "featuredTravelPackagesDescription": "Explora nuestras experiencias de viaje especialmente seleccionadas",
+      "bookNow": "Reservar ahora",
+      "viewAllPackages": "Ver todos los paquetes",
+      "santoriniEscape": "Escapada a Santorini",
+      "greece": "Grecia",
+      "santoriniPrice": "Precio desde 12.999 €",
+      "alpineAdventure": "Aventura Alpina",
+      "switzerland": "Suiza",
+      "alpinePrice": "Precio desde 18.899 €",
+      "safariJourney": "Viaje Safari",
+      "kenya": "Kenia",
+      "safariPrice": "Precio desde 20.199 €",
+      "baliBliss": "Experiencia Bali",
+      "indonesia": "Indonesia",
+      "baliPrice": "Precio desde 9.999 €"
+    },
+    "travelGuides": {
+      "viewProfile": "Ver perfil",
+      "heading": "Conoce a nuestros mejores guías de viaje",
+      "description": "Conéctate con guías locales experimentados que harán que tu viaje sea realmente inolvidable.",
+      "guides": [
+        {
+          "name": "Aarav Mehta",
+          "expertise": "Excursiones en el Himalaya",
+          "bio": "Guía de montaña certificado con más de 10 años de experiencia liderando excursiones en el Himalaya indio."
+        },
+        {
+          "name": "Sofia Rossi",
+          "expertise": "Ciudades y cultura italianas",
+          "bio": "Apasionada por el arte, la comida y la historia. Fluida en inglés e italiano. Basada en Roma."
+        },
+        {
+          "name": "James Carter",
+          "expertise": "Safaris en África",
+          "bio": "Experto en vida salvaje y guía de safaris, especializado en los parques nacionales de Kenia y Tanzania."
+        },
+        {
+          "name": "Snowy Kat",
+          "expertise": "🐾 Excursiones de montaña y aventuras con mascotas",
+          "bio": "Apasionado por guiar a los dueños de mascotas a través de senderos montañosos escénicos y escapadas naturales."
+        },
+        {
+          "name": "Mei Lin",
+          "expertise": "Tours de Asia Oriental",
+          "bio": "Guía con licencia para Japón, China y Corea del Sur. Le encanta compartir tradiciones locales y gastronomía."
+        },
+        {
+          "name": "Ayushi Uniyal",
+          "expertise": "🏖️ Escapadas a la costa",
+          "bio": "Le encanta ayudar a los viajeros a explorar la hermosa costa y los destinos de playa de la India."
+        },
+        {
+          "name": "Weddy Brown",
+          "expertise": "🐾 Viajes urbanos con mascotas",
+          "bio": "Guía con sede en Ámsterdam especializado en navegar por las ciudades con mascotas."
+        }
+      ]
+    },
+    "testimonials": {
+      "whatOur": "Lo Que Nuestros",
+      "travelersSay": "Viajeros Dicen",
+      "testimonialsDescription": "Vea lo que a nuestros viajeros les encanta de TravelGrid.",
+      "list": [
+        {
+          "name": "Amit P.",
+          "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+          "review": "¡TravelGrid hizo que la planificación de mi viaje fuera fácil y divertida! Las recomendaciones seleccionadas fueron perfectas y me ahorraron horas de investigación.",
+          "rating": 5
+        },
+        {
+          "name": "Sara L.",
+          "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+          "review": "Los guías locales y el proceso de reserva fácil superaron mis expectativas. ¡Definitivamente lo usaré nuevamente para mi próxima aventura!",
+          "rating": 5
+        },
+        {
+          "name": "John D.",
+          "avatar": "https://randomuser.me/api/portraits/men/65.jpg",
+          "review": "Me encantaron las funciones comunitarias y el soporte 24/7. La plataforma es intuitiva y las ofertas son inmejorables.",
+          "rating": 4
+        },
+        {
+          "name": "Priya S.",
+          "avatar": "https://randomuser.me/api/portraits/women/68.jpg",
+          "review": "Una plataforma hermosa y moderna que facilitó mucho planificar mis vacaciones soñadas. ¡Muy recomendable!",
+          "rating": 5
+        }
+      ]
+    },
+    "forums": {
+      "titlePrefix": "Únete a la",
+      "titleHighlight": "Conversación",
+      "description": "Conéctate con otros viajeros, haz preguntas y comparte tus experiencias en nuestra vibrante comunidad de viajes.",
+      "button": "Visitar Foro",
+      "list": [
+        {
+          "title": "Los mejores trucos de viaje para viajeros solitarios",
+          "replies": "23 respuestas",
+          "tag": "Consejos y Trucos",
+          "tagColor": "from-green-400 to-blue-500"
+        },
+        {
+          "title": "Cómo planificar un viaje económico a Leh",
+          "replies": "15 respuestas",
+          "tag": "Destinos",
+          "tagColor": "from-pink-400 to-purple-500"
+        },
+        {
+          "title": "Los 5 lugares más subestimados del sur de la India",
+          "replies": "9 respuestas",
+          "tag": "Joyas Ocultas",
+          "tagColor": "from-yellow-400 to-red-500"
+        }
+      ]
+    },
+    "discover": {
+      "headingPrefix": "Descubre",
+      "headingHighlight": "Nuevos Destinos",
+      "description": "Explora lugares de tendencia, gemas ocultas y sitios imprescindibles seleccionados especialmente para ti.",
+      "destinations": [
+        {
+          "id": 1,
+          "name": "Manali, Himachal",
+          "category": "Montaña",
+          "rating": 4.7,
+          "popularity": 800,
+          "price": 4500,
+          "image": "https://images.unsplash.com/photo-1712388430474-ace0c16051e2?w=600&auto=format&fit=crop&q=60",
+          "description": "Una hermosa estación de montaña conocida por su belleza escénica y deportes de aventura."
+        },
+        {
+          "id": 2,
+          "name": "Jaipur, Rajasthan",
+          "category": "Histórico",
+          "rating": 4.5,
+          "popularity": 700,
+          "price": 3500,
+          "image": "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&auto=format&fit=crop&q=60",
+          "description": "La Ciudad Rosa con rica historia, fortalezas y cultura vibrante."
+        },
+        {
+          "id": 3,
+          "name": "Goa",
+          "category": "Playa",
+          "rating": 4.8,
+          "popularity": 950,
+          "price": 5000,
+          "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&auto=format&fit=crop&q=60",
+          "description": "Destino de playa popular con vida nocturna, deportes acuáticos y cultura."
+        },
+        {
+          "id": 4,
+          "name": "Rishikesh, Uttarakhand",
+          "category": "Montaña",
+          "rating": 4.6,
+          "popularity": 650,
+          "price": 3000,
+          "image": "https://plus.unsplash.com/premium_photo-1697730398251-40cd8dc57e0b?w=600&auto=format&fit=crop&q=60",
+          "description": "La capital mundial del yoga, situada a orillas del Ganges."
+        }
+      ],
+      "ctaTitle": "¿Listo para planear tu próxima aventura?",
+      "ctaDescription": "Descubre más ideas de viaje, consejos y recomendaciones personalizadas.",
+      "ctaButton": "Descubre Más Destinos",
+      "noDestinations": "No se encontraron destinos."
+    },
+    "booking": {
+      "bookNow": "Reservar Ahora",
+      "bookTicket": "Reservar Boleto",
+      "bookHotel": "Reservar Hotel",
+      "bookPackage": "Reservar Paquete",
+      "selectDate": "Seleccionar Fecha",
+      "selectTime": "Seleccionar Hora",
+      "selectPassengers": "Seleccionar Pasajeros",
+      "selectRooms": "Seleccionar Habitaciones",
+      "totalPrice": "Precio Total",
+      "proceedToPayment": "Proceder al Pago",
+      "bookingConfirmed": "Reserva Confirmada",
+      "bookingFailed": "Reserva Fallida",
+      "paymentSuccessful": "Pago Exitoso",
+      "paymentFailed": "Pago Fallido"
+    },
+    "hotels": {
+      "searchHotels": "Buscar Hoteles",
+      "hotelDetails": "Detalles del Hotel",
+      "roomTypes": "Tipos de Habitación",
+      "amenities": "Comodidades",
+      "reviews": "Reseñas",
+      "location": "Ubicación",
+      "price": "Precio",
+      "perNight": "por noche",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "guests": "Huéspedes",
+      "rooms": "Habitaciones"
+    },
+    "packages": {
+      "travelPackages": "Paquetes de Viaje",
+      "packageDetails": "Detalles del Paquete",
+      "inclusions": "Incluido",
+      "exclusions": "Excluido",
+      "itinerary": "Itinerario",
+      "terms": "Términos y Condiciones",
+      "duration": "Duración",
+      "price": "Precio",
+      "bookPackage": "Reservar Paquete"
+    },
+    "tools": {
+      "tripCalculator": "Calculadora de Gastos de Viaje",
+      "packingChecklist": "Lista de Empaque",
+      "travelPlanGenerator": "Generador de Planes de Viaje",
+      "currencyConverter": "Convertidor de Moneda",
+      "weather": "Clima",
+      "calculateExpenses": "Calcular Gastos",
+      "addExpense": "Agregar Gasto",
+      "totalExpenses": "Gastos Totales",
+      "budget": "Presupuesto",
+      "remaining": "Restante"
+    },
+    "profile": {
+      "profile": "Perfil",
+      "personalInfo": "Información Personal",
+      "accountSettings": "Configuración de Cuenta",
+      "preferences": "Preferencias",
+      "language": "Idioma",
+      "theme": "Tema",
+      "notifications": "Notificaciones",
+      "privacy": "Privacidad",
+      "security": "Seguridad",
+      "updateProfile": "Actualizar Perfil",
+      "changePassword": "Cambiar Contraseña",
+      "deleteAccount": "Eliminar Cuenta"
+    },
     "errors": {
-      "fillAll": "Por favor, completa todos los campos obligatorios para continuar.",
-      "invalidEmail": "Por favor, ingresa una dirección de email válida",
-      "invalidName": "El nombre solo puede contener letras y espacios",
-      "shortName": "El nombre debe tener al menos 2 caracteres",
-      "weakPassword": "La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, una minúscula, un número y un símbolo especial.",
-      "passwordMismatch": "Las contraseñas no coinciden.",
-      "signupFailed": "Registro fallido"
+      "pleaseSignIn": "Por favor inicia sesión para buscar destinos.",
+      "somethingWentWrong": "Algo salió mal",
+      "networkError": "Error de red",
+      "serverError": "Error del servidor",
+      "notFound": "Página no encontrada",
+      "unauthorized": "No autorizado",
+      "forbidden": "Prohibido",
+      "invalidInput": "Entrada inválida",
+      "requiredField": "Este campo es requerido",
+      "invalidEmail": "Dirección de email inválida",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    },
+    "success": {
+      "profileUpdated": "Perfil actualizado exitosamente",
+      "passwordChanged": "Contraseña cambiada exitosamente",
+      "bookingCreated": "Reserva creada exitosamente",
+      "reviewSubmitted": "Reseña enviada exitosamente",
+      "feedbackSubmitted": "Comentario enviado exitosamente"
+    },
+    "footer": {
+      "aboutUs": "Sobre Nosotros",
+      "contactUs": "Contáctanos",
+      "privacyPolicy": "Política de Privacidad",
+      "termsOfService": "Términos de Servicio",
+      "help": "Ayuda",
+      "support": "Soporte",
+      "followUs": "Síguenos",
+      "newsletter": "Boletín",
+      "subscribe": "Suscribirse",
+      "allRightsReserved": "Todos los derechos reservados"
+    },
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta para continuar tu viaje",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "signIn": "Iniciar Sesión",
+      "signingIn": "Iniciando sesión...",
+      "orContinue": "O continúa con",
+      "googleSignIn": "Continuar con Google",
+      "noAccount": "¿No tienes una cuenta?",
+      "signupHere": "Regístrate aquí",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "clickHere": "Haz clic aquí",
+      "errors": {
+        "emptyEmail": "Por favor ingresa tu correo electrónico.",
+        "invalidEmail": "Por favor ingresa una dirección de correo válida.",
+        "emptyPassword": "Por favor ingresa tu contraseña.",
+        "verifyEmail": "Por favor verifica tu correo electrónico antes de iniciar sesión.",
+        "invalidCredentials": "Correo electrónico o contraseña incorrectos"
+      },
+      "actions": {
+        "resendConfirm": "¿Deseas reenviar el correo de verificación?"
+      }
+    },
+    "signup": {
+      "title": "Crear Cuenta",
+      "subtitle": "Únete a TravelGrid y comienza tu aventura",
+      "name": "Nombre completo",
+      "namePlaceholder": "Ingresa tu nombre completo",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Crea una contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "createAccount": "Crear Cuenta",
+      "creatingAccount": "Creando cuenta...",
+      "orContinue": "O continúa con",
+      "googleSignUp": "Continuar con Google",
+      "alreadyAccount": "¿Ya tienes una cuenta?",
+      "signinHere": "Inicia sesión aquí",
+      "weakPassword": "Contraseña débil",
+      "mediumPassword": "Fuerza media",
+      "strongPassword": "Contraseña fuerte",
+      "passwordsMatch": "Las contraseñas coinciden",
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "success": "¡Cuenta creada! Por favor verifica tu correo electrónico para continuar.",
+      "errors": {
+        "fillAll": "Por favor completa todos los campos requeridos para continuar.",
+        "invalidEmail": "Por favor ingresa una dirección de correo válida",
+        "invalidName": "El nombre solo puede contener letras y espacios",
+        "shortName": "El nombre debe tener al menos 2 caracteres",
+        "weakPassword": "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.",
+        "passwordMismatch": "Las contraseñas no coinciden.",
+        "signupFailed": "Registro fallido"
+      }
     }
   },
   "footer": {

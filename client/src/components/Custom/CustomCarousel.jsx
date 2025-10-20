@@ -5,7 +5,7 @@ import { useTheme } from "@/context/ThemeContext";
 
 const AUTO_SLIDE_INTERVAL = 3500; // milliseconds
 
-const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
+const CustomCarousel = ({ guides, viewprofilehandle, viewProfileText,isHome = false }) => {
 	const { isDarkMode } = useTheme();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const prevSlide = () => {
@@ -28,11 +28,10 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
 			<button
 				aria-label="Previous"
 				onClick={prevSlide}
-				className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${
-					isDarkMode
+				className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${isDarkMode
 						? "bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40"
 						: "bg-white/80 border border-gray-200 hover:bg-white hover:border-pink-300"
-				} cursor-pointer`}
+					} cursor-pointer`}
 			>
 				<ChevronLeft
 					className={`w-6 h-6 ${isDarkMode ? "text-white" : "text-gray-700"}`}
@@ -97,13 +96,11 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
 					return (
 						<div
 							key={index}
-							className={`${position} w-[280px] sm:w-[300px] h-[400px] flex items-center justify-center text-center flex-col hover:-translate-y-[10px] backdrop-blur-md rounded-2xl p-6 ${
-								isDarkMode
+							className={`${position} w-[280px] sm:w-[300px] h-[400px] flex items-center justify-center text-center flex-col hover:-translate-y-[10px] backdrop-blur-md rounded-2xl p-6 ${isDarkMode
 									? "bg-black/30 border border-white/20 hover:border-white/40"
 									: "bg-white/30 border border-gray-300 hover:border-pink-300"
-							} ${
-								position === "center" ? "scale-100" : "scale-90 opacity-80"
-							} card`}
+								} ${position === "center" ? "scale-100" : "scale-90 opacity-80"
+								} card`}
 						>
 							<div className="card-image">
 								<img
@@ -128,16 +125,16 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
 									{guide.bio}
 								</p>
 								<button
-									aria-label="Search"
-									className={`view-btn ${
-										isHome
+									aria-label={viewProfileText}
+									className={`view-btn ${isHome
 											? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
 											: "bg-gradient-to-r from-[#db2777] to-[#ec4899] hover:from-[#be185d] hover:to-[#db2777]"
-									}`}
-									onClick={() => viewprofilehandle(guide)}
+										}`}
+									onClick={() => viewprofilehandle(guide.name)}
 								>
-									View Profile
+									{viewProfileText}
 								</button>
+
 							</div>
 						</div>
 					);
@@ -148,11 +145,10 @@ const CustomCarousel = ({ guides, viewprofilehandle, isHome = false }) => {
 			<button
 				aria-label="Next"
 				onClick={nextSlide}
-				className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${
-					isDarkMode
+				className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-10 backdrop-blur-md shadow-lg p-3 rounded-full transition-all duration-300 ${isDarkMode
 						? "bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40"
 						: "bg-white/80 border border-gray-200 hover:bg-white hover:border-pink-300"
-				} cursor-pointer`}
+					} cursor-pointer`}
 			>
 				<ChevronRight
 					className={`w-6 h-6 ${isDarkMode ? "text-white" : "text-gray-700"}`}

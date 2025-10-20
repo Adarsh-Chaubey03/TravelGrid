@@ -97,13 +97,13 @@ const HeroSection = ({ onSearch }) => {
         className="absolute inset-0 bg-cover bg-center opacity-100 z-10"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1695045038427-3acc1c0df23c?w=1920&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzl8fG5pZ2h0JTIwYmVhY2h8ZW58MHx8MHx8fDA%3D')",
+            "url('https://images.unsplash.com/photo-1701990630137-005958559f36?auto=format&fit=crop&q=60')",
         }}
       ></div>
 
       <div className={`absolute inset-0 z-15 ${isDarkMode
         ? 'bg-gradient-to-b from-black/60 via-black/40 to-black/70'
-        : 'bg-gradient-to-b from-black/30 via-black/20 to-black/50'
+        : 'bg-gradient-to-b from-black/20 via-black/10 to-black/30'
         }`} />
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 lg:px-8">
@@ -237,25 +237,25 @@ const HeroSection = ({ onSearch }) => {
 
                 <motion.button
 
-  whileHover={{ scale: 1.07 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={handleSearch}
-  className="w-full font-semibold py-3 px-6 rounded-xl text-white transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 focus:ring-opacity-60"
-  style={{
-    background: 'linear-gradient(270deg, #ec4899, #8b5cf6, #ec4899)',
-    backgroundSize: '600% 600%',
-    animation: 'gradientShift 8s ease infinite',
-  }}
->
-  {t('common.search')}
-  <style jsx>{`
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleSearch}
+                  className="w-full font-semibold py-3 px-6 rounded-xl text-white transition-all duration-300 ease-in-out transform cursor-pointer shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 focus:ring-opacity-60"
+                  style={{
+                    background: 'linear-gradient(270deg, #ec4899, #8b5cf6, #ec4899)',
+                    backgroundSize: '600% 600%',
+                    animation: 'gradientShift 8s ease infinite',
+                  }}
+                >
+                  {t('common.search')}
+                  <style jsx>{`
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
   `}</style>
-</motion.button>
+                </motion.button>
 
 
               </div>
@@ -267,17 +267,17 @@ const HeroSection = ({ onSearch }) => {
                 <div className="flex flex-wrap gap-2">
                   {[t('home.restaurants'), t('home.events'), t('home.shopping')].map((filter) => (
                     <motion.button
-  whileHover={{ scale: 1.07 }}
-  whileTap={{ scale: 0.95 }}
-  key={filter}
-  onClick={() => {
-    setCategory(filter);
-    handleSearch();
-  }}
-  className="px-3 py-2 bg-white/20 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:text-white text-black/90 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer backdrop-blur-sm break-words shadow-sm hover:shadow-md"
->
-  {filter}
-</motion.button>
+                      whileHover={{ scale: 1.07 }}
+                      whileTap={{ scale: 0.95 }}
+                      key={filter}
+                      onClick={() => {
+                        setCategory(filter);
+                        handleSearch();
+                      }}
+                      className="px-3 py-2 bg-white/20 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:text-white text-black/90 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer backdrop-blur-sm break-words shadow-sm hover:shadow-md"
+                    >
+                      {filter}
+                    </motion.button>
 
                   ))}
 

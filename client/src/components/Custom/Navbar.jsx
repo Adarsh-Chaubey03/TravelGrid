@@ -65,7 +65,6 @@ const Navbar = () => {
         { label: "AI Mood Board", path: "/mood-board" },
         { label: "AI Travel Planner", path: "/ai-travel-planner" },
         { label: "Music", path: "/music" },
-        { label: "AR Travel Guide", path: "/ar-travel-guide" },
         { label: t("navigation.feedback"), path: "/feedback" },
       ],
     },

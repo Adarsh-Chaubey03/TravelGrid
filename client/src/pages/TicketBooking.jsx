@@ -3,6 +3,7 @@ import html2canvas from "html2canvas";
 import { HiLocationMarker } from "react-icons/hi";
 import CustomDropdown from "@/components/CustomDropdown";
 
+
 import jsPDF from "jspdf";
 import Navbar from "../components/Custom/Navbar";
 import { useTheme } from "../context/ThemeContext";
@@ -19,8 +20,11 @@ import {
 import toast from "react-hot-toast";
 import { TrainCard } from "@/components/ui/TrainCard";
 import { MessageDisplay } from "@/components/ui/MessageDisplay";
-require('dotenv').config();
-const port = process.env.PORT
+import { BusCard } from "@/components/ui/BusCard";
+import { FlightCard } from "@/components/ui/FlightCard";
+
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
  
 
@@ -74,6 +78,7 @@ function TicketBooking() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
+   const [results, setResults] = useState([]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -113,20 +118,35 @@ function TicketBooking() {
     setError(null);
     setHasSearched(true);
     setTrains([]); // Clear previous results
+let apiUrl;
 
-    const apiUrl = `http://localhost:${PORT}/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
 
+    
+if (travelType === 'train') {
+           apiUrl = `${backendUrl}/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
+        } else if (travelType === 'bus') {
+         
+            apiUrl = `${backendUrl}/api/buses/search?from=${form.from}&to=${form.to}`;
+        } else if(travelType === 'flight'){
+           apiUrl = `${backendUrl}/api/flights/search?from=${encodeURIComponent(form.from)}&to=${encodeURIComponent(form.to)}&date=${encodeURIComponent(form.date)}`;
+       
+
+        }else{
+            setError(`Search for ${travelType} is not implemented yet.`);
+            setIsLoading(false);
+            return;
+        }
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong!');
       }
-      setTrains(data);
+      setResults(data);
     } catch (err) {
       let errorMessage = 'An unknown error occurred.';
       if (err.message === 'Failed to fetch') {
-        errorMessage = 'backend file chaiye hota h laure';
+        errorMessage = 'Backend server is not running or unreachable.';
       } else {
         errorMessage = err.message;
       }
@@ -600,25 +620,59 @@ function TicketBooking() {
                 travelType.charAt(0).toUpperCase() + travelType.slice(1) + "s"}
             </button>
           </form>
-            {hasSearched && (
-          <section className="w-full max-w-6xl mx-auto p-4 md:p-8">
-            <h2 className="text-3xl font-bold text-white text-center mb-8">Available Trains</h2>
-            <div className="space-y-4">
-              {isLoading && <MessageDisplay message="Searching for trains..." />}
-              {error && <MessageDisplay message={error} type="error" />}
-              {!isLoading && !error && trains.length === 0 && (
-                <MessageDisplay message="No trains found for this route. Try another search." />
-              )}
-            
-            
-            </div>
-              <div className="h-96 overflow-y-auto space-y-4 p-1">
-            {trains.map((train) => (
-                <TrainCard key={train.trainNumber} train={train} />
-            ))}
-             </div>
-          </section>
+           {/* You need this map in your component for the labels to be dynamic */}
+
+
+  
+  {hasSearched && (
+    <section className="w-full max-w-6xl mx-auto p-4 md:p-8">
+      <h2 className="text-3xl font-bold text-white text-center mb-8">
+        {/* FIX 1: Dynamic Heading */}
+        Available {pluralMap[travelType] || 'Results'}
+      </h2>
+      
+      <div className="space-y-4">
+
+        {/* FIX 2: Dynamic Loading Message */}
+        {isLoading && (
+          <MessageDisplay message={`Searching for ${pluralMap[travelType].toLowerCase()}...`} />
         )}
+
+        {/* Error Message (no change needed) */}
+        {error && <MessageDisplay message={error} type="error" />}
+
+        {/* FIX 3 & 4: Check 'results.length' and dynamic "No results" message */}
+        {!isLoading && !error && (
+          <>
+            {results.length === 0 ? (
+              <MessageDisplay 
+                message={`No ${pluralMap[travelType].toLowerCase()} found for this route. Try another search.`} 
+              />
+            ) : (
+              // This is your results list
+              <div className="h-96 overflow-y-auto space-y-4 p-1">
+                {travelType === 'train' && results.map((train) => (
+                  <TrainCard key={train.trainNumber} train={train} />
+                ))}
+
+                {travelType === 'bus' && results.map((bus, index) => (
+                  <BusCard key={bus['Route No.'] || index} bus={bus} />
+                ))}
+
+                 {travelType === 'flight' && results.slice(0, 5).map((item, index) => (
+                    <FlightCard
+                        key={`flight-${item.airplane_number || index}`}
+                        flight={item}
+                    />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+        
+      </div>
+    </section>
+  )}
         </div>
       </main>
     </div>

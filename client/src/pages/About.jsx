@@ -17,6 +17,17 @@ import {
   Lightbulb
 } from "lucide-react";
 import GitHubStats from "./GitHubStats";
+import { BiSolidPlaneAlt } from "react-icons/bi";
+import { IoCarSportSharp } from "react-icons/io5";
+import { FaHotel } from "react-icons/fa";
+import { GiBookCover } from "react-icons/gi";
+import { LuNotebookPen } from "react-icons/lu";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { FaRecycle } from "react-icons/fa";
+import { BsLuggageFill } from "react-icons/bs";
+import { IoMusicalNotesSharp } from "react-icons/io5";
+import { GiSmartphone } from "react-icons/gi";
+import { PiIslandFill } from "react-icons/pi";
 
 function About() {
   const navigate = useNavigate();
@@ -57,28 +68,28 @@ function About() {
       title: "Travel Booking",
       description:
         "Easily book flights, trains, buses, and more with our intuitive booking system.",
-      icon: "✈️",
+      icon: <BiSolidPlaneAlt />,
       path: '/ticket'
     },
     {
       title: "Vehicle Rentals",
       description:
         "Rent or hire vehicles tailored to your travel needs, from cars to bikes.",
-      icon: "🚗",
+      icon: <IoCarSportSharp />,
       path: '/ticket'
     },
     {
       title: "Hotel Reservations",
       description:
         "Browse and book hotels based on your preferences and budget.",
-      icon: "🏨",
+      icon: <FaHotel />,
       path: '/hotel-booking'
     },
     {
       title: "Travel Guides",
       description:
         "Discover curated guides to plan your ideal trip with local insights.",
-      icon: "📖",
+      icon: <GiBookCover />,
       path: '/guides'
     },
 
@@ -86,53 +97,55 @@ function About() {
       title: "Essentials Chechlist",
       description:
         "Ensure you are not forgetting anything with our checklist feature.",
-      icon: "📋",
+      icon: <LuNotebookPen />,
       path: '/packing-checklist'
     },
     {
       title: "Expense Calculator",
       description:
         "We will manage all your expenses, be it solo travelling or a fun group trip. Just enter amount and number of people(for a group)",
-      icon: "💸",
+      icon: <RiMoneyRupeeCircleFill />,
       path: '/trip-calculator'
     },
     {
       title: "Currency converter",
       description:
         "With us you dont have to worry about currency, just enter amount and currency, and you'll get exact amount in requested currency.",
-      icon: "💱",
+      icon: <FaRecycle />,
       path: '/enhanced-currency'
     },
     {
       title: "Travel with music",
       description:
         "Travel the world listening to your favourite melodies with our wide categories of music.",
-      icon: "🎶",
+      icon: <IoMusicalNotesSharp />,
       path: '/music'
     },
     {
       title: "Travel Packages",
       description:
         "Choose pre-designed packages or customize your own adventure.",
-      icon: "🎒",
+      icon: <BsLuggageFill />,
       path: '/packages'
     },
     {
       title: "Responsive Design",
       description:
         "Enjoy a consistent experience across desktops, tablets, and mobile devices.",
-      icon: "📱",
+      icon: <GiSmartphone />,
       path: '/'
     },
     {
       title: "Trending Spots",
       description:
         "Find the places going viral right now—from hidden gems to must-see hotspots trending across the internet.",
-      icon: "🏝️",
+      icon: <PiIslandFill />,
       path: '/trending-spots'
     },
 
   ];
+  
+
 
   const techStack = [
     { name: "React.js", color: "bg-blue-500" },
@@ -640,11 +653,16 @@ function About() {
                   style={{ transformStyle: 'preserve-3d' }}>
                   {/* Front */}
                   <div className={`absolute inset-0 rounded-lg p-6 border transition-all duration-300 ${isDarkMode
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 group-hover:border-pink-400'
+                    ? 'bg-gradient-to-br from-gray-800 via-gray-900 to-gray-900 border-gray-700 group-hover:border-cyan-400'
+
                     : 'bg-gradient-to-br from-white to-pink-200 border-pink-600 group-hover:border-pink-300 shadow-xl shadow-gray-600'
                     }`}
                     style={{ backfaceVisibility: 'hidden' }}>
-                    <div className="text-4xl mb-4">{feature.icon}</div>
+                    {/* Icon with Circular Gradient BG */}
+                      <div className="w-14 h-14 flex items-center justify-center rounded-full mb-6 
+                        bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg shadow-purple-900/50  ">
+                         {React.cloneElement(feature.icon, { size: 32})}
+                      </div>
                     <h3 className={`text-xl font-bold mb-3 transition-all duration-300 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{feature.title}</h3>
                     <p className={`leading-relaxed transition-all duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{feature.description}</p>
                   </div>

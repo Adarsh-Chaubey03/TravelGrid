@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { useTranslation } from "react-i18next"; // <-- 1. Import
+import { useTranslation } from "react-i18next";
 import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
-// Footer component
 const Footer = () => {
-  const { t } = useTranslation(); // <-- 2. Initialize
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
   const { isDarkMode } = useTheme();
@@ -22,10 +21,7 @@ const Footer = () => {
 
   useEffect(() => {
     if (toast.show) {
-      const timer = setTimeout(() => {
-        hideToast();
-      }, 4000);
-
+      const timer = setTimeout(() => hideToast(), 4000);
       return () => clearTimeout(timer);
     }
   }, [toast.show]);
@@ -35,25 +31,22 @@ const Footer = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email || !emailRegex.test(email)) {
-      // 3. Use translated toast messages
+      // Use translated toast messages
       showToast(t("footer.toast.invalidEmail"), "error");
       return;
     }
 
-    // Simulated API call
     setTimeout(() => {
       console.log("Newsletter subscription:", email);
-      // 3. Use translated toast messages
+      // Use translated toast messages
       showToast(t("footer.toast.success"), "success");
       setEmail("");
     }, 500);
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // 4. Create the quick links array using 't'
+  // Create the quick links array using 't'
   const quickLinks = [
     { name: t("footer.quickLinks.home"), path: "/" },
     { name: t("footer.quickLinks.about"), path: "/about" },
@@ -65,15 +58,16 @@ const Footer = () => {
   return (
     <>
       <footer
-        className={`relative transition-all duration-300 ${isDarkMode
-          ? 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900'
-          : 'bg-gradient-to-br from-gray-900 to-pink-900'
-          }`}
+        className={`relative transition-all duration-300 ${
+          isDarkMode
+            ? "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900"
+            : "bg-gradient-to-br from-gray-900 to-pink-900"
+        }`}
       >
         <div className="relative z-10">
           <div className="container mx-auto px-4 pt-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
-              {/* Logo & Description */}
+              {/* Logo & Description / Social */}
               <div className="space-y-6">
                 <div className="flex items-center space-x-3">
                   <img
@@ -86,11 +80,11 @@ const Footer = () => {
                     TravelGrid
                   </h3>
                 </div>
-                {/* 5. Translate all text content */}
+                {/* Translate description */}
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {t("footer.description")}
                 </p>
-                {/* Social Media Links */}
+                {/* Social Media Links - Kept consistent from 'main' */}
                 <div className="flex space-x-4">
                   <a
                     href="https://twitter.com/yourusername"
@@ -166,13 +160,21 @@ const Footer = () => {
                   {t("footer.contactInfo.title")}
                 </h4>
                 <div className="space-y-4 flex flex-col justify-center items-left">
-                  {/* ... (Address Icon) ... */}
+                  {/* Address */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /> </svg>
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
                     </div>
                     <div>
-                      <a href="https://www.google.com/maps?q=123+Travel+Street,+Adventure+City,+AC+12345" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm hover:underline block">
+                      <a
+                        href="https://www.google.com/maps?q=123+Travel+Street,+Adventure+City,+AC+12345"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-300 text-sm hover:underline block"
+                      >
                         {t("footer.contactInfo.addressLine1")}
                         <br />
                         {t("footer.contactInfo.addressLine2")}
@@ -180,10 +182,12 @@ const Footer = () => {
                     </div>
                   </div>
 
-                  {/* ... (Phone Icon) ... */}
+                  {/* Phone */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /> </svg>
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
                     </div>
                     <div>
                       <a href="tel:+15551234567" className="text-gray-300 text-sm">
@@ -193,16 +197,24 @@ const Footer = () => {
                     </div>
                   </div>
 
-                  {/* ... (Email Icon) ... */}
+                  {/* Email */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> </svg>
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
                     </div>
                     <div>
-                      <a href="mailto:hello@travelgrid.com" className="text-gray-300 text-sm hover:underline block">
+                      <a
+                        href="mailto:hello@travelgrid.com"
+                        className="text-gray-300 text-sm hover:underline block"
+                      >
                         hello@travelgrid.com
                       </a>
-                      <a href="mailto:support@travelgrid.com" className="text-gray-300 text-sm hover:underline block">
+                      <a
+                        href="mailto:support@travelgrid.com"
+                        className="text-gray-300 text-sm hover:underline block"
+                      >
                         support@travelgrid.com
                       </a>
                     </div>
@@ -217,7 +229,6 @@ const Footer = () => {
                 </h4>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {t("footer.newsletter.description")}
-                  Your next adventure starts here! Get insider travel tips, secret destinations, and exclusive offers right in your inbox.
                 </p>
                 <form onSubmit={handleNewsletterSubmit} className="space-y-4">
                   <div className="relative">
@@ -226,39 +237,39 @@ const Footer = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={t("footer.newsletter.placeholder")}
-                      className={`w-full px-4 py-3 border rounded-l focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm transition-all duration-300 ${isDarkMode
-                        ? " text-white placeholder-gray-400 bg-zinc-800 border-slate-600"
-                        : "text-black placeholder-gray-700 bg-gray-50 border-gray-600"
-                        }`}
+                      className={`w-full px-4 py-3 border rounded-l focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm transition-all duration-300 ${
+                        isDarkMode
+                          ? " text-white placeholder-gray-400 bg-zinc-800 border-slate-600"
+                          : "text-black placeholder-gray-700 bg-gray-50 border-gray-600"
+                      }`}
                       required
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      {/* Envelope icon */}
+                      {/* Envelope icon placeholder - can be added here */}
                     </div>
                   </div>
                   <button
-                    aria-label="Search"
                     type="submit"
-                    className={`w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-pink-400 hover:to-purple-600 ${isDarkMode ? "text-white" : "text-black"
-                      } py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300`}
+                    aria-label={t("footer.newsletter.subscribeButton")}
+                    className={`w-full bg-gradient-to-r from-pink-300 to-purple-700 hover:from-pink-400 hover:to-purple-600 ${
+                      isDarkMode ? "text-white" : "text-black"
+                    } py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 transition-all duration-300`}
                   >
                     <span>{t("footer.newsletter.subscribeButton")}</span>
-                    {/* Send icon */}
+                    {/* Send icon placeholder - can be added here */}
                   </button>
                 </form>
                 <div className={`text-xs text-white text-center`}>
                   {t("footer.newsletter.privacy")}
-Keep exploring with us — unsubscribe only if you ever stop dreaming!
-
-
                 </div>
               </div>
             </div>
 
             {/* Bottom Section */}
             <div
-              className={`border-t border-gray-700 mt-12 py-6 ${isDarkMode ? "text-gray-400" : "text-white"
-                }`}
+              className={`border-t border-gray-700 mt-12 py-6 ${
+                isDarkMode ? "text-gray-400" : "text-white"
+              }`}
             >
               <div className="flex flex-col md:flex-row justify-center items-center text-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
@@ -319,38 +330,56 @@ Keep exploring with us — unsubscribe only if you ever stop dreaming!
       {toast.show && (
         <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2 duration-300">
           <div
-            className={`max-w-sm w-full rounded-lg shadow-xl border-l-4 p-4 flex items-center space-x-3 transition-all duration-300 ${isDarkMode
-              ? "bg-slate-800 text-white border-slate-600"
-              : "bg-white text-gray-900 border-gray-200"
-              } ${toast.type === "success"
+            className={`max-w-sm w-full rounded-lg shadow-xl border-l-4 p-4 flex items-center space-x-3 transition-all duration-300 ${
+              isDarkMode
+                ? "bg-slate-800 text-white border-slate-600"
+                : "bg-white text-gray-900 border-gray-200"
+            } ${
+              toast.type === "success"
                 ? "border-green-500"
                 : "border-red-500"
-              }`}
+            }`}
           >
-            {/* ... (Toast icons) ... */}
             <div className="flex-shrink-0">
               {toast.type === "success" ? (
-                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"> <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /> </svg>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               ) : (
-                <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"> <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /> </svg>
+                <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               )}
             </div>
             <div className="flex-1">
               <p
-                className={`text-sm font-medium ${toast.type === "success"
-                  ? "text-green-400"
-                  : "text-red-400"
-                  }`}
+                className={`text-sm font-medium ${
+                  toast.type === "success" ? "text-green-400" : "text-red-400"
+                }`}
               >
                 {toast.message}
               </p>
             </div>
             <button
-              aria-label="Search"
+              aria-label="Close toast notification"
               onClick={hideToast}
               className="text-gray-400 hover:text-white transition-colors"
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"> <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /> </svg>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
           </div>
         </div>

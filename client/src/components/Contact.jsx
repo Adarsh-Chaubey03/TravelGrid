@@ -61,7 +61,7 @@ const Contact = () => {
       icon: LuMail,
       title: "Travel Inquiries",
       info: "hello@travelgrid.com",
-      link: "mailto:hello@travelgrid.com",
+      link: `mailto:hello@travelgrid.com?subject=Travel%20Inquiry&body=Hi%20TravelGrid,%0D%0A%0D%0AI%20would%20like%20to%20inquire%20about...`,
       sub: "Response within 2 hours",
       iconBg: "from-blue-500 to-cyan-600",
     },
@@ -159,12 +159,13 @@ const Contact = () => {
             <div className="space-y-8">
               {contactCards.map((card, index) => {
                 const Icon = card.icon;
+                const isMail = card.link.startsWith("mailto:");
+
                 return (
                   <motion.a
                     key={index}
                     href={card.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(!isMail && { target: "_blank", rel: "noopener noreferrer" })}
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     className={`flex items-start p-6 rounded-2xl transition-all duration-300 border group ${
@@ -179,21 +180,13 @@ const Contact = () => {
                       <Icon size={30} strokeWidth={2.5} />
                     </div>
                     <div>
-                      <h4
-                        className={`font-extrabold text-xl mb-1 ${
-                          isDarkMode ? "text-white" : "text-gray-900"
-                        }`}
-                      >
+                      <h4 className={`font-extrabold text-xl mb-1 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
                         {card.title}
                       </h4>
                       <p className="text-pink-500 font-medium text-lg group-hover:underline">
                         {card.info}
                       </p>
-                      <p
-                        className={`text-sm mt-1 ${
-                          isDarkMode ? "text-gray-400" : "text-gray-600"
-                        }`}
-                      >
+                      <p className={`text-sm mt-1 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                         {card.sub}
                       </p>
                     </div>
@@ -243,11 +236,7 @@ const Contact = () => {
                   <h3 className="text-3xl font-extrabold text-green-500 mb-4">
                     Message Sent Successfully!
                   </h3>
-                  <p
-                    className={`text-lg ${
-                      isDarkMode ? "text-gray-300" : "text-gray-600"
-                    }`}
-                  >
+                  <p className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
                     Our travel experts will get back to you within 24 hours.
                   </p>
                 </motion.div>

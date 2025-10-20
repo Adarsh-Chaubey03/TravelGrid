@@ -56,9 +56,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           
           {/* Contact Info */}
-          <div className={`rounded-2xl shadow-2xl p-8 ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
-          }`}>
+          <div className={`rounded-2xl shadow-2xl p-8 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
             <h3 className={`text-2xl font-bold mb-8 text-center`}>Contact Information</h3>
             <div className="space-y-6">
               {contactCards.map((card, index) => {
@@ -78,27 +76,28 @@ const Contact = () => {
                   </div>
                 );
 
-                // If card has link (WhatsApp or Email), wrap with <a>
-                return link ? (
-                  <a key={index} href={link} target="_blank" rel="noopener noreferrer" className="block">
-                    {content}
-                  </a>
-                ) : (
-                  <div key={index}>{content}</div>
-                );
+                if (link) {
+                  const isMail = link.startsWith('mailto:');
+                  return (
+                    <a
+                      key={index}
+                      href={link}
+                      {...(!isMail && { target: "_blank", rel: "noopener noreferrer" })}
+                      className="block"
+                    >
+                      {content}
+                    </a>
+                  );
+                }
+
+                return <div key={index}>{content}</div>;
               })}
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className={`rounded-2xl shadow-2xl p-8 border ${
-            isDarkMode 
-              ? 'bg-gray-800 border-gray-600' 
-              : 'bg-gradient-to-br from-pink-50 to-rose-50 border-pink-100'
-          }`}>
-            <h2 className={`text-2xl font-bold mb-8 text-center ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>Send us a Message</h2>
+          <div className={`rounded-2xl shadow-2xl p-8 border ${isDarkMode ? 'bg-gray-800 border-gray-600' : 'bg-gradient-to-br from-pink-50 to-rose-50 border-pink-100'}`}>
+            <h2 className={`text-2xl font-bold mb-8 text-center ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Send us a Message</h2>
             
             {isSubmitted ? (
               <div className="text-center py-12">
@@ -113,20 +112,14 @@ const Contact = () => {
                   { name: 'message', type: 'textarea', placeholder: 'Tell us about your dream destination...', label: 'Message' }
                 ].map((field, index) => (
                   <div key={index}>
-                    <label className={`block text-sm font-semibold mb-2 ${
-                      isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                    }`}>{field.label}</label>
+                    <label className={`block text-sm font-semibold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{field.label}</label>
                     {field.type === 'textarea' ? (
                       <textarea
                         name={field.name}
                         rows="6"
                         value={formData[field.name]}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none resize-none ${
-                          isDarkMode 
-                            ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' 
-                            : 'bg-white border-pink-200'
-                        }`}
+                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none resize-none ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' : 'bg-white border-pink-200'}`}
                         placeholder={field.placeholder}
                         required
                       />
@@ -136,11 +129,7 @@ const Contact = () => {
                         name={field.name}
                         value={formData[field.name]}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none ${
-                          isDarkMode 
-                            ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' 
-                            : 'bg-white border-pink-200'
-                        }`}
+                        className={`w-full px-4 py-3 border-2 rounded-xl focus:border-pink-400 focus:ring-4 focus:ring-pink-100 transition-all outline-none ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white focus:ring-pink-900' : 'bg-white border-pink-200'}`}
                         placeholder={field.placeholder}
                         required
                       />
@@ -164,5 +153,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-

@@ -246,6 +246,154 @@ app.get('/api/trains/search', async (req, res) => {
     }
 });
 
+
+
+// --- BUS SEARCH ENDPOINT (Using data.gov.in) ---
+app.get('/api/buses/search', async (req, res) => {
+    let { from, to } = req.query;
+    
+    console.log(`Filtering for From: "${from}", To: "${to}"`); // <-- Add this
+   
+
+    if (!from || !to) {
+        return res.status(400).json({ message: 'Missing required query parameters: from, to' });
+    }
+
+   
+    const dataGovResourceUrl = 'https://api.data.gov.in/resource/1f10d3eb-a425-4246-8800-3f72bf7ad2b0';
+    
+   
+    
+    let totalRecords = 0;
+    try {
+        const countResponse = await axios.get(dataGovResourceUrl, {
+            params: {
+                'api-key': process.env.DATA_GOV_API_KEY,
+                'format': 'json',
+                'limit': 1
+            }
+        });
+        totalRecords = countResponse.data.total;
+    } catch (error) {
+        console.error("Error fetching bus data count:", error.message);
+        return res.status(500).json({ message: 'Failed to fetch bus data count.' });
+    }
+
+    if (totalRecords === 0) {
+        return res.status(200).json([]);
+    }
+
+    console.log(`Fetching ${totalRecords} bus records from data.gov.in...`);
+
+   
+    try {
+        const response = await axios.get(dataGovResourceUrl, {
+            params: {
+                'api-key': process.env.DATA_GOV_API_KEY,
+                'format': 'json',
+                'limit': totalRecords
+            }
+        });
+        
+        const allBuses = response.data.records;
+       
+        const filteredBuses = allBuses.filter(bus => 
+            bus.from?.toLowerCase().includes(from.toLowerCase()) &&
+            bus.to?.toLowerCase().includes(to.toLowerCase())
+        );
+
+        console.log(`Found ${filteredBuses.length} matching buses.`);
+        res.status(200).json(filteredBuses);
+
+    } catch (error) {
+        console.error("\n--- ERROR FETCHING FROM DATA.GOV.IN ---");
+        if (error.response) {
+            console.error("Status:", error.response.status);
+            console.error("Data:", error.response.data);
+        } else {
+            console.error('General Error:', error.message);
+        }
+        res.status(500).json({ 
+            message: 'Failed to fetch bus data from data.gov.in.',
+            error: error.message 
+        });
+    }
+});
+
+
+// ---  FLIGHT SEARCH ENDPOINT  ---
+app.get('/api/flights/search', async (req, res) => {
+    let { from, to, date } = req.query;
+    
+    console.log(`Searching FLIGHTS from ${from} to ${to}, ignoring date: ${date}`);
+
+    if (!from || !to || !date) {
+        return res.status(400).json({ message: 'Missing required query parameters: from (IATA code), to (IATA code), date (YYYY-MM-DD)' });
+    }
+
+    const apiKey = process.env.AVIATION_API_KEY;
+    if (!apiKey) {
+        console.error("AVIATION_API_KEY is not set in environment variables.");
+        return res.status(500).json({ message: 'Server configuration error: Flight API key missing.' });
+    }
+
+    const aviationStackApiUrl = 'http://api.aviationstack.com/v1/flights';
+
+    const params = {
+        access_key: apiKey,
+        limit: 100
+    };
+    
+    console.log("Attempting to fetch latest FLIGHT data from AviationStack...");
+    try {
+        const response = await axios.get(aviationStackApiUrl, { params });
+
+      
+        // console.log("Full API Response:", JSON.stringify(response.data, null, 2));
+
+
+        if (response.data && Array.isArray(response.data.data)) {
+            console.log(`Received ${response.data.data.length} flights, now filtering...`);
+            
+            const allFlights = response.data.data;
+            const fromIata = from.toUpperCase();
+            const toIata = to.toUpperCase();
+
+            //Filtered the response
+            const filteredFlights = allFlights.filter(flight => {
+                const departureMatch = flight.departure?.iata === fromIata;
+                const arrivalMatch = flight.arrival?.iata === toIata;
+               
+                
+                return departureMatch && arrivalMatch;
+            });
+           
+
+            console.log(`Found ${filteredFlights.length} flights matching criteria. Sending to frontend.`);
+            res.status(200).json(allFlights);
+
+        } else {
+            console.log("No flight data found or unexpected format:", response.data);
+            res.status(200).json([]);
+        }
+
+    } catch (error) {
+        console.error("\n--- ERROR FETCHING FLIGHT DATA ---");
+        const status = error.response?.status || 500;
+        let message = 'Failed to fetch flight data.';
+        if (error.response?.data?.error?.message) {
+            message = error.response.data.error.message;
+            console.error("AviationStack Error:", error.response.data.error);
+        } else if (error.response?.data) {
+             console.error("Data:", error.response.data);
+        } else {
+             console.error('General Error:', error.message);
+        }
+        res.status(status).json({ message, error: error.message });
+    }
+});
+
+
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {

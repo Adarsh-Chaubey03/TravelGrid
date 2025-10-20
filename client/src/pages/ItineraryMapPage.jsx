@@ -59,7 +59,7 @@ const TravelItineraryPage = () => {
       }`}
     >
       {/* Title */}
-      <h2 className="text-3xl font-bold mt-12 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500 dark:from-pink-400 dark:to-purple-500">
+      <h2 className="text-3xl font-bold mt-20 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-rose-500 dark:from-pink-400 dark:to-purple-500">
         🗺️ Itinerary Stops
       </h2>
 
@@ -80,7 +80,7 @@ const TravelItineraryPage = () => {
               placeholder="Location name"
               value={stop.name}
               onChange={(e) => updateStop(idx, { ...stop, name: e.target.value })}
-              className={`p-2 rounded-md border focus:outline-none ${
+              className={`p-2 rounded-md border focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 ${
                 isDarkMode
                   ? "border-gray-600 bg-gray-700 text-white"
                   : "border-purple-300 bg-white text-gray-900"
@@ -92,7 +92,7 @@ const TravelItineraryPage = () => {
                 placeholder="Lat"
                 value={stop.lat}
                 onChange={(e) => updateStop(idx, { ...stop, lat: parseFloat(e.target.value) })}
-                className={`p-2 rounded-md border focus:outline-none flex-1 ${
+                className={`p-2 rounded-md border focus:outline-none flex-1 focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 ${
                   isDarkMode
                     ? "border-gray-600 bg-gray-700 text-white"
                     : "border-purple-300 bg-white text-gray-900"
@@ -103,7 +103,7 @@ const TravelItineraryPage = () => {
                 placeholder="Lng"
                 value={stop.lng}
                 onChange={(e) => updateStop(idx, { ...stop, lng: parseFloat(e.target.value) })}
-                className={`p-2 rounded-md border focus:outline-none flex-1 ${
+                className={`p-2 rounded-md border focus:outline-none flex-1 focus:border-pink-400 focus:ring-4 focus:ring-pink-500/20 ${
                   isDarkMode
                     ? "border-gray-600 bg-gray-700 text-white"
                     : "border-purple-300 bg-white text-gray-900"
@@ -127,7 +127,7 @@ const TravelItineraryPage = () => {
       </div>
 
       {/* Map */}
-      <div className="w-full max-w-5xl h-[400px] rounded-lg shadow-lg mb-6">
+      <div className="w-full max-w-3xl h-[400px] rounded-lg shadow-lg mb-6">
         <MapContainer
           center={stops[0] ? [stops[0].lat, stops[0].lng] : [0, 0]}
           zoom={5}

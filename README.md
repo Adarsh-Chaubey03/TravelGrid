@@ -1,128 +1,255 @@
-# TravelGrid 🌍✈️
+# 🌍 TravelGrid
 
-Welcome to **TravelGrid**, an open-source travel planning platform developed as part of GirlScript Summer of Code (GSSoC) 2025. Our platform enables users to plan and book trips including flights, hotels, vehicles, and travel guides. We feature customizable travel packages and an AI-powered travel companion chatbot for personalized trip planning, itinerary creation, music recommendations, and budget tracking.
+[🚀 Live Demo](https://travel-grid.vercel.app/) | [📂 GitHub Repository](https://github.com/Adarsh-Chaubey03/TravelGrid)
 
-## 🚀 Features
+**TravelGrid** is a comprehensive, user-friendly travel platform that empowers users to effortlessly plan and book their entire trip in one place. From booking ✈️ flights and renting 🚗 vehicles to reserving 🏨 hotels and exploring detailed 📚 travel guides, TravelGrid offers customizable travel packages tailored to individual preferences—making travel planning seamless and enjoyable.
 
-### 🤖 AI Travel Companion
-- Natural language chatbot for trip planning
-- Itinerary generation with personalized recommendations
-- Destination discovery with real-time information
-- Music and budget recommendations
+---
 
-### 📅 Trip Planning & Booking
-- Flight, hotel, vehicle, and package bookings
-- Customizable travel packages
-- Interactive maps with route planning
 
-### 👥 Social & Community Features
-- Forum posts and reviews
-- Saved items and personalized profiles
-- **Real-time Collaborative Trip Planning** (NEW!)
+## 📖 Project Overview
 
-### 🛠️ Travel Tools
-- Currency converter with wallet functionality
-- Language translation
-- Search functionality across destinations
-- Packing checklist and expense calculator
+TravelGrid is an open-source initiative proudly participating in **GirlScript Summer of Code (GSSoC) 2025**, one of India's premier open-source mentorship programs. 🌟 GSSoC nurtures aspiring developers by providing real-world project experience, expert guidance, and community collaboration opportunities.
 
-### 🎨 Personalization
-- Mood board creation with image uploads
-- Music playlist integration (Spotify)
-- Customizable themes and preferences
+By contributing to TravelGrid, developers can:
 
-## 🌟 New Feature: Real-time Collaborative Trip Planning
+- 🚀 Enhance their development skills with hands-on experience
+- 🤝 Collaborate with a vibrant, supportive community
+- 🌟 Make meaningful impacts on a project designed to simplify and elevate the travel experience for users worldwide
 
-We've implemented real-time collaborative trip planning with WebSocket integration, allowing multiple users to simultaneously work on the same trip itinerary. This feature includes:
+---
 
-- Real-time synchronization of trip changes
-- Cursor tracking showing collaborators' positions
-- In-app chat for team communication
-- Role-based access control
-- Shareable collaboration links
+### Project Insights
 
-For detailed technical implementation, see [COLLABORATIVE_TRIP_PLANNING.md](COLLABORATIVE_TRIP_PLANNING.md).
+| Stars | Forks | Issues | Open PRs | Closed PRs | Languages | Contributors |
+|-------|-------|--------|----------|------------|-----------|--------------|
+| ![Stars](https://img.shields.io/github/stars/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Forks](https://img.shields.io/github/forks/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Issues](https://img.shields.io/github/issues/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Open PRs](https://img.shields.io/github/issues-pr/Adarsh-Chaubey03/TravelGrid?style=flat&logo=github) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/Adarsh-Chaubey03/TravelGrid?style=flat&color=critical&logo=github) | ![Languages](https://img.shields.io/github/languages/count/Adarsh-Chaubey03/TravelGrid?style=flat&color=green&logo=github) | ![Contributors](https://img.shields.io/github/contributors/Adarsh-Chaubey03/TravelGrid?style=flat&color=blue&logo=github) |
 
-## 🛠️ Tech Stack
+## Getting Started
 
-### Frontend
-- React + Vite
-- Tailwind CSS for styling
-- Socket.IO Client for real-time communication
+Follow these steps to set up **TravelGrid** locally and contribute to the project.
 
-### Backend
-- Node.js with Express
-- MongoDB for data storage
-- Socket.IO for WebSocket communication
+### 🛠️ Prerequisites
 
-### Additional Libraries
-- Leaflet Routing Machine for maps
-- react-countup for animations
-- @emailjs/browser for email services
-- world-countries for country data
+Before getting started, make sure you have the following installed on your system:
 
-## 📦 Installation
+- **Node.js** (v16 or higher)
+- **npm** or **yarn**
+- **Git**
+- Code editor (VS Code recommended)
 
-### Prerequisites
-- Node.js (v16+)
-- npm/yarn
-- MongoDB
+### Installation
 
-### Environment Setup
-1. Clone the repository:
+1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/Adarsh-Chaubey03/TravelGrid.git
+   cd TravelGrid
    ```
 
-2. Install server dependencies:
+2. **Install Frontend Dependencies**
+
    ```bash
-   cd Server
+   cd client
    npm install
    ```
 
-3. Install client dependencies:
+   > **Note**: If you encounter npm WARN deprecated or peer dependency errors, run:
+   > ```bash
+   > npm install --legacy-peer-deps
+   > ```
+
+3. **Install Backend Dependencies**
+
    ```bash
-   cd ../client
+   cd ../server
    npm install
    ```
 
-### Environment Variables
-Create a `.env` file in the Server directory with the following variables:
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-EMAIL_USER=your_email
-EMAIL_PASS=your_email_password
-```
+   > **Note**: Ensure you are in the `server` folder. If you encounter an `ENOENT: no such file or directory` error, verify the folder structure.
 
-## ▶️ Running the Application
+### Running the Application
 
-### Start the Backend Server
+1. **Start the Backend Server**
+
+   ```bash
+   cd server
+   npm start
+   ```
+
+   The server will run on `http://localhost:5000`.
+
+2. **Start the Frontend**
+
+   In a new terminal:
+
+   ```bash
+   cd client
+   npm run dev
+   ```
+
+   The client will run on `http://localhost:5173`.
+
+### 🛠️ Troubleshooting
+
+| Issue                         | Solution                                                                                          |
+|-------------------------------|-------------------------------------------------------------------------------------------------|
+| ❌ `npm ERR! enoent`           | Make sure you're in the correct folder (`client` or `server`) before running `npm install`.     |
+| ⚠️ Port already in use         | Close other applications using the port or change the port number in `vite.config.js` or backend server config. |
+| 📦 Dependency errors           | Run `npm install --legacy-peer-deps` in the frontend directory to resolve peer dependency conflicts. |
+| 🚫 Server not starting         | Verify your `.env` file has the correct MongoDB URI and port configurations.                     |
+
+
+## 🤝 Contributing to TravelGrid
+
+We warmly welcome contributions to make **TravelGrid** even better! To maintain quality and collaboration, please follow these guidelines:
+
+1. **🔍 Pick an Issue**  
+   Choose an unassigned issue from the repository or propose a new one. Please wait for admin approval before you start working.
+
+2. **📱 Responsive Design**  
+   Use **Tailwind CSS** to ensure all components are fully responsive across devices.
+
+3. **🧹 Code Quality**  
+   Write clean, modular, and reusable code inside the `src/components/` directory. Make sure your code adheres to our **ESLint** and **Prettier** formatting standards.
+
+4. **📤 Pull Requests (PRs)**  
+   - Work on a specific issue.  
+   - Test your changes thoroughly.  
+   - Provide a clear, descriptive PR message explaining your changes.  
+   - PRs with bugs or incomplete features will not be merged.
+
+5. **💬 Communication**  
+   Have questions or need help? Reach out to the project admin:  
+   - **GitHub**: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)  
+   - **LinkedIn**: [Adarsh Chaubey](https://www.linkedin.com/in/adarsh-chaubey/)
+
+Thank you for contributing and helping build an amazing travel platform! 🚀
+
+
+6. **Task Assignment**: Task assignments and PR reviews are conducted daily from 6:00 PM to 7:00 PM IST.
+
+## Project Structure
+
 ```bash
-cd Server
-npm start
+TravelGrid/
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   ├── .gitignore
+│   ├── package.json
+│   ├── README.md
+│   ├── vite.config.js
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── index.js
+│   ├── .env
+│   ├── README.md
+├── .gitignore
+├── LICENSE
+├── README.md
 ```
 
-### Start the Frontend Development Server
-```bash
-cd client
-npm run dev
-```
+## 🤖 AI-Powered Travel Companion
 
-The application will be available at:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
+TravelGrid now features an **AI-Powered Travel Companion Chatbot** that helps users plan trips, find destinations, create itineraries, recommend music, and more! This intelligent assistant integrates with all existing platform features to provide a personalized travel planning experience.
 
-## 🤝 Contributing
+### Key Features
+- **Intelligent Conversational Interface**: Natural language processing for travel queries
+- **Itinerary Creation**: Generate detailed travel itineraries based on user preferences
+- **Package Recommendations**: Find travel packages matching user interests
+- **Destination Discovery**: Provide information about places to visit
+- **Music Recommendations**: Suggest travel playlists based on mood and destination
+- **Budget Planning**: Assist with currency conversion and expense tracking
 
-We welcome contributions from the community! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+### Technical Details
+For implementation details, see [AI_TRAVEL_COMPANION_IMPLEMENTATION.md](./AI_TRAVEL_COMPANION_IMPLEMENTATION.md)
 
-## 📄 License
+## Code of Conduct
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Refer to the [Code of Conduct](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CODE_OF_CONDUCT.md) for contributing guidelines and community standards.
 
-## 🙏 Acknowledgments
+## Contribution Guidelines
 
-- Developed as part of GirlScript Summer of Code (GSSoC) 2025
-- Thanks to all contributors and maintainers
+Detailed contribution guidelines are available in the [CONTRIBUTE.md](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/CONTRIBUTE.md) file (coming soon).
+
+---
+## 🌟GSSoc 
+![GSSoC Logo](https://github.com/dimpal-yadav/TravelGrid/blob/main/GirlScript-Summer-of-Code.png)
+🌟 **Exciting News...**
+
+🚀 This project is now an official part of GirlScript Summer of Code – GSSoC'25! 💃🎉💻 We're thrilled to welcome contributors from all over India and beyond to collaborate, build, and grow *TravelGrid!* Let's make learning and career development smarter – together! 🌟👨‍💻👩‍💻
+
+👩‍💻 GSSoC is one of India's **largest 3-month-long open-source programs** that encourages developers of all levels to contribute to real-world projects 🌍 while learning, collaborating, and growing together. 🌱
+
+🌈 With **mentorship, community support**, and **collaborative coding**, it's the perfect platform for developers to:
+
+- ✨ Improve their skills
+- 🤝 Contribute to impactful projects
+- 🏆 Get recognized for their work
+- 📜 Receive certificates and swag!
+
+🎉 **I can't wait to welcome new contributors** from GSSoC 2025 to this TravelGrid project family! Let's build, learn, and grow together — one commit at a time. 🔥👨‍💻👩‍💻
+
+## 🏆 **GSSoC 2025 Guidelines**
+
+### 📋 **For Participants**
+#### ✅ **Do's**
+- ✅ **Read documentation** thoroughly before contributing
+- ✅ **Follow code style** and project structure
+- ✅ **Write descriptive** commit messages
+- ✅ **Test your changes** before submitting PR
+- ✅ **Be respectful** and collaborative
+- ✅ **Ask questions** if you're unsure about anything
+  
+#### ❌ **Don'ts**
+- ❌ **Don't spam** with multiple PRs for same issue
+- ❌ **Don't copy code** without understanding
+- ❌ **Don't make unnecessary** changes
+- ❌ **Don't ignore** code review feedback
+- ❌ **Don't forget** to update documentation when needed
+  
+### 🎯 **Contribution Levels**
+| Level | Description | Points | Badge |
+|-------|-------------|--------|-------|
+| 🥉 **Beginner** | Fix typos, update docs, minor bug fixes | 3 | ![1](https://img.shields.io/badge/Level-1-green) |
+| 🥈 **Intermediate** | Add features, improve UI/UX, performance | 7 | ![2](https://img.shields.io/badge/Level-2-blue) |
+| 🥇 **Advanced** | Major features, architecture improvements | 10 | ![3](https://img.shields.io/badge/Level-3-red) |
+---
+
+## Contributors
+
+View the full list of contributors on the [GitHub Contributors Graph](https://github.com/Adarsh-Chaubey03/TravelGrid/graphs/contributors).
+
+## Suggestions & Feedback
+
+Submit feedback, feature suggestions, or collaboration ideas by opening an issue or discussion on the [GitHub repository](https://github.com/Adarsh-Chaubey03/TravelGrid/issues).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/LICENSE) file for details.
+
+## ✨ Contributors
+
+#### Thanks to all the wonderful contributors 💖
+[![Contributors](https://contrib.rocks/image?repo=Adarsh-Chaubey03/TravelGrid)](https://github.com/Adarsh-Chaubey03/TravelGrid/graphs/contributors)
+
+
+## 👤 Project Admin
+
+| Name           | Profile                                                                                   |
+|----------------|-------------------------------------------------------------------------------------------|
+| Adarsh Chaubey | [🔗 GitHub](https://github.com/Adarsh-Chaubey03) \| [🔗 LinkedIn](https://www.linkedin.com/in/adarsh-chaubey/) |
+
+## Support
+
+If you find this project valuable, please star the repository on [GitHub](https://github.com/Adarsh-Chaubey03/TravelGrid) to support its development.

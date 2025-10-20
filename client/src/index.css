@@ -92,7 +92,7 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
+  background: #8080802d;
 }
 
 /* Add to your global CSS */

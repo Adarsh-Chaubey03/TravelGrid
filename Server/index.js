@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan';
 import dotenv from 'dotenv'
+import axios from 'axios'
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
@@ -174,6 +175,79 @@ app.use((err, req, res, next) => {
     const message = status === 500 ? 'Internal Server Error' : err.message;
     res.status(status).json({ message });
 
+});
+
+//API For Train Search 
+
+app.get('/api/trains/search', async (req, res) => {
+    const { from, to, date, passengers, cabin } = req.query;
+
+    
+    if (!from || !to || !date) {
+        return res.status(400).json({ message: 'Missing required query parameters: from, to, date' });
+    }
+    const [year, month, day] = date.split('-');
+    const formattedDate = `${day}-${month}-${year}`; 
+   
+    console.log(`[DEBUG] Received search request with params:`, { from, to, date, passengers, cabin });
+    console.log(`[DEBUG] Original date: ${date}, Reformatted to: ${formattedDate}`);
+
+    
+    const options = {
+        method: 'GET',
+        url: 'https://irctc-api2.p.rapidapi.com/trainAvailability',
+      
+        params: {
+            source: from,
+            destination: to,
+            date: formattedDate 
+        },
+        headers: {
+           
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+        
+            'X-RapidAPI-Host': 'irctc-api2.p.rapidapi.com'
+        }
+    };
+
+    console.log("Attempting to fetch from RapidAPI with the following options:");
+   
+    console.log({
+        url: options.url,
+        params: options.params,
+        host: options.headers['X-RapidAPI-Host']
+    });
+
+   
+    try {
+      
+        const response = await axios.request(options);
+    
+        if (response.data && Array.isArray(response.data.data)) {
+           
+            res.status(200).json(response.data.data);
+        } else {
+           
+            res.status(200).json([]);
+        }
+
+    } catch (error) {
+        console.error("\n--- ERROR FETCHING FROM RAPIDAPI ---");
+        if (error.response) {
+            console.error("Status:", error.response.status);
+            console.error("Data:", error.response.data);
+            console.error("Headers:", error.response.headers);
+        } else if (error.request) {
+            console.error("Request Error:", error.request);
+        } else {
+            console.error('General Error:', error.message);
+        }
+        console.error("--- END OF ERROR ---");
+        res.status(500).json({ 
+            message: 'Failed to fetch train data from the external API.',
+            error: error.message 
+        });
+    }
 });
 
 // Initialize Socket.IO

@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { TrainCard } from "@/components/ui/TrainCard";
 import { MessageDisplay } from "@/components/ui/MessageDisplay";
 import { BusCard } from "@/components/ui/BusCard";
+import { FlightCard } from "@/components/ui/FlightCard";
 
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -124,9 +125,13 @@ let apiUrl;
 if (travelType === 'train') {
            apiUrl = `${backendUrl}/api/trains/search?from=${form.from}&to=${form.to}&date=${form.depart}`;
         } else if (travelType === 'bus') {
-            // Note: 'date' is not used for the bus API as it's static data
+         
             apiUrl = `${backendUrl}/api/buses/search?from=${form.from}&to=${form.to}`;
-        } else {
+        } else if(travelType === 'flight'){
+           apiUrl = `${backendUrl}/api/flights/search?from=${encodeURIComponent(form.from)}&to=${encodeURIComponent(form.to)}&date=${encodeURIComponent(form.date)}`;
+       
+
+        }else{
             setError(`Search for ${travelType} is not implemented yet.`);
             setIsLoading(false);
             return;
@@ -652,6 +657,13 @@ if (travelType === 'train') {
 
                 {travelType === 'bus' && results.map((bus, index) => (
                   <BusCard key={bus['Route No.'] || index} bus={bus} />
+                ))}
+
+                 {travelType === 'flight' && results.slice(0, 5).map((item, index) => (
+                    <FlightCard
+                        key={`flight-${item.airplane_number || index}`}
+                        flight={item}
+                    />
                 ))}
               </div>
             )}

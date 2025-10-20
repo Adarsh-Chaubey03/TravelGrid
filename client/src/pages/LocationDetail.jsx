@@ -1315,7 +1315,7 @@ const LocationDetail = () => {
       {/* Navigation Tabs */}
       <div className={`${isDarkMode?"bg-white/15":"bg-white/70"} shadow-lg sticky top-0 z-10 backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-4 py-4 overflow-x-auto">
+          <div className="flex space-x-4 py-3 sm:py-4 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
@@ -1324,14 +1324,14 @@ const LocationDetail = () => {
                     selectedTab === "overview" ? "photos" : "overview"
                   )
                 }
-                className={`flex items-center space-x-2 px-4 sm:px-6 py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
+                className={`flex items-center space-x-2 px-2 sm:px-4 lg:py-6 py-2 sm:py-3 rounded-md whitespace-nowrap transition-all duration-300 font-medium ${
                   selectedTab === tab.key
                     ? "bg-pink-400/30 text-gray-900"
                     : "text-gray-900 hover:text-gray-900 hover:bg-white/10"
                 } cursor-pointer`}
               >
                 <tab.icon className="h-5 w-5" />
-                <span>{tab.label}</span>
+                <span className="text-sm sm:text-md md:text-lg">{tab.label}</span>
               </button>
             ))}
           </div>

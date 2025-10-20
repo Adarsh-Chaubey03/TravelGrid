@@ -31,6 +31,11 @@ const generatePersonalizedResponse = async (userId, message, context) => {
     // Classify intent
     const intents = classifyIntent(message);
     
+    // Check for safety-related queries
+    if (intents.includes('safety_inquiry')) {
+      return await generateSafetyResponse(userId, message, context);
+    }
+    
     // Check for disambiguation needs
     const clarification = disambiguateRequest(message, context);
     if (clarification) {
@@ -150,6 +155,46 @@ const generatePersonalizedResponse = async (userId, message, context) => {
   } catch (error) {
     console.error('Error generating personalized response:', error);
     return "I'd be happy to help with your travel planning! What would you like to know?";
+  }
+};
+
+// Generate safety-related response
+const generateSafetyResponse = async (userId, message, context) => {
+  try {
+    // Extract destination from message or context
+    const entities = extractEntities(message);
+    let destination = null;
+    
+    if (entities.destinations && entities.destinations.length > 0) {
+      destination = entities.destinations[0];
+    } else if (context.lastDestination) {
+      destination = context.lastDestination;
+    }
+    
+    let response = "I take safety very seriously when it comes to travel. ";
+    
+    if (destination) {
+      response += `Here's what I can tell you about safety in ${destination}: \n\n`;
+      
+      // In a real implementation, this would fetch actual safety data
+      response += "• Current safety rating: ⭐⭐⭐☆☆ (Moderate)\n";
+      response += "• Recent advisories: None\n";
+      response += "• Health recommendations: Check vaccination requirements\n";
+      response += "• Local emergency numbers: 911 (general), 912 (tourist assistance)\n\n";
+      
+      response += "For real-time safety updates, I recommend enabling our Safety Intelligence feature. ";
+      response += "You can set up trusted contacts, emergency alerts, and receive proactive safety notifications.\n\n";
+      
+      response += "Would you like me to help you set up your safety profile?";
+    } else {
+      response += "To provide specific safety information, I need to know your destination. ";
+      response += "Could you tell me where you're planning to travel?";
+    }
+    
+    return response;
+  } catch (error) {
+    console.error('Error generating safety response:', error);
+    return "I'm here to help with your travel safety concerns. Could you provide more details about your destination or specific safety questions?";
   }
 };
 

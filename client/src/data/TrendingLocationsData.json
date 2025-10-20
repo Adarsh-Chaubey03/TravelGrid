@@ -191,6 +191,186 @@
       "recent_reviews": 5800,
       "growth_percentage": 8,
       "isInWishlist": false
+    },
+    {
+      "id": 101,
+      "name": "Shimla",
+      "country": "India",
+      "image": "https://images.unsplash.com/photo-1657894736581-ccc35d62d9e2?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.5,
+      "trending_score": 78,
+      "visitors_count": "1.2M",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Mar-Jun, Sep-Nov",
+      "highlights": [
+        "Colonial architecture",
+        "Mall Road",
+        "Trekking"
+      ],
+      "recent_reviews": 890,
+      "growth_percentage": 15,
+      "isInWishlist": false
+    },
+    {
+      "id": 102,
+      "name": "Manali",
+      "country": "India",
+      "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.6,
+      "trending_score": 80,
+      "visitors_count": "1.5M",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Mar-Jun, Sep-Oct",
+      "highlights": [
+        "Adventure sports",
+        "Old Manali",
+        "Monasteries"
+      ],
+      "recent_reviews": 1100,
+      "growth_percentage": 18,
+      "isInWishlist": false
+    },
+    {
+      "id": 103,
+      "name": "Munnar",
+      "country": "India",
+      "image": "https://images.unsplash.com/photo-1616388969587-8196f32388b4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.4,
+      "trending_score": 76,
+      "visitors_count": "900K",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Dec-Mar",
+      "highlights": [
+        "Tea plantations",
+        "Eravikulam NP",
+        "Waterfalls"
+      ],
+      "recent_reviews": 750,
+      "growth_percentage": 12,
+      "isInWishlist": false
+    },
+    {
+      "id": 104,
+      "name": "Darjeeling",
+      "country": "India",
+      "image": "https://images.unsplash.com/photo-1615599026462-8e10d2918e95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      "rating": 4.5,
+      "trending_score": 77,
+      "visitors_count": "800K",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Mar-May, Sep-Nov",
+      "highlights": [
+        "Toy train",
+        "Tea gardens",
+        "Mountain views"
+      ],
+      "recent_reviews": 920,
+      "growth_percentage": 14,
+      "isInWishlist": false
+    },
+    {
+      "id": 105,
+      "name": "Ooty",
+      "country": "India",
+      "image": "https://images.unsplash.com/photo-1707655315272-33a54a771068?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.3,
+      "trending_score": 75,
+      "visitors_count": "1.1M",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Apr-Jun, Sep-Nov",
+      "highlights": [
+        "Botanical Garden",
+        "Coonoor",
+        "Nilgiri Railway"
+      ],
+      "recent_reviews": 680,
+      "growth_percentage": 11,
+      "isInWishlist": false
+    },
+    {
+      "id": 106,
+      "name": "Pokhara",
+      "country": "Nepal",
+      "image": "https://images.unsplash.com/photo-1542815871-30b8ea812438?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.7,
+      "trending_score": 82,
+      "visitors_count": "1.3M",
+      "category": "hillstation",
+      "price_range": "$",
+      "best_time": "Sep-Nov, Feb-Apr",
+      "highlights": [
+        "Lake views",
+        "Paragliding",
+        "Annapurna views"
+      ],
+      "recent_reviews": 1050,
+      "growth_percentage": 19,
+      "isInWishlist": false
+    },
+    {
+      "id": 111,
+      "name": "Interlaken",
+      "country": "Switzerland",
+      "image": "https://images.unsplash.com/photo-1506351487281-fd19470d8bf4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.7,
+      "trending_score": 87,
+      "visitors_count": "2M",
+      "category": "hillstation",
+      "price_range": "$$$",
+      "best_time": "Jun-Sep",
+      "highlights": [
+        "Paragliding",
+        "Hiking",
+        "Canyoning"
+      ],
+      "recent_reviews": 980,
+      "growth_percentage": 10,
+      "isInWishlist": false
+    },
+    {
+      "id": 115,
+      "name": "Hallstatt",
+      "country": "Austria",
+      "image": "https://images.unsplash.com/photo-1582123053045-c7f9b3482c10?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.8,
+      "trending_score": 89,
+      "visitors_count": "1.9M",
+      "category": "hillstation",
+      "price_range": "$$",
+      "best_time": "Apr-Jun, Sep-Oct",
+      "highlights": [
+        "Lakeside village",
+        "Salt mines",
+        "Alpine charm"
+      ],
+      "recent_reviews": 1250,
+      "growth_percentage": 15,
+      "isInWishlist": false
+    },
+    {
+      "id": 117,
+      "name": "Banff",
+      "country": "Canada",
+      "image": "https://images.unsplash.com/photo-1561134643-668f9057cce4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.9,
+      "trending_score": 93,
+      "visitors_count": "4.1M",
+      "category": "hillstation",
+      "price_range": "$$",
+      "best_time": "Jun-Aug",
+      "highlights": [
+        "Kayaking",
+        "Rock climbing",
+        "Mountain biking"
+      ],
+      "recent_reviews": 2100,
+      "growth_percentage": 14,
+      "isInWishlist": false
     }
   ]
 }

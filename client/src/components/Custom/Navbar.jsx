@@ -29,6 +29,7 @@ const Navbar = () => {
   const navLinks = [
     { name: t("navigation.home"), path: "/" },
     { name: t("navigation.trendingSpots"), path: "/trending-spots" },
+    // Removed: { name: "About", path: "/about" },
     {
       name: t("navigation.booking"),
       subitems: [
@@ -71,14 +72,14 @@ const Navbar = () => {
 
   // Function to get the active subitem label for dropdown display
   const getActiveSubitem = (link) => {
-  if (!link.subitems) return null;
-  
-  for (const sub of link.subitems) {
-    if (location.pathname === sub.path || location.pathname.startsWith(sub.path + '/')) {
-      return sub.label;
+    if (!link.subitems) return null;
+    
+    for (const sub of link.subitems) {
+      if (location.pathname === sub.path || location.pathname.startsWith(sub.path + '/')) {
+        return sub.label;
+      }
     }
-  }
-  return null;
+    return null;
   };
 
   const getActiveParentTab = () => {

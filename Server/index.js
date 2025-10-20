@@ -29,7 +29,6 @@ import musicRoutes from './routes/musicRoutes.js';
 import resetPassword from "./routes/resetPassword.js";
 import shareRoutes from './routes/shareRoutes.js';
 import chatbotRoutes from './routes/chatbotRoutes.js';
-import safetyRoutes from './routes/safetyRoutes.js';
 import enhancedSanitizationMiddleware from './middleware/enhancedSanitizationMiddleware.js';
 import collaborationHandler from './utils/collaborationHandler.js';
 import checklistRoutes from './routes/checklistRoutes.js';
@@ -157,9 +156,6 @@ app.use('/api/share', shareRoutes);
 
 // Chatbot Routes
 app.use('/api/chatbot', chatbotRoutes);
-
-// Safety Routes
-app.use('/api/safety', safetyRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

@@ -25,7 +25,6 @@ import AIRecommendationEngine from "./AIRecommendationEngine";
 import PredictiveAnalytics from "./PredictiveAnalytics";
 import SmartBudgetOptimizer from "./SmartBudgetOptimizer";
 import AIPlanningInterface from "./AIPlanningInterface";
-import CollaborativeTripPlanner from "./CollaborativeTripPlanner";
 import { useTheme } from "@/context/ThemeContext";
 
 const AITravelPlannerComponent = () => {
@@ -48,20 +47,6 @@ const AITravelPlannerComponent = () => {
   const [aiInsights, setAiInsights] = useState([]);
   const [collaborationMode, setCollaborationMode] = useState(false);
   const [voiceCommands, setVoiceCommands] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [currentTrip, setCurrentTrip] = useState(null);
-
-  // Get current user info
-  useEffect(() => {
-    // In a real implementation, you would fetch the current user from context or API
-    // For now, we'll simulate it
-    const user = {
-      _id: "user123",
-      username: "Traveler",
-      email: "traveler@example.com"
-    };
-    setCurrentUser(user);
-  }, []);
 
   // AI planner instance for advanced functionality
 
@@ -119,17 +104,6 @@ const AITravelPlannerComponent = () => {
         setAiPlan(plan);
         setIsGenerating(false);
         setGenerationProgress(0);
-        
-        // Create a trip object for collaboration
-        const trip = {
-          _id: "trip" + Date.now(),
-          destination: userPreferences.destination,
-          numberOfDays: userPreferences.duration,
-          startDate: new Date().toISOString().split('T')[0],
-          plan: plan.itinerary,
-          // ... other trip properties
-        };
-        setCurrentTrip(trip);
       }, 500);
     } catch (error) {
       console.error("AI Plan generation failed:", error);
@@ -213,7 +187,6 @@ const AITravelPlannerComponent = () => {
     for (let day = 1; day <= duration; day++) {
       const dayPlan = {
         day,
-        title: `Day ${day} in ${destination}`,
         activities: generateActivitiesForDay(
           destination,
           interests,
@@ -231,7 +204,7 @@ const AITravelPlannerComponent = () => {
       days.push(dayPlan);
     }
 
-    return { days };
+    return days;
   };
 
   // Budget optimization with AI
@@ -406,23 +379,19 @@ const AITravelPlannerComponent = () => {
     }, 2000);
   };
 
-  // Handle trip updates from collaboration
-  const handleTripUpdate = (updatedTrip) => {
-    setCurrentTrip(updatedTrip);
-    // Update the AI plan if needed
-    if (updatedTrip.plan) {
-      setAiPlan(prevPlan => ({
-        ...prevPlan,
-        itinerary: updatedTrip.plan
-      }));
-    }
-  };
+  
 
   return (
-    <div className="min-h-screen backdrop-blur-xl">
-      <div className="container mx-auto px-4">
+<div
+  className="min-h-screen 
+             backdrop-blur-xl 
+              
+             "
+>      <div className="container mx-auto px-4 ">
         {/* Header */}
         <div className="text-center mb-12 p-4">
+          {" "}
+          
           <div className="flex items-center justify-center mb-6">
             <Brain className="w-12 h-12 text-pink-500 mr-4" />
             <h1 className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
@@ -436,176 +405,165 @@ const AITravelPlannerComponent = () => {
           </p>
         </div>
 
-        {/* Collaboration Mode */}
-        {collaborationMode && currentTrip && currentUser ? (
-          <div className="h-[70vh] border rounded-xl overflow-hidden">
-            <CollaborativeTripPlanner 
-              trip={currentTrip} 
-              user={currentUser} 
-              onTripUpdate={handleTripUpdate} 
-            />
-          </div>
-        ) : (
-          // Regular Mode
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Panel */}
-            <div className="lg:col-span-1 space-y-6">
-              <div className={`shadow-xl rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10" : "bg-white/90"}`}>
-                <h3 className="flex gap-2 text-2xl font-semibold mb-4 items-center text-gray-900 justify-start">
-                  <Settings className="w-7 h-7 text-pink-400 font-bold" />
-                  Travel Preferences
-                </h3>
+        
 
-                <div className="space-y-4">
-                  {/* Destination Input */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Destination
-                    </label>
-                    <input
-                      type="text"
-                      value={userPreferences.destination}
-                      onChange={(e) =>
-                        setUserPreferences({
-                          ...userPreferences,
-                          destination: e.target.value,
-                        })
-                      }
-                      placeholder="Where do you want to go?"
-                      className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400" : "border-black/20 placeholder:text-gray-600"} rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
-                    />
-                  </div>
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Panel */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className={` shadow-xl rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
+              <h3 className="flex gap-2 text-2xl font-semibold mb-4 items-center text-gray-900 justify-start">
+                <Settings className="w-7 h-7 text-pink-400 font-bold" />
+                Travel Preferences
+              </h3>
 
-                  {/* Duration Input */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Duration (days)
-                    </label>
-                    <input
-                      type="number"
-                      value={userPreferences.duration}
-                      onChange={(e) =>
-                        setUserPreferences({
-                          ...userPreferences,
-                          duration: parseInt(e.target.value),
-                        })
-                      }
-                      min="1"
-                      max="30"
-                      className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400" : "border-black/20 placeholder:text-gray-600"} rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
-                    />
-                  </div>
-
-                  {/* Budget Input */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Budget ($)
-                    </label>
-                    <input
-                      type="number"
-                      value={userPreferences.budget}
-                      onChange={(e) =>
-                        setUserPreferences({
-                          ...userPreferences,
-                          budget: parseInt(e.target.value),
-                        })
-                      }
-                      min="100"
-                      className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400" : "border-black/20 placeholder:text-gray-600"} rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
-                    />
-                  </div>
-
-                  {/* Interests Buttons */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Interests
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        "culture",
-                        "food",
-                        "nature",
-                        "adventure",
-                        "shopping",
-                        "relaxation",
-                      ].map((interest) => (
-                        <button
-                          key={interest}
-                          onClick={() => {
-                            const newInterests =
-                              userPreferences.interests.includes(interest)
-                                ? userPreferences.interests.filter(
-                                    (i) => i !== interest
-                                  )
-                                : [...userPreferences.interests, interest];
-                            setUserPreferences({
-                              ...userPreferences,
-                              interests: newInterests,
-                            });
-                          }}
-                          className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer ${
-                            userPreferences.interests.includes(interest)
-                              ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow"
-                              : isDarkMode 
-                                ? "bg-white/10 text-gray-900 hover:bg-white/20" 
-                                : "bg-black/10 text-gray-900 hover:bg-black/20"
-                          }`}
-                        >
-                          {interest.charAt(0).toUpperCase() + interest.slice(1)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={generateAITravelPlan}
-                    className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 justify-center shadow-md cursor-pointer"
-                  >
-                    <Brain className="w-7 h-7" />
-                    Generate AI Travel Plan
-                  </button>
+              <div className="space-y-4">
+                {/* Destination Input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Destination
+                  </label>
+                  <input
+                    type="text"
+                    value={userPreferences.destination}
+                    onChange={(e) =>
+                      setUserPreferences({
+                        ...userPreferences,
+                        destination: e.target.value,
+                      })
+                    }
+                    placeholder="Where do you want to go?"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
+                  />
                 </div>
-              </div>
 
-              {/* AI Insights */}
-              {aiInsights.length > 0 && (
-                <div className={`shadow-lg rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10" : "bg-white/90"}`}>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center text-pink-500 justify-start gap-2">
-                    <Lightbulb className="w-5 h-5 text-yellow-500" />
-                    AI Insights
-                  </h3>
-                  <div className="space-y-3">
-                    {aiInsights.map((insight, index) => (
-                      <div
-                        key={index}
-                        className="p-3 bg-pink-50 border border-pink-200 rounded-lg text-gray-700"
+                {/* Duration Input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Duration (days)
+                  </label>
+                  <input
+                    type="number"
+                    value={userPreferences.duration}
+                    onChange={(e) =>
+                      setUserPreferences({
+                        ...userPreferences,
+                        duration: parseInt(e.target.value),
+                      })
+                    }
+                    min="1"
+                    max="30"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
+                  />
+                </div>
+
+                {/* Budget Input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Budget ($)
+                  </label>
+                  <input
+                    type="number"
+                    value={userPreferences.budget}
+                    onChange={(e) =>
+                      setUserPreferences({
+                        ...userPreferences,
+                        budget: parseInt(e.target.value),
+                      })
+                    }
+                    min="100"
+                    className={`w-full px-4 py-2 border ${isDarkMode ? "border-white/20 placeholder:text-gray-400":"border-black/20 placeholder: text-gray-600"}  rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400`}
+                  />
+                </div>
+
+                {/* Interests Buttons */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Interests
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      "culture",
+                      "food",
+                      "nature",
+                      "adventure",
+                      "shopping",
+                      "relaxation",
+                    ].map((interest) => (
+                      <button
+                        key={interest}
+                        onClick={() => {
+                          const newInterests =
+                            userPreferences.interests.includes(interest)
+                              ? userPreferences.interests.filter(
+                                  (i) => i !== interest
+                                )
+                              : [...userPreferences.interests, interest];
+                          setUserPreferences({
+                            ...userPreferences,
+                            interests: newInterests,
+                          });
+                        }}
+                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer ${
+                          userPreferences.interests.includes(interest)
+                            ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow"
+                            : isDarkMode ? "bg-white/10 text-gray-900 hover:bg-white/20" :"bg-black/10 text-gray-900 hover:bg-black/20"
+                        }`}
                       >
-                        {insight}
-                      </div>
+                        {interest.charAt(0).toUpperCase() + interest.slice(1)}
+                      </button>
                     ))}
                   </div>
                 </div>
-              )}
+
+                <button
+                  onClick={() => console.log("Generate AI Plan")}
+                  className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 justify-center shadow-md cursor-pointer"
+                >
+                  <Brain className="w-7 h-7" />
+                  Generate AI Travel Plan
+                </button>
+              </div>
             </div>
 
-            {/* Center + Right Panels */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Default Empty State */}
-              {!aiPlan && !isGenerating && (
-                <div className={`rounded-xl p-12 border border-pink-500/30 shadow-md text-center ${isDarkMode ? "bg-white/10" : "bg-white/90"}`}>
-                  <Brain className="w-16 h-16 text-pink-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-                    Ready to Plan Your Adventure?
-                  </h3>
-                  <p className="text-gray-700">
-                    Fill in your travel preferences and let our AI create a
-                    personalized travel plan for you.
-                  </p>
+            {/* AI Insights */}
+            {aiInsights.length > 0 && (
+              <div className={`shadow-lg rounded-xl p-6 border border-pink-500/30 ${isDarkMode ? "bg-white/10":"bg-white/90"}`}>
+                <h3 className="text-xl font-semibold mb-4 flex items-center text-pink-500 justify-start gap-2">
+                  <Lightbulb className="w-5 h-5 text-yellow-500" />
+                  AI Insights
+                </h3>
+                <div className="space-y-3">
+                  {aiInsights.map((insight, index) => (
+                    <div
+                      key={index}
+                      className="p-3 bg-pink-50 border border-pink-200 rounded-lg text-gray-700"
+                    >
+                      {insight}
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        )}
+
+          {/* Center + Right Panels */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Default Empty State */}
+            {!aiPlan && !isGenerating && (
+              <div className={`rounded-xl p-12 border border-pink-500/30  shadow-md text-center ${isDarkMode ? "bg-white/10":"bg-white/90 "}`}>
+                <Brain className="w-16 h-16 text-pink-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                  Ready to Plan Your Adventure?
+                </h3>
+                <p className="text-gray-700">
+                  Fill in your travel preferences and let our AI create a
+                  personalized travel plan for you.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
 
         {/* Collaboration Button */}
         <div className="mt-12 text-center">
@@ -614,12 +572,12 @@ const AITravelPlannerComponent = () => {
             className={`px-6 py-3 rounded-lg font-medium transition-all shadow-lg cursor-pointer ${
               collaborationMode
                 ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white"
-                : "bg-gray-200 hover:bg-pink-200 text-black"
+                : "bg-gray-200  hover:bg-pink-200 text-black"
             }`}
           >
             <Users className="w-5 h-5 inline mr-2" />
             {collaborationMode
-              ? "Exit Collaboration Mode"
+              ? "Collaboration Mode Active"
               : "Enable Collaboration Mode"}
           </button>
         </div>

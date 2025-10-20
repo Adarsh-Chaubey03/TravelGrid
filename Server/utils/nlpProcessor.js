@@ -115,19 +115,6 @@ class NLPProcessor {
       entities.travelerTypes = travelerTypes;
     }
     
-    // Extract safety-related entities
-    const safetyKeywords = [
-      'safety', 'danger', 'risk', 'alert', 'warning', 'emergency', 'secure', 'safe', 
-      'unsafe', 'hazard', 'threat', 'crime', 'violence', 'political unrest', 'natural disaster',
-      'weather', 'health advisory', 'security', 'sos', 'help', 'trouble', 'trapped'
-    ];
-    const safetyTerms = safetyKeywords.filter(term => 
-      new RegExp(`\\b${term}\\b`, 'i').test(text)
-    );
-    if (safetyTerms.length > 0) {
-      entities.safetyTerms = safetyTerms;
-    }
-    
     return entities;
   }
   
@@ -143,8 +130,7 @@ class NLPProcessor {
       'accommodation_inquiry': ['hotel', 'accommodation', 'stay', 'lodging', 'resort', 'airbnb'],
       'transportation_inquiry': ['flight', 'transport', 'bus', 'train', 'car', 'rental', 'airport'],
       'food_inquiry': ['restaurant', 'food', 'cuisine', 'eat', 'dining', 'local dish'],
-      'budget_inquiry': ['budget', 'cheap', 'expensive', 'affordable', 'cost', 'price range'],
-      'safety_inquiry': ['safety', 'danger', 'risk', 'alert', 'warning', 'emergency', 'secure', 'safe', 'unsafe', 'hazard', 'threat', 'crime', 'violence', 'political unrest', 'natural disaster', 'weather', 'health advisory', 'security', 'sos', 'help', 'trouble', 'trapped', 'check in', 'check-in', 'emergency contact', 'trusted contact']
+      'budget_inquiry': ['budget', 'cheap', 'expensive', 'affordable', 'cost', 'price range']
     };
     
     const lowerText = text.toLowerCase();

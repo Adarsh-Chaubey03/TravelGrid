@@ -97,13 +97,13 @@ const HeroSection = ({ onSearch }) => {
         className="absolute inset-0 bg-cover bg-center opacity-100 z-10"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1695045038427-3acc1c0df23c?w=1920&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzl8fG5pZ2h0JTIwYmVhY2h8ZW58MHx8MHx8fDA%3D')",
+            "url('https://images.unsplash.com/photo-1701990630137-005958559f36?auto=format&fit=crop&q=60')",
         }}
       ></div>
 
       <div className={`absolute inset-0 z-15 ${isDarkMode
         ? 'bg-gradient-to-b from-black/60 via-black/40 to-black/70'
-        : 'bg-gradient-to-b from-black/30 via-black/20 to-black/50'
+        : 'bg-gradient-to-b from-black/20 via-black/10 to-black/30'
         }`} />
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 lg:px-8">

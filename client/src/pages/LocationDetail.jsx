@@ -2228,7 +2228,7 @@ const ALL_LOCATIONS_DATA = {
       shortDescription:
         "The world-famous 'Queen of the Hills,' renowned for its premium tea, the panoramic views of Kanchenjunga, and the historic Darjeeling Himalayan Railway.",
       image:
-        "https://images.unsplash.com/photo-1615599026462-8e10d2918e95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1696426886039-a3b5c8774e3d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRhcmplZWxpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       coordinates: "27.0300,88.2600",
       overview: {
         description:

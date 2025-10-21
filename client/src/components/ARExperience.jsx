@@ -49,7 +49,25 @@ const ARExperience = ({ location, onClose }) => {
   return (
     <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 1000, background: "rgba(0,0,0,0.8)" }}>
       <video ref={videoRef} autoPlay playsInline style={{ position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh", objectFit: "cover" }} />
-      <button onClick={onClose} style={{ position: "absolute", top: 20, right: 20, zIndex: 1100, background: "#fff", borderRadius: 8, padding: 8 }}>Close AR</button>
+      <button
+        onClick={onClose}
+        aria-label="Close AR view"
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          zIndex: 2200,
+          background: "rgba(0,0,0,0.6)",
+          color: "#fff",
+          borderRadius: 8,
+          padding: "8px 12px",
+          border: "1px solid rgba(255,255,255,0.12)",
+          fontWeight: 600,
+          backdropFilter: "blur(4px)"
+        }}
+      >
+        Close AR
+      </button>
       {error && <div style={{ position: "absolute", top: 80, left: 0, right: 0, color: "#fff", background: "#d32f2f", padding: 16, zIndex: 1100, textAlign: "center" }}>{error}</div>}
       {userPosition && location && (
         <div style={{ position: "absolute", bottom: 40, left: 0, right: 0, zIndex: 1100, color: "#fff", textAlign: "center" }}>

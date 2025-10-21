@@ -70,8 +70,13 @@ function BikeDetail() {
   const mockBikeId = params.bikeId || bike.id; 
 
   const [active, setActive] = useState(0);
-  // Ensure images array is always valid, falling back to a guaranteed list
-  const images = bike.images && bike.images.length > 0 ? bike.images : FALLBACK_BIKE.images;
+  // Normalize images: remove falsy items and fall back to guaranteed list
+  const images = (bike.images || []).filter(Boolean);
+  const usingFallbackImages = images.length === 0;
+  const effectiveImages = usingFallbackImages ? FALLBACK_BIKE.images : images;
+
+  // Track which images have failed (optional, could be useful for cycling)
+  const [failedIndices, setFailedIndices] = useState([]);
 
   // Carousel handlers are concise and robust
   const goPrev = () => setActive((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -100,12 +105,25 @@ function BikeDetail() {
         {/* Hero / Carousel (Using responsive aspect ratio for better mobile handling) */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border bg-black/20 border-white/10 aspect-video max-h-[500px]">
           <img
-            src={images[active]}
+            src={effectiveImages[active]}
             alt={`${bike.modelName} - image ${active + 1}`}
             className="w-full h-full object-cover transition-opacity duration-500"
             loading="lazy"
-            // Use placeholder on error for a better user experience
-            onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/1200x600/1f2937/ffffff?text=Image+Unavailable"; }}
+            onError={(e) => {
+              // Prevent infinite error loop
+              e.target.onerror = null;
+              // Mark this index as failed
+              setFailedIndices(prev => (prev.includes(active) ? prev : [...prev, active]));
+              // Try to find another non-failed image from effectiveImages
+              const nextIdx = effectiveImages.findIndex((_, i) => i !== active && !failedIndices.includes(i));
+              if (nextIdx !== -1) {
+                setActive(nextIdx);
+                e.target.src = effectiveImages[nextIdx];
+                return;
+              }
+              // Final fallback to bundled fallback image (guaranteed to exist)
+              e.target.src = FALLBACK_BIKE.images[0];
+            }}
           />
           {images.length > 1 && (
             <>

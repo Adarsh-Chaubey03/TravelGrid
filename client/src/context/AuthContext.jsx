@@ -169,42 +169,6 @@ export const AuthProvider = ({ children }) => {
     return { success, error };
   };
 
-  // Email verification functions
-  const sendVerificationEmail = async (email) => {
-    const { success, data, error } = await apiFetch('/email/send-verification', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    });
-    if (!success) toast.error(error);
-    return { success, data, error };
-  };
-
-  const verifyEmailCode = async (email, code) => {
-    const { success, data, error } = await apiFetch('/email/verify-code', {
-      method: 'POST',
-      body: JSON.stringify({ email, code }),
-    });
-    if (success && data.user) {
-      setUser(data.user);
-    }
-    if (!success) toast.error(error);
-    return { success, data, error };
-  };
-
-  const resendVerificationCode = async (email) => {
-    const { success, data, error } = await apiFetch('/email/resend-code', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    });
-    if (!success) toast.error(error);
-    return { success, data, error };
-  };
-
-  const checkVerificationStatus = async (email) => {
-    const { success, data, error } = await apiFetch(`/email/status?email=${encodeURIComponent(email)}`, { method: 'GET' });
-    if (!success) toast.error(error);
-    return { success, data, error };
-  };
 
   return (
     <AuthContext.Provider value={{
@@ -214,10 +178,7 @@ export const AuthProvider = ({ children }) => {
       login,
       signup,
       logout,
-      sendVerificationEmail,
-      verifyEmailCode,
-      resendVerificationCode,
-      checkVerificationStatus,
+      // verification functions were removed intentionally; only expose implemented APIs
       resetPassword,
       changePassword
     }}>

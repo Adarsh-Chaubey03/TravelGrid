@@ -8,12 +8,12 @@ import {
   Menu,
   X,
   User,
-  LogOut,
   LogIn,
   ChevronDown,
   Mail,
   AlertTriangle,
 } from "lucide-react";
+import ProfileDropdown from "../user/ProfileDropdown";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "../LanguageSelector";
 import MoodToggle from '../../services/MoodToggle';
@@ -243,45 +243,29 @@ const Navbar = () => {
 
             {isLoggedIn ? (
               <>
-                {/* Email verification alert for unverified users */}
-                {user && !user.isEmailVerified && (
-                  <NavLink
-                    to={`/verify-email?email=${encodeURIComponent(user.email)}`}
-                    className="flex items-center gap-2 bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 px-3 py-2 rounded-md text-sm font-medium hover:bg-yellow-600/30 transition-all break-words"
-                    title="Click to verify your email"
+                <div className="relative">
+                  <button
+                    className="flex items-center focus:outline-none"
+                    aria-label="Profile menu"
+                    onClick={() => setExpanded(expanded === 'profile' ? null : 'profile')}
                   >
-                    <AlertTriangle size={16} />
-                    {t("auth.verifyEmail")}
-                  </NavLink>
-                )}
-
-                <NavLink
-                  to="/dashboard"
-                  className={`flex items-center gap-2 transition-colors ${isDarkMode ? "hover:text-white" : "hover:text-pink-500"}` }
-                >
-                  {user?.picture ? (
-                    <img
-                      src={user.picture}
-                      alt="User Avatar"
-                      loading="lazy"
-                      className="w-6 h-6 rounded-full object-cover"
-                    />
-                  ) : user?.name ? (
-                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-pink-600 text-white text-xs font-bold">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
-                  ) : (
-                    <User size={18} />
-                  )}
-                  {t("navigation.dashboard")}
-                </NavLink>
-                <button
-                  aria-label="Search"
-                  onClick={handleLogout}
-                  className="bg-pink-200 text-black-800 hover:bg-pink-300 p-2 rounded transition-colors duration-200">
-                
-                  <LogOut size={18} /> {t("auth.logout")}
-                </button>
+                    {user?.picture ? (
+                      <img
+                        src={user.picture}
+                        alt="User Avatar"
+                        loading="lazy"
+                        className="w-7 h-7 rounded-full object-cover border-2 border-pink-400"
+                      />
+                    ) : user?.name ? (
+                      <div className="w-7 h-7 flex items-center justify-center rounded-full bg-pink-600 text-white text-base font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    ) : (
+                      <User size={22} />
+                    )}
+                  </button>
+                  <ProfileDropdown show={expanded === 'profile'} onClose={() => setExpanded(null)} />
+                </div>
               </>
             ) : (
               <>
@@ -414,29 +398,29 @@ const Navbar = () => {
             {/* Mobile Auth Buttons */}
             {isLoggedIn ? (
               <>
-                {/* Email verification alert for mobile */}
-                {user && !user.isEmailVerified && (
-                  <NavLink
-                    to={`/verify-email?email=${encodeURIComponent(user.email)}`}
-                    className="flex gap-2 items-center py-2 px-3 rounded bg-yellow-600/20 text-yellow-400 border border-yellow-600/30 font-medium break-words text-sm"
+                <div className="relative">
+                  <button
+                    className="flex items-center py-2 px-3 focus:outline-none"
+                    aria-label="Profile menu"
+                    onClick={() => setExpanded(expanded === 'profile' ? null : 'profile')}
                   >
-                    <AlertTriangle size={18} /> {t("auth.verifyEmail")}
-                  </NavLink>
-                )}
-
-                <NavLink
-                  to="/dashboard"
-                  className="flex gap-2 items-center py-2 px-3 rounded hover:bg-pink-200/30"
-                >
-                  <User size={18} /> {t("navigation.dashboard")}
-                </NavLink>
-                <button
-                  aria-label="Search"
-                  onClick={handleLogout}
-                  className="flex gap-2 items-center text-red-400 py-2 px-3 hover:bg-red-500/10"
-                >
-                  <LogOut size={18} /> {t("auth.logout")}
-                </button>
+                    {user?.picture ? (
+                      <img
+                        src={user.picture}
+                        alt="User Avatar"
+                        loading="lazy"
+                        className="w-7 h-7 rounded-full object-cover border-2 border-pink-400"
+                      />
+                    ) : user?.name ? (
+                      <div className="w-7 h-7 flex items-center justify-center rounded-full bg-pink-600 text-white text-base font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    ) : (
+                      <User size={22} />
+                    )}
+                  </button>
+                  <ProfileDropdown show={expanded === 'profile'} onClose={() => setExpanded(null)} />
+                </div>
               </>
             ) : (
               <>

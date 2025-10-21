@@ -1,4 +1,7 @@
 import { StrictMode, lazy, Suspense } from 'react';
+const UserViewProfile = lazy(() => import('./pages/user/ViewProfile'));
+const UserEditProfile = lazy(() => import('./pages/user/EditProfile'));
+const UserDashboard = lazy(() => import('./pages/user/Dashboard'));
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import ItineraryMapPage from "./pages/ItineraryMapPage";
@@ -92,7 +95,6 @@ const PackageDetails = lazy(() => import('./pages/PackageDetails'));
 const Login = lazy(() => import('./pages/Login'));
 const Signup = lazy(() => import('./pages/Signup'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
-const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const NetworkError = lazy(() => import('./components/ErrorHandle/NetworkError'));
 const ServerError = lazy(() => import('./components/ErrorHandle/ServerError'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -111,7 +113,6 @@ const router = createBrowserRouter([
   { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
   { path: '/signup', element: <AuthLayout><Signup /></AuthLayout> },
   { path: '/forgot-password', element: <AuthLayout><ForgotPassword /></AuthLayout> },
-  { path: '/verify-email', element: <AuthLayout><VerifyEmail /></AuthLayout> },
   {
     path: '/',
     element: <App />,
@@ -190,9 +191,9 @@ const router = createBrowserRouter([
 
 
       { path: '/package/:id', element: <Suspense fallback={<Spinner />}><PackageDetails /></Suspense> },
-      { path: '/network-error', element: <Suspense fallback={<Spinner />}><NetworkError /></Suspense> },
-      { path: '/server-error', element: <Suspense fallback={<Spinner />}><ServerError /></Suspense> },
-      { path: '*', element: <Suspense fallback={<Spinner />}><NotFound /></Suspense> },
+  { path: '/network-error', element: <Suspense fallback={<Spinner />}><NetworkError /></Suspense> },
+  { path: '/server-error', element: <Suspense fallback={<Spinner />}><ServerError /></Suspense> },
+  { path: '*', element: <Suspense fallback={<Spinner />}><NotFound /></Suspense> },
 
     ],
   },

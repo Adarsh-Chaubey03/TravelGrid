@@ -1,4 +1,4 @@
-# TravelGrid Contribution Guide (GSSoC'25 Friendly)
+# TravelGrid Contribution Guide (GSSoC'25)
 
 Thank you for contributing to TravelGrid! This guide is short and aimed at first-time contributors.
 

@@ -22,7 +22,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const { signup, isLoading } = useAuth();
+  const { signup, googleLogin, isLoading, isAuthenticated, resendVerification } = useAuth();
   const {isDarkMode}=useTheme();
   const navigate = useNavigate();
 
@@ -45,46 +45,95 @@ const Signup = () => {
   const passwordStrength = getPasswordStrength();
 
   const validateForm = () => {
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    // Trim all string inputs
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const { password, confirmPassword } = formData;
+
+    if (!name || !email || !password || !confirmPassword) {
       setError(t("signup.errors.fillAll"));
       return false;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError(t("signup.errors.invalidEmail"));
-      return false;
-    }
-    if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+
+    // Name validation
+    if (!/^[A-Za-z\s]+$/.test(name)) {
       setError(t("signup.errors.invalidName"));
       return false;
     }
-    if (formData.name.length < 2) {
-      setError(t("signup.errors.shortName"));
+    if (name.length < 2 || name.length > 50) {
+      setError(t("signup.errors.invalidNameLength"));
       return false;
     }
-    
-        // Password must be at least 6 characters (remove strong restriction)
-        if (formData.password.length < 6) {
-          setError("Password must be at least 6 characters.");
-          return false;
-        }
-    if (formData.password !== formData.confirmPassword) {
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError(t("signup.errors.invalidEmail"));
+      return false;
+    }
+
+    // Password validation
+    if (password.length < 6) {
+      setError(t("signup.errors.passwordTooShort"));
+      return false;
+    }
+    if (password.length > 50) {
+      setError(t("signup.errors.passwordTooLong"));
+      return false;
+    }
+    if (password !== confirmPassword) {
       setError(t("signup.errors.passwordMismatch"));
       return false;
     }
+
     return true;
   };
+
+  // Check auth state
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/trending-spots', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const result = await signup(formData);
+    const userData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      password: formData.password
+    };
+
+    const result = await signup(userData);
+
     if (result.success) {
-      toast.success(t("signup.success"));
-      navigate('/login');
+      toast.success(t("signup.verifyEmail"), {
+        duration: 5000,
+        action: {
+          label: t("signup.openEmail"),
+          onClick: () => window.open("https://mail.google.com", "_blank")
+        }
+      });
+      
+      // Show verification required message
+      toast((t) => (
+        <div className="flex flex-col gap-2">
+          <p>{t("signup.checkEmail")}</p>
+          <button
+            onClick={() => resendVerification()}
+            className="text-sm text-blue-500 hover:text-blue-600"
+          >
+            {t("signup.resendVerification")}
+          </button>
+        </div>
+      ), {
+        duration: 10000,
+        icon: '📧'
+      });
     } else {
-      toast.error(result.error || t("signup.errors.signupFailed"));
+      setError(result.error || t("signup.errors.signupFailed"));
     }
   };
 
@@ -289,16 +338,25 @@ const Signup = () => {
 
               {/* Google */}
              <GoogleLoginButton
-                onSuccess={() => navigate("/", { replace: true })}
+                onSuccess={async (response) => {
+                  const result = await googleLogin(response.credential);
+                  if (result.success) {
+                    toast.success(t("signup.googleSuccess"));
+                    navigate('/trending-spots', { replace: true });
+                  }
+                }}
+                onError={() => {
+                  toast.error(t("signup.errors.googleSignupFailed"));
+                }}
                 buttonText={t("signup.googleSignUp")}
                 className={`w-full rounded-xl backdrop-blur-md border border-blue-200/30 shadow-md transition-all duration-300 ${
                    isDarkMode ? '' : 'bg-blue-100/30 text-blue-900'
                   }`}
                 style={!isDarkMode ? {
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(173, 216, 230, 0.3)',
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(173, 216, 230, 0.3)',
                 } : {}}
              />
             </form>

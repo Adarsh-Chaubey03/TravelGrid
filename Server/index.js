@@ -1,16 +1,17 @@
+import './config/loadEnv.js';
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan';
-import dotenv from 'dotenv'
 import axios from 'axios'
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config({ path: './.env' });
-
+// ...existing code...
 import { connectDB } from './config/db.js';
 import { securityMiddleware } from './middleware/securityMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
@@ -37,8 +38,50 @@ const app = express();
 const server = createServer(app); // Create HTTP server for Socket.IO
 const PORT = process.env.PORT || 5000;
 
-// DB Connection
-connectDB();
+// DB Connection will be established before starting the server
+
+const startApp = async () => {
+    try {
+        // Connect to MongoDB first
+        await connectDB({ retries: 5, delayMs: 2000 });
+
+        // Register middleware that depends on DB or security afterwards
+        app.use(enhancedSanitizationMiddleware);
+        app.use(securityMiddleware.sanitizeInputs);
+        app.use(securityMiddleware.xssProtection);
+
+        // Authentication Routes
+        app.use('/api/auth', authRoutes);
+
+        // Email Verification Routes
+        app.use('/api/email', emailVerificationRoutes);
+
+        // Other routes (register after DB connection)
+        app.use('/api/bookings', bookingRouter);
+        app.use('/api/post', postRoutes);
+        app.use('/api/users', userRoutes);
+        app.use('/api/save', saveRoutes);
+        app.use('/api', tripRoutes);
+        app.use('/api/reviews', reviewsRoutes);
+        app.use('/api/language', languageRoutes);
+        app.use('/api/moodboards', moodBoardRoutes);
+        app.use('/api/search', searchRoutes);
+        app.use('/api/currency', currencyRoutes);
+        app.use('/api/music', musicRoutes);
+        app.use('/api/forgot-password', resetPassword);
+        app.use('/api/share', shareRoutes);
+        app.use('/api/chatbot', chatbotRoutes);
+        app.use('/api/checklist', checklistRoutes);
+
+        // Now start the HTTP server
+        startServer();
+    } catch (err) {
+        console.error('Fatal error during startup:', err && err.message ? err.message : err);
+        process.exit(1);
+    }
+};
+
+startApp();
 
 // Middleware
 const allowedOrigins = [
@@ -71,11 +114,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // EnhancedSanitization 
-app.use(enhancedSanitizationMiddleware);
+// app.use(enhancedSanitizationMiddleware);
 
 // Use centralized security middleware
-app.use(securityMiddleware.sanitizeInputs);
-app.use(securityMiddleware.xssProtection);
+// app.use(securityMiddleware.sanitizeInputs);
+// app.use(securityMiddleware.xssProtection);
 
 // Basic rate limiting for auth and general API
 const generalLimiter = rateLimit({
@@ -95,7 +138,7 @@ const authLimiter = rateLimit({
 app.use('/api/auth', authLimiter);
 
 // Use centralized security headers middleware
-app.use(securityMiddleware.securityHeaders);
+// app.use(securityMiddleware.securityHeaders);
 
 // No need for custom audio serving - files are now in client/public/uploads
 
@@ -419,23 +462,41 @@ collaborationHandler(io);
 let httpServer = null;
 
 const startServer = (port = PORT, attempts = 0, maxAttempts = 5) => {
-    httpServer = server.listen(port, () => {
-        console.log(`Server running on http://localhost:${port} (PID: ${process.pid})`);
-    });
+    // If server already listening, do nothing
+    if (httpServer && httpServer.listening) return;
 
+    try {
+        httpServer = server.listen(port, () => {
+            console.log(`✅ Server running on http://localhost:${port} (PID: ${process.pid})`);
+        });
+    } catch (err) {
+        console.error('Failed to bind server:', err);
+    }
+
+    // Attach error handler once
     httpServer.on('error', (err) => {
         if (err && err.code === 'EADDRINUSE') {
-            console.warn(`Port ${port} is already in use.`);
+            console.warn(`⚠️  Port ${port} is already in use.`);
             if (attempts < maxAttempts) {
                 const nextPort = port + 1;
-                console.warn(`Trying port ${nextPort} (attempt ${attempts + 1}/${maxAttempts})...`);
-                setTimeout(() => startServer(nextPort, attempts + 1, maxAttempts), 500);
+                console.warn(`🔁 Trying port ${nextPort} (attempt ${attempts + 1}/${maxAttempts})...`);
+                // Close current server if partially opened, then retry
+                try {
+                    httpServer.close(() => {
+                        httpServer = null;
+                        setTimeout(() => startServer(nextPort, attempts + 1, maxAttempts), 500);
+                    });
+                } catch (closeErr) {
+                    httpServer = null;
+                    setTimeout(() => startServer(nextPort, attempts + 1, maxAttempts), 500);
+                }
                 return;
             }
-            console.error(`All attempts to bind ports starting from ${PORT} failed. Please free the port or set a different PORT in your .env.`);
+            console.error(`❌ All attempts to bind ports starting from ${PORT} failed. Please free the port or set a different PORT in your .env.`);
         }
-        // For any other error or exhausted retries, exit with failure
-        console.error('Failed to start server:', err);
+
+        // Other errors
+        console.error('❌ Failed to start server:', err);
         process.exit(1);
     });
 };

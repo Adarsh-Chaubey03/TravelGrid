@@ -7,7 +7,6 @@ import DiscoverSection from '../components/Home/DiscoverSection'
 import FeaturedPackages from '../components/Home/FeaturedPackages'
 import TravelGuides from '../components/Home/TravelGuides'
 import Testimonials from '../components/Home/Testimonials'
-import MoodBoard from '../components/MoodBoard/MoodBoard'
 import { useSEO } from '../hooks/useSEO'
 import WhyChooseTravelGrid from '@/components/WhyChooseTravelGrid'
 
@@ -57,10 +56,7 @@ function Home() {
                     <DiscoverSection />
                 </div>
 
-                {/* AI-Powered Travel Mood Board Section */}
-                <div className="w-full py-16 px-4">
-                    <MoodBoard />
-                </div>
+                {/* AI-Powered Travel Mood Board removed */}
             </main>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff, Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
@@ -11,53 +11,103 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@/context/ThemeContext";
 
 const Login = () => {
-
   const { t } = useTranslation();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { isDarkMode } = useTheme();
-  const { login, isLoading, user, isAuthenticated } = useAuth();
+  const { 
+    login, 
+    googleLogin,
+    isLoading, 
+    isAuthenticated,
+    isEmailVerified,
+    resendVerification 
+  } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
 
-  // Redirect if already logged in
-  React.useEffect(() => {
-    if (user && isAuthenticated) {
-      navigate('/');
+  // Handle auth state changes
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (!isEmailVerified) {
+        // Show verification required message
+        toast.error(t("login.errors.verificationRequired"), {
+          id: 'verify-email',
+          duration: 5000,
+          action: {
+            label: t("login.resendVerification"),
+            onClick: () => handleResendVerification()
+          }
+        });
+      } else {
+        // Redirect to intended destination
+        const target = from === '/' ? '/trending-spots' : from;
+        navigate(target, { replace: true });
+      }
     }
-  }, [user, isAuthenticated, navigate]);
+  }, [isAuthenticated, isEmailVerified, navigate, from]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value.trim() }));
     setError('');
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleResendVerification = async () => {
+    const result = await resendVerification();
+    if (result.success) {
+      toast.success(t("login.verificationSent"));
+    }
+  };
 
+  const validateForm = () => {
     if (!formData.email) {
       setError(t("login.errors.emptyEmail"));
-      return;
+      return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError(t("login.errors.invalidEmail"));
-      return;
+      return false;
     }
     if (!formData.password) {
       setError(t("login.errors.emptyPassword"));
+      return false;
+    }
+    if (formData.password.length < 6) {
+      setError(t("login.errors.passwordTooShort"));
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    if (!validateForm()) {
       return;
     }
 
-    const result = await login(formData.email, formData.password);
+    const result = await login(formData);
 
-    if (result.success) {
-      navigate(from, { replace: true });
-    } else {
-      setError(result.error || t("login.errors.invalidCredentials"));
+    if (!result.success) {
+      if (result.requiresVerification) {
+        // Show resend verification option
+        toast.error(t("login.errors.verificationRequired"), {
+          id: 'verify-email',
+          duration: 5000,
+          action: {
+            label: t("login.resendVerification"),
+            onClick: () => handleResendVerification()
+          }
+        });
+      } else {
+        setError(result.error || t("login.errors.invalidCredentials"));
+      }
     }
   };
 
@@ -203,13 +253,22 @@ const Login = () => {
 
               {/* Google */}
             <GoogleLoginButton
-  onSuccess={() => navigate("/", { replace: true })}
+  onSuccess={async (response) => {
+    const result = await googleLogin(response.credential);
+    if (result.success) {
+      const target = from === '/' ? '/trending-spots' : from;
+      navigate(target, { replace: true });
+    }
+  }}
+  onError={() => {
+    toast.error(t("login.errors.googleLoginFailed"));
+  }}
   buttonText={t("signup.googleSignUp")}
   className={`w-full rounded-xl backdrop-blur-md border border-blue-200/30 shadow-md transition-all duration-300 ${
     isDarkMode ? '' : 'bg-blue-100/30 text-blue-900'
   }`}
   style={!isDarkMode ? {
-    background: 'rgba(173, 216, 230, 0.25)', // light blue glassy color
+    background: 'rgba(173, 216, 230, 0.25)',
     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',

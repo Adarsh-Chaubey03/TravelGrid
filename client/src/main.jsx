@@ -17,6 +17,7 @@ import { WishlistProvider } from './context/WishlistContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import AuthLayout from './components/AuthLayout';
+import PublicRoute from './components/Auth/PublicRoute';
 //import TrendingSpots from './pages/TrendingSpots.jsx';
 //import PackingChecklistPage from './pages/PackingChecklist.jsx';
 //import Summarizer from './components/Summarizer';
@@ -99,7 +100,6 @@ const NetworkError = lazy(() => import('./components/ErrorHandle/NetworkError'))
 const ServerError = lazy(() => import('./components/ErrorHandle/ServerError'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const BookingHistory = lazy(() => import('./pages/BookingHistory'));
-const MoodBoardPage = lazy(() => import('./pages/MoodBoardPage'));
 const AITravelPlannerDemo = lazy(() => import('./pages/AITravelPlannerDemo'));
 import AITravelChecklist from './components/AITravelChecklist';
 import MusicPlayerDemo from './pages/MusicPlayerDemo';
@@ -110,9 +110,9 @@ import QRTripSharing from './pages/QRTripSharing';
 import SharedTripTool from './pages/SharedTripTool';
 
 const router = createBrowserRouter([
-  { path: '/login', element: <AuthLayout><Login /></AuthLayout> },
-  { path: '/signup', element: <AuthLayout><Signup /></AuthLayout> },
-  { path: '/forgot-password', element: <AuthLayout><ForgotPassword /></AuthLayout> },
+  { path: '/login', element: <AuthLayout><PublicRoute><Login /></PublicRoute></AuthLayout> },
+  { path: '/signup', element: <AuthLayout><PublicRoute><Signup /></PublicRoute></AuthLayout> },
+  { path: '/forgot-password', element: <AuthLayout><PublicRoute><ForgotPassword /></PublicRoute></AuthLayout> },
   {
     path: '/',
     element: <App />,
@@ -148,8 +148,7 @@ const router = createBrowserRouter([
       { path: '/trip-calculator', element: <Suspense fallback={<Spinner />}><TripCalculatorPage /></Suspense> },
       { path: '/travel-plan-generator', element: <Suspense fallback={<Spinner />}><TravelPlanGenerator /></Suspense> },
       { path: '/packing-checklist', element: <Suspense fallback={<Spinner />}><PackingChecklistPage /></Suspense> },
-      { path: '/wishlist', element: <Suspense fallback={<Spinner />}><Wishlist /></Suspense> },
-      { path: '/mood-board', element: <Suspense fallback={<Spinner />}><MoodBoardPage /></Suspense> },
+  { path: '/wishlist', element: <ProtectedRoute><Suspense fallback={<Spinner />}><Wishlist /></Suspense></ProtectedRoute> },
       { path: '/trending-spots', element: <Suspense fallback={<Spinner />}><TrendingSpots /></Suspense> },
       { path: '/trending', element: <Suspense fallback={<Spinner />}><TrendingSpots /></Suspense> },
       { path: '/booking-history', element: <Suspense fallback={<Spinner />}><BookingHistory /></Suspense> },
@@ -180,6 +179,14 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/countries',
         element: <ProtectedRoute><CountriesVisited /></ProtectedRoute>
+      },
+      {
+        path: '/user/profile',
+        element: <ProtectedRoute><Suspense fallback={<Spinner />}><UserViewProfile /></Suspense></ProtectedRoute>
+      },
+      {
+        path: '/user/profile/edit',
+        element: <ProtectedRoute><Suspense fallback={<Spinner />}><UserEditProfile /></Suspense></ProtectedRoute>
       },
       /*{ path: '/network-error', element: <NetworkError /> },
       { path: '/server-error', element: <ServerError /> },

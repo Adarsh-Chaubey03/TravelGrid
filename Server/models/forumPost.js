@@ -13,4 +13,7 @@ const forumPostSchema = new mongoose.Schema({
   replies: [replySchema],
 }, { timestamps: true });
 
-export default ForumPost = mongoose.model('ForumPost', forumPostSchema); 
+const ForumPost = mongoose.model('ForumPost', forumPostSchema);
+
+export { ForumPost };
+export default ForumPost;

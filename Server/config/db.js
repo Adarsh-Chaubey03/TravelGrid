@@ -9,11 +9,7 @@ export const connectDB = async () => {
       throw new Error('MongoDB connection string is missing. Please set MONGO_URI or MONGODB_URI in your .env');
     }
 
-    await mongoose.connect(uri, {
-      // useNewUrlParser/useUnifiedTopology are no longer required in newer mongoose versions but safe to include
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(uri);
     console.log('✅ MongoDB connected');
   } catch (err) {
     console.error('❌ MongoDB connection failed:', err.message);

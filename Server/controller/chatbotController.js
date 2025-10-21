@@ -498,7 +498,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import TravelPackage from "../models/travelPackage.js";
 import { MoodBoard } from "../models/moodBoard.js";
 import { Music } from "../models/music.js";
-import { User } from "../models/user.js";
 import Destination from "../models/destinations.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 

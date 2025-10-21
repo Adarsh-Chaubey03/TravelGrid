@@ -25,9 +25,7 @@ const postSchema = new mongoose.Schema({
   replies: [replySchema],
   
 }, { timestamps: true });
+const Post = mongoose.model('Post', postSchema);
 
-export const Post = {
-  Post: mongoose.model('Post', postSchema),
-  replySchema
- 
-};
+export { Post, replySchema };
+export default Post;

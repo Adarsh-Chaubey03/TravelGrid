@@ -16,4 +16,7 @@ const travelGuideSchema = new mongoose.Schema({
   details: detailsSchema,
 }, { timestamps: true });
 
-export default TravelGuide = mongoose.model('TravelGuide', travelGuideSchema); 
+const TravelGuide = mongoose.model('TravelGuide', travelGuideSchema);
+
+export { TravelGuide };
+export default TravelGuide;

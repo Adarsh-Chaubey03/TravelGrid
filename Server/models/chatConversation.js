@@ -35,7 +35,6 @@ const conversationSchema = new mongoose.Schema({
   sessionId: {
     type: String,
     required: true,
-    index: true
   },
   title: {
     type: String,

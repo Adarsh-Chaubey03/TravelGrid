@@ -12,4 +12,7 @@ const ticketBookingSchema = new mongoose.Schema({
   tripMode: { type: String, enum: ['oneWay', 'roundTrip'], required: true },
 }, { timestamps: true });
 
-export default TicketBooking = mongoose.model('TicketBooking', ticketBookingSchema); 
+const TicketBooking = mongoose.model('TicketBooking', ticketBookingSchema);
+
+export { TicketBooking };
+export default TicketBooking;

@@ -8,4 +8,7 @@ const feedbackSchema = new mongoose.Schema({
   message: { type: String, required: true },
 }, { timestamps: true });
 
-export default Feedback = mongoose.model('Feedback', feedbackSchema); 
+const Feedback = mongoose.model('Feedback', feedbackSchema);
+
+export { Feedback };
+export default Feedback;

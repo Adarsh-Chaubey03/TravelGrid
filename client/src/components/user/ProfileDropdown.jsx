@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
 import { User, Edit, LayoutDashboard, LogOut } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import Dashboard from "../../pages/user/Dashboard.jsx";
+
 
 const dropdownVariants = {
   open: {
@@ -43,6 +45,11 @@ export default function ProfileDropdown({ show, onClose }) {
     navigate("/login");
   };
 
+  const handleMenuClick = (callback) => {
+    if (callback) callback();
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {show && (
@@ -52,7 +59,12 @@ export default function ProfileDropdown({ show, onClose }) {
           animate="open"
           exit="closed"
           variants={dropdownVariants}
-          className={`absolute right-0 mt-2 w-56 rounded-xl shadow-lg z-50 border bg-white dark:bg-slate-900 dark:border-slate-700 ${isDarkMode ? "text-white" : "text-gray-900"}`}
+          className={`absolute right-0 mt-2 w-56 rounded-xl shadow-2xl z-[9999] border overflow-hidden ${
+            isDarkMode 
+              ? "bg-slate-900 border-slate-700 text-white" 
+              : "bg-white border-gray-200 text-gray-900"
+          }`}
+          style={{ pointerEvents: 'auto' }}
         >
           <div className="p-4 border-b dark:border-slate-700 flex items-center gap-3">
             {user?.picture ? (
@@ -68,17 +80,52 @@ export default function ProfileDropdown({ show, onClose }) {
             </div>
           </div>
           <div className="flex flex-col py-2">
-            <Link to="/user/profile" className="flex items-center gap-2 px-5 py-2 rounded-md transition hover:bg-pink-100 dark:hover:bg-slate-800 cursor-pointer">
-              <User size={18} /> View Profile
+            <Link 
+              to="/user/profile" 
+              onClick={() => handleMenuClick()}
+              className={`flex items-center gap-3 px-5 py-3 transition-colors ${
+                isDarkMode 
+                  ? "hover:bg-slate-800 active:bg-slate-700" 
+                  : "hover:bg-pink-50 active:bg-pink-100"
+              }`}
+            >
+              <User size={18} /> 
+              <span>View Profile</span>
             </Link>
-            <Link to="/user/profile/edit" className="flex items-center gap-2 px-5 py-2 rounded-md transition hover:bg-pink-100 dark:hover:bg-slate-800 cursor-pointer">
-              <Edit size={18} /> Edit Profile
+            <Link 
+              to="/user/profile/edit" 
+              onClick={() => handleMenuClick()}
+              className={`flex items-center gap-3 px-5 py-3 transition-colors ${
+                isDarkMode 
+                  ? "hover:bg-slate-800 active:bg-slate-700" 
+                  : "hover:bg-pink-50 active:bg-pink-100"
+              }`}
+            >
+              <Edit size={18} /> 
+              <span>Edit Profile</span>
             </Link>
-            <Link to="/dashboard" className="flex items-center gap-2 px-5 py-2 rounded-md transition hover:bg-pink-100 dark:hover:bg-slate-800 cursor-pointer">
-              <LayoutDashboard size={18} /> My Dashboard
+            <Link 
+              to="../../pages/user/Dashboard.jsx"
+              onClick={() => handleMenuClick()}
+              className={`flex items-center gap-3 px-5 py-3 transition-colors ${
+                isDarkMode 
+                  ? "hover:bg-slate-800 active:bg-slate-700" 
+                  : "hover:bg-pink-50 active:bg-pink-100"
+              }`}
+            >
+              <LayoutDashboard size={18} /> 
+              <span>My Dashboard</span>
             </Link>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-5 py-2 text-red-500 rounded-md transition hover:bg-red-100 dark:hover:bg-slate-800 cursor-pointer">
-              <LogOut size={18} /> Logout
+            <button 
+              onClick={handleLogout} 
+              className={`flex items-center gap-3 px-5 py-3 text-red-500 transition-colors w-full text-left ${
+                isDarkMode 
+                  ? "hover:bg-slate-800 active:bg-slate-700" 
+                  : "hover:bg-red-50 active:bg-red-100"
+              }`}
+            >
+              <LogOut size={18} /> 
+              <span>Logout</span>
             </button>
           </div>
         </motion.div>

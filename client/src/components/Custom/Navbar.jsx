@@ -62,7 +62,6 @@ const Navbar = () => {
         },
         { label: "Enhanced Currency Converter", path: "/enhanced-currency" },
         { label: "Map", path: "/itinerary-map" },
-        { label: "AI Mood Board", path: "/mood-board" },
         { label: "AI Travel Planner", path: "/ai-travel-planner" },
         { label: "Music", path: "/music" },
         { label: t("navigation.feedback"), path: "/feedback" },
@@ -102,8 +101,8 @@ const Navbar = () => {
   const { wishlist } = useWishlist();
   const { isDarkMode } = useTheme();
 
-  const token = localStorage.getItem("token");
-  const isLoggedIn = Boolean(user && isAuthenticated);
+  // Rely exclusively on AuthContext for auth state. Avoid reading localStorage here.
+  const isLoggedIn = Boolean(isAuthenticated);
 
   const toggleGroup = (item) => {
     setExpanded((prev) => (prev === item ? null : item));

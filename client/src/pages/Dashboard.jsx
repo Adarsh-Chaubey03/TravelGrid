@@ -19,7 +19,7 @@ const Dashboard = () => {
     const [bookedHotels, setBookedHotels] = useState([]);
     const [showHotels, setShowHotels] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-
+    const [isEditing, setIsEditing] = useState(false);
 
     const [editData, setEditData] = useState({
         name: user?.name || '',
@@ -91,7 +91,7 @@ const Dashboard = () => {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editData.email.trim())) return toast.error('Enter valid email!');
 
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('jwt_token');
             const formData = new FormData();
             formData.append('name', editData.name);
             formData.append('email', editData.email);

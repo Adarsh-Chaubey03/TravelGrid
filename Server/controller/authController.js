@@ -1,230 +1,250 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import validator from 'validator';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { User } from '../models/user.js';
-import { sendVerificationEmail } from '../utils/emailService.js';
+import crypto from 'crypto';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   console.error('JWT_SECRET not set in environment variables');
   process.exit(1);
 }
 
-// Cookie helper
-const setTokenCookie = (res, userId) => {
-  const token = jwt.sign({ id: userId }, JWT_SECRET, {
-    expiresIn: '7d',
-  });
-
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  };
-
-  if (process.env.NODE_ENV === "production") {
-    cookieOptions.sameSite = "None";
-    cookieOptions.domain = process.env.COOKIE_DOMAIN;
-  } else {
-    cookieOptions.sameSite = false;
-  }
-
-  res.cookie("token", token, cookieOptions);
-};
-
-// Generate 6-digit verification code
-const generateVerificationCode = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-};
-
-// Google Auth
-export const googleAuth = asyncHandler(async (req, res) => {
-  const { token } = req.body;
-
-  const response = await fetch(
-    `https://oauth2.googleapis.com/tokeninfo?id_token=${token}`
+// Enhanced JWT token generation with user role
+const generateToken = (userId, role = 'user') => {
+  return jwt.sign(
+    { 
+      id: userId,
+      role,
+      iat: Date.now(),
+    },
+    JWT_SECRET,
+    { expiresIn: '7d' }
   );
-  const googleUser = await response.json();
+};
 
-  if (!googleUser.email) {
-    return res.status(400).json({ success: false, error: "Invalid Google token" });
-  }
-
-  let user = await User.findOne({ email: googleUser.email });
-
-  if (!user) {
-    user = await User.create({
-      name: googleUser.name || "Google User",
-      email: googleUser.email,
-      picture: googleUser.picture,
-      googleId: googleUser.sub,
-      isGoogleUser: true,
-    });
-  } else if (!user.googleId) {
-    user.googleId = googleUser.sub;
-    user.isGoogleUser = true;
-    user.picture = googleUser.picture;
-    await user.save();
-  }
-
-  setTokenCookie(res, user._id);
-
-  return res.status(200).json({
-    success: true,
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      picture: user.picture,
-      isEmailVerified: user.isEmailVerified,
-    }
-  });
+// Secure cookie settings
+const getCookieOptions = () => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+  domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined,
+  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
 });
 
-// Register User
+// Google OAuth authentication
+export const googleAuth = asyncHandler(async (req, res) => {
+  const { token } = req.body;
+  
+  if (!token) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'Google token is required' 
+    });
+  }
+
+  try {
+    const response = await fetch(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${token}`
+    );
+    
+    if (!response.ok) {
+      throw new Error('Failed to verify Google token');
+    }
+
+    const googleUser = await response.json();
+
+    if (!googleUser.email || !googleUser.sub) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Invalid Google token' 
+      });
+    }
+
+    let user = await User.findOne({ email: googleUser.email });
+
+    if (!user) {
+      user = await User.create({
+        name: googleUser.name || 'Google User',
+        email: googleUser.email,
+        picture: googleUser.picture,
+        googleId: googleUser.sub,
+        isGoogleUser: true,
+        isEmailVerified: true
+      });
+    } else if (!user.googleId) {
+      user.googleId = googleUser.sub;
+      user.isGoogleUser = true;
+      user.picture = googleUser.picture || user.picture;
+      await user.save();
+    }
+
+    const authToken = generateToken(user._id, user.role);
+    res.cookie('token', authToken, getCookieOptions());
+
+    return res.status(200).json({
+      success: true,
+      token: authToken,
+      user: user.toPublicJSON()
+    });
+  } catch (error) {
+    console.error('Google auth error:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Authentication failed' 
+    });
+  }
+});
+
+// User registration
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!name || !email || !password) {
-    return res.status(400).json({ success: false, error: 'All fields are required' });
-  }
-
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ success: false, error: 'Invalid email format' });
-  }
-
-  const strong = validator.isStrongPassword(password, {
-    minLength: 8,
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1,
-    returnScore: false
-  });
-  if (!strong) {
-    return res.status(400).json({
-      success: false,
-      error: 'Password must be at least 8 characters and include uppercase, lowercase, number, and symbol.'
+  // Validation
+  if (!name?.trim() || !email?.trim() || !password) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'All fields are required' 
     });
   }
 
-  const normalizedEmail = email.toLowerCase();
-  const existingUser = await User.findOne({ email: normalizedEmail });
+  const normalizedEmail = email.toLowerCase().trim();
 
+  // Check existing user
+  const existingUser = await User.findOne({ email: normalizedEmail });
   if (existingUser) {
-    return res.status(400).json({ success: false, error: 'User already exists' });
+    return res.status(400).json({ 
+      success: false, 
+      error: 'Email is already registered' 
+    });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const verificationCode = generateVerificationCode();
-  const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
-
+  // Create user
   const user = await User.create({
-    name,
+    name: name.trim(),
     email: normalizedEmail,
-    password: hashedPassword,
-    emailVerificationCode: verificationCode,
-    emailVerificationExpires: expiresAt,
-    isEmailVerified: false
+    password,
+    emailVerificationToken: crypto.randomBytes(32).toString('hex'),
+    emailVerificationExpires: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
   });
 
-  try {
-    await sendVerificationEmail(normalizedEmail, name, verificationCode);
-  } catch (emailError) {
-    console.error('Failed to send verification email:', emailError);
-  }
+  const authToken = generateToken(user._id, user.role);
+  res.cookie('token', authToken, getCookieOptions());
 
-  setTokenCookie(res, user._id);
+  // TODO: Send verification email here
 
   return res.status(201).json({
     success: true,
-    message: 'Registration successful! Please check your email for verification code.',
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isEmailVerified: user.isEmailVerified
-    }
+    token: authToken,
+    user: user.toPublicJSON(),
+    message: 'Registration successful! Please verify your email.'
   });
 });
 
-// Login User
+// User login
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ success: false, error: 'All fields are required' });
+  if (!email?.trim() || !password) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'Email and password are required' 
+    });
   }
 
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ success: false, error: 'Invalid email format' });
-  }
-
-  const normalizedEmail = email.toLowerCase();
-  const user = await User.findOne({ email: normalizedEmail });
+  const normalizedEmail = email.toLowerCase().trim();
+  
+  // Find user and include password for comparison
+  const user = await User.findOne({ email: normalizedEmail }).select('+password');
 
   if (!user) {
-    return res.status(404).json({ success: false, error: 'User not found' });
+    return res.status(401).json({ 
+      success: false, 
+      error: 'Invalid credentials' 
+    });
   }
 
   if (user.isGoogleUser) {
-    return res.status(400).json({ success: false, error: 'Please login with Google' });
-  }
-
-  if (!user.isGoogleUser && !user.isEmailVerified) {
-    return res.status(403).json({
-      success: false,
-      error: 'Please verify your email address before logging in',
-      needsVerification: true
+    return res.status(400).json({ 
+      success: false, 
+      error: 'Please sign in with Google' 
     });
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(401).json({ success: false, error: 'Invalid credentials' });
+  const isPasswordValid = await user.comparePassword(password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ 
+      success: false, 
+      error: 'Invalid credentials' 
+    });
   }
 
-  setTokenCookie(res, user._id);
+  // Update last login
+  user.lastLogin = Date.now();
+  await user.save();
+
+  const authToken = generateToken(user._id, user.role);
+  res.cookie('token', authToken, getCookieOptions());
 
   return res.status(200).json({
     success: true,
-    token: jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' }),
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      picture: user.picture,
-      isEmailVerified: user.isEmailVerified
-    }
+    token: authToken,
+    user: user.toPublicJSON()
   });
 });
 
-// Logout User
+// User logout
 export const logoutUser = asyncHandler(async (req, res) => {
-  return res
-    .clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax"
-    })
-    .status(200)
-    .json({
-      message: "User logged out successfully!",
-      success: true
-    });
+  res.clearCookie('token', {
+    ...getCookieOptions(),
+    maxAge: 0
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Logged out successfully'
+  });
 });
 
-// Get Current User
+// Get current user
 export const getCurrentUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user).select("-password");
+  const user = await User.findById(req.user.id);
+  
   if (!user) {
-    return res.status(404).json({ success: false, error: "User not found" });
+    return res.status(404).json({ 
+      success: false, 
+      error: 'User not found' 
+    });
   }
 
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    user,
+    user: user.toPublicJSON()
+  });
+});
+
+// Verify email
+export const verifyEmail = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+
+  const user = await User.findOne({
+    emailVerificationToken: token,
+    emailVerificationExpires: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid or expired verification token'
+    });
+  }
+
+  user.isEmailVerified = true;
+  user.emailVerificationToken = undefined;
+  user.emailVerificationExpires = undefined;
+  await user.save();
+
+  return res.status(200).json({
+    success: true,
+    message: 'Email verified successfully'
   });
 });

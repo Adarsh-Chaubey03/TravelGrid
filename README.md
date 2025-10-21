@@ -22,10 +22,10 @@ Developed as part of **GirlScript Summer of Code (GSSoC) 2025**, this project fo
 
 | Category | Technologies |
 |-----------|---------------|
-| **Frontend** | React.js ⚛️, Vite ⚡, Tailwind CSS 🎨 |
-| **Backend** | Node.js 🚀, Express.js 🌐 |
-| **Database** | MongoDB 🍃 |
-| **Tools** | Git & GitHub 🧩, ESLint, Prettier |
+| **Frontend** | React.js , Vite , Tailwind CSS  |
+| **Backend** | Node.js , Express.js  |
+| **Database** | MongoDB  |
+| **Tools** | Git & GitHub , ESLint, Prettier |
 
 ---
 
@@ -108,13 +108,7 @@ We welcome contributors from all skill levels!
 > 📧 Contact: [Adarsh Chaubey](https://www.linkedin.com/in/adarsh-chaubey/)  
 > 🧭 GitHub: [Adarsh-Chaubey03](https://github.com/Adarsh-Chaubey03)
 
----
 
-### 🏆 Contributors
-Thanks to our amazing contributors 💖  
-[![Contributors](https://contrib.rocks/image?repo=Adarsh-Chaubey03/TravelGrid)](https://github.com/Adarsh-Chaubey03/TravelGrid/graphs/contributors)
-
----
 
 ### 📜 License
 Licensed under the **MIT License** — see the [LICENSE](https://github.com/Adarsh-Chaubey03/TravelGrid/blob/main/LICENSE) file.

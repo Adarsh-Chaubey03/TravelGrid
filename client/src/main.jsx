@@ -198,34 +198,47 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Conditional wrapper that mounts Google OAuth provider only when configured
+const Providers = ({ children }) => {
+  if (import.meta.env.VITE_GOOGLE_CLIENT_ID) {
+    return (
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <LanguageProvider>{children}</LanguageProvider>
+      </GoogleOAuthProvider>
+    );
+  }
+
+  // Log so developers know why Google auth is disabled
+  if (typeof console !== 'undefined') console.warn('VITE_GOOGLE_CLIENT_ID is not set. Google OAuth will be disabled.');
+  return <LanguageProvider>{children}</LanguageProvider>;
+};
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <LanguageProvider>
-          <ThemeProvider>
-            <AuthProvider>
-              <WishlistProvider>
-                <Provider store={appStore}>
-                  <RouterProvider router={router} />
-                  <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                    toastOptions={{
-                      duration: 5000,
-                      style: {
-                        background: '#333',
-                        color: '#fff',
-                        fontSize: '16px',
-                      },
-                    }}
-                  />
-                </Provider>
-              </WishlistProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </GoogleOAuthProvider>
+      <Providers>
+        <ThemeProvider>
+          <AuthProvider>
+            <WishlistProvider>
+              <Provider store={appStore}>
+                <RouterProvider router={router} />
+                <Toaster
+                  position="top-center"
+                  reverseOrder={false}
+                  toastOptions={{
+                    duration: 5000,
+                    style: {
+                      background: '#333',
+                      color: '#fff',
+                      fontSize: '16px',
+                    },
+                  }}
+                />
+              </Provider>
+            </WishlistProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </Providers>
     </ErrorBoundary>
   </StrictMode>
 );

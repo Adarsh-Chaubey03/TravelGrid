@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import FallbackImage from "../components/ui/FallbackImage";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { 
@@ -62,17 +63,26 @@ const BikeBookingForm = () => {
 
   // Calculate rental duration and total cost
   const calculateTotal = () => {
-    if (!formData.pickupDate || !formData.returnDate) return 0;
+    // Return an object with default numeric values to avoid undefined when rendering
+    if (!formData.pickupDate || !formData.returnDate) {
+      return { totalDays: 0, subtotal: 0, securityDeposit: 0, insurance: 0, total: 0 };
+    }
+
     const pickup = new Date(formData.pickupDate);
     const returnDate = new Date(formData.returnDate);
+    if (isNaN(pickup.getTime()) || isNaN(returnDate.getTime())) {
+      return { totalDays: 0, subtotal: 0, securityDeposit: 0, insurance: 0, total: 0 };
+    }
+
     const diffTime = Math.abs(returnDate - pickup);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const totalDays = Math.max(1, diffDays);
-    const subtotal = totalDays * bike.dailyRentalCost;
-    const securityDeposit = 2000; // From guidelines
+    const dailyCost = Number(bike.dailyRentalCost) || 0;
+    const subtotal = totalDays * dailyCost;
+    const securityDeposit = Number(bike.guidelines?.securityDeposit?.toString().replace(/[^0-9]/g, "")) || 2000;
     const insurance = 500; // Fixed insurance cost
     const total = subtotal + securityDeposit + insurance;
-    
+
     return { totalDays, subtotal, securityDeposit, insurance, total };
   };
 
@@ -603,11 +613,7 @@ const BikeBookingForm = () => {
               {/* Bike Info */}
               <div className="mb-6">
                 <div className="relative h-32 w-full rounded-xl overflow-hidden mb-4">
-                  <img 
-                    src={bike.images[0]} 
-                    alt={bike.modelName}
-                    className="w-full h-full object-cover"
-                  />
+                  <FallbackImage srcList={bike.images} alt={bike.modelName} className="w-full h-full object-cover" />
                 </div>
                 <h4 className="font-semibold text-lg">{bike.modelName}</h4>
                 <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>

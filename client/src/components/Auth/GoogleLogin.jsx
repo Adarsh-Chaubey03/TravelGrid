@@ -30,14 +30,25 @@ const GoogleLoginButton = ({ onSuccess, onError, buttonText = "Continue with Goo
 
   return (
     <div className={className}>
-      <GoogleLogin
-        onSuccess={handleSuccess}
-        onError={handleError}
-        size="large"
-        text={buttonText}
-        shape="rectangular"
-        locale="en"
-      />
+      {import.meta.env.VITE_GOOGLE_CLIENT_ID ? (
+        <GoogleLogin
+          onSuccess={handleSuccess}
+          onError={handleError}
+          size="large"
+          text={buttonText}
+          shape="rectangular"
+          locale="en"
+        />
+      ) : (
+        <button
+          type="button"
+          disabled
+          title="Google OAuth is not configured on this instance"
+          className="w-full px-4 py-2 rounded-lg bg-gray-200 text-gray-600 cursor-not-allowed"
+        >
+          {buttonText} (disabled)
+        </button>
+      )}
     </div>
   );
 };

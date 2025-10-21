@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { CheckCircle, Download, ArrowLeft, Calendar, MapPin, Clock, CreditCard } from "lucide-react";
+import FallbackImage from "../components/ui/FallbackImage";
 
 const BookingSuccess = () => {
   const { isDarkMode } = useTheme();
@@ -105,11 +106,7 @@ const BookingSuccess = () => {
             
             {/* Vehicle Image */}
             <div className="relative h-40 w-full rounded-xl overflow-hidden mb-4">
-              <img 
-                src={bookingData.bike.images[0]} 
-                alt={bookingData.bike.modelName}
-                className="w-full h-full object-cover"
-              />
+              <FallbackImage srcList={bookingData?.bike?.images} alt={bookingData.bike.modelName} className="w-full h-full object-cover" />
             </div>
             
             <div className="mb-6">

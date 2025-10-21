@@ -1,4 +1,4 @@
-import destinations from '../models/destinations'
+import destinations from '../models/destinations.js'
 
 import { asyncHandler } from '../utils/asyncHandler'
 

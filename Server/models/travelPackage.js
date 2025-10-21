@@ -38,4 +38,5 @@ const travelPackageSchema = new mongoose.Schema({
 
 const TravelPackage = mongoose.model('TravelPackage', travelPackageSchema);
 
+export { TravelPackage };
 export default TravelPackage;

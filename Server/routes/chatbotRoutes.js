@@ -1,44 +1,33 @@
 import express from 'express';
-import { 
-  getOrCreateConversation, 
-  sendMessage, 
+import {
+  getOrCreateConversation,
+  sendMessage,
   streamMessage,
   getConversationHistory,
-  endConversation
+  endConversation,
+  getChatbotResponse,
+  getTravelRecommendations,
+  createItinerary
 } from '../controller/chatbotController.js';
-import { auth } from '../middleware/auth.js';
+import { verifyJWT } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// All chatbot routes require authentication
-router.use(auth);
+// Public chatbot endpoint (no auth)
+router.post('/chat', getChatbotResponse);
 
-// Get or create a conversation
+// Protect all following routes with JWT verification
+router.use(verifyJWT);
+
+// Conversation management
 router.post('/conversation', getOrCreateConversation);
-
-// Send a message and get response
 router.post('/message', sendMessage);
-
-// Send a message and stream response
 router.post('/stream', streamMessage);
-
-// Get conversation history
 router.get('/history', getConversationHistory);
-
-// End a conversation
 router.post('/end', endConversation);
 
+// Additional protected features
+router.post('/recommendations', getTravelRecommendations);
+router.post('/itinerary', createItinerary);
+
 export default router;
-import { getChatbotResponse, getTravelRecommendations, createItinerary } from '../controller/chatbotController.js';
-import { verifyJWT as isAuthenticated } from '../middleware/auth.js';
-
-const router = express.Router();
-
-// Public routes
-router.route('/chat').post(getChatbotResponse);
-
-// Protected routes (require authentication)
-router.route('/recommendations').post(isAuthenticated, getTravelRecommendations);
-router.route('/itinerary').post(isAuthenticated, createItinerary);
-
-export default router; 

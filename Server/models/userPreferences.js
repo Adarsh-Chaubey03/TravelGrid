@@ -68,7 +68,6 @@ const preferenceSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for efficient querying
-preferenceSchema.index({ userId: 1 });
+// Note: userId has `unique: true` which creates an index, so avoid duplicate schema.index() here
 
 export const UserPreferences = mongoose.model('UserPreferences', preferenceSchema);

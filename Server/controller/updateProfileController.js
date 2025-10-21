@@ -1,4 +1,4 @@
-import {User} from '../models/user'
+import {User} from '../models/user.js'
 import { asyncHandler } from '../utils/asyncHandler'
 
 export const updateProfile = asyncHandler(async (req, res) => {

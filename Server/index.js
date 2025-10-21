@@ -159,18 +159,22 @@ app.use('/api/chatbot', chatbotRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {
-    res.status(404).json({ message: 'Resource not found' });
+    res.status(404).json({ success: false, message: 'Resource not found' });
 });
+
 // Error handling middleware global
 app.use((err, req, res, next) => {
     // Centralized error handler without leaking stack traces in production
+    const status = err.status || 500;
+    const response = {
+        success: false,
+        message: status === 500 ? 'Internal Server Error' : err.message,
+    };
     if (process.env.NODE_ENV !== 'production') {
         console.error(err);
+        response.stack = err.stack;
     }
-    const status = err.status || 500;
-    const message = status === 500 ? 'Internal Server Error' : err.message;
-    res.status(status).json({ message });
-
+    res.status(status).json(response);
 });
 
 //API For Train Search 
@@ -411,6 +415,43 @@ const io = new Server(server, {
 collaborationHandler(io);
 
 // server
-server.listen(PORT, () => {
-    console.log(` Server running on http://localhost:${PORT}`);
+// Start server with graceful shutdown handling
+const httpServer = server.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT} (PID: ${process.pid})`);
+});
+
+// Graceful shutdown helper
+const gracefulShutdown = (signal) => {
+    console.log(`Received ${signal}. Closing server...`);
+    httpServer.close(async (err) => {
+        if (err) {
+            console.error('Error during server close:', err);
+            process.exit(1);
+        }
+        try {
+            // Close DB connection if mongoose is connected
+            const mongoose = await import('mongoose');
+            if (mongoose?.connection?.readyState) {
+                await mongoose.connection.close(false);
+                console.log('MongoDB connection closed.');
+            }
+        } catch (closeErr) {
+            console.error('Error closing MongoDB connection:', closeErr);
+        }
+        console.log('Shutdown complete. Exiting.');
+        process.exit(0);
+    });
+};
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+
+// Global unhandled rejection/exception handlers
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception thrown:', err);
+    process.exit(1);
 });

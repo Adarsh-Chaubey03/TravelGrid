@@ -416,13 +416,39 @@ collaborationHandler(io);
 
 // server
 // Start server with graceful shutdown handling
-const httpServer = server.listen(PORT, () => {
-        console.log(`Server running on http://localhost:${PORT} (PID: ${process.pid})`);
-});
+let httpServer = null;
+
+const startServer = (port = PORT, attempts = 0, maxAttempts = 5) => {
+    httpServer = server.listen(port, () => {
+        console.log(`Server running on http://localhost:${port} (PID: ${process.pid})`);
+    });
+
+    httpServer.on('error', (err) => {
+        if (err && err.code === 'EADDRINUSE') {
+            console.warn(`Port ${port} is already in use.`);
+            if (attempts < maxAttempts) {
+                const nextPort = port + 1;
+                console.warn(`Trying port ${nextPort} (attempt ${attempts + 1}/${maxAttempts})...`);
+                setTimeout(() => startServer(nextPort, attempts + 1, maxAttempts), 500);
+                return;
+            }
+            console.error(`All attempts to bind ports starting from ${PORT} failed. Please free the port or set a different PORT in your .env.`);
+        }
+        // For any other error or exhausted retries, exit with failure
+        console.error('Failed to start server:', err);
+        process.exit(1);
+    });
+};
+
+startServer();
 
 // Graceful shutdown helper
 const gracefulShutdown = (signal) => {
     console.log(`Received ${signal}. Closing server...`);
+    if (!httpServer) {
+        console.log('Server is not running. Exiting.');
+        process.exit(0);
+    }
     httpServer.close(async (err) => {
         if (err) {
             console.error('Error during server close:', err);

@@ -11,16 +11,24 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@/context/ThemeContext";
 
 const Login = () => {
+
   const { t } = useTranslation();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { isDarkMode } = useTheme();
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
+
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (user && isAuthenticated) {
+      navigate('/');
+    }
+  }, [user, isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,7 +42,7 @@ const Login = () => {
       setError(t("login.errors.emptyEmail"));
       return;
     }
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError(t("login.errors.invalidEmail"));
       return;
@@ -49,16 +57,7 @@ const Login = () => {
     if (result.success) {
       navigate(from, { replace: true });
     } else {
-      if (result.error && result.error.toLowerCase().includes('verify')) {
-        setError(t("login.errors.verifyEmail"));
-        setTimeout(() => {
-          if (window.confirm(t("login.actions.resendConfirm"))) {
-            navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`);
-          }
-        }, 2000);
-      } else {
-        setError(result.error || t("login.errors.invalidCredentials"));
-      }
+      setError(result.error || t("login.errors.invalidCredentials"));
     }
   };
 

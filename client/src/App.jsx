@@ -14,7 +14,6 @@ import ErrorBoundary from "./components/ErrorHandle/ErrorBoundary";
 import GoToTopButton from "./components/GoToTopButton";
 
 import Chatbot from "./components/Chatbot";
-import EmailVerificationBanner from "./components/Auth/EmailVerificationBanner";
 import FluidCursor from "./components/FluidCursor";
 
 function App() {
@@ -44,8 +43,7 @@ function App() {
                 {/* Navbar */}
                 <Navbar />
 
-                {/* Email Verification Banner */}
-                <EmailVerificationBanner />
+                {/* Email verification UI removed to allow direct login */}
                 {/* Main Content */}
                 <div className="flex-grow">
                   <ErrorBoundary>

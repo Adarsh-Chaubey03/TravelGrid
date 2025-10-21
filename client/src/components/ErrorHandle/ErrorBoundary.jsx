@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// Use plain anchors in fallback to avoid requiring router context
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
 class ErrorBoundary extends Component {
@@ -56,13 +56,13 @@ class ErrorBoundary extends Component {
                                 <RefreshCw className="w-5 h-5 mr-2" />
                                 Refresh Page
                             </button>
-                            <Link
-                                to="/"
+                            <a
+                                href="/"
                                 className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl font-semibold transition-colors text-center flex items-center justify-center"
                             >
                                 <Home className="w-5 h-5 mr-2" />
                                 Return to Home
-                            </Link>
+                            </a>
                         </div>
                     </div>
 

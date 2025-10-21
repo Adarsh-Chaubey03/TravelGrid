@@ -63,17 +63,11 @@ const Signup = () => {
       return false;
     }
     
-        // 🔒 Strong password regex
-    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-    if (!strongRegex.test(formData.password)) {
-      setError("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
-      return false;
-    }
-    
-    if (passwordStrength === "weak") {
-      setError(t("signup.errors.weakPassword"));
-      return false;
-    }
+        // Password must be at least 6 characters (remove strong restriction)
+        if (formData.password.length < 6) {
+          setError("Password must be at least 6 characters.");
+          return false;
+        }
     if (formData.password !== formData.confirmPassword) {
       setError(t("signup.errors.passwordMismatch"));
       return false;
@@ -87,8 +81,8 @@ const Signup = () => {
 
     const result = await signup(formData);
     if (result.success) {
-      navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`, { replace: true });
       toast.success(t("signup.success"));
+      navigate('/login');
     } else {
       toast.error(result.error || t("signup.errors.signupFailed"));
     }

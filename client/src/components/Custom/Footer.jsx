@@ -34,8 +34,8 @@ const Footer = () => {
   const quickLinks = [
     { name: t("footer.quickLinks.home"), path: "/" },
     { name: t("footer.quickLinks.about"), path: "/about" },
-    { name: t("footer.quickLinks.services"), path: "/services" },
-    { name: t("footer.quickLinks.blog"), path: "/blog" },
+    { name: "Trips", path: "/trips" },
+    { name: "Leaderboard", path: "/leaderboard" },
   ];
 
   return (

@@ -6,7 +6,7 @@
 
 <div align="center" style="border: 1px solid #ddd; border-radius: 12px; padding: 12px; background: rgba(255,255,255,0.7); display: inline-block;">
   <a href="https://travel-grid.vercel.app/" target="_blank">🚀 Live Demo</a> |
-  <a href="https://github.com/Adarsh-Chaubey03/TravelGrid" target="_blank">📂 GitHub Repository</a>
+  <a href="https://github.com/Adarsh-Chaubey03/TravelGrid" target="_blank">📂 GitHub Repository(Under Development)</a>
 </div>
 
 ---
